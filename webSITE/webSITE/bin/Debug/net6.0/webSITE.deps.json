@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "webSITE/1.0.0": {
+        "dependencies": {
+          "webSITE.Models": "1.0.0"
+        },
         "runtime": {
           "webSITE.dll": {}
+        }
+      },
+      "webSITE.Models/1.0.0": {
+        "runtime": {
+          "webSITE.Models.dll": {}
         }
       }
     }
   },
   "libraries": {
     "webSITE/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "webSITE.Models/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

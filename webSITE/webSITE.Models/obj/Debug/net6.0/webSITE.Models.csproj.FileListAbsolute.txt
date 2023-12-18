@@ -1,0 +1,11 @@
+D:\latihan\WebSIte\webSITE\webSITE.Models\bin\Debug\net6.0\webSITE.Models.deps.json
+D:\latihan\WebSIte\webSITE\webSITE.Models\bin\Debug\net6.0\webSITE.Models.dll
+D:\latihan\WebSIte\webSITE\webSITE.Models\bin\Debug\net6.0\webSITE.Models.pdb
+D:\latihan\WebSIte\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\latihan\WebSIte\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.AssemblyInfoInputs.cache
+D:\latihan\WebSIte\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.AssemblyInfo.cs
+D:\latihan\WebSIte\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.csproj.CoreCompileInputs.cache
+D:\latihan\WebSIte\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.dll
+D:\latihan\WebSIte\webSITE\webSITE.Models\obj\Debug\net6.0\refint\webSITE.Models.dll
+D:\latihan\WebSIte\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.pdb
+D:\latihan\WebSIte\webSITE\webSITE.Models\obj\Debug\net6.0\ref\webSITE.Models.dll

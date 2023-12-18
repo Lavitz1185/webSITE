@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Mahasiswa>
+
+<div class="row">
+    @foreach (var mahasiswa in Model)
+    {
+        <div class="card col-sm-3 m-1">
+            <img class="card-img-top img-thumbnail" src="@mahasiswa.PhotoPath" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@mahasiswa.NamaPanggilan</h5>
+                <p class="card-text">
+                    Nama Lengkap : @mahasiswa.NamaLengkap
+                </p>
+                <p class="card-text">
+                    Jenis Kelamin : @mahasiswa.StrJenisKelamin
+                </p>
+            </div>
+        </div>
+    }
+</div>
+
+@{
+}
