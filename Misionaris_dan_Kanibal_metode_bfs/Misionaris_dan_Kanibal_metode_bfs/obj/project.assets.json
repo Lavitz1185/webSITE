@@ -8,24 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\yogat\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\ACER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\latihan\\Misionaris_dan_Kanibal_metode_bfs\\Misionaris_dan_Kanibal_metode_bfs\\Misionaris_dan_Kanibal_metode_bfs.csproj",
+      "projectUniqueName": "C:\\Users\\ACER\\Documents\\webSITE\\Misionaris_dan_Kanibal_metode_bfs\\Misionaris_dan_Kanibal_metode_bfs\\Misionaris_dan_Kanibal_metode_bfs.csproj",
       "projectName": "Misionaris_dan_Kanibal_metode_bfs",
-      "projectPath": "D:\\latihan\\Misionaris_dan_Kanibal_metode_bfs\\Misionaris_dan_Kanibal_metode_bfs\\Misionaris_dan_Kanibal_metode_bfs.csproj",
-      "packagesPath": "C:\\Users\\yogat\\.nuget\\packages\\",
-      "outputPath": "D:\\latihan\\Misionaris_dan_Kanibal_metode_bfs\\Misionaris_dan_Kanibal_metode_bfs\\obj\\",
+      "projectPath": "C:\\Users\\ACER\\Documents\\webSITE\\Misionaris_dan_Kanibal_metode_bfs\\Misionaris_dan_Kanibal_metode_bfs\\Misionaris_dan_Kanibal_metode_bfs.csproj",
+      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ACER\\Documents\\webSITE\\Misionaris_dan_Kanibal_metode_bfs\\Misionaris_dan_Kanibal_metode_bfs\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\yogat\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -66,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
