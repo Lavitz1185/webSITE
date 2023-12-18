@@ -6,15 +6,15 @@
 <div class="row">
     @foreach (var mahasiswa in Model)
     {
-        <div class="card col-sm-3 m-1">
+        <div class="card col-sm-5 m-1">
             <img class="card-img-top img-thumbnail" src="@mahasiswa.PhotoPath" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">@mahasiswa.NamaPanggilan</h5>
                 <p class="card-text">
-                    Nama Lengkap : @mahasiswa.NamaLengkap
+                    Nama Lengkap  @mahasiswa.NamaLengkap
                 </p>
                 <p class="card-text">
-                    Jenis Kelamin : @mahasiswa.StrJenisKelamin
+                    Jenis Kelamin @mahasiswa.StrJenisKelamin
                 </p>
             </div>
         </div>
