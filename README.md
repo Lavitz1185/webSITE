@@ -1,5 +1,5 @@
 Fitur : 
-  - Tampilkan anggota SITE
+  - Tampilkan anggota SITE &times
   - Album Foto
   - Jadwal Kegiatan
   - Dashboard
