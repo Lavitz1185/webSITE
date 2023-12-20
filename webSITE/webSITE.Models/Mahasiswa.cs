@@ -13,7 +13,6 @@ namespace webSITE.Models
         public string NamaLengkap { get; set; }
         public string NamaPanggilan { get; set; }
         public DateTime TanggalLahir { get; set; }
-        public int TahunMasuk { get; set; }
         public JenisKelamin JenisKelamin { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }

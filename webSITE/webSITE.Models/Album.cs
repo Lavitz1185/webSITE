@@ -8,7 +8,7 @@ namespace webSITE.Models
 {
     public class Album
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public DateTime Tanggal { get; set; }
         public string PhotoPath { get; set; }
         public int? IdKegiatan { get; set; }

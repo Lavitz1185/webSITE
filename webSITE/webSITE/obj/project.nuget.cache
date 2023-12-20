@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "sM+6c6mha4juRAei/jsTwIzxsCFZPWm1V+Ou0mrbAb9fNyyz954/8rAM+jM7noFuqt+OSWHAMA9C80K3bLge7Q==",
+  "dgSpecHash": "K1bvvfjrmXnzeBSQ56VPuejaY1UiDpnS1cMr+JoY2loVb775FNWG/dZ054uCP90L9MzAGGYgp1IIKNhCnRkfgw==",
   "success": true,
   "projectFilePath": "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\yogat\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\yogat\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\yogat\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\yogat\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\yogat\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\yogat\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\yogat\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
