@@ -33,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\latihan\\WebSIte\\webSITE\\webSITE\\webSITE.csproj",
+      "projectUniqueName": "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
       "projectName": "webSITE",
-      "projectPath": "D:\\latihan\\WebSIte\\webSITE\\webSITE\\webSITE.csproj",
+      "projectPath": "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
       "packagesPath": "C:\\Users\\yogat\\.nuget\\packages\\",
-      "outputPath": "D:\\latihan\\WebSIte\\webSITE\\webSITE\\obj\\",
+      "outputPath": "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -58,8 +58,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\latihan\\WebSIte\\webSITE\\webSITE.Models\\webSITE.Models.csproj": {
-              "projectPath": "D:\\latihan\\WebSIte\\webSITE\\webSITE.Models\\webSITE.Models.csproj"
+            "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE.Models\\webSITE.Models.csproj": {
+              "projectPath": "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE.Models\\webSITE.Models.csproj"
             }
           }
         }
