@@ -3,22 +3,31 @@
 *@
 @model List<Mahasiswa>
 
-<div class="row">
-    @foreach (var mahasiswa in Model)
-    {
-        <div class="card col-sm-5 m-1">
-            <img class="card-img-top img-thumbnail" src="@mahasiswa.PhotoPath" alt="Foto @mahasiswa.NamaLengkap">
-            <div class="card-body">
-                <h5 class="card-title">@mahasiswa.NamaPanggilan</h5>
-                <p class="card-text">
-                    Nama Lengkap  @mahasiswa.NamaLengkap
-                </p>
-                <p class="card-text">
-                    Jenis Kelamin @mahasiswa.StrJenisKelamin
-                </p>
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var mahasiswa in Model)
+        {
+            <div class="col-md-3 mx-auto p-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">@mahasiswa.NamaPanggilan</h5>
+                    </div>
+                    <img class="card-img img-thumbnail" src="@mahasiswa.PhotoPath" alt="Foto @mahasiswa.NamaLengkap">
+                    <div class="card-body">
+                        <p class="card-text">
+                            @mahasiswa.NamaLengkap
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-nim="@mahasiswa.Nim"
+                            class="btn btn-primary">
+                            Profil
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 
 @{

@@ -1,0 +1,62 @@
+﻿@model Mahasiswa
+
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <div class="col-4">
+                    <b>NIM</b>
+                </div>
+                <div class="col-6">
+                    @Model.Nim
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <b>Nama Lengkap</b>
+                </div>
+                <div class="col-6">
+                    @Model.NamaLengkap
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <b>Nama Panggilan</b>
+                </div>
+                <div class="col-6">
+                    @Model.NamaPanggilan
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <b>Jenis Kelamin</b>
+                </div>
+                <div class="col-6">
+                    @Model.StrJenisKelamin
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <b>Tanggal Lahir</b>
+                </div>
+                <div class="col-6">
+                    @Model.TanggalLahir.ToLongDateString()
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <b>Email</b>
+                </div>
+                <div class="col-6">
+                    @Model.Email
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="@Model.PhotoPath" class="img-thumbnail rounded-3" />
+        </div>
+    </div>
+</div>
+
+@{
+}

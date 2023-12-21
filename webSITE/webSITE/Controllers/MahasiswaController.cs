@@ -18,5 +18,17 @@ namespace webSITE.Controllers
             var listMahasiwa = await repositoriMahasiswa.GetAll();
             return View(listMahasiwa);
         }
+
+        public async Task<IActionResult> DetailAsync(string? nim)
+        {
+            if(nim == null)
+                return NotFound();
+
+            var mahasiswa = await repositoriMahasiswa.Get(nim);
+            if(mahasiswa == null)
+                return NotFound();
+
+            return View(mahasiswa);
+        }
     }
 }

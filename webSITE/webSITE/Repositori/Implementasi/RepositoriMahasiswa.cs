@@ -17,6 +17,83 @@ namespace webSITE.Repositori.Implementasi
                 Email = "aditaklal@gmail.com",
                 Password = "adiairnona",
                 PhotoPath = "/img/contoh.jpeg"
+            },
+            new Mahasiswa
+            {
+                Nim = "2206080051",
+                NamaLengkap = "Adi Juanito Taklal",
+                NamaPanggilan = "Adi",
+                TanggalLahir = new DateTime(2004, 2, 29),
+                JenisKelamin = JenisKelamin.LakiLaki,
+                Email = "aditaklal@gmail.com",
+                Password = "adiairnona",
+                PhotoPath = "/img/contoh.jpeg"
+            },
+            new Mahasiswa
+            {
+                Nim = "2206080051",
+                NamaLengkap = "Adi Juanito Taklal",
+                NamaPanggilan = "Adi",
+                TanggalLahir = new DateTime(2004, 2, 29),
+                JenisKelamin = JenisKelamin.LakiLaki,
+                Email = "aditaklal@gmail.com",
+                Password = "adiairnona",
+                PhotoPath = "/img/contoh.jpeg"
+            },
+            new Mahasiswa
+            {
+                Nim = "2206080051",
+                NamaLengkap = "Adi Juanito Taklal",
+                NamaPanggilan = "Adi",
+                TanggalLahir = new DateTime(2004, 2, 29),
+                JenisKelamin = JenisKelamin.LakiLaki,
+                Email = "aditaklal@gmail.com",
+                Password = "adiairnona",
+                PhotoPath = "/img/contoh.jpeg"
+            },
+            new Mahasiswa
+            {
+                Nim = "2206080051",
+                NamaLengkap = "Adi Juanito Taklal",
+                NamaPanggilan = "Adi",
+                TanggalLahir = new DateTime(2004, 2, 29),
+                JenisKelamin = JenisKelamin.LakiLaki,
+                Email = "aditaklal@gmail.com",
+                Password = "adiairnona",
+                PhotoPath = "/img/contoh.jpeg"
+            },
+            new Mahasiswa
+            {
+                Nim = "2206080051",
+                NamaLengkap = "Adi Juanito Taklal",
+                NamaPanggilan = "Adi",
+                TanggalLahir = new DateTime(2004, 2, 29),
+                JenisKelamin = JenisKelamin.LakiLaki,
+                Email = "aditaklal@gmail.com",
+                Password = "adiairnona",
+                PhotoPath = "/img/contoh.jpeg"
+            },
+            new Mahasiswa
+            {
+                Nim = "2206080051",
+                NamaLengkap = "Adi Juanito Taklal",
+                NamaPanggilan = "Adi",
+                TanggalLahir = new DateTime(2004, 2, 29),
+                JenisKelamin = JenisKelamin.LakiLaki,
+                Email = "aditaklal@gmail.com",
+                Password = "adiairnona",
+                PhotoPath = "/img/contoh.jpeg"
+            },
+            new Mahasiswa
+            {
+                Nim = "2206080051",
+                NamaLengkap = "Adi Juanito Taklal",
+                NamaPanggilan = "Adi",
+                TanggalLahir = new DateTime(2004, 2, 29),
+                JenisKelamin = JenisKelamin.LakiLaki,
+                Email = "aditaklal@gmail.com",
+                Password = "adiairnona",
+                PhotoPath = "/img/contoh.jpeg"
             }
         };
 
