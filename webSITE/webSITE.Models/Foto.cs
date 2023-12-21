@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace webSITE.Models
 {
-    public class Album
+    public class Foto
     {
         public string Id { get; set; }
         public DateTime Tanggal { get; set; }

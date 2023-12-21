@@ -14,6 +14,6 @@ namespace webSITE.Models
         public int LamaKegiatan { get; set; }
         public string Deskripsi { get; set; }
 
-        public IList<Album>? DaftarAlbum { get; set; }
+        public IList<Foto> DaftarFoto { get; set; }
     }
 }
