@@ -1,128 +1,45 @@
-﻿using webSITE.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using webSITE.Models;
+using webSITE.Repositori.Data;
 using webSITE.Repositori.Interface;
 
 namespace webSITE.Repositori.Implementasi
 {
     public class RepositoriMahasiswa : IRepositoriMahasiswa
     {
-        static List<Mahasiswa> mahasiswaList = new List<Mahasiswa>()
+        private readonly AppDbContext dbContext;
+
+        public RepositoriMahasiswa(AppDbContext dbContext)
         {
-            new Mahasiswa
-            {
-                Nim = "2206080051",
-                NamaLengkap = "Adi Juanito Taklal",
-                NamaPanggilan = "Adi",
-                TanggalLahir = new DateTime(2004, 2, 29),
-                JenisKelamin = JenisKelamin.LakiLaki,
-                Email = "aditaklal@gmail.com",
-                Password = "adiairnona",
-                PhotoPath = "/img/contoh.jpeg"
-            },
-            new Mahasiswa
-            {
-                Nim = "2206080051",
-                NamaLengkap = "Adi Juanito Taklal",
-                NamaPanggilan = "Adi",
-                TanggalLahir = new DateTime(2004, 2, 29),
-                JenisKelamin = JenisKelamin.LakiLaki,
-                Email = "aditaklal@gmail.com",
-                Password = "adiairnona",
-                PhotoPath = "/img/contoh.jpeg"
-            },
-            new Mahasiswa
-            {
-                Nim = "2206080051",
-                NamaLengkap = "Adi Juanito Taklal",
-                NamaPanggilan = "Adi",
-                TanggalLahir = new DateTime(2004, 2, 29),
-                JenisKelamin = JenisKelamin.LakiLaki,
-                Email = "aditaklal@gmail.com",
-                Password = "adiairnona",
-                PhotoPath = "/img/contoh.jpeg"
-            },
-            new Mahasiswa
-            {
-                Nim = "2206080051",
-                NamaLengkap = "Adi Juanito Taklal",
-                NamaPanggilan = "Adi",
-                TanggalLahir = new DateTime(2004, 2, 29),
-                JenisKelamin = JenisKelamin.LakiLaki,
-                Email = "aditaklal@gmail.com",
-                Password = "adiairnona",
-                PhotoPath = "/img/contoh.jpeg"
-            },
-            new Mahasiswa
-            {
-                Nim = "2206080051",
-                NamaLengkap = "Adi Juanito Taklal",
-                NamaPanggilan = "Adi",
-                TanggalLahir = new DateTime(2004, 2, 29),
-                JenisKelamin = JenisKelamin.LakiLaki,
-                Email = "aditaklal@gmail.com",
-                Password = "adiairnona",
-                PhotoPath = "/img/contoh.jpeg"
-            },
-            new Mahasiswa
-            {
-                Nim = "2206080051",
-                NamaLengkap = "Adi Juanito Taklal",
-                NamaPanggilan = "Adi",
-                TanggalLahir = new DateTime(2004, 2, 29),
-                JenisKelamin = JenisKelamin.LakiLaki,
-                Email = "aditaklal@gmail.com",
-                Password = "adiairnona",
-                PhotoPath = "/img/contoh.jpeg"
-            },
-            new Mahasiswa
-            {
-                Nim = "2206080051",
-                NamaLengkap = "Adi Juanito Taklal",
-                NamaPanggilan = "Adi",
-                TanggalLahir = new DateTime(2004, 2, 29),
-                JenisKelamin = JenisKelamin.LakiLaki,
-                Email = "aditaklal@gmail.com",
-                Password = "adiairnona",
-                PhotoPath = "/img/contoh.jpeg"
-            },
-            new Mahasiswa
-            {
-                Nim = "2206080051",
-                NamaLengkap = "Adi Juanito Taklal",
-                NamaPanggilan = "Adi",
-                TanggalLahir = new DateTime(2004, 2, 29),
-                JenisKelamin = JenisKelamin.LakiLaki,
-                Email = "aditaklal@gmail.com",
-                Password = "adiairnona",
-                PhotoPath = "/img/contoh.jpeg"
-            }
-        };
+            this.dbContext = dbContext;
+        }
 
         public async Task<Mahasiswa> Create(Mahasiswa entity)
         {
-            var mahasiswa = mahasiswaList.FirstOrDefault(m => m.Nim == entity.Nim);
+            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Nim == entity.Nim);
             if(mahasiswa == null)
-                mahasiswaList.Add(entity);
+                await dbContext.AddAsync(entity);
 
             return mahasiswa;
         }
 
         public async Task<Mahasiswa> Delete(string id)
         {
-            var mahasiswa = mahasiswaList.FirstOrDefault(m => m.Nim == id);
-            if(mahasiswa != null)
-                mahasiswaList.Remove(mahasiswa);
+            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Nim == id);
+            if (mahasiswa != null)
+                dbContext.Remove(mahasiswa);
             return mahasiswa;
         }
 
         public async Task<Mahasiswa> Get(string id)
         {
-            var mahasiswa = mahasiswaList.FirstOrDefault(m => m.Nim == id);
+            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Nim == id);
             return mahasiswa;
         }
 
         public async Task<IEnumerable<Mahasiswa>> GetAll()
         {
-            var list = mahasiswaList.AsEnumerable();
+            var list = await dbContext.TblMahasiswa.ToListAsync();
             return list;
         }
 
@@ -131,13 +48,7 @@ namespace webSITE.Repositori.Implementasi
             var mahasiswa = await Get(entity.Nim);
             if(mahasiswa != null )
             {
-                mahasiswa.NamaLengkap = entity.NamaLengkap;
-                mahasiswa.NamaPanggilan =  entity.NamaPanggilan;
-                mahasiswa.TanggalLahir = entity.TanggalLahir;
-                mahasiswa.JenisKelamin = entity.JenisKelamin;
-                mahasiswa.Email = entity.Email;
-                mahasiswa.Password = entity.Password;
-                mahasiswa.PhotoPath = entity.PhotoPath;
+                dbContext.Update(entity);
             }
 
             return mahasiswa;
