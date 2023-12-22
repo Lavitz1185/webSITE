@@ -16,3 +16,19 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+figure {
+    overflow:hidden;
+}
+
+figure img {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+figure:hover img {
+    -webkit-transform: scale(1.3);
+    transform: scale(1.3);
+}

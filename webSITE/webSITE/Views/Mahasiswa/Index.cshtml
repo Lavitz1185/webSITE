@@ -12,7 +12,11 @@
                     <div class="card-header">
                         <h5 class="card-title">@mahasiswa.NamaPanggilan</h5>
                     </div>
-                    <img class="card-img img-thumbnail" src="@mahasiswa.PhotoPath" alt="Foto @mahasiswa.NamaLengkap">
+                    <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-nim="@mahasiswa.Nim">
+                        <figure>
+                            <img class="card-img img-thumbnail" src="@mahasiswa.PhotoPath" alt="Foto @mahasiswa.NamaLengkap">
+                        </figure>
+                    </a>
                     <div class="card-body">
                         <p class="card-text">
                             @mahasiswa.NamaLengkap
@@ -20,7 +24,7 @@
                     </div>
                     <div class="card-footer">
                         <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-nim="@mahasiswa.Nim"
-                            class="btn btn-primary">
+                           class="btn btn-primary">
                             Profil
                         </a>
                     </div>
