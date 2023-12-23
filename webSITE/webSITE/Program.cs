@@ -12,6 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IRepositoriMahasiswa, RepositoriMahasiswa>();
+builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();
+builder.Services.AddScoped<IRepositoriKegiatan, RepositoriKegiatan>();
 
 var app = builder.Build();
 

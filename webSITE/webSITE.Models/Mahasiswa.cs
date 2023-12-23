@@ -9,6 +9,7 @@ namespace webSITE.Models
 {
     public class Mahasiswa
     {
+        public int Id { get; set; }
         public string Nim { get; set; }
         public string NamaLengkap { get; set; }
         public string NamaPanggilan { get; set; }
@@ -26,5 +27,11 @@ namespace webSITE.Models
                     return "Perempuan";
             } 
         }
+
+        public IList<Kegiatan> DaftarKegiatan { get; set; }
+        public IList<PesertaKegiatan> DaftarPesertaKegiatan { get; set; }
+
+        public IList<Foto> DaftarFoto { get; set; }
+        public IList<MahasiswaFoto> DaftaMahasiswaFoto { get; set; }
     }
 }

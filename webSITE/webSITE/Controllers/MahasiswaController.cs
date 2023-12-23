@@ -24,7 +24,7 @@ namespace webSITE.Controllers
             if(nim == null)
                 return NotFound();
 
-            var mahasiswa = await repositoriMahasiswa.Get(nim);
+            var mahasiswa = await repositoriMahasiswa.GetByNim(nim);
             if(mahasiswa == null)
                 return NotFound();
 

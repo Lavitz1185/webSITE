@@ -23,17 +23,25 @@ namespace webSITE.Repositori.Implementasi
             return mahasiswa;
         }
 
-        public async Task<Mahasiswa> Delete(string id)
+        public async Task<Mahasiswa> Delete(int id)
         {
-            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Nim == id);
+            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Id == id);
             if (mahasiswa != null)
                 dbContext.Remove(mahasiswa);
             return mahasiswa;
         }
 
-        public async Task<Mahasiswa> Get(string id)
+        public async Task<Mahasiswa> GetByNim(string nim)
         {
-            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Nim == id);
+            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Nim == nim);
+            return mahasiswa;
+        }
+
+        public async Task<Mahasiswa> Get(int id)
+        {
+            var mahasiswa = await dbContext.TblMahasiswa.
+                Include(m => m.DaftarFoto).
+                Include(m => m.DaftarKegiatan).FirstOrDefaultAsync(m => m.Id == id);
             return mahasiswa;
         }
 
@@ -45,7 +53,7 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Mahasiswa> Update(Mahasiswa entity)
         {
-            var mahasiswa = await Get(entity.Nim);
+            var mahasiswa = await Get(entity.Id);
             if(mahasiswa != null )
             {
                 dbContext.Update(entity);

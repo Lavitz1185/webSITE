@@ -8,12 +8,15 @@ namespace webSITE.Models
 {
     public class Kegiatan
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string NamaKegiatan { get; set; }
-        public DateTime Tanggal { get; set; }
-        public int LamaKegiatan { get; set; }
-        public string Deskripsi { get; set; }
+        public DateTime TanggalMulai { get; set; }
+        public DateTime TanggalBerakhir { get; set; }
+        public string TempatKegiatan { get; set; }
+        public string Keterangan { get; set; }
 
-        public IList<Foto> DaftarFoto { get; set; }
+        public IList<Foto>? DaftarFoto { get; set; }
+        public IList<Mahasiswa> DaftarMahasiswa { get; set; }
+        public IList<PesertaKegiatan> DaftarPesertaKegiatan { get; set; }
     }
 }

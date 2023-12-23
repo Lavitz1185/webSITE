@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>D:\latihan\WebSITE\webSITE\webSITE\webSITE\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2023-12-22T14:44:33.0375098Z;True|2023-12-22T21:15:17.6484213+08:00;True|2023-12-22T21:12:28.1173596+08:00;True|2023-12-22T21:11:55.2723706+08:00;True|2023-12-22T18:31:28.5506997+08:00;False|2023-12-22T18:27:51.0837521+08:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>server=%28localdb%29\MSSQLLocalDB%3bdatabase=webSITEDb%3bTrusted_Connection=true</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="webSITE.Repositori.Data.AppDbContext">
+      <Value>server=site-undana.com%3bdatabase=webSITEDb%3bUser Id=sa%3bpassword=AdiAirnona290204%3bTrustServerCertificate=True</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
