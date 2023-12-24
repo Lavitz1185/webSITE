@@ -33,7 +33,10 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Mahasiswa> GetByNim(string nim)
         {
-            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Nim == nim);
+            var mahasiswa = await dbContext.TblMahasiswa
+                .Include(m => m.DaftarKegiatan)
+                .Include(m => m.DaftarFoto)
+                .FirstOrDefaultAsync(m => m.Nim == nim);
             return mahasiswa;
         }
 

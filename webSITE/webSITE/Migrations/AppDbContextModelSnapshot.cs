@@ -33,9 +33,6 @@ namespace webSITE.Migrations
                     b.Property<int?>("IdKegiatan")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KegiatanId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PhotoPath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -45,9 +42,46 @@ namespace webSITE.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KegiatanId");
+                    b.HasIndex("IdKegiatan");
 
                     b.ToTable("TblFoto");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdKegiatan = 1,
+                            PhotoPath = "/img/contoh.jpeg",
+                            Tanggal = new DateTime(2023, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdKegiatan = 1,
+                            PhotoPath = "/img/contoh.jpeg",
+                            Tanggal = new DateTime(2023, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IdKegiatan = 1,
+                            PhotoPath = "/img/contoh.jpeg",
+                            Tanggal = new DateTime(2023, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IdKegiatan = 1,
+                            PhotoPath = "/img/contoh.jpeg",
+                            Tanggal = new DateTime(2023, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IdKegiatan = 1,
+                            PhotoPath = "/img/contoh.jpeg",
+                            Tanggal = new DateTime(2023, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("webSITE.Models.Kegiatan", b =>
@@ -79,6 +113,17 @@ namespace webSITE.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TblKegiatan");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Keterangan = "Kegiatan Pertama",
+                            NamaKegiatan = "Kegiatan 1",
+                            TanggalBerakhir = new DateTime(2023, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TanggalMulai = new DateTime(2023, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TempatKegiatan = "Undana"
+                        });
                 });
 
             modelBuilder.Entity("webSITE.Models.Mahasiswa", b =>
@@ -230,21 +275,63 @@ namespace webSITE.Migrations
                     b.Property<int>("IdMahasiswa")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FotoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MahasiswaId")
-                        .HasColumnType("int");
-
                     b.HasKey("IdFoto", "IdMahasiswa");
-
-                    b.HasIndex("FotoId");
 
                     b.HasIndex("IdMahasiswa");
 
-                    b.HasIndex("MahasiswaId");
-
                     b.ToTable("TblMahasiswaFoto");
+
+                    b.HasData(
+                        new
+                        {
+                            IdFoto = 1,
+                            IdMahasiswa = 1
+                        },
+                        new
+                        {
+                            IdFoto = 1,
+                            IdMahasiswa = 2
+                        },
+                        new
+                        {
+                            IdFoto = 2,
+                            IdMahasiswa = 1
+                        },
+                        new
+                        {
+                            IdFoto = 2,
+                            IdMahasiswa = 2
+                        },
+                        new
+                        {
+                            IdFoto = 3,
+                            IdMahasiswa = 1
+                        },
+                        new
+                        {
+                            IdFoto = 3,
+                            IdMahasiswa = 2
+                        },
+                        new
+                        {
+                            IdFoto = 4,
+                            IdMahasiswa = 1
+                        },
+                        new
+                        {
+                            IdFoto = 4,
+                            IdMahasiswa = 2
+                        },
+                        new
+                        {
+                            IdFoto = 5,
+                            IdMahasiswa = 1
+                        },
+                        new
+                        {
+                            IdFoto = 5,
+                            IdMahasiswa = 2
+                        });
                 });
 
             modelBuilder.Entity("webSITE.Models.PesertaKegiatan", b =>
@@ -255,38 +342,36 @@ namespace webSITE.Migrations
                     b.Property<int>("IdMahasiswa")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KegiatanId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MahasiswaId")
-                        .HasColumnType("int");
-
                     b.HasKey("IdKegiatan", "IdMahasiswa");
 
                     b.HasIndex("IdMahasiswa");
 
-                    b.HasIndex("KegiatanId");
-
-                    b.HasIndex("MahasiswaId");
-
                     b.ToTable("TblPesertaKegiatan");
+
+                    b.HasData(
+                        new
+                        {
+                            IdKegiatan = 1,
+                            IdMahasiswa = 1
+                        },
+                        new
+                        {
+                            IdKegiatan = 1,
+                            IdMahasiswa = 2
+                        });
                 });
 
             modelBuilder.Entity("webSITE.Models.Foto", b =>
                 {
                     b.HasOne("webSITE.Models.Kegiatan", "Kegiatan")
                         .WithMany("DaftarFoto")
-                        .HasForeignKey("KegiatanId");
+                        .HasForeignKey("IdKegiatan");
 
                     b.Navigation("Kegiatan");
                 });
 
             modelBuilder.Entity("webSITE.Models.MahasiswaFoto", b =>
                 {
-                    b.HasOne("webSITE.Models.Foto", null)
-                        .WithMany("DaftaMahasiswaFoto")
-                        .HasForeignKey("FotoId");
-
                     b.HasOne("webSITE.Models.Foto", null)
                         .WithMany()
                         .HasForeignKey("IdFoto")
@@ -298,10 +383,6 @@ namespace webSITE.Migrations
                         .HasForeignKey("IdMahasiswa")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("webSITE.Models.Mahasiswa", null)
-                        .WithMany("DaftaMahasiswaFoto")
-                        .HasForeignKey("MahasiswaId");
                 });
 
             modelBuilder.Entity("webSITE.Models.PesertaKegiatan", b =>
@@ -317,33 +398,11 @@ namespace webSITE.Migrations
                         .HasForeignKey("IdMahasiswa")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("webSITE.Models.Kegiatan", null)
-                        .WithMany("DaftarPesertaKegiatan")
-                        .HasForeignKey("KegiatanId");
-
-                    b.HasOne("webSITE.Models.Mahasiswa", null)
-                        .WithMany("DaftarPesertaKegiatan")
-                        .HasForeignKey("MahasiswaId");
-                });
-
-            modelBuilder.Entity("webSITE.Models.Foto", b =>
-                {
-                    b.Navigation("DaftaMahasiswaFoto");
                 });
 
             modelBuilder.Entity("webSITE.Models.Kegiatan", b =>
                 {
                     b.Navigation("DaftarFoto");
-
-                    b.Navigation("DaftarPesertaKegiatan");
-                });
-
-            modelBuilder.Entity("webSITE.Models.Mahasiswa", b =>
-                {
-                    b.Navigation("DaftaMahasiswaFoto");
-
-                    b.Navigation("DaftarPesertaKegiatan");
                 });
 #pragma warning restore 612, 618
         }

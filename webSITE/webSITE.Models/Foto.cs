@@ -15,6 +15,5 @@ namespace webSITE.Models
 
         public Kegiatan? Kegiatan { get; set; }
         public IList<Mahasiswa> DaftarMahasiswa { get; set; }
-        public IList<MahasiswaFoto> DaftaMahasiswaFoto { get; set; }
     }
 }

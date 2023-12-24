@@ -1,0 +1,54 @@
+﻿@model List<Kegiatan>
+@{
+    ViewData["title"] = "Kegiatan";
+}
+
+<div class="row">
+    <div class="col">
+        <h2>Daftar Kegiatan</h2>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        Nama Kegiatan
+                    </th>
+                    <th>
+                        Tempat Kegiatan
+                    </th>
+                    <th>
+                        Tanggal Mulai
+                    </th>
+                    <th>
+                        Tanggal Berakhir
+                    </th>
+                    <th>
+                        Aksi
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var kegiatan in Model)
+                {
+                    <tr>
+                        <td>@kegiatan.NamaKegiatan</td>
+                        <td>@kegiatan.TempatKegiatan</td>
+                        <td>@kegiatan.TanggalMulai.ToShortDateString()</td>
+                        <td>@kegiatan.TanggalBerakhir.ToShortDateString()</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-controller="Kegiatan" asp-action="Detail" asp-route-id="@kegiatan.Id">
+                                    Detail
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

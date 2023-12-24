@@ -29,9 +29,6 @@ namespace webSITE.Models
         }
 
         public IList<Kegiatan> DaftarKegiatan { get; set; }
-        public IList<PesertaKegiatan> DaftarPesertaKegiatan { get; set; }
-
         public IList<Foto> DaftarFoto { get; set; }
-        public IList<MahasiswaFoto> DaftaMahasiswaFoto { get; set; }
     }
 }

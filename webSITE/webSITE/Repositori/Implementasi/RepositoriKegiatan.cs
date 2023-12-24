@@ -39,7 +39,8 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Kegiatan> Get(int id)
         {
-            var kegiatan = await _dbContext.TblKegiatan.Include(k => k.DaftarFoto)
+            var kegiatan = await _dbContext.TblKegiatan
+                .Include(k => k.DaftarFoto)
                 .Include(k => k.DaftarMahasiswa)
                 .FirstOrDefaultAsync(k => k.Id == id);
 

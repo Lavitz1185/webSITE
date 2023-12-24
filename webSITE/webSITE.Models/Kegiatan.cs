@@ -17,6 +17,5 @@ namespace webSITE.Models
 
         public IList<Foto>? DaftarFoto { get; set; }
         public IList<Mahasiswa> DaftarMahasiswa { get; set; }
-        public IList<PesertaKegiatan> DaftarPesertaKegiatan { get; set; }
     }
 }

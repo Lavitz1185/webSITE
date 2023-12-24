@@ -40,13 +40,18 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Foto> Get(int id)
         {
-            var foto = await _dbContext.TblFoto.FindAsync(id);
+            var foto = await _dbContext.TblFoto
+                .Include(f => f.DaftarMahasiswa)
+                .Include(f => f.Kegiatan)
+                .FirstOrDefaultAsync( f => f.Id == id);
             return foto;
         }
 
         public async Task<IEnumerable<Foto>> GetAll()
         {
-            var listFoto = await _dbContext.TblFoto.ToListAsync();
+            var listFoto = await _dbContext.TblFoto
+                .Include(f => f.Kegiatan)
+                .ToListAsync();
             return listFoto;
         }
 

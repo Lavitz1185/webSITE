@@ -1,0 +1,74 @@
+﻿@model Foto
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="row">
+    <div class="col">
+        <img src="@Model.PhotoPath" class="img-fluid" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <b>Tanggal</b>
+    </div>
+    <div class="col-6">
+        @Model.Tanggal.ToShortDateString()
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <b>Kegiatan</b>
+    </div>
+    <div class="col-6">
+        @Model.Kegiatan?.NamaKegiatan
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col mx-auto">
+                        <h4 class="text-center">Dalam Foto</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    @if (Model.DaftarMahasiswa != null && Model.DaftarMahasiswa.Count > 0)
+                    {
+                        <table class="table table-bordetable-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="50%">
+                                        NIM
+                                    </th>
+                                    <th width="50%">
+                                        Nama
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var mahasiswa in Model.DaftarMahasiswa)
+                                {
+                                    <tr>
+                                        <td>
+                                            @mahasiswa.Nim
+                                        </td>
+                                        <td>
+                                            @mahasiswa.NamaLengkap
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <h4 class="text-center"><b>Tidak Ada Peserta Yang Pernah Diikuti</b></h4>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

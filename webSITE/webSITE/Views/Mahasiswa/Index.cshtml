@@ -13,18 +13,13 @@
             <div class="col-md-3 mx-auto p-2">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">@mahasiswa.NamaPanggilan</h5>
+                        <h5 class="card-title">@mahasiswa.NamaLengkap</h5>
                     </div>
                     <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-nim="@mahasiswa.Nim">
                         <figure>
                             <img class="card-img img-thumbnail" src="@mahasiswa.PhotoPath" alt="Foto @mahasiswa.NamaLengkap">
                         </figure>
                     </a>
-                    <div class="card-body">
-                        <p class="card-text">
-                            @mahasiswa.NamaLengkap
-                        </p>
-                    </div>
                     <div class="card-footer">
                         <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-nim="@mahasiswa.Nim"
                            class="btn btn-primary">

@@ -1,0 +1,50 @@
+﻿@model IList<FotoViewModel>
+@{
+    ViewData["Title"] = "Album";
+}
+
+<div class="row">
+    <div class="col">
+        <div class="btn-group gap-4">
+            <a asp-controller="Foto" asp-action="Index" asp-route-groupBy="Tanggal" class="btn btn-primary">
+                Berdasarkan Tanggal
+            </a>
+            <a asp-controller="Foto" asp-action="Index" asp-route-groupBy="Kegiatan" class="btn btn-primary">
+                Berdasarkan Kegiatan
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    @foreach (var groupFoto in Model)
+    {
+        <div class="col-4 p-2">
+            <div class="card">
+                <div class="card-title">
+                    <h5 class="text-center">@groupFoto.Key</h5>
+                </div>
+                <hr />
+                <div class="card-body">
+                    <div class="row">
+                        @foreach (var foto in groupFoto.DaftarFoto)
+                        {
+                            <div class="col-4 mb-2">
+                                <img src="@foto.PhotoPath" class="img-fluid" />
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    @if(groupFoto.OrderBy == "Tanggal")
+                    {
+                        <a asp-controller="Foto" asp-action="Detail" asp-route-tanggal="@groupFoto.Key">Detail</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Foto" asp-action="Detail" asp-route-idKegiatan="@groupFoto.DaftarFoto[0].IdKegiatan">Detail</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

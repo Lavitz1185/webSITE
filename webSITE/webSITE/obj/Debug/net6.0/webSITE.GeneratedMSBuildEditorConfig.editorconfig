@@ -16,12 +16,32 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\latihan\WebSITE\webSITE\webSITE\webSITE
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Foto/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm90b1xEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Foto/DetailFoto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm90b1xEZXRhaWxGb3RvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Foto/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm90b1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Kegiatan/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2VnaWF0YW5cRGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Kegiatan/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2VnaWF0YW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Mahasiswa/Detail.cshtml]
