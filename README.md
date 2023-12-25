@@ -1,8 +1,16 @@
 Fitur : 
-  - Tampilkan anggota SITE (belum)
-  - Album Foto (belum)
-  - Jadwal Kegiatan (belum)
-  - Dashboard (belum)
+  - Tampilkan anggota SITE (sudah)
+  - Album Foto (sudah)
+  - Jadwal Kegiatan (sudah)
+  - Dashboard (sudah)
+  - Dashboard Mahasiswa (sudah)
+  - Form Tambah, Edit, dan Hapus Mahasiswa (belum)
+  - Dashboard Kegiatan (belum)
+  - Form Tambah, Edit, dan Hapus Kegiatan (belum)
+  - Dashboard Foto (belum)
+  - Form Tambah, Edit, dan Hapus Foto (belum)
+  - Autentinfikasi (belum)
+  - Login Admin (belum)
 
 Download kode (Satu Kali saja)
 - Pilih Folder
@@ -11,3 +19,6 @@ Download kode (Satu Kali saja)
 - cd webSITE
 
 Pertama kali jalankan Update-Database
+
+Link Dashboard
+http://localhost:8802/Dashboard/
