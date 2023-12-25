@@ -1,0 +1,59 @@
+﻿@using webSITE.Models
+@model List<Mahasiswa>
+@{
+    Layout = "_AdminDashboardLayout";
+    ViewData["title"] = "Dashboard";
+}
+
+<table class="table table-bordered table-responsive-md">
+    <thead>
+        <tr>
+            <th width="5%">
+                ID
+            </th>
+            <th width="16%">
+                NIM
+            </th>
+            <th width="18%">
+                Nama Lengkap
+            </th>
+            <th width="18%">
+                Tanggal Lahir
+            </th>
+            <th width="17%">
+                Jenis Kelamin
+            </th>
+            <th width="8%">
+                Aksi
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mahasiswa in Model)
+        {
+            <tr>
+                <td>
+                    @mahasiswa.Id
+                </td>
+                <td>
+                    @mahasiswa.Nim
+                </td>
+                <td>
+                    @mahasiswa.NamaLengkap
+                </td>
+                <td>
+                    @mahasiswa.TanggalLahir.ToShortDateString()
+                </td>
+                <td>
+                    @mahasiswa.StrJenisKelamin
+                </td>
+                <td>
+                    <div class="btn-group gap-1" role="group">
+                        <a class="btn btn-primary"><i class="fas fa-pen-square fa-lg"></i></a>
+                        <a class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
