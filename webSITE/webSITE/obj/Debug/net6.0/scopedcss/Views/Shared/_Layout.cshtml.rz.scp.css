@@ -11,6 +11,16 @@ a[b-okpr1i18lo] {
   color: #0077cc;
 }
 
+.nav-item:hover[b-okpr1i18lo] {
+    background-color: ghostwhite;
+    transition: .1s ease-in-out;
+    border-radius: 8px;
+}
+
+.container[b-okpr1i18lo] {
+    max-width : 1500px;
+}
+
 .btn-primary[b-okpr1i18lo] {
   color: #fff;
   background-color: #1b6ec2;
@@ -41,6 +51,7 @@ button.accept-policy[b-okpr1i18lo] {
 
 .footer[b-okpr1i18lo] {
   position: absolute;
+  background-color : white;
   bottom: 0;
   width: 100%;
   white-space: nowrap;

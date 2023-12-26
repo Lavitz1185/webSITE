@@ -20,3 +20,14 @@ D:\latihan\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Model
 D:\latihan\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\refint\webSITE.Models.dll
 D:\latihan\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.pdb
 D:\latihan\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\ref\webSITE.Models.dll
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\bin\Debug\net6.0\webSITE.Models.deps.json
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\bin\Debug\net6.0\webSITE.Models.dll
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\bin\Debug\net6.0\webSITE.Models.pdb
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.AssemblyInfoInputs.cache
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.AssemblyInfo.cs
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.csproj.CoreCompileInputs.cache
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.dll
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\refint\webSITE.Models.dll
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.pdb
+C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\ref\webSITE.Models.dll
