@@ -202,12 +202,15 @@ nav[b-m2en5hj7xr] {
 .dropdown-item[b-m2en5hj7xr] {
     color: var(--text-primary);
     padding-left: 4rem;
+    filter: grayscale(100%) opacity(0.7);
+    transition: var(--transition-speed) ease;
 }
 
-.dropdown-item:hover[b-m2en5hj7xr] {
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-}
+    .dropdown-item:hover[b-m2en5hj7xr] {
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+        filter: grayscale(0%) opacity(1);
+    }
 /* _content/webSITE/Views/Shared/_Layout.cshtml.rz.scp.css */
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
