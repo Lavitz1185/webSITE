@@ -9,77 +9,77 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = webSITE
 build_property.RootNamespace = webSITE
-build_property.ProjectDir = C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE\
+build_property.ProjectDir = D:\latihan\WebSITE\webSITE\webSITE\webSITE\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE
+build_property.MSBuildProjectDirectory = D:\latihan\WebSITE\webSITE\webSITE\webSITE
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Areas/Dashboard/Views/Home/Index.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Areas/Dashboard/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRGFzaGJvYXJkXFZpZXdzXEhvbWVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Areas/Dashboard/Views/Mahasiswa/Index.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Areas/Dashboard/Views/Mahasiswa/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcRGFzaGJvYXJkXFZpZXdzXE1haGFzaXN3YVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Foto/Detail.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Foto/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm90b1xEZXRhaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Foto/DetailFoto.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Foto/DetailFoto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm90b1xEZXRhaWxGb3RvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Foto/Index.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Foto/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm90b1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Home/Index.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Home/Privacy.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Kegiatan/Detail.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Kegiatan/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2VnaWF0YW5cRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Kegiatan/Index.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Kegiatan/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2VnaWF0YW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Mahasiswa/Detail.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Mahasiswa/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFoYXNpc3dhXERldGFpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Mahasiswa/Index.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Mahasiswa/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFoYXNpc3dhXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Shared/Error.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/_ViewImports.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/_ViewStart.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Shared/_AdminDashboardLayout.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Shared/_AdminDashboardLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkRhc2hib2FyZExheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-m2en5hj7xr
 
-[C:/Users/ACER/Documents/WebSITE/webSITE/webSITE/webSITE/Views/Shared/_Layout.cshtml]
+[D:/latihan/WebSITE/webSITE/webSITE/webSITE/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-okpr1i18lo
