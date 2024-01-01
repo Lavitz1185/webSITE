@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using webSITE.Models;
+using webSITE.Models.Identity;
 
 namespace webSITE.Repositori.Data
 {
@@ -21,8 +22,6 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    Email = "aditaklal@gmail.com",
-                    Password = "adiairnona",
                     PhotoPath = "/img/contoh.jpeg"
                 },
                 new Mahasiswa
@@ -33,8 +32,6 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    Email = "aditaklal@gmail.com",
-                    Password = "adiairnona",
                     PhotoPath = "/img/contoh.jpeg"
                 },
                 new Mahasiswa
@@ -45,8 +42,6 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    Email = "aditaklal@gmail.com",
-                    Password = "adiairnona",
                     PhotoPath = "/img/contoh.jpeg"
                 },
                 new Mahasiswa
@@ -57,8 +52,6 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    Email = "aditaklal@gmail.com",
-                    Password = "adiairnona",
                     PhotoPath = "/img/contoh.jpeg"
                 },
                 new Mahasiswa
@@ -69,8 +62,6 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    Email = "aditaklal@gmail.com",
-                    Password = "adiairnona",
                     PhotoPath = "/img/contoh.jpeg"
                 },
                 new Mahasiswa
@@ -81,8 +72,6 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    Email = "aditaklal@gmail.com",
-                    Password = "adiairnona",
                     PhotoPath = "/img/contoh.jpeg"
                 },
                 new Mahasiswa
@@ -93,8 +82,6 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    Email = "aditaklal@gmail.com",
-                    Password = "adiairnona",
                     PhotoPath = "/img/contoh.jpeg"
                 },
                 new Mahasiswa
@@ -105,8 +92,6 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    Email = "aditaklal@gmail.com",
-                    Password = "adiairnona",
                     PhotoPath = "/img/contoh.jpeg"
                 }
             );
@@ -240,6 +225,9 @@ namespace webSITE.Repositori.Data
                     l => l.HasOne<Foto>().WithMany().HasForeignKey(mf => mf.IdFoto),
                     r => r.HasOne<Mahasiswa>().WithMany().HasForeignKey(mf => mf.IdMahasiswa)
                 );
+
+            modelBuilder.Entity<Mahasiswa>().HasOne(m => m.AppUser).WithOne(u => u.Mahasiswa)
+                .HasForeignKey<AppUser>(u => u.IdMahasiswa);
 
             modelBuilder.Entity<Foto>().HasOne(f => f.Kegiatan)
                 .WithMany(k => k.DaftarFoto)

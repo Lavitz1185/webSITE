@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using webSITE.Models.Identity;
 
 namespace webSITE.Models
 {
@@ -15,8 +16,6 @@ namespace webSITE.Models
         public string NamaPanggilan { get; set; }
         public DateTime TanggalLahir { get; set; }
         public JenisKelamin JenisKelamin { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
         public string PhotoPath { get; set; }
         public string StrJenisKelamin { 
             get 
@@ -28,6 +27,7 @@ namespace webSITE.Models
             } 
         }
 
+        public AppUser? AppUser { get; set; }
         public IList<Kegiatan> DaftarKegiatan { get; set; }
         public IList<Foto> DaftarFoto { get; set; }
     }

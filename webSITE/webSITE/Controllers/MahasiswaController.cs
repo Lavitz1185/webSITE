@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using webSITE.Models;
 using webSITE.Repositori.Interface;
 
@@ -19,6 +20,7 @@ namespace webSITE.Controllers
             return View(listMahasiwa);
         }
 
+        [Authorize]
         public async Task<IActionResult> DetailAsync(string? nim)
         {
             if(nim == null)

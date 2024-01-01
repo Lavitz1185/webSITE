@@ -608,3 +608,11 @@ C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE\obj\Debug\net6.0\refint\
 C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE\obj\Debug\net6.0\webSITE.pdb
 C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE\obj\Debug\net6.0\webSITE.genruntimeconfig.cache
 C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE\obj\Debug\net6.0\ref\webSITE.dll
+D:\latihan\WebSITE\webSITE\webSITE\webSITE\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\latihan\WebSITE\webSITE\webSITE\webSITE\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\latihan\WebSITE\webSITE\webSITE\webSITE\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\latihan\WebSITE\webSITE\webSITE\webSITE\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\latihan\WebSITE\webSITE\webSITE\webSITE\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\latihan\WebSITE\webSITE\webSITE\webSITE\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+D:\latihan\WebSITE\webSITE\webSITE\webSITE\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+D:\latihan\WebSITE\webSITE\webSITE\webSITE\obj\Debug\net6.0\webSITE.MvcApplicationPartsAssemblyInfo.cs

@@ -84,6 +84,64 @@ namespace webSITE.Migrations
                         });
                 });
 
+            modelBuilder.Entity("webSITE.Models.Identity.AppUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("IdMahasiswa")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdMahasiswa")
+                        .IsUnique();
+
+                    b.ToTable("AppUser");
+                });
+
             modelBuilder.Entity("webSITE.Models.Kegiatan", b =>
                 {
                     b.Property<int>("Id")
@@ -134,10 +192,6 @@ namespace webSITE.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("JenisKelamin")
                         .HasColumnType("int");
 
@@ -150,10 +204,6 @@ namespace webSITE.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nim")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -172,96 +222,80 @@ namespace webSITE.Migrations
                         new
                         {
                             Id = 1,
-                            Email = "aditaklal@gmail.com",
                             JenisKelamin = 0,
                             NamaLengkap = "Adi Juanito Taklal",
                             NamaPanggilan = "Adi",
                             Nim = "2206080051",
-                            Password = "adiairnona",
                             PhotoPath = "/img/contoh.jpeg",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            Email = "aditaklal@gmail.com",
                             JenisKelamin = 0,
                             NamaLengkap = "Adi Juanito Taklal",
                             NamaPanggilan = "Adi",
                             Nim = "2206080052",
-                            Password = "adiairnona",
                             PhotoPath = "/img/contoh.jpeg",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            Email = "aditaklal@gmail.com",
                             JenisKelamin = 0,
                             NamaLengkap = "Adi Juanito Taklal",
                             NamaPanggilan = "Adi",
                             Nim = "2206080053",
-                            Password = "adiairnona",
                             PhotoPath = "/img/contoh.jpeg",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
-                            Email = "aditaklal@gmail.com",
                             JenisKelamin = 0,
                             NamaLengkap = "Adi Juanito Taklal",
                             NamaPanggilan = "Adi",
                             Nim = "2206080054",
-                            Password = "adiairnona",
                             PhotoPath = "/img/contoh.jpeg",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 5,
-                            Email = "aditaklal@gmail.com",
                             JenisKelamin = 0,
                             NamaLengkap = "Adi Juanito Taklal",
                             NamaPanggilan = "Adi",
                             Nim = "2206080055",
-                            Password = "adiairnona",
                             PhotoPath = "/img/contoh.jpeg",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 6,
-                            Email = "aditaklal@gmail.com",
                             JenisKelamin = 0,
                             NamaLengkap = "Adi Juanito Taklal",
                             NamaPanggilan = "Adi",
                             Nim = "2206080056",
-                            Password = "adiairnona",
                             PhotoPath = "/img/contoh.jpeg",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 7,
-                            Email = "aditaklal@gmail.com",
                             JenisKelamin = 0,
                             NamaLengkap = "Adi Juanito Taklal",
                             NamaPanggilan = "Adi",
                             Nim = "2206080057",
-                            Password = "adiairnona",
                             PhotoPath = "/img/contoh.jpeg",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 8,
-                            Email = "aditaklal@gmail.com",
                             JenisKelamin = 0,
                             NamaLengkap = "Adi Juanito Taklal",
                             NamaPanggilan = "Adi",
                             Nim = "2206080058",
-                            Password = "adiairnona",
                             PhotoPath = "/img/contoh.jpeg",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -370,6 +404,17 @@ namespace webSITE.Migrations
                     b.Navigation("Kegiatan");
                 });
 
+            modelBuilder.Entity("webSITE.Models.Identity.AppUser", b =>
+                {
+                    b.HasOne("webSITE.Models.Mahasiswa", "Mahasiswa")
+                        .WithOne("AppUser")
+                        .HasForeignKey("webSITE.Models.Identity.AppUser", "IdMahasiswa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mahasiswa");
+                });
+
             modelBuilder.Entity("webSITE.Models.MahasiswaFoto", b =>
                 {
                     b.HasOne("webSITE.Models.Foto", null)
@@ -403,6 +448,11 @@ namespace webSITE.Migrations
             modelBuilder.Entity("webSITE.Models.Kegiatan", b =>
                 {
                     b.Navigation("DaftarFoto");
+                });
+
+            modelBuilder.Entity("webSITE.Models.Mahasiswa", b =>
+                {
+                    b.Navigation("AppUser");
                 });
 #pragma warning restore 612, 618
         }

@@ -31,3 +31,4 @@ C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\
 C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\refint\webSITE.Models.dll
 C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.pdb
 C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\ref\webSITE.Models.dll
+D:\latihan\WebSITE\webSITE\webSITE\webSITE.Models\obj\Debug\net6.0\webSITE.Models.csproj.AssemblyReference.cache
