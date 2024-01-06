@@ -12,6 +12,16 @@ Fitur :
   - Autentinfikasi (belum)
   - Login Admin (belum)
 
+Tambahan UI : 
+  - Home : 
+    - Statistik
+    - Foto Site Jumbotron
+    - Kegiatan Terbaru
+    - Highlight Album
+  - Siters : 
+    - Publik 
+    - Profil Bio isi terserah
+
 Download kode (Satu Kali saja)
 - Pilih Folder
 - Klik kanan -> Show More Options -> Open Git Bash Here
@@ -22,7 +32,9 @@ Login
 email : aditaklal@gmail.com
 password : adiairnona
 
-Pertama kali jalankan Update-Database
+Pertama kali jalankan :
+  - Update-Database -context AppDbContext
+  - Update-Database -context IdentityContext
 
 Link Dashboard
 http://localhost:8802/Dashboard/
