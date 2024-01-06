@@ -25,13 +25,15 @@
             <ul class="nav_links" id="nav-links">
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                 <li><a asp-area="" asp-controller="Mahasiswa" asp-action="Index">Siters</a></li>
+                <li><a asp-area="" asp-controller="Kegiatan" asp-action="Index">Kegiatan</a></li>
                 <li class="nav_logo">
                     <a href="#">
                         <img src="~/img/SIte_Transparant.png" alt="logo" />
                     </a>
                 </li>
-                <li><a asp-area="" asp-controller="Kegiatan" asp-action="Index">Kegiatan</a></li>
-                <li><a asp-area="" asp-controller="Foto" asp-action="Index">Album</a></li>               
+                
+                <li><a asp-area="" asp-controller="Foto" asp-action="Index">Album</a></li>       
+                <li><a><partial name="_LoginPartial" /></a></li>
             </ul>
         </nav>
         @*<div class="section_container header_container">
