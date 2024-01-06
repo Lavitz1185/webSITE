@@ -1,3 +1,5 @@
+BACA AKU!!!
+
 Fitur : 
   - Tampilkan anggota SITE (sudah)
   - Album Foto (sudah)
