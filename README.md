@@ -18,6 +18,10 @@ Download kode (Satu Kali saja)
 - git clone https://github.com/Lavitz1185/webSITE
 - cd webSITE
 
+Login
+email : aditaklal@gmail.com
+password : adiairnona
+
 Pertama kali jalankan Update-Database
 
 Link Dashboard
