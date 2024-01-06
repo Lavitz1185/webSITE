@@ -6,10 +6,51 @@
     <title>@ViewData["Title"] - webSITE</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+          rel="stylesheet" />
     <link rel="stylesheet" href="~/webSITE.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+
+    <header class="header" id="home">
+        <nav>
+            <div class="nav_bar">
+                <div class="nav_logo">
+                    <img src="~/img/SIte_Transparant.png" alt="logo" />
+                </div>
+                <div class="nav_menu_btn" id="menu-btn">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+            <ul class="nav_links" id="nav-links">
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-area="" asp-controller="Mahasiswa" asp-action="Index">Siters</a></li>
+                <li class="nav_logo">
+                    <a href="#">
+                        <img src="~/img/SIte_Transparant.png" alt="logo" />
+                    </a>
+                </li>
+                <li><a asp-area="" asp-controller="Kegiatan" asp-action="Index">Kegiatan</a></li>
+                <li><a asp-area="" asp-controller="Foto" asp-action="Index">Album</a></li>               
+            </ul>
+        </nav>
+        @*<div class="section_container header_container">
+            <div class="header_content">
+                <p>SITE22</p>
+                <h1>ANGKATAN 2022 PROGRAM STUDI ILKOM</h1>
+                <div class="header_btn">
+                    <button class="btn">LIHAT LEBIH LANJUT</button>
+                </div>
+            </div>
+        </div>*@
+
+    </header>
+
+
+
+
+
+    @*<header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
@@ -38,7 +79,7 @@
                 </div>
             </div>
         </nav>
-    </header>
+    </header>*@
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -54,6 +95,7 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

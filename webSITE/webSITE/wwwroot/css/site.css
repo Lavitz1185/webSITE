@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&family=Poppins:wght@400;500&display=swap');
+
+
 html {
   font-size: 14px;
 }
@@ -8,15 +11,238 @@ html {
   }
 }
 
-html {
+/*html {
   position: relative;
   min-height: 100%;
+}*/
+
+
+:root {
+    --primary-color: #161616;
+    --text-dark: #000000;
+    --text-light: #767268;
+    --extra-light: #f3f4f6;
+    --white: #ffffff;
+    --max-width: 1200px;
+    --header-font: "Oswald", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.section_container{
+    --max-width: var(--max-width);
+    margin: auto;
+    padding: 5rem 1rem;
+    overflow: hidden;
+}
+
+.section_header{
+    position: relative;
+    isolation: isolate;
+    width: fit-content;
+    margin-inline: auto;
+    margin-bottom: 1rem;
+    padding-inline: 1rem;
+    font-size: 2rem;
+    font-family: var(--header-font);
+    color: var(--text-dark);
+    text-align: center;
+}
+
+    .section_header::before,
+    .section_header::after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        max-width: 100px;
+        height: 5px;
+        top: 50%;
+        transform: translate(-50%);
+        border-top: 1px solid var(--text-light);
+        border-top: 1px solid var(--text-light);
+        z-index: -1;
+    }   
+
+.section_header::after{
+    right: 100%;
+}
+
+.section_header::before{
+    left:100%;
+}
+
+.section_description{
+    line-height: 1.75rem;
+    color: var(--text-light)
+}
+
+.btn{
+    padding: 1rem 1.5rem;
+    outline: none;
+    border: none;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+    .btn:hover {
+        background-color: var(--text-dark);
+    }
+
+
+a{
+    text-decoration: none;
+
+}
+
+img {
+    width: 100%;
+    display: flex;
+}
+
+html,
+body {
+    scroll-behavior: smooth;
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 60px;
 }
 
-figure {
-    overflow:hidden;
+.header{
+    background-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0.4),
+    rgba(0,0,0,0)
+    ), url("../img/Front_Building.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
+
+nav{
+    position: fixed;
+    isolation: isolate;
+    top: 0;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: auto;
+    z-index: 9;
+}
+
+.nav_bar{
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background-color: var(--text-dark);
+}
+
+.nav_logo {
+    max-width:100px;
+}
+
+.nav_menu_btn{
+    font-size: 1.5rem;
+    color: var(--white);
+    cursor: pointer;
+}
+
+.nav_links{
+    list-style: none;
+    position: absolute;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    font-size: 1.2rem;
+    font-family: var(--header-font);
+    background-color: var(--primary-color);
+    transform: translateY(-100%);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.nav_links.open{
+    transform: none;
+
+}
+
+.nav_links .nav_logo{
+    display: none;
+}
+
+.nav_links a{
+    position: relative;
+    isolation: isolate;
+    padding-bottom: 8px;
+    color: var(--white);
+    transition: 0.3s;
+}
+
+.header_container{
+    padding-block: 10rem;
+}
+
+.header_container p {
+    font-size: 2rem;
+    font-family: var(--header-font);
+    color: var(--white);
+}
+
+.header_container h1{
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    font-weight: 400;
+    font-family: var(--header-font);
+    line-height: 3rem;
+    color: var(--white);
+}
+
+
+
+
+@media (min-width: 769px) {
+    nav{
+        padding: 2rem 1rem;
+        position: static;
+        max-width: 900px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .nav_bar{
+        display: none;
+    }
+    .nav_links{
+        padding: 0;
+        width: 100%;
+        position: static;
+        transform: none;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: transparent;
+    }
+
+    .nav_links .nav_logo{
+        display: block;
+        max-width: 20px;
+    }
+}
+
+
+
+/*figure {
+    overflow:hidden;
+}*/
