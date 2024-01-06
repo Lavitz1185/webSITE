@@ -17,14 +17,8 @@ namespace webSITE.Models
         public DateTime TanggalLahir { get; set; }
         public JenisKelamin JenisKelamin { get; set; }
         public string PhotoPath { get; set; }
-        public string StrJenisKelamin { 
-            get 
-            {
-                if (JenisKelamin == JenisKelamin.LakiLaki)
-                    return "Laki - Laki";
-                else
-                    return "Perempuan";
-            } 
+        public string StrJenisKelamin {
+            get => JenisKelaminExtension.ToString(JenisKelamin);
         }
 
         public IList<Kegiatan> DaftarKegiatan { get; set; }

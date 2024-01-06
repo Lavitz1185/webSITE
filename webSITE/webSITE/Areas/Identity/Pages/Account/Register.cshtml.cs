@@ -98,6 +98,30 @@ namespace webSITE.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [StringLength(10, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 10)]
+            [Display(Name = "NIM")]
+            public string Nim { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "Nama Lengkap")]
+            public string NamaLengkap { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "Nama Panggilan")]
+            public string NamaPangggilan { get; set; }
+
+            [Required]
+            [DataType(DataType.Date)]
+            [Display(Name = "Tanggal Lahir")]
+            public DateTime TanggalLahir { get; set; }
+
+            [Required]
+            [Display(Name = "Jenis Kelamin")]
+            public JenisKelamin JenisKelamin { get; set; }
         }
 
 
@@ -114,6 +138,13 @@ namespace webSITE.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
+                user.Nim = Input.Nim;
+                user.NamaLengkap = Input.NamaLengkap;
+                user.NamaPanggilan = Input.NamaPangggilan;
+                user.TanggalLahir = Input.TanggalLahir;
+                user.JenisKelamin = Input.JenisKelamin;
+                user.PhotoPath = "/img/LOGO_SITE-removebg-preview.png";
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -141,6 +172,7 @@ namespace webSITE.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        await _userManager.AddToRoleAsync(user, "Admin");
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
