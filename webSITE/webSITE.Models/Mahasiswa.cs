@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using webSITE.Models.Identity;
 
 namespace webSITE.Models
 {
-    public class Mahasiswa
+    public class Mahasiswa : IdentityUser
     {
         public int Id { get; set; }
         public string Nim { get; set; }
@@ -27,7 +28,6 @@ namespace webSITE.Models
             } 
         }
 
-        public AppUser? AppUser { get; set; }
         public IList<Kegiatan> DaftarKegiatan { get; set; }
         public IList<Foto> DaftarFoto { get; set; }
     }

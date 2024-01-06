@@ -12,8 +12,8 @@ using webSITE.Data;
 namespace webSITE.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240101010759_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20240106061120_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,8 +30,8 @@ namespace webSITE.Migrations.Identity
                     b.Property<int>("DaftarFotoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DaftarMahasiswaId")
-                        .HasColumnType("int");
+                    b.Property<string>("DaftarMahasiswaId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("DaftarFotoId", "DaftarMahasiswaId");
 
@@ -45,8 +45,8 @@ namespace webSITE.Migrations.Identity
                     b.Property<int>("DaftarKegiatanId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DaftarMahasiswaId")
-                        .HasColumnType("int");
+                    b.Property<string>("DaftarMahasiswaId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("DaftarKegiatanId", "DaftarMahasiswaId");
 
@@ -80,22 +80,6 @@ namespace webSITE.Migrations.Identity
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "57ebc6a3-3e34-45e6-ac93-e234ac4e9b36",
-                            ConcurrencyStamp = "26558d38-cc2b-4cba-93c2-8fd8f16be6c4",
-                            Name = "Mahasiswa",
-                            NormalizedName = "MAHASISWA"
-                        },
-                        new
-                        {
-                            Id = "57ebc6a3-3e34-45e6-ac93-e234ac4e9b37",
-                            ConcurrencyStamp = "cf552f46-e34c-4336-9755-6c6187b60663",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -185,18 +169,6 @@ namespace webSITE.Migrations.Identity
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "a9c75e44-efd5-4a30-b577-cdb381bdd949",
-                            RoleId = "57ebc6a3-3e34-45e6-ac93-e234ac4e9b36"
-                        },
-                        new
-                        {
-                            UserId = "a9c75e44-efd5-4a30-b577-cdb381bdd949",
-                            RoleId = "57ebc6a3-3e34-45e6-ac93-e234ac4e9b37"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -248,96 +220,6 @@ namespace webSITE.Migrations.Identity
                     b.ToTable("Foto");
                 });
 
-            modelBuilder.Entity("webSITE.Models.Identity.AppUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("IdMahasiswa")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdMahasiswa")
-                        .IsUnique();
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "a9c75e44-efd5-4a30-b577-cdb381bdd949",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "705730a8-3791-47c9-b50c-6b45c5e8282d",
-                            Email = "aditaklal@gmail.com",
-                            EmailConfirmed = true,
-                            IdMahasiswa = 1,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADITAKLAL@GMAIL.COM",
-                            NormalizedUserName = "ADITAKLAL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEqa9Tmfitblp4LtYkG2tZe8VxZjz07mTwDgeCLcX8Xg8m4xgjzZY3334ds0LikArQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0db730ba-ae90-4166-9780-528a730b21f7",
-                            TwoFactorEnabled = false,
-                            UserName = "aditaklal@gmail.com"
-                        });
-                });
-
             modelBuilder.Entity("webSITE.Models.Kegiatan", b =>
                 {
                     b.Property<int>("Id")
@@ -371,14 +253,31 @@ namespace webSITE.Migrations.Identity
 
             modelBuilder.Entity("webSITE.Models.Mahasiswa", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<int>("JenisKelamin")
                         .HasColumnType("int");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NamaLengkap")
                         .IsRequired()
@@ -392,28 +291,51 @@ namespace webSITE.Migrations.Identity
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PhotoPath")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("TanggalLahir")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Mahasiswa");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            JenisKelamin = 0,
-                            NamaLengkap = "Adi Juanito Taklal",
-                            NamaPanggilan = "Adi",
-                            Nim = "2206080051",
-                            PhotoPath = "/img/contoh.jpeg",
-                            TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("FotoMahasiswa", b =>
@@ -457,7 +379,7 @@ namespace webSITE.Migrations.Identity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("webSITE.Models.Identity.AppUser", null)
+                    b.HasOne("webSITE.Models.Mahasiswa", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -466,7 +388,7 @@ namespace webSITE.Migrations.Identity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("webSITE.Models.Identity.AppUser", null)
+                    b.HasOne("webSITE.Models.Mahasiswa", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -481,7 +403,7 @@ namespace webSITE.Migrations.Identity
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("webSITE.Models.Identity.AppUser", null)
+                    b.HasOne("webSITE.Models.Mahasiswa", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -490,7 +412,7 @@ namespace webSITE.Migrations.Identity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("webSITE.Models.Identity.AppUser", null)
+                    b.HasOne("webSITE.Models.Mahasiswa", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -506,25 +428,9 @@ namespace webSITE.Migrations.Identity
                     b.Navigation("Kegiatan");
                 });
 
-            modelBuilder.Entity("webSITE.Models.Identity.AppUser", b =>
-                {
-                    b.HasOne("webSITE.Models.Mahasiswa", "Mahasiswa")
-                        .WithOne("AppUser")
-                        .HasForeignKey("webSITE.Models.Identity.AppUser", "IdMahasiswa")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Mahasiswa");
-                });
-
             modelBuilder.Entity("webSITE.Models.Kegiatan", b =>
                 {
                     b.Navigation("DaftarFoto");
-                });
-
-            modelBuilder.Entity("webSITE.Models.Mahasiswa", b =>
-                {
-                    b.Navigation("AppUser");
                 });
 #pragma warning restore 612, 618
         }

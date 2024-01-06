@@ -18,23 +18,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using webSITE.Models.Identity;
+using webSITE.Models;
 
 namespace webSITE.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly IUserStore<AppUser> _userStore;
-        private readonly IUserEmailStore<AppUser> _emailStore;
+        private readonly SignInManager<Mahasiswa> _signInManager;
+        private readonly UserManager<Mahasiswa> _userManager;
+        private readonly IUserStore<Mahasiswa> _userStore;
+        private readonly IUserEmailStore<Mahasiswa> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<AppUser> userManager,
-            IUserStore<AppUser> userStore,
-            SignInManager<AppUser> signInManager,
+            UserManager<Mahasiswa> userManager,
+            IUserStore<Mahasiswa> userStore,
+            SignInManager<Mahasiswa> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -155,27 +155,27 @@ namespace webSITE.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private AppUser CreateUser()
+        private Mahasiswa CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<AppUser>();
+                return Activator.CreateInstance<Mahasiswa>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(AppUser)}'. " +
-                    $"Ensure that '{nameof(AppUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(Mahasiswa)}'. " +
+                    $"Ensure that '{nameof(Mahasiswa)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<AppUser> GetEmailStore()
+        private IUserEmailStore<Mahasiswa> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<AppUser>)_userStore;
+            return (IUserEmailStore<Mahasiswa>)_userStore;
         }
     }
 }

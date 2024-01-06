@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using webSITE.Models;
-using webSITE.Models.Identity;
 
 namespace webSITE.Repositori.Data
 {
@@ -8,94 +7,11 @@ namespace webSITE.Repositori.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Mahasiswa>().HasData(
-                new Mahasiswa
-                {
-                    Id = 1,
-                    Nim = "2206080051",
-                    NamaLengkap = "Adi Juanito Taklal",
-                    NamaPanggilan = "Adi",
-                    TanggalLahir = new DateTime(2004, 2, 29),
-                    JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/contoh.jpeg"
-                },
-                new Mahasiswa
-                {
-                    Id = 2,
-                    Nim = "2206080052",
-                    NamaLengkap = "Adi Juanito Taklal",
-                    NamaPanggilan = "Adi",
-                    TanggalLahir = new DateTime(2004, 2, 29),
-                    JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/contoh.jpeg"
-                },
-                new Mahasiswa
-                {
-                    Id = 3,
-                    Nim = "2206080053",
-                    NamaLengkap = "Adi Juanito Taklal",
-                    NamaPanggilan = "Adi",
-                    TanggalLahir = new DateTime(2004, 2, 29),
-                    JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/contoh.jpeg"
-                },
-                new Mahasiswa
-                {
-                    Id = 4,
-                    Nim = "2206080054",
-                    NamaLengkap = "Adi Juanito Taklal",
-                    NamaPanggilan = "Adi",
-                    TanggalLahir = new DateTime(2004, 2, 29),
-                    JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/contoh.jpeg"
-                },
-                new Mahasiswa
-                {
-                    Id = 5,
-                    Nim = "2206080055",
-                    NamaLengkap = "Adi Juanito Taklal",
-                    NamaPanggilan = "Adi",
-                    TanggalLahir = new DateTime(2004, 2, 29),
-                    JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/contoh.jpeg"
-                },
-                new Mahasiswa
-                {
-                    Id = 6,
-                    Nim = "2206080056",
-                    NamaLengkap = "Adi Juanito Taklal",
-                    NamaPanggilan = "Adi",
-                    TanggalLahir = new DateTime(2004, 2, 29),
-                    JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/contoh.jpeg"
-                },
-                new Mahasiswa
-                {
-                    Id = 7,
-                    Nim = "2206080057",
-                    NamaLengkap = "Adi Juanito Taklal",
-                    NamaPanggilan = "Adi",
-                    TanggalLahir = new DateTime(2004, 2, 29),
-                    JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/contoh.jpeg"
-                },
-                new Mahasiswa
-                {
-                    Id = 8,
-                    Nim = "2206080058",
-                    NamaLengkap = "Adi Juanito Taklal",
-                    NamaPanggilan = "Adi",
-                    TanggalLahir = new DateTime(2004, 2, 29),
-                    JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/contoh.jpeg"
-                }
-            );
-
             modelBuilder.Entity<Kegiatan>().HasData(
                 new Kegiatan
                 {
@@ -225,9 +141,6 @@ namespace webSITE.Repositori.Data
                     l => l.HasOne<Foto>().WithMany().HasForeignKey(mf => mf.IdFoto),
                     r => r.HasOne<Mahasiswa>().WithMany().HasForeignKey(mf => mf.IdMahasiswa)
                 );
-
-            modelBuilder.Entity<Mahasiswa>().HasOne(m => m.AppUser).WithOne(u => u.Mahasiswa)
-                .HasForeignKey<AppUser>(u => u.IdMahasiswa);
 
             modelBuilder.Entity<Foto>().HasOne(f => f.Kegiatan)
                 .WithMany(k => k.DaftarFoto)
