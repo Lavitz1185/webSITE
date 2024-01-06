@@ -12259,19 +12259,21 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ACER\\.nuget\\packages\\": {}
+    "C:\\Users\\putra\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ACER\\Documents\\WebSITE\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
+      "projectUniqueName": "D:\\Coding MVC\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
       "projectName": "webSITE",
-      "projectPath": "C:\\Users\\ACER\\Documents\\WebSITE\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
-      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ACER\\Documents\\WebSITE\\webSITE\\webSITE\\webSITE\\obj\\",
+      "projectPath": "D:\\Coding MVC\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
+      "packagesPath": "C:\\Users\\putra\\.nuget\\packages\\",
+      "outputPath": "D:\\Coding MVC\\webSITE\\webSITE\\webSITE\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\putra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12285,8 +12287,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\ACER\\Documents\\WebSITE\\webSITE\\webSITE\\webSITE.Models\\webSITE.Models.csproj": {
-              "projectPath": "C:\\Users\\ACER\\Documents\\WebSITE\\webSITE\\webSITE\\webSITE.Models\\webSITE.Models.csproj"
+            "D:\\Coding MVC\\webSITE\\webSITE\\webSITE.Models\\webSITE.Models.csproj": {
+              "projectPath": "D:\\Coding MVC\\webSITE\\webSITE\\webSITE.Models\\webSITE.Models.csproj"
             }
           }
         }
@@ -12351,7 +12353,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
