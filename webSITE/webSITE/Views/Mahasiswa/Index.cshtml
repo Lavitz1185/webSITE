@@ -6,6 +6,17 @@
     ViewData["title"] = "Siters";
 }
 
+<style>
+    .img-thumbnail {
+        transform: rotate(0) scale(1);
+        transition: transform .3s ease-in;
+    }
+
+        .img-thumbnail:hover {
+            transform: rotate(5deg) scale(1.3);
+        }
+</style>
+
 <div class="container-fluid">
     <div class="row">
         @foreach (var mahasiswa in Model)
@@ -15,10 +26,8 @@
                     <div class="card-header">
                         <h5 class="card-title">@mahasiswa.NamaLengkap</h5>
                     </div>
-                    <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-nim="@mahasiswa.Nim">
-                        <figure>
-                            <img class="card-img img-thumbnail" src="@mahasiswa.PhotoPath" alt="Foto @mahasiswa.NamaLengkap">
-                        </figure>
+                    <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-nim="@mahasiswa.Nim" style="overflow:hidden;">
+                        <img class="card-img img-thumbnail" src="@mahasiswa.PhotoPath" alt="Foto @mahasiswa.NamaLengkap">
                     </a>
                     <div class="card-footer">
                         <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-nim="@mahasiswa.Nim"

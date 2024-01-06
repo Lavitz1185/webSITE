@@ -9,11 +9,19 @@ using webSITE.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+string connectionString = "";
+
+if (builder.Environment.IsDevelopment())
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+else
+    connectionString = builder.Configuration.GetConnectionString("PublishedConnection");
+
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(connectionString);
 });
 
 builder.Services.AddDefaultIdentity<Mahasiswa>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -21,7 +29,7 @@ builder.Services.AddDefaultIdentity<Mahasiswa>(options => options.SignIn.Require
 
 builder.Services.AddDbContext<IdentityContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(connectionString);
 });
 
 builder.Services.AddScoped<IRepositoriMahasiswa, RepositoriMahasiswa>();

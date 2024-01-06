@@ -13,10 +13,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <DestinationConnectionStrings Include="DefaultConnection">
       <Value>server=site-undana.com%3bdatabase=webSITEDb%3bUser Id=sa%3bpassword=AdiAirnona290204%3bTrustServerCertificate=true</Value>
     </DestinationConnectionStrings>
-  </ItemGroup>
-  <ItemGroup>
-    <EFMigrations Include="webSITE.Repositori.Data.AppDbContext">
-      <Value>server=site-undana.com%3bdatabase=webSITEDb%3bUser Id=sa%3bpassword=AdiAirnona290204%3bTrustServerCertificate=True</Value>
-    </EFMigrations>
+    <DestinationConnectionStrings Include="PublishedConnection">
+      <Value>Server=site-undana.com%3bDatabase=webSITEDb%3buser id=sa%3bpassword=AdiAirnona290204%3bTrustServerCertificate=true</Value>
+    </DestinationConnectionStrings>
   </ItemGroup>
 </Project>
