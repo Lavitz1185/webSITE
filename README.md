@@ -20,7 +20,7 @@ Tambahan UI :
     - Highlight Album
   - Siters : 
     - Publik 
-    - Profil Bio isi terserah
+    - Profil Bio isi terserah (Siap)
 
 Download kode (Satu Kali saja)
 - Pilih Folder
