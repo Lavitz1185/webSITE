@@ -12259,20 +12259,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\putra\\.nuget\\packages\\": {},
+    "C:\\Users\\yogat\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Coding MVC\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
+      "projectUniqueName": "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
       "projectName": "webSITE",
-      "projectPath": "D:\\Coding MVC\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
-      "packagesPath": "C:\\Users\\putra\\.nuget\\packages\\",
-      "outputPath": "D:\\Coding MVC\\webSITE\\webSITE\\webSITE\\obj\\",
+      "projectPath": "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE\\webSITE.csproj",
+      "packagesPath": "C:\\Users\\yogat\\.nuget\\packages\\",
+      "outputPath": "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\putra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\yogat\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -12287,8 +12290,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Coding MVC\\webSITE\\webSITE\\webSITE.Models\\webSITE.Models.csproj": {
-              "projectPath": "D:\\Coding MVC\\webSITE\\webSITE\\webSITE.Models\\webSITE.Models.csproj"
+            "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE.Models\\webSITE.Models.csproj": {
+              "projectPath": "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE.Models\\webSITE.Models.csproj"
             }
           }
         }
@@ -12353,7 +12356,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

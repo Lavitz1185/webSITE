@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace webSITE.Migrations.Identity
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace webSITE.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -26,7 +28,24 @@ namespace webSITE.Migrations.Identity
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "TblKegiatan",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NamaKegiatan = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TanggalMulai = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TanggalBerakhir = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TempatKegiatan = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Keterangan = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblKegiatan", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TblMahasiswa",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -53,24 +72,7 @@ namespace webSITE.Migrations.Identity
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Kegiatan",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NamaKegiatan = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TanggalMulai = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TanggalBerakhir = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TempatKegiatan = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Keterangan = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Kegiatan", x => x.Id);
+                    table.PrimaryKey("PK_TblMahasiswa", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,6 +97,26 @@ namespace webSITE.Migrations.Identity
                 });
 
             migrationBuilder.CreateTable(
+                name: "TblFoto",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tanggal = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdKegiatan = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TblFoto", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TblFoto_TblKegiatan_IdKegiatan",
+                        column: x => x.IdKegiatan,
+                        principalTable: "TblKegiatan",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -108,9 +130,9 @@ namespace webSITE.Migrations.Identity
                 {
                     table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        name: "FK_AspNetUserClaims_TblMahasiswa_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "TblMahasiswa",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -128,9 +150,9 @@ namespace webSITE.Migrations.Identity
                 {
                     table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        name: "FK_AspNetUserLogins_TblMahasiswa_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "TblMahasiswa",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -152,9 +174,9 @@ namespace webSITE.Migrations.Identity
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        name: "FK_AspNetUserRoles_TblMahasiswa_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "TblMahasiswa",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -172,80 +194,116 @@ namespace webSITE.Migrations.Identity
                 {
                     table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        name: "FK_AspNetUserTokens_TblMahasiswa_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "TblMahasiswa",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Foto",
+                name: "TblPesertaKegiatan",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Tanggal = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PhotoPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdKegiatan = table.Column<int>(type: "int", nullable: true),
-                    KegiatanId = table.Column<int>(type: "int", nullable: true)
+                    IdMahasiswa = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdKegiatan = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Foto", x => x.Id);
+                    table.PrimaryKey("PK_TblPesertaKegiatan", x => new { x.IdKegiatan, x.IdMahasiswa });
                     table.ForeignKey(
-                        name: "FK_Foto_Kegiatan_KegiatanId",
-                        column: x => x.KegiatanId,
-                        principalTable: "Kegiatan",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "KegiatanMahasiswa",
-                columns: table => new
-                {
-                    DaftarKegiatanId = table.Column<int>(type: "int", nullable: false),
-                    DaftarMahasiswaId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_KegiatanMahasiswa", x => new { x.DaftarKegiatanId, x.DaftarMahasiswaId });
-                    table.ForeignKey(
-                        name: "FK_KegiatanMahasiswa_AspNetUsers_DaftarMahasiswaId",
-                        column: x => x.DaftarMahasiswaId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_TblPesertaKegiatan_TblKegiatan_IdKegiatan",
+                        column: x => x.IdKegiatan,
+                        principalTable: "TblKegiatan",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_KegiatanMahasiswa_Kegiatan_DaftarKegiatanId",
-                        column: x => x.DaftarKegiatanId,
-                        principalTable: "Kegiatan",
+                        name: "FK_TblPesertaKegiatan_TblMahasiswa_IdMahasiswa",
+                        column: x => x.IdMahasiswa,
+                        principalTable: "TblMahasiswa",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FotoMahasiswa",
+                name: "TblMahasiswaFoto",
                 columns: table => new
                 {
-                    DaftarFotoId = table.Column<int>(type: "int", nullable: false),
-                    DaftarMahasiswaId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    IdMahasiswa = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdFoto = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FotoMahasiswa", x => new { x.DaftarFotoId, x.DaftarMahasiswaId });
+                    table.PrimaryKey("PK_TblMahasiswaFoto", x => new { x.IdFoto, x.IdMahasiswa });
                     table.ForeignKey(
-                        name: "FK_FotoMahasiswa_AspNetUsers_DaftarMahasiswaId",
-                        column: x => x.DaftarMahasiswaId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_TblMahasiswaFoto_TblFoto_IdFoto",
+                        column: x => x.IdFoto,
+                        principalTable: "TblFoto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FotoMahasiswa_Foto_DaftarFotoId",
-                        column: x => x.DaftarFotoId,
-                        principalTable: "Foto",
+                        name: "FK_TblMahasiswaFoto_TblMahasiswa_IdMahasiswa",
+                        column: x => x.IdMahasiswa,
+                        principalTable: "TblMahasiswa",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "1", "f4fa70ec-c39e-464b-a645-726fb3ee2a23", "Mahasiswa", "MAHASISWA" },
+                    { "2", "18bfd6a2-0803-4162-89fd-38265e398489", "Admin", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TblKegiatan",
+                columns: new[] { "Id", "Keterangan", "NamaKegiatan", "TanggalBerakhir", "TanggalMulai", "TempatKegiatan" },
+                values: new object[] { 1, "Kegiatan Pertama", "Kegiatan 1", new DateTime(2023, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Undana" });
+
+            migrationBuilder.InsertData(
+                table: "TblMahasiswa",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "JenisKelamin", "LockoutEnabled", "LockoutEnd", "NamaLengkap", "NamaPanggilan", "Nim", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PhotoPath", "SecurityStamp", "TanggalLahir", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "1", 0, "cf2d410b-d1d9-4313-9d91-4c6c60fdffeb", "aditaklal@gmail.com", true, 0, false, null, "Adi Juanito Taklal", "Adi", "2206080051", "ADITAKLAL@GMAIL.COM", "ADITAKLAL@GMAIL.COM", "AQAAAAEAACcQAAAAEIOqSfoY7u8WUFyVG70hnPfb+I5gzpSz+1vvQf/jYHkzzPHW7zxWwwxkj4iKCspCVw==", null, false, "/img/contoh.jpeg", "336d8b47-7c60-4232-9302-2d3c3e9aeb14", new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "aditaklal@gmail.com" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { "1", "1" },
+                    { "2", "1" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TblFoto",
+                columns: new[] { "Id", "IdKegiatan", "PhotoPath", "Tanggal" },
+                values: new object[,]
+                {
+                    { 1, 1, "/img/contoh.jpeg", new DateTime(2023, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, 1, "/img/contoh.jpeg", new DateTime(2023, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, 1, "/img/contoh.jpeg", new DateTime(2023, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, 1, "/img/contoh.jpeg", new DateTime(2023, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, 1, "/img/contoh.jpeg", new DateTime(2023, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TblPesertaKegiatan",
+                columns: new[] { "IdKegiatan", "IdMahasiswa" },
+                values: new object[] { 1, "1" });
+
+            migrationBuilder.InsertData(
+                table: "TblMahasiswaFoto",
+                columns: new[] { "IdFoto", "IdMahasiswa" },
+                values: new object[,]
+                {
+                    { 1, "1" },
+                    { 2, "1" },
+                    { 3, "1" },
+                    { 4, "1" },
+                    { 5, "1" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -276,31 +334,31 @@ namespace webSITE.Migrations.Identity
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TblFoto_IdKegiatan",
+                table: "TblFoto",
+                column: "IdKegiatan");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
-                table: "AspNetUsers",
+                table: "TblMahasiswa",
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
-                table: "AspNetUsers",
+                table: "TblMahasiswa",
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Foto_KegiatanId",
-                table: "Foto",
-                column: "KegiatanId");
+                name: "IX_TblMahasiswaFoto_IdMahasiswa",
+                table: "TblMahasiswaFoto",
+                column: "IdMahasiswa");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FotoMahasiswa_DaftarMahasiswaId",
-                table: "FotoMahasiswa",
-                column: "DaftarMahasiswaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_KegiatanMahasiswa_DaftarMahasiswaId",
-                table: "KegiatanMahasiswa",
-                column: "DaftarMahasiswaId");
+                name: "IX_TblPesertaKegiatan_IdMahasiswa",
+                table: "TblPesertaKegiatan",
+                column: "IdMahasiswa");
         }
 
         /// <inheritdoc />
@@ -322,22 +380,22 @@ namespace webSITE.Migrations.Identity
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "FotoMahasiswa");
+                name: "TblMahasiswaFoto");
 
             migrationBuilder.DropTable(
-                name: "KegiatanMahasiswa");
+                name: "TblPesertaKegiatan");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Foto");
+                name: "TblFoto");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "TblMahasiswa");
 
             migrationBuilder.DropTable(
-                name: "Kegiatan");
+                name: "TblKegiatan");
         }
     }
 }

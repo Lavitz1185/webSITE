@@ -25,10 +25,7 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Mahasiswa> Delete(int id)
         {
-            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Id == id);
-            if (mahasiswa != null)
-                dbContext.Remove(mahasiswa);
-            return mahasiswa;
+            throw new NotImplementedException();
         }
 
         public async Task<Mahasiswa> GetByNim(string nim)
@@ -42,10 +39,7 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Mahasiswa> Get(int id)
         {
-            var mahasiswa = await dbContext.TblMahasiswa.
-                Include(m => m.DaftarFoto).
-                Include(m => m.DaftarKegiatan).FirstOrDefaultAsync(m => m.Id == id);
-            return mahasiswa;
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Mahasiswa>> GetAll()
@@ -56,7 +50,7 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Mahasiswa> Update(Mahasiswa entity)
         {
-            var mahasiswa = await Get(entity.Id);
+            var mahasiswa = await dbContext.TblMahasiswa.FindAsync(entity.Id);
             if(mahasiswa != null )
             {
                 dbContext.Update(entity);

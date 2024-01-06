@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using webSITE.Data;
+using webSITE.Repositori.Data;
 
 #nullable disable
 
-namespace webSITE.Migrations.Identity
+namespace webSITE.Migrations
 {
-    [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20240106105559_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,36 +24,6 @@ namespace webSITE.Migrations.Identity
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("FotoMahasiswa", b =>
-                {
-                    b.Property<int>("DaftarFotoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DaftarMahasiswaId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("DaftarFotoId", "DaftarMahasiswaId");
-
-                    b.HasIndex("DaftarMahasiswaId");
-
-                    b.ToTable("FotoMahasiswa");
-                });
-
-            modelBuilder.Entity("KegiatanMahasiswa", b =>
-                {
-                    b.Property<int>("DaftarKegiatanId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DaftarMahasiswaId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("DaftarKegiatanId", "DaftarMahasiswaId");
-
-                    b.HasIndex("DaftarMahasiswaId");
-
-                    b.ToTable("KegiatanMahasiswa");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -77,41 +50,19 @@ namespace webSITE.Migrations.Identity
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityRole<int>");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            ConcurrencyStamp = "080ac954-6051-4800-958a-c84a12b1a0bc",
+                            Id = "1",
+                            ConcurrencyStamp = "f4fa70ec-c39e-464b-a645-726fb3ee2a23",
                             Name = "Mahasiswa",
                             NormalizedName = "MAHASISWA"
                         },
                         new
                         {
-                            Id = 2,
-                            ConcurrencyStamp = "54dabdbe-7959-4d77-b2e8-7c6d316f51f9",
+                            Id = "2",
+                            ConcurrencyStamp = "18bfd6a2-0803-4162-89fd-38265e398489",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -191,31 +142,6 @@ namespace webSITE.Migrations.Identity
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.ToTable("IdentityUserRole<int>");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 2
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
@@ -229,6 +155,18 @@ namespace webSITE.Migrations.Identity
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "1"
+                        },
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "2"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -263,9 +201,6 @@ namespace webSITE.Migrations.Identity
                     b.Property<int?>("IdKegiatan")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KegiatanId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PhotoPath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -275,9 +210,46 @@ namespace webSITE.Migrations.Identity
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KegiatanId");
+                    b.HasIndex("IdKegiatan");
 
-                    b.ToTable("Foto");
+                    b.ToTable("TblFoto");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdKegiatan = 1,
+                            PhotoPath = "/img/contoh.jpeg",
+                            Tanggal = new DateTime(2023, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdKegiatan = 1,
+                            PhotoPath = "/img/contoh.jpeg",
+                            Tanggal = new DateTime(2023, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IdKegiatan = 1,
+                            PhotoPath = "/img/contoh.jpeg",
+                            Tanggal = new DateTime(2023, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IdKegiatan = 1,
+                            PhotoPath = "/img/contoh.jpeg",
+                            Tanggal = new DateTime(2023, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IdKegiatan = 1,
+                            PhotoPath = "/img/contoh.jpeg",
+                            Tanggal = new DateTime(2023, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("webSITE.Models.Kegiatan", b =>
@@ -308,7 +280,18 @@ namespace webSITE.Migrations.Identity
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kegiatan");
+                    b.ToTable("TblKegiatan");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Keterangan = "Kegiatan Pertama",
+                            NamaKegiatan = "Kegiatan 1",
+                            TanggalBerakhir = new DateTime(2023, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TanggalMulai = new DateTime(2023, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TempatKegiatan = "Undana"
+                        });
                 });
 
             modelBuilder.Entity("webSITE.Models.Mahasiswa", b =>
@@ -395,14 +378,14 @@ namespace webSITE.Migrations.Identity
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("TblMahasiswa", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = "610ac781-a73e-46e4-bb3e-c35782ca3304",
+                            Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "63bf2b8a-e786-488e-b5d1-b757bed058b1",
+                            ConcurrencyStamp = "cf2d410b-d1d9-4313-9d91-4c6c60fdffeb",
                             Email = "aditaklal@gmail.com",
                             EmailConfirmed = true,
                             JenisKelamin = 0,
@@ -412,44 +395,78 @@ namespace webSITE.Migrations.Identity
                             Nim = "2206080051",
                             NormalizedEmail = "ADITAKLAL@GMAIL.COM",
                             NormalizedUserName = "ADITAKLAL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAkEnmkZtCLkHr7FIVCEg1b43u6nXok1hGbNyK1QoZ2jdaSwURK3JFAAMp7jbZlcug==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIOqSfoY7u8WUFyVG70hnPfb+I5gzpSz+1vvQf/jYHkzzPHW7zxWwwxkj4iKCspCVw==",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/img/contoh.jpeg",
-                            SecurityStamp = "f53b2124-dbc9-4dfe-afc7-aa8e5e324c1b",
+                            SecurityStamp = "336d8b47-7c60-4232-9302-2d3c3e9aeb14",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TwoFactorEnabled = false,
                             UserName = "aditaklal@gmail.com"
                         });
                 });
 
-            modelBuilder.Entity("FotoMahasiswa", b =>
+            modelBuilder.Entity("webSITE.Models.MahasiswaFoto", b =>
                 {
-                    b.HasOne("webSITE.Models.Foto", null)
-                        .WithMany()
-                        .HasForeignKey("DaftarFotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("IdFoto")
+                        .HasColumnType("int");
 
-                    b.HasOne("webSITE.Models.Mahasiswa", null)
-                        .WithMany()
-                        .HasForeignKey("DaftarMahasiswaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<string>("IdMahasiswa")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("IdFoto", "IdMahasiswa");
+
+                    b.HasIndex("IdMahasiswa");
+
+                    b.ToTable("TblMahasiswaFoto");
+
+                    b.HasData(
+                        new
+                        {
+                            IdFoto = 1,
+                            IdMahasiswa = "1"
+                        },
+                        new
+                        {
+                            IdFoto = 2,
+                            IdMahasiswa = "1"
+                        },
+                        new
+                        {
+                            IdFoto = 3,
+                            IdMahasiswa = "1"
+                        },
+                        new
+                        {
+                            IdFoto = 4,
+                            IdMahasiswa = "1"
+                        },
+                        new
+                        {
+                            IdFoto = 5,
+                            IdMahasiswa = "1"
+                        });
                 });
 
-            modelBuilder.Entity("KegiatanMahasiswa", b =>
+            modelBuilder.Entity("webSITE.Models.PesertaKegiatan", b =>
                 {
-                    b.HasOne("webSITE.Models.Kegiatan", null)
-                        .WithMany()
-                        .HasForeignKey("DaftarKegiatanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("IdKegiatan")
+                        .HasColumnType("int");
 
-                    b.HasOne("webSITE.Models.Mahasiswa", null)
-                        .WithMany()
-                        .HasForeignKey("DaftarMahasiswaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<string>("IdMahasiswa")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("IdKegiatan", "IdMahasiswa");
+
+                    b.HasIndex("IdMahasiswa");
+
+                    b.ToTable("TblPesertaKegiatan");
+
+                    b.HasData(
+                        new
+                        {
+                            IdKegiatan = 1,
+                            IdMahasiswa = "1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -507,9 +524,39 @@ namespace webSITE.Migrations.Identity
                 {
                     b.HasOne("webSITE.Models.Kegiatan", "Kegiatan")
                         .WithMany("DaftarFoto")
-                        .HasForeignKey("KegiatanId");
+                        .HasForeignKey("IdKegiatan");
 
                     b.Navigation("Kegiatan");
+                });
+
+            modelBuilder.Entity("webSITE.Models.MahasiswaFoto", b =>
+                {
+                    b.HasOne("webSITE.Models.Foto", null)
+                        .WithMany()
+                        .HasForeignKey("IdFoto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("webSITE.Models.Mahasiswa", null)
+                        .WithMany()
+                        .HasForeignKey("IdMahasiswa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("webSITE.Models.PesertaKegiatan", b =>
+                {
+                    b.HasOne("webSITE.Models.Kegiatan", null)
+                        .WithMany()
+                        .HasForeignKey("IdKegiatan")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("webSITE.Models.Mahasiswa", null)
+                        .WithMany()
+                        .HasForeignKey("IdMahasiswa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("webSITE.Models.Kegiatan", b =>

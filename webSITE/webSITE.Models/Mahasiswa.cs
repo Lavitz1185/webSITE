@@ -11,7 +11,6 @@ namespace webSITE.Models
 {
     public class Mahasiswa : IdentityUser
     {
-        public int Id { get; set; }
         public string Nim { get; set; }
         public string NamaLengkap { get; set; }
         public string NamaPanggilan { get; set; }

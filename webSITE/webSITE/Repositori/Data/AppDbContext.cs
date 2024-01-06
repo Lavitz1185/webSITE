@@ -1,18 +1,94 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using webSITE.Models;
 
 namespace webSITE.Repositori.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<Mahasiswa>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
             
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<Kegiatan>().HasData(
+            base.OnModelCreating(builder);
+            // Customize the ASP.NET Identity model and override the defaults if needed.
+            // For example, you can rename the ASP.NET Identity table names and more.
+            // Add your customizations after calling base.OnModelCreating(builder);
+
+            builder.Entity<Mahasiswa>().HasKey(m => m.Id);
+
+            builder.Entity<Kegiatan>().HasMany(k => k.DaftarMahasiswa)
+                .WithMany(m => m.DaftarKegiatan)
+                .UsingEntity<PesertaKegiatan>(
+                    l => l.HasOne<Mahasiswa>().WithMany().HasForeignKey(pk => pk.IdMahasiswa),
+                    r => r.HasOne<Kegiatan>().WithMany().HasForeignKey(pk => pk.IdKegiatan)
+                );
+
+            builder.Entity<Mahasiswa>().HasMany(m => m.DaftarFoto)
+                .WithMany(f => f.DaftarMahasiswa)
+                .UsingEntity<MahasiswaFoto>(
+                    l => l.HasOne<Foto>().WithMany().HasForeignKey(mf => mf.IdFoto),
+                    r => r.HasOne<Mahasiswa>().WithMany().HasForeignKey(mf => mf.IdMahasiswa)
+                );
+
+            builder.Entity<Foto>().HasOne(f => f.Kegiatan)
+                .WithMany(k => k.DaftarFoto)
+                .HasForeignKey(f => f.IdKegiatan);
+
+            builder.Entity<Mahasiswa>().ToTable("TblMahasiswa");
+
+            builder.Entity<Mahasiswa>().HasData(
+                new Mahasiswa
+                {
+                    Id = "1",
+                    Nim = "2206080051",
+                    NamaLengkap = "Adi Juanito Taklal",
+                    NamaPanggilan = "Adi",
+                    TanggalLahir = new DateTime(2004, 2, 29),
+                    JenisKelamin = JenisKelamin.LakiLaki,
+                    PhotoPath = "/img/contoh.jpeg",
+                    Email = "aditaklal@gmail.com",
+                    PasswordHash = new PasswordHasher<Mahasiswa>().HashPassword(null, "adiairnona"),
+                    EmailConfirmed = true,
+                    NormalizedEmail = "ADITAKLAL@GMAIL.COM",
+                    UserName = "aditaklal@gmail.com",
+                    NormalizedUserName = "ADITAKLAL@GMAIL.COM",
+                }
+           );
+
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Id = "1",
+                    Name = "Mahasiswa",
+                    NormalizedName = "MAHASISWA"
+                },
+                new IdentityRole
+                {
+                    Id = "2",
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                }
+            );
+
+            builder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>()
+                {
+                    UserId = "1",
+                    RoleId = "1"
+                },
+                new IdentityUserRole<string>()
+                {
+                    UserId = "1",
+                    RoleId = "2",
+                }
+            );
+
+            builder.Entity<Kegiatan>().HasData(
                 new Kegiatan
                 {
                     Id = 1,
@@ -24,20 +100,15 @@ namespace webSITE.Repositori.Data
                 }
             );
 
-            modelBuilder.Entity<PesertaKegiatan>().HasData(
+            builder.Entity<PesertaKegiatan>().HasData(
                 new PesertaKegiatan
                 {
                     IdKegiatan = 1,
-                    IdMahasiswa = 1,
-                },
-                new PesertaKegiatan
-                {
-                    IdKegiatan = 1,
-                    IdMahasiswa = 2,
+                    IdMahasiswa = "1",
                 }
             );
 
-            modelBuilder.Entity<Foto>().HasData(
+            builder.Entity<Foto>().HasData(
                 new Foto
                 {
                     Id = 1,
@@ -75,78 +146,33 @@ namespace webSITE.Repositori.Data
                 }
             );
 
-            modelBuilder.Entity<MahasiswaFoto>().HasData(
+            builder.Entity<MahasiswaFoto>().HasData(
                 new MahasiswaFoto
                 {
                     IdFoto = 1,
-                    IdMahasiswa = 1,
-                },
-                new MahasiswaFoto
-                {
-                    IdFoto = 1,
-                    IdMahasiswa = 2,
+                    IdMahasiswa = "1",
                 },
                 new MahasiswaFoto
                 {
                     IdFoto = 2,
-                    IdMahasiswa = 1,
-                },
-                new MahasiswaFoto
-                {
-                    IdFoto = 2,
-                    IdMahasiswa = 2,
+                    IdMahasiswa = "1",
                 },
                 new MahasiswaFoto
                 {
                     IdFoto = 3,
-                    IdMahasiswa = 1,
-                },
-                new MahasiswaFoto
-                {
-                    IdFoto = 3,
-                    IdMahasiswa = 2,
+                    IdMahasiswa = "1",
                 },
                 new MahasiswaFoto
                 {
                     IdFoto = 4,
-                    IdMahasiswa = 1,
-                },
-                new MahasiswaFoto
-                {
-                    IdFoto = 4,
-                    IdMahasiswa = 2,
+                    IdMahasiswa = "1",
                 },
                 new MahasiswaFoto
                 {
                     IdFoto = 5,
-                    IdMahasiswa = 1,
-                },
-                new MahasiswaFoto
-                {
-                    IdFoto = 5,
-                    IdMahasiswa = 2,
+                    IdMahasiswa = "1",
                 }
             );
-
-            modelBuilder.Entity<Kegiatan>().HasMany(k => k.DaftarMahasiswa)
-                .WithMany(m => m.DaftarKegiatan)
-                .UsingEntity<PesertaKegiatan>(
-                    l => l.HasOne<Mahasiswa>().WithMany().HasForeignKey(pk => pk.IdMahasiswa),
-                    r => r.HasOne<Kegiatan>().WithMany().HasForeignKey(pk => pk.IdKegiatan)
-                );
-
-            modelBuilder.Entity<Mahasiswa>().HasMany(m => m.DaftarFoto)
-                .WithMany(f => f.DaftarMahasiswa)
-                .UsingEntity<MahasiswaFoto>(
-                    l => l.HasOne<Foto>().WithMany().HasForeignKey(mf => mf.IdFoto),
-                    r => r.HasOne<Mahasiswa>().WithMany().HasForeignKey(mf => mf.IdMahasiswa)
-                );
-
-            modelBuilder.Entity<Foto>().HasOne(f => f.Kegiatan)
-                .WithMany(k => k.DaftarFoto)
-                .HasForeignKey(f => f.IdKegiatan);
-
-            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Mahasiswa> TblMahasiswa { get; set; }

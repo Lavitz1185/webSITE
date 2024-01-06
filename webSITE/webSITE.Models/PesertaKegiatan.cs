@@ -8,7 +8,7 @@ namespace webSITE.Models
 {
     public class PesertaKegiatan
     {
-        public int IdMahasiswa { get; set; }
+        public string IdMahasiswa { get; set; }
         public int IdKegiatan { get; set; }
     }
 }

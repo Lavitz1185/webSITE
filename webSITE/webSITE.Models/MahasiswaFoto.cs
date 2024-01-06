@@ -8,7 +8,7 @@ namespace webSITE.Models
 {
     public class MahasiswaFoto
     {
-        public int IdMahasiswa { get; set; }
+        public string IdMahasiswa { get; set; }
         public int IdFoto { get; set; }
     }
 }

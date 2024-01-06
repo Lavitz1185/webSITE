@@ -3,7 +3,6 @@ using webSITE.Repositori.Data;
 using webSITE.Repositori.Implementasi;
 using webSITE.Repositori.Interface;
 using Microsoft.AspNetCore.Identity;
-using webSITE.Data;
 using webSITE.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,12 +24,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddDefaultIdentity<Mahasiswa>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<IdentityContext>();
-
-builder.Services.AddDbContext<IdentityContext>(options =>
-{
-    options.UseSqlServer(connectionString);
-});
+    .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddScoped<IRepositoriMahasiswa, RepositoriMahasiswa>();
 builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();

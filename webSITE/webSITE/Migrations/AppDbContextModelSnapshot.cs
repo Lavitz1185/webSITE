@@ -22,6 +22,171 @@ namespace webSITE.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            ConcurrencyStamp = "f4fa70ec-c39e-464b-a645-726fb3ee2a23",
+                            Name = "Mahasiswa",
+                            NormalizedName = "MAHASISWA"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            ConcurrencyStamp = "18bfd6a2-0803-4162-89fd-38265e398489",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "1"
+                        },
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "2"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
             modelBuilder.Entity("webSITE.Models.Foto", b =>
                 {
                     b.Property<int>("Id")
@@ -128,20 +293,19 @@ namespace webSITE.Migrations
 
             modelBuilder.Entity("webSITE.Models.Mahasiswa", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -168,10 +332,12 @@ namespace webSITE.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -196,148 +362,43 @@ namespace webSITE.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TblMahasiswa");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("TblMahasiswa", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "34041a30-8807-43d7-a5b9-a6519c6e9597",
-                            EmailConfirmed = false,
+                            ConcurrencyStamp = "cf2d410b-d1d9-4313-9d91-4c6c60fdffeb",
+                            Email = "aditaklal@gmail.com",
+                            EmailConfirmed = true,
                             JenisKelamin = 0,
                             LockoutEnabled = false,
                             NamaLengkap = "Adi Juanito Taklal",
                             NamaPanggilan = "Adi",
                             Nim = "2206080051",
+                            NormalizedEmail = "ADITAKLAL@GMAIL.COM",
+                            NormalizedUserName = "ADITAKLAL@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIOqSfoY7u8WUFyVG70hnPfb+I5gzpSz+1vvQf/jYHkzzPHW7zxWwwxkj4iKCspCVw==",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/img/contoh.jpeg",
-                            SecurityStamp = "094b3a2b-13ab-450e-ab4d-1cec50c4e4b1",
+                            SecurityStamp = "336d8b47-7c60-4232-9302-2d3c3e9aeb14",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TwoFactorEnabled = false
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d5b4928b-d297-4345-954c-8382dd5a294c",
-                            EmailConfirmed = false,
-                            JenisKelamin = 0,
-                            LockoutEnabled = false,
-                            NamaLengkap = "Adi Juanito Taklal",
-                            NamaPanggilan = "Adi",
-                            Nim = "2206080052",
-                            PhoneNumberConfirmed = false,
-                            PhotoPath = "/img/contoh.jpeg",
-                            SecurityStamp = "8bdba0a6-a14b-441b-aa82-3a1ae8eee92f",
-                            TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TwoFactorEnabled = false
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d4c13d1-2efe-4989-b60b-5209bada9419",
-                            EmailConfirmed = false,
-                            JenisKelamin = 0,
-                            LockoutEnabled = false,
-                            NamaLengkap = "Adi Juanito Taklal",
-                            NamaPanggilan = "Adi",
-                            Nim = "2206080053",
-                            PhoneNumberConfirmed = false,
-                            PhotoPath = "/img/contoh.jpeg",
-                            SecurityStamp = "475443b8-4d1e-42e3-ab16-dad87f056515",
-                            TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TwoFactorEnabled = false
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b68c0e30-c6ff-465d-8269-a1d51bd135ce",
-                            EmailConfirmed = false,
-                            JenisKelamin = 0,
-                            LockoutEnabled = false,
-                            NamaLengkap = "Adi Juanito Taklal",
-                            NamaPanggilan = "Adi",
-                            Nim = "2206080054",
-                            PhoneNumberConfirmed = false,
-                            PhotoPath = "/img/contoh.jpeg",
-                            SecurityStamp = "9c74d879-34c4-4f4c-ab79-dc483538cc34",
-                            TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TwoFactorEnabled = false
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "01472c61-c064-4dc8-8baf-d30bd24f7aff",
-                            EmailConfirmed = false,
-                            JenisKelamin = 0,
-                            LockoutEnabled = false,
-                            NamaLengkap = "Adi Juanito Taklal",
-                            NamaPanggilan = "Adi",
-                            Nim = "2206080055",
-                            PhoneNumberConfirmed = false,
-                            PhotoPath = "/img/contoh.jpeg",
-                            SecurityStamp = "26edfc02-cad6-42ad-9cc9-859da64979cd",
-                            TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TwoFactorEnabled = false
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c82961fa-1a8c-485c-99c8-595e43624407",
-                            EmailConfirmed = false,
-                            JenisKelamin = 0,
-                            LockoutEnabled = false,
-                            NamaLengkap = "Adi Juanito Taklal",
-                            NamaPanggilan = "Adi",
-                            Nim = "2206080056",
-                            PhoneNumberConfirmed = false,
-                            PhotoPath = "/img/contoh.jpeg",
-                            SecurityStamp = "c046a7ac-f662-45cf-9c93-70ab148146c0",
-                            TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TwoFactorEnabled = false
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "384bafba-f162-4a9f-84b1-fa78e5890fee",
-                            EmailConfirmed = false,
-                            JenisKelamin = 0,
-                            LockoutEnabled = false,
-                            NamaLengkap = "Adi Juanito Taklal",
-                            NamaPanggilan = "Adi",
-                            Nim = "2206080057",
-                            PhoneNumberConfirmed = false,
-                            PhotoPath = "/img/contoh.jpeg",
-                            SecurityStamp = "68f6b256-fa1b-44d7-8fe8-690441f25459",
-                            TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TwoFactorEnabled = false
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "87848c38-bdcd-4d52-9e3f-703ad8627b47",
-                            EmailConfirmed = false,
-                            JenisKelamin = 0,
-                            LockoutEnabled = false,
-                            NamaLengkap = "Adi Juanito Taklal",
-                            NamaPanggilan = "Adi",
-                            Nim = "2206080058",
-                            PhoneNumberConfirmed = false,
-                            PhotoPath = "/img/contoh.jpeg",
-                            SecurityStamp = "645c8925-0053-4a23-9700-187c940fce27",
-                            TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TwoFactorEnabled = false
+                            TwoFactorEnabled = false,
+                            UserName = "aditaklal@gmail.com"
                         });
                 });
 
@@ -346,8 +407,8 @@ namespace webSITE.Migrations
                     b.Property<int>("IdFoto")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdMahasiswa")
-                        .HasColumnType("int");
+                    b.Property<string>("IdMahasiswa")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("IdFoto", "IdMahasiswa");
 
@@ -359,52 +420,27 @@ namespace webSITE.Migrations
                         new
                         {
                             IdFoto = 1,
-                            IdMahasiswa = 1
-                        },
-                        new
-                        {
-                            IdFoto = 1,
-                            IdMahasiswa = 2
+                            IdMahasiswa = "1"
                         },
                         new
                         {
                             IdFoto = 2,
-                            IdMahasiswa = 1
-                        },
-                        new
-                        {
-                            IdFoto = 2,
-                            IdMahasiswa = 2
+                            IdMahasiswa = "1"
                         },
                         new
                         {
                             IdFoto = 3,
-                            IdMahasiswa = 1
-                        },
-                        new
-                        {
-                            IdFoto = 3,
-                            IdMahasiswa = 2
+                            IdMahasiswa = "1"
                         },
                         new
                         {
                             IdFoto = 4,
-                            IdMahasiswa = 1
-                        },
-                        new
-                        {
-                            IdFoto = 4,
-                            IdMahasiswa = 2
+                            IdMahasiswa = "1"
                         },
                         new
                         {
                             IdFoto = 5,
-                            IdMahasiswa = 1
-                        },
-                        new
-                        {
-                            IdFoto = 5,
-                            IdMahasiswa = 2
+                            IdMahasiswa = "1"
                         });
                 });
 
@@ -413,8 +449,8 @@ namespace webSITE.Migrations
                     b.Property<int>("IdKegiatan")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdMahasiswa")
-                        .HasColumnType("int");
+                    b.Property<string>("IdMahasiswa")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("IdKegiatan", "IdMahasiswa");
 
@@ -426,13 +462,59 @@ namespace webSITE.Migrations
                         new
                         {
                             IdKegiatan = 1,
-                            IdMahasiswa = 1
-                        },
-                        new
-                        {
-                            IdKegiatan = 1,
-                            IdMahasiswa = 2
+                            IdMahasiswa = "1"
                         });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("webSITE.Models.Mahasiswa", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("webSITE.Models.Mahasiswa", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("webSITE.Models.Mahasiswa", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("webSITE.Models.Mahasiswa", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("webSITE.Models.Foto", b =>
