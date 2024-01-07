@@ -12,6 +12,16 @@
 </head>
 <body>
 
+<<<<<<< HEAD
+    @*Navigation*@
+    <nav>
+        <a asp-area="" asp-controller="Home" asp-action="Index">
+            <img src="~/img/SIte_Transparant.png" alt="" />
+        </a>
+
+        <div class="navigation">
+            <ul>
+=======
     <header class="header" id="home">
         <nav>
             <div class="nav_bar">
@@ -24,82 +34,38 @@
             </div>
             <ul class="nav_links" id="nav-links">
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+>>>>>>> fca4bcb445271ff5eac85d09a051bc3ba163d2cc
                 <li><a asp-area="" asp-controller="Mahasiswa" asp-action="Index">Siters</a></li>
                 <li><a asp-area="" asp-controller="Kegiatan" asp-action="Index">Kegiatan</a></li>
-                <li class="nav_logo">
-                    <a href="#">
-                        <img src="~/img/SIte_Transparant.png" alt="logo" />
-                    </a>
-                </li>
-                
-                <li><a asp-area="" asp-controller="Foto" asp-action="Index">Album</a></li>       
-                <li><a><partial name="_LoginPartial" /></a></li>
+                <li><a asp-area="" asp-controller="Foto" asp-action="Index">Album</a></li>
+                <partial name="_LoginPartial" />
             </ul>
-        </nav>
-        @*<div class="section_container header_container">
-            <div class="header_content">
-                <p>SITE22</p>
-                <h1>ANGKATAN 2022 PROGRAM STUDI ILKOM</h1>
-                <div class="header_btn">
-                    <button class="btn">LIHAT LEBIH LANJUT</button>
-                </div>
-            </div>
-        </div>*@
+        </div>
+    </nav>
 
-    </header>
-
-
-
-
-
-    @*<header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/img/logo_site-removebg-preview.png" style="height: 50px; width: 50px" />
-                    webSITE</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-dark" asp-area="" asp-controller="Mahasiswa" asp-action="Index">Siters</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-dark" asp-area="" asp-controller="Kegiatan" asp-action="Index">Kegiatan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active text-dark" asp-area="" asp-controller="Foto" asp-action="Index">Album</a>
-                        </li>
-                        <partial name="_LoginPartial" />
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>*@
-
-    <div class="container">
+    @*Isi dalam*@
+    <div>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    @*Footer*@
+    @*<footer class="border-top footer text-muted">
         <div class="container">
             <center>
             &copy; 2023 - webSITE - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </center>
         </div>
-    </footer>
+    </footer>*@
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+
 </body>
 </html>
