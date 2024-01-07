@@ -9,43 +9,60 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
           rel="stylesheet" />
     <link rel="stylesheet" href="~/webSITE.styles.css" asp-append-version="true" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 </head>
 <body>
 
     @*Navigation*@
     <nav>
         <a asp-area="" asp-controller="Home" asp-action="Index">
-            <img src="~/img/SIte_Transparant.png" alt="" />
+            <img src="~/img/SITE 22_Logo.png" alt="" />
         </a>
 
-        <div class="navigation">
-            
+        <div class="navigation">         
             <ul class="nav_links" id="nav-links">
+                <li><i id="menu-close" class="ri-close-fill"></i></li>
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                 <li><a asp-area="" asp-controller="Mahasiswa" asp-action="Index">Siters</a></li>
                 <li><a asp-area="" asp-controller="Kegiatan" asp-action="Index">Kegiatan</a></li>
                 <li><a asp-area="" asp-controller="Foto" asp-action="Index">Album</a></li>
                 <partial name="_LoginPartial" />
             </ul>
+            <img id="menu-btn" src="~/img/menu.png" />
         </div>
     </nav>
 
     @*Isi dalam*@
     <div>
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 mb-5">
             @RenderBody()
         </main>
     </div>
 
-    @*Footer*@
-    @*<footer class="border-top footer text-muted">
-        <div class="container">
-            <center>
-            &copy; 2023 - webSITE - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </center>
-        </div>
-    </footer>*@
 
+    <footer>
+        <div class="footer-content">
+            <h3>ANGKATAN SITE22</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris.
+            </p>
+            <ul class="socials"> 
+                <li><a><i class="ri-facebook-fill"></i></a></li>
+                <li><a><i class="ri-twitter-x-line"></i></a></li>
+                <li><a><i class="ri-youtube-fill"></i></a></li>
+                <li><a><i class="ri-github-fill"></i></a></li>
+                <li><a><i class="ri-discord-fill"></i></a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <p>copyright &copy;2024 Site22. designed by <span>Team Sukses Prabowo-Gibran</span></p>
+        </div>
+
+    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
