@@ -110,14 +110,14 @@ namespace webSITE.Areas.Identity.Pages.Account
             public string NamaLengkap { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [Display(Name = "Nama Panggilan")]
             public string NamaPangggilan { get; set; }
 
             [Required]
             [DataType(DataType.Date)]
             [Display(Name = "Tanggal Lahir")]
-            public DateTime TanggalLahir { get; set; }
+            public DateTime TanggalLahir { get; init; } = new DateTime(2004, 1, 1);
 
             [Required]
             [Display(Name = "Jenis Kelamin")]
