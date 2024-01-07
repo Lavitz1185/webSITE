@@ -85,10 +85,23 @@ nav .navigation ul li a {
     transition: 0.3s ease;
 }
 
-nav .navigation ul li a:hover {
+nav .navigation ul li form button {
+    border: none;
+    background: none;
+    text-decoration: none;
+    color: rgb(21, 21, 100);
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+nav .navigation ul li form button:hover {
     color: #FDC93B
 }
 
+nav .navigation ul li a:hover {
+    color: #FDC93B
+}
 
 /* Home */
 
