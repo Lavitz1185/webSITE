@@ -5,7 +5,43 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
+<section id="login-form">
+    <div class="container">
+        <h1>Masuk ke akun anda</h1>
+        <div class="social-login">
+            <button class="google">
+                <i class="ri-google-fill"></i>Gunakan Google</button>
+        </div>
+        <div class="divider">
+            <div class="line"></div>
+            <p>Atau</p>
+            <div class="line"></div>
+        </div>
+        <form id="account" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label asp-for="Input.Email">Email:</label>
+            <div class="custome-input">
+                <input asp-for="Input.Email" type="email" name="email" placeholder="Your Email" autocomplete="off" />
+                <i class="ri-mail-add-line"></i>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <label asp-for="Input.Password">Password:</label>
+            <div class="custome-input">
+                <input asp-for="Input.Password" type="password" name="password" placeholder="Your Password" />
+                <i class="ri-key-fill"></i>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <button class="login">Masuk</button>
+            <div class="links">
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Tidak Punya Akun ?</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+@*Form Login Lama*@
+
+@*<h1>@ViewData["Title"]</h1>
 <div style="padding-top: 70px">
 <div class="row">
     <div class="col-md-4 mx-auto">
@@ -44,7 +80,8 @@
         </section>
     </div>
 </div>
-</div>
+</div>*@
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
