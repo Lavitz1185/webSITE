@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 using webSITE.Models;
 using webSITE.Repositori.Data;
 using webSITE.Repositori.Interface;
@@ -23,9 +24,19 @@ namespace webSITE.Repositori.Implementasi
             return mahasiswa;
         }
 
-        public async Task<Mahasiswa> Delete(int id)
+        public async Task<Mahasiswa> Delete(string id)
         {
-            throw new NotImplementedException();
+            var mahasiswa = await dbContext.TblMahasiswa
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (mahasiswa == null)
+                return null;
+
+            dbContext.TblMahasiswa.Remove(mahasiswa);
+            await dbContext.SaveChangesAsync();
+
+            return mahasiswa;
         }
 
         public async Task<Mahasiswa> GetByNim(string nim)
@@ -37,9 +48,13 @@ namespace webSITE.Repositori.Implementasi
             return mahasiswa;
         }
 
-        public async Task<Mahasiswa> Get(int id)
+        public async Task<Mahasiswa> Get(string id)
         {
-            throw new NotImplementedException();
+            return await dbContext.TblMahasiswa
+                .AsNoTracking()
+                .Include(m => m.DaftarFoto)
+                .Include(m => m.DaftarKegiatan)
+                .FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<IEnumerable<Mahasiswa>> GetAll()

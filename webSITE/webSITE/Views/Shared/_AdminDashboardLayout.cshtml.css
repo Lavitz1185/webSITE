@@ -97,6 +97,7 @@ nav {
     position: fixed;
     background-color: var(--bg-primary);
     transition: width 200ms ease;
+    padding-left: 0rem;
 }
 
 .navbar-nav {
