@@ -112,7 +112,7 @@ namespace webSITE.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [Display(Name = "Nama Panggilan")]
-            public string NamaPangggilan { get; set; }
+            public string NamaPanggilan{ get; set; }
 
             [Required]
             [DataType(DataType.Date)]
@@ -141,7 +141,7 @@ namespace webSITE.Areas.Identity.Pages.Account
 
                 user.Nim = Input.Nim;
                 user.NamaLengkap = Input.NamaLengkap;
-                user.NamaPanggilan = Input.NamaPangggilan;
+                user.NamaPanggilan = Input.NamaPanggilan;
                 user.TanggalLahir = Input.TanggalLahir;
                 user.JenisKelamin = Input.JenisKelamin;
                 user.PhotoPath = "/img/LOGO_SITE-removebg-preview.png";
