@@ -20,5 +20,10 @@ namespace webSITE.Controllers.Admin
             var listMahasiswa = (await _repositoriMahasiswa.GetAll()).ToList();
             return View(listMahasiswa);
         }
+
+        public async Task<IActionResult> Tambah()
+        {
+            return View();
+        }
     }
 }

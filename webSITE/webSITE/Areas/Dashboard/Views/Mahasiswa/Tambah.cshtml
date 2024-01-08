@@ -1,0 +1,46 @@
+﻿@model TambahMahasiswaVM
+@{
+    ViewData["title"] = "Tambah Mahasiswa";
+}
+
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <form id="registerForm" method="post">
+            <div class="form-floating">
+                <input asp-for="@Model.Nim" class="form-control" autocomplete="2206080000" aria-required="true" />
+                <label asp-for="@Model.Nim"></label>
+                <span asp-validation-for="@Model.Nim" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="@Model.NamaLengkap" class="form-control" autocomplete="" aria-required="true" />
+                <label asp-for="@Model.NamaLengkap"></label>
+                <span asp-validation-for="@Model.NamaLengkap" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="@Model.NamaPanggilan" class="form-control" autocomplete="" aria-required="true" />
+                <label asp-for="@Model.NamaPanggilan"></label>
+                <span asp-validation-for="@Model.NamaPanggilan" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="@Model.TanggalLahir" class="form-control" aria-required="true" type="date" />
+                <label asp-for="@Model.TanggalLahir"></label>
+                <span asp-validation-for="@Model.TanggalLahir" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <select class="form-control" asp-for="@Model.JenisKelamin">
+                    @foreach (JenisKelamin jk in Enum.GetValues(typeof(JenisKelamin)))
+                    {
+                        <option value="@jk">@JenisKelaminExtension.ToString(jk)</option>
+                    }
+                </select>
+                <label asp-for="@Model.JenisKelamin"></label>
+                <span asp-validation-for="@Model.JenisKelamin" class="text-danger"></span>
+            </div>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
