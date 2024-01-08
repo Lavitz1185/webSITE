@@ -95,11 +95,7 @@ nav .navigation ul li form button {
     transition: 0.3s ease;
 }
 
-<<<<<<< HEAD
-nav .navigation ul li a:hover {
-=======
 nav .navigation ul li form button:hover {
->>>>>>> a7b39f90e64e09c45d43d760aa275dee3267a081
     color: #FDC93B
 }
 
