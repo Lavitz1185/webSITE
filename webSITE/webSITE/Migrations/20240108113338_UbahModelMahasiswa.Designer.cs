@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webSITE.Repositori.Data;
 
@@ -11,9 +12,11 @@ using webSITE.Repositori.Data;
 namespace webSITE.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240108113338_UbahModelMahasiswa")]
+    partial class UbahModelMahasiswa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,14 +55,14 @@ namespace webSITE.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "62201f37-f33d-4cd9-8fdb-b83d5b548391",
+                            ConcurrencyStamp = "242e57b6-a6e2-4e7a-863e-7592714270a1",
                             Name = "Mahasiswa",
                             NormalizedName = "MAHASISWA"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "59504e0f-1282-4709-9597-ef284c51735e",
+                            ConcurrencyStamp = "be5ef484-3952-4650-9ce3-635c3019924e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -310,6 +313,7 @@ namespace webSITE.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Bio")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -368,9 +372,6 @@ namespace webSITE.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StatusAkun")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("TanggalLahir")
                         .HasColumnType("datetime2");
 
@@ -399,7 +400,7 @@ namespace webSITE.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             Bio = "Adi Juanito Taklal ILKOM #1",
-                            ConcurrencyStamp = "99dff034-2ada-48b5-8099-ed4b4ac419e2",
+                            ConcurrencyStamp = "9e461a6f-b3f4-4531-80c9-ecd1155a0bf3",
                             Email = "aditaklal@gmail.com",
                             EmailConfirmed = true,
                             JenisKelamin = 0,
@@ -409,11 +410,10 @@ namespace webSITE.Migrations
                             Nim = "2206080051",
                             NormalizedEmail = "ADITAKLAL@GMAIL.COM",
                             NormalizedUserName = "ADITAKLAL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOv6JQCmS6iAF7Avn8m1Z0aDOOxnNJuX939YOBepGsmgMe4gfBZDBcGYJEglsjmlQg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMzVVpIX4q1ITf/W8Vlv8dL2PM4lLBLjo10IsmKkObOb5hYDrtqUH45CBi5G7HQQWA==",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/img/SIte_Transparant.png",
-                            SecurityStamp = "7d674acf-1abd-4999-a7ea-b858da8a6f98",
-                            StatusAkun = 0,
+                            SecurityStamp = "b15d884b-4443-4015-81e9-f40ecbf09fda",
                             TanggalLahir = new DateTime(2004, 2, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TwoFactorEnabled = false,
                             UserName = "aditaklal@gmail.com"
@@ -423,7 +423,7 @@ namespace webSITE.Migrations
                             Id = "2",
                             AccessFailedCount = 0,
                             Bio = "Oswaldus Putra Fernando ILKOM #1",
-                            ConcurrencyStamp = "bb3e7fc3-a9cb-436d-9a88-d652a3c0a6ca",
+                            ConcurrencyStamp = "07b1c7d6-2160-47be-abb6-f57e536f4309",
                             Email = "fernandputra14@gmail.com",
                             EmailConfirmed = true,
                             JenisKelamin = 0,
@@ -433,11 +433,10 @@ namespace webSITE.Migrations
                             Nim = "2206080016",
                             NormalizedEmail = "FERNANDPUTRA14@GMAIL.COM",
                             NormalizedUserName = "FERNANDPUTRA14@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC624B8gFh9VWltDoyQsyBRjZpy56t3AFaai6Q6l7pMN5thiEMeTxh9VoApzc5z5PA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHT+W9LmzxoigEpev+PJtXLj8Dsjt1isTTq7aDtgHeQZBaYk7HYIJNt78WJQPHGlvg==",
                             PhoneNumberConfirmed = false,
                             PhotoPath = "/img/SIte_Transparant.png",
-                            SecurityStamp = "0f500d7c-7d7b-4a61-8fcd-e7d32f11db3d",
-                            StatusAkun = 0,
+                            SecurityStamp = "e0fc6454-388a-4645-8b74-a8caa550fadf",
                             TanggalLahir = new DateTime(2004, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TwoFactorEnabled = false,
                             UserName = "fernandputra14@gmail.com"

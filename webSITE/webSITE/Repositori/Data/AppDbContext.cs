@@ -50,13 +50,33 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/contoh.jpeg",
+                    PhotoPath = "/img/SIte_Transparant.png",
+                    StatusAkun = StatusAkun.Aktif,
+                    Bio = "Adi Juanito Taklal ILKOM #1",
                     Email = "aditaklal@gmail.com",
                     PasswordHash = new PasswordHasher<Mahasiswa>().HashPassword(null, "adiairnona"),
                     EmailConfirmed = true,
                     NormalizedEmail = "ADITAKLAL@GMAIL.COM",
                     UserName = "aditaklal@gmail.com",
                     NormalizedUserName = "ADITAKLAL@GMAIL.COM",
+                },
+                new Mahasiswa
+                {
+                    Id = "2",
+                    Nim = "2206080016",
+                    NamaLengkap = "Oswaldus Putra Fernando",
+                    NamaPanggilan = "Fernand",
+                    TanggalLahir = new DateTime(2004, 4, 14),
+                    JenisKelamin = JenisKelamin.LakiLaki,
+                    PhotoPath = "/img/SIte_Transparant.png",
+                    Bio = "Oswaldus Putra Fernando ILKOM #1",
+                    Email = "fernandputra14@gmail.com",
+                    StatusAkun = StatusAkun.Aktif,
+                    PasswordHash = new PasswordHasher<Mahasiswa>().HashPassword(null, "fernandilkom"),
+                    EmailConfirmed = true,
+                    NormalizedEmail = "fernandputra14@gmail.com".ToUpper(),
+                    UserName = "fernandputra14@gmail.com",
+                    NormalizedUserName = "fernandputra14@gmail.com".ToUpper(),
                 }
            );
 
@@ -84,6 +104,16 @@ namespace webSITE.Repositori.Data
                 new IdentityUserRole<string>()
                 {
                     UserId = "1",
+                    RoleId = "2",
+                },
+                new IdentityUserRole<string>()
+                {
+                    UserId = "2",
+                    RoleId = "1"
+                },
+                new IdentityUserRole<string>()
+                {
+                    UserId = "2",
                     RoleId = "2",
                 }
             );

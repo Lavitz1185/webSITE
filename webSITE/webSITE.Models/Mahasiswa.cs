@@ -17,11 +17,19 @@ namespace webSITE.Models
         public DateTime TanggalLahir { get; set; }
         public JenisKelamin JenisKelamin { get; set; }
         public string PhotoPath { get; set; }
+        public string? Bio { get; set; }
+        public StatusAkun StatusAkun { get; set; }
         public string StrJenisKelamin {
             get => JenisKelaminExtension.ToString(JenisKelamin);
         }
 
         public IList<Kegiatan> DaftarKegiatan { get; set; }
         public IList<Foto> DaftarFoto { get; set; }
+    }
+
+    public enum StatusAkun
+    {
+        Aktif,
+        TidakAktif
     }
 }

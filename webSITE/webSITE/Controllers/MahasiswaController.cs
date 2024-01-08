@@ -16,7 +16,7 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> IndexAsync()
         {
-            var listMahasiwa = await repositoriMahasiswa.GetAll();
+            var listMahasiwa = (await repositoriMahasiswa.GetAll()).Where(m => m.StatusAkun == StatusAkun.Aktif).ToList();
             return View(listMahasiwa);
         }
 

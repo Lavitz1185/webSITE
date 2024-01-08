@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace webSITE.Controllers.Admin
+namespace webSITE.Areas.Dashboard.Controllers
 {
     [Area("Dashboard")]
     public class HomeController : Controller

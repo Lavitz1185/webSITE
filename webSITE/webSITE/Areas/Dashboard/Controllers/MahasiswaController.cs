@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using webSITE.Repositori.Interface;
 
-namespace webSITE.Controllers.Admin
+namespace webSITE.Areas.Dashboard.Controllers
 {
     [Area("Dashboard")]
     [Authorize(Roles = "Admin, ADMIN")]
@@ -19,11 +19,6 @@ namespace webSITE.Controllers.Admin
         {
             var listMahasiswa = (await _repositoriMahasiswa.GetAll()).ToList();
             return View(listMahasiswa);
-        }
-
-        public async Task<IActionResult> Tambah()
-        {
-            return View();
         }
     }
 }

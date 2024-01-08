@@ -124,6 +124,12 @@ namespace webSITE.Areas.Identity.Pages.Account
                     return Page();
                 }
 
+                if(user.StatusAkun == StatusAkun.TidakAktif)
+                {
+                    ModelState.AddModelError(string.Empty, "Status akun tidak aktif");
+                    return Page();
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)

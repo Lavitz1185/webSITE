@@ -149,6 +149,7 @@ namespace webSITE.Areas.Identity.Pages.Account
                 user.NamaPanggilan = Input.NamaPanggilan;
                 user.TanggalLahir = Input.TanggalLahir;
                 user.JenisKelamin = Input.JenisKelamin;
+                user.StatusAkun = StatusAkun.TidakAktif;
                 user.PhotoPath = "/img/LOGO_SITE-removebg-preview.png";
 
                 var duplicate = await _repositoriMahasiswa.GetByNim(user.Nim);
@@ -158,8 +159,8 @@ namespace webSITE.Areas.Identity.Pages.Account
                     return Page();
                 }
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                await _userManager.SetUserNameAsync(user, Input.Email);
+                await _userManager.SetEmailAsync(user, Input.Email);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -184,9 +185,8 @@ namespace webSITE.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _userManager.AddToRoleAsync(user, "Admin");
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        await _userManager.AddToRoleAsync(user, "Mahasiswa");
+                        return Content("Status Akun anda belum aktif. Akun anda akan direview terlebih dahulu.");
                     }
                 }
                 foreach (var error in result.Errors)
