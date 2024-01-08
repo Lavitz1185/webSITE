@@ -1,0 +1,161 @@
+﻿/* Home */
+
+#home {
+    background-image: linear-gradient(rgba(9, 5, 54, 0.3),rgba(5, 4, 46, 0.7)),url("../img/Front_Building.jpg");
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 40px;
+}
+
+    #home ::deep h2 {
+        color: white;
+        font-size: 3rem;
+        letter-spacing: 1px;
+    }
+
+    #home ::deep p {
+        width: 50%;
+        color: white;
+        font-size: 1rem;
+        line-height: 25px;
+    }
+
+
+    #home ::deep .btn {
+        margin-top: 5px;
+    }
+
+
+    #home ::deep a {
+        text-decoration: none;
+        font-size: 1rem;
+        padding: 13px 35px;
+        background-color: white;
+        font-weight: 600;
+        border-radius: 5px;
+    }
+
+        #home ::deep a.blue {
+            color: white;
+            background: rgb(21, 21, 100);
+            transition: 0.3s ease;
+        }
+
+            #home ::deep a.blue:hover {
+                color: rgb(21, 21, 100);
+                background: white;
+            }
+
+/* About Us */
+
+#about-container {
+    display: flex;
+    align-items: center;
+    padding: 2vw 8vw 2vw 8vw;
+}
+
+    #about-container ::deep .about-img {
+        width: 60%;
+        padding-right: 60px;
+    }
+
+        #about-container ::deep .about-img img {
+            width: 100%;
+        }
+
+    #about-container ::deep .about-text {
+        width: 40%;
+    }
+
+        #about-container ::deep .about-text h2 {
+            color: #29303B;
+            padding-bottom: 15px;
+        }
+
+        #about-container ::deep .about-text p {
+            color: #686F7A;
+            font-weight: 300;
+        }
+
+        #about-container ::deep .about-text .about-fe {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 30px;
+        }
+
+            #about-container ::deep .about-text .about-fe img {
+                width: 50px;
+                background-size: cover;
+                background-position: center;
+                margin-right: 20px;
+            }
+
+            #about-container ::deep .about-text .about-fe .fe-text {
+                width: 90%;
+            }
+
+                #about-container ::deep .about-text .about-fe .fe-text h5 {
+                    font-size: 16px;
+                    color: #29303B;
+                }
+
+/*Profile*/
+
+#experts {
+    padding: 0 8vw 0 8vw;
+    text-align: center;
+}
+
+    #experts ::deep .expert-box {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-gap: 1rem;
+        margin-top: 50px;
+    }
+
+        #experts ::deep .expert-box .profile {
+            background: #fafaf1;
+            padding: 30px 10px;
+        }
+
+            #experts ::deep .expert-box .profile h6 {
+                padding-top: 10px;
+            }
+
+@media (max-width: 769px) {
+    #home ::deep p {
+        width: 75%;
+    }
+
+    #about-container {
+        padding: 2vw 4vw 2vw 4vw;
+    }
+
+        #about-container ::deep .about-img {
+            padding-right: 30px;
+        }
+}
+
+@media (max-width:670px) {
+    #about-container {
+        flex-direction: column-reverse;
+    }
+
+        #about-container ::deep .about-img {
+            width: 100%;
+            padding-right: 0px;
+        }
+
+        #about-container ::deep .about-text {
+            width: 100%;
+            padding-bottom: 20px;
+        }
+}

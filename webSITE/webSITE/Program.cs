@@ -32,6 +32,8 @@ builder.Services.AddScoped<IRepositoriMahasiswa, RepositoriMahasiswa>();
 builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();
 builder.Services.AddScoped<IRepositoriKegiatan, RepositoriKegiatan>();
 
+builder.WebHost.UseStaticWebAssets();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

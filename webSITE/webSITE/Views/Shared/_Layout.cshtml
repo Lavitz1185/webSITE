@@ -4,40 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - webSITE</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
-          rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/webSITE.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/@(nameof(webSITE)).styles.css" asp-append-version="true" />
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 </head>
 <body>
 
-    @*Navigation*@
-    <nav>
-        <a asp-area="" asp-controller="Home" asp-action="Index">
-            <img src="~/img/SITE 22_Logo.png" alt="" />
-        </a>
-
-        <div class="navigation">         
-            <ul class="nav_links" id="nav-links">
-                <li><i id="menu-close" class="ri-close-fill"></i></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-area="" asp-controller="Mahasiswa" asp-action="Index">Siters</a></li>
-                <li><a asp-area="" asp-controller="Kegiatan" asp-action="Index">Kegiatan</a></li>
-                <li><a asp-area="" asp-controller="Foto" asp-action="Index">Album</a></li>
-                <partial name="_LoginPartial" />
-            </ul>
-            <img id="menu-btn" src="~/img/menu.png" />
-        </div>
-    </nav>
+    <partial name="_navbar.cshtml" />
 
     @*Isi dalam*@
-    <div>
+    <div class="container-fluid px-0">
         <main role="main" class="pb-3 mb-5">
-            @RenderBody()
+                @RenderBody()
         </main>
     </div>
 
@@ -50,7 +34,7 @@
                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                 quis nostrud exercitation ullamco laboris.
             </p>
-            <ul class="socials"> 
+            <ul class="socials">
                 <li><a><i class="ri-facebook-fill"></i></a></li>
                 <li><a><i class="ri-twitter-x-line"></i></a></li>
                 <li><a><i class="ri-youtube-fill"></i></a></li>
@@ -69,7 +53,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
 
 </body>
 </html>
