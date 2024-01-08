@@ -4,7 +4,104 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="mt-4">
+<section id="register-form">
+    <div class="container mt-4">
+        <h1>Daftarkan akun anda</h1>
+        <form id="account" method="post" class="row g-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Email Input -->
+            <div class="col-md-4">
+                <label asp-for="Input.Email">Email:</label>
+                <div class="custome-input">
+                    <input asp-for="Input.Email" type="email" name="email" placeholder="Email" autocomplete="username" aria-required="true" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="col-md-4">
+                <label asp-for="Input.Password">Password:</label>
+                <div class="custome-input">
+                    <input asp-for="Input.Password" type="password" name="password" placeholder="Password" autocomplete="new-password" aria-required="true" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Confirm Password Input -->
+            <div class="col-md-4">
+                <label asp-for="Input.ConfirmPassword">Konfirmasi Password:</label>
+                <div class="custome-input">
+                    <input asp-for="Input.ConfirmPassword" type="password" placeholder="Konfirmasi Password" autocomplete="new-password" aria-required="true" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Nim Input -->
+            <div class="col-md-4">
+                <label asp-for="Input.Nim">NIM:</label>
+                <div class="custome-input">
+                    <input asp-for="Input.Nim" name="nim" placeholder="NIM" autocomplete="2206080000" aria-required="true" />
+                    <span asp-validation-for="Input.Nim" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Nama Lengkap Input -->
+            <div class="col-md-4">
+                <label asp-for="Input.NamaLengkap">Nama Lengkap:</label>
+                <div class="custome-input">
+                    <input asp-for="Input.NamaLengkap" type="text" name="nama-lengkap" placeholder="Nama Lengkap" autocomplete="" aria-required="true" />
+                    <span asp-validation-for="Input.NamaLengkap" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Nama Panggilan Input -->
+            <div class="col-md-4">
+                <label asp-for="Input.NamaPangggilan">Nama Panggilan:</label>
+                <div class="custome-input">
+                    <input asp-for="Input.NamaPangggilan" type="text" name="nama-panggilan" placeholder="Nama Panggilan" autocomplete="" aria-required="true" />
+                    <span asp-validation-for="Input.NamaPangggilan" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Tanggal Lahir Input -->
+            <div class="col-md-4">
+                <label asp-for="Input.TanggalLahir">Tanggal Lahir:</label>
+                <div class="custome-input">
+                    <input asp-for="Input.TanggalLahir" type="date" name="tanggallahir" aria-required="true" />
+                    <span asp-validation-for="Input.TanggalLahir" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Jenis Kelamin Input -->
+            <div class="col-md-4">
+                <label asp-for="Input.JenisKelamin">Jenis Kelamin:</label>
+                <div class="custome-input">
+                    <select asp-for="Input.JenisKelamin" class="form-control">
+                        @foreach (JenisKelamin jk in Enum.GetValues(typeof(JenisKelamin)))
+                        {
+                            <option value="@jk">@JenisKelaminExtension.ToString(jk)</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Input.JenisKelamin" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Login Button -->
+            <div class="col-md-12">
+                <button id="registerSubmit" type="submit" class="login">Daftar</button>
+            </div>
+
+            <!-- Links -->
+            <div class="col-md-12 links">
+                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Sudah Punya Akun ?</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+@*<div class="mt-4">
     <h1 class="text-center">@ViewData["Title"]</h1>
     <div class="row">
         <div class="col-md-4 mx-auto">
@@ -61,7 +158,9 @@
             </form>
         </div>
     </div>
-</div>
+</div>*@
+
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
