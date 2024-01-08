@@ -15,10 +15,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using webSITE.Models;
+using webSITE.Repositori.Interface;
 
 namespace webSITE.Areas.Identity.Pages.Account
 {
@@ -30,13 +32,15 @@ namespace webSITE.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<Mahasiswa> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IRepositoriMahasiswa _repositoriMahasiswa;
 
         public RegisterModel(
             UserManager<Mahasiswa> userManager,
             IUserStore<Mahasiswa> userStore,
             SignInManager<Mahasiswa> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IRepositoriMahasiswa repositoriMahasiswa)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,13 +48,14 @@ namespace webSITE.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _repositoriMahasiswa = repositoriMahasiswa;
         }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public InputModel Input { get; set; }
 
         /// <summary>
@@ -145,6 +150,13 @@ namespace webSITE.Areas.Identity.Pages.Account
                 user.TanggalLahir = Input.TanggalLahir;
                 user.JenisKelamin = Input.JenisKelamin;
                 user.PhotoPath = "/img/LOGO_SITE-removebg-preview.png";
+
+                var duplicate = await _repositoriMahasiswa.GetByNim(user.Nim);
+                if(duplicate != null)
+                {
+                    ModelState.AddModelError(string.Empty, "NIM sudah digunakan");
+                    return Page();
+                }
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

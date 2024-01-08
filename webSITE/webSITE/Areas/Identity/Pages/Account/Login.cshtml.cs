@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using webSITE.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace webSITE.Areas.Identity.Pages.Account
 {
@@ -117,7 +118,14 @@ namespace webSITE.Areas.Identity.Pages.Account
 
                 var user = await userManager.FindByEmailAsync(Input.Email);
 
+                if(user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Akun dengan email ini tidak ditemukan");
+                    return Page();
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

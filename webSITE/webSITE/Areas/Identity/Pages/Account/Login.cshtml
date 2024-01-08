@@ -21,13 +21,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <label asp-for="Input.Email">Email:</label>
             <div class="custome-input">
-                <input asp-for="Input.Email" type="email" name="email" placeholder="Your Email" autocomplete="off" />
+                <input asp-for="Input.Email" type="email" placeholder="Your Email" autocomplete="off" />
                 <i class="ri-mail-add-line"></i>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <label asp-for="Input.Password">Password:</label>
             <div class="custome-input">
-                <input asp-for="Input.Password" type="password" name="password" placeholder="Your Password" />
+                <input asp-for="Input.Password" type="password" placeholder="Your Password" />
                 <i class="ri-key-fill"></i>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
