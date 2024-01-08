@@ -1,63 +1,40 @@
 ﻿/* Navigation */
 
 nav {
-    top: 0px;
-    position: fixed;
-    width: 100%;
     background-color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
-    z-index: 999;
-    height: 5rem;
 }
 
-    nav ::deep a img {
-        width: 120px;
-        height: 50px;
-        cursor: pointer;
+.navbar-brand img {
+    width: 120px;
+    height: 50px;
+    cursor: pointer;
+}
+
+
+
+.nav-link {
+    text-decoration: none;
+    color: rgb(21, 21, 100);
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+.nav-item form button {
+    border: none;
+    background: none;
+    text-decoration: none;
+    color: rgb(21, 21, 100);
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.3s ease;
+}
+
+    .nav-item form button:hover {
+        color: #FDC93B
     }
 
-.navigation {
-    display: flex;
+.nav-link:hover {
+    color: #FDC93B
 }
-
-nav ::deep .navigation ul {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-top: 10px;
-}
-
-    nav ::deep .navigation ul li {
-        list-style: none;
-        margin-left: 30px;
-    }
-
-        nav ::deep .navigation ul li a {
-            text-decoration: none;
-            color: rgb(21, 21, 100);
-            font-size: 16px;
-            font-weight: 500;
-            transition: 0.3s ease;
-        }
-
-        nav ::deep .navigation ul li form button {
-            border: none;
-            background: none;
-            text-decoration: none;
-            color: rgb(21, 21, 100);
-            font-size: 16px;
-            font-weight: 500;
-            transition: 0.3s ease;
-        }
-
-            nav ::deep .navigation ul li form button:hover {
-                color: #FDC93B
-            }
-
-        nav ::deep .navigation ul li a:hover {
-            color: #FDC93B
-        }
