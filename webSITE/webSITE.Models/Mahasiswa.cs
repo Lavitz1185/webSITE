@@ -22,14 +22,12 @@ namespace webSITE.Models
         public string StrJenisKelamin {
             get => JenisKelaminExtension.ToString(JenisKelamin);
         }
+        public string StrStatus
+        {
+            get => StatusAkunExtension.ToString(StatusAkun);
+        }
 
         public IList<Kegiatan> DaftarKegiatan { get; set; }
         public IList<Foto> DaftarFoto { get; set; }
-    }
-
-    public enum StatusAkun
-    {
-        Aktif,
-        TidakAktif
     }
 }

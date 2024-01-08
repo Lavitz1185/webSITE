@@ -26,9 +26,7 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Mahasiswa> Delete(string id)
         {
-            var mahasiswa = await dbContext.TblMahasiswa
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var mahasiswa = await Get(id);
 
             if (mahasiswa == null)
                 return null;
@@ -51,9 +49,11 @@ namespace webSITE.Repositori.Implementasi
         public async Task<Mahasiswa> Get(string id)
         {
             return await dbContext.TblMahasiswa
-                .AsNoTracking()
                 .Include(m => m.DaftarFoto)
+                .AsNoTracking()
                 .Include(m => m.DaftarKegiatan)
+                .AsNoTracking()
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 
@@ -65,11 +65,17 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Mahasiswa> Update(Mahasiswa entity)
         {
-            var mahasiswa = await dbContext.TblMahasiswa.FindAsync(entity.Id);
+            var mahasiswa = await Get(entity.Id);
             if(mahasiswa != null )
             {
                 dbContext.Update(entity);
             }
+
+            await dbContext.SaveChangesAsync();
+
+            mahasiswa = await Get(entity.Id);
+
+            dbContext.Entry(mahasiswa).State = EntityState.Detached;
 
             return mahasiswa;
         }
