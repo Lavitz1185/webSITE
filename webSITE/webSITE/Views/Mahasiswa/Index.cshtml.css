@@ -1,0 +1,21 @@
+﻿/* Form Siters */
+/* Diatur Sesuai keperluan */
+
+
+@media screen and (min-width: 500px) {
+    .wrapper-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 760px) {
+    .wrapper-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 1250px) {
+    .wrapper-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
