@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using webSITE.Areas.Dashboard.Models;
@@ -14,14 +15,17 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly UserManager<Mahasiswa> _userManager;
         private readonly IUserStore<Mahasiswa> _userStore;
+        private readonly IMapper _mapper;
 
         public MahasiswaController(IRepositoriMahasiswa repositoriMahasiswa,
             UserManager<Mahasiswa> userManagaer,
-            IUserStore<Mahasiswa> userStore)
+            IUserStore<Mahasiswa> userStore,
+            IMapper mapper)
         {
             _repositoriMahasiswa = repositoriMahasiswa;
             _userManager = userManagaer;
             _userStore = userStore;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
@@ -40,15 +44,11 @@ namespace webSITE.Areas.Dashboard.Controllers
             if(mahasiswa == null)
                 return NotFound("Mahasiswa tidak ditemukan");
 
-            var model = new EditMahasiswaVM
-            {
-                Id = mahasiswa.Id,
-                NamaLengkap = mahasiswa.NamaLengkap,
-                StatusAkun = mahasiswa.StatusAkun,
-                Admin = await _userManager.IsInRoleAsync(mahasiswa, "Admin")
-            };
+            var editMahasiswaVM = _mapper.Map<EditMahasiswaVM>(mahasiswa);
+            
+            editMahasiswaVM.Admin = await _userManager.IsInRoleAsync(mahasiswa, "Admin");
 
-            return View(model);
+            return View(editMahasiswaVM);
         }
 
         [HttpPost]
@@ -105,6 +105,16 @@ namespace webSITE.Areas.Dashboard.Controllers
             await _repositoriMahasiswa.Delete(id);
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Detail(string id)
+        {
+            var mahasiswa = await _repositoriMahasiswa.Get(id);
+
+            if(mahasiswa == null)
+                return NotFound();
+
+            return View(mahasiswa);
         }
     }
 }
