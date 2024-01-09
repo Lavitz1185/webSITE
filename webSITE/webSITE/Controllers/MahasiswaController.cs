@@ -20,7 +20,6 @@ namespace webSITE.Controllers
             return View(listMahasiwa);
         }
 
-        [Authorize]
         public async Task<IActionResult> DetailAsync(string? nim)
         {
             if(nim == null)
