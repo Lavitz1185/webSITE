@@ -32,6 +32,9 @@ namespace webSITE.Areas.Dashboard.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
+            if (_userManager.GetUserId(User) == id)
+                return NotFound();
+
             var mahasiswa = await _repositoriMahasiswa.Get(id);
 
             if(mahasiswa == null)
@@ -96,6 +99,9 @@ namespace webSITE.Areas.Dashboard.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
+            if (_userManager.GetUserId(User) == id)
+                return NotFound();
+
             await _repositoriMahasiswa.Delete(id);
 
             return RedirectToAction("Index");

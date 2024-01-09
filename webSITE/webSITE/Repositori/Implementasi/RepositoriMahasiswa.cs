@@ -42,6 +42,7 @@ namespace webSITE.Repositori.Implementasi
             var mahasiswa = await dbContext.TblMahasiswa
                 .Include(m => m.DaftarKegiatan)
                 .Include(m => m.DaftarFoto)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Nim == nim);
             return mahasiswa;
         }
@@ -50,9 +51,7 @@ namespace webSITE.Repositori.Implementasi
         {
             return await dbContext.TblMahasiswa
                 .Include(m => m.DaftarFoto)
-                .AsNoTracking()
                 .Include(m => m.DaftarKegiatan)
-                .AsNoTracking()
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
         }

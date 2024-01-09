@@ -24,7 +24,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.EnableSensitiveDataLogging();
 });
 
-builder.Services.AddDefaultIdentity<Mahasiswa>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<Mahasiswa>
+    (
+        options =>
+        {
+            options.SignIn.RequireConfirmedAccount = false;
+            options.User.RequireUniqueEmail = true;
+            options.Password.RequireDigit = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+        }
+    )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
@@ -50,7 +60,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication(); ;
 
 app.UseAuthorization();
 

@@ -49,12 +49,15 @@
                 </td>
                 <td>
                     <div class="btn-group gap-1" role="group">
-                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@mahasiswa.Id"><i class="fas fa-pen-square fa-lg"></i></a>
-                        <form id="logoutForm" asp-action="Delete" asp-route-id="@mahasiswa.Id">
-                            <button class="btn btn-danger" type="submit">
-                                <i class="fa fa-regular fa-trash"></i>
-                            </button>
-                        </form>
+                        @if (User.Identity.Name != mahasiswa.UserName)
+                        {
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@mahasiswa.Id"><i class="fas fa-pen-square fa-lg"></i></a>
+                            <form id="logoutForm" asp-action="Delete" asp-route-id="@mahasiswa.Id">
+                                <button class="btn btn-danger" type="submit">
+                                    <i class="fa fa-regular fa-trash"></i>
+                                </button>
+                            </form>
+                        }
                         <a class="btn btn-warning"><i class='fas fa-eye' style='color:#ffffff'></i></a>
                     </div>
                 </td>
