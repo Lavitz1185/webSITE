@@ -31,5 +31,12 @@ namespace webSITE.Controllers
 
             return View(mahasiswa);
         }
+
+        public async Task<FileResult> FotoProfil(string id)
+        {
+            var mahasiswa = await repositoriMahasiswa.Get(id);
+
+            return File(mahasiswa.FotoProfil, "image/png");
+        }
     }
 }

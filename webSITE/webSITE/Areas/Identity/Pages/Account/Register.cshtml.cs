@@ -150,7 +150,9 @@ namespace webSITE.Areas.Identity.Pages.Account
                 user.TanggalLahir = Input.TanggalLahir;
                 user.JenisKelamin = Input.JenisKelamin;
                 user.StatusAkun = StatusAkun.TidakAktif;
-                user.PhotoPath = "/img/LOGO_SITE-removebg-preview.png";
+
+                string fotoProfilPath = @"wwwroot\img\student.png";
+                user.FotoProfil = System.IO.File.ReadAllBytes(fotoProfilPath);
 
                 var duplicate = await _repositoriMahasiswa.GetByNim(user.Nim);
                 if(duplicate != null)

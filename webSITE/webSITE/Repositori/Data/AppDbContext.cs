@@ -9,7 +9,7 @@ namespace webSITE.Repositori.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -41,6 +41,9 @@ namespace webSITE.Repositori.Data
 
             builder.Entity<Mahasiswa>().ToTable("TblMahasiswa");
 
+            string fotoProfilPath1 = @"wwwroot\img\student.png";
+            string fotoProfilPath2 = @"wwwroot\img\SIte_Transparant.png";
+
             builder.Entity<Mahasiswa>().HasData(
                 new Mahasiswa
                 {
@@ -50,7 +53,7 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/SIte_Transparant.png",
+                    FotoProfil = File.ReadAllBytes(fotoProfilPath1),
                     StatusAkun = StatusAkun.Aktif,
                     Bio = "Adi Juanito Taklal ILKOM #1",
                     Email = "aditaklal@gmail.com",
@@ -68,10 +71,10 @@ namespace webSITE.Repositori.Data
                     NamaPanggilan = "Fernand",
                     TanggalLahir = new DateTime(2004, 4, 14),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    PhotoPath = "/img/SIte_Transparant.png",
+                    FotoProfil = File.ReadAllBytes(fotoProfilPath2),
+                    StatusAkun = StatusAkun.Aktif,
                     Bio = "Oswaldus Putra Fernando ILKOM #1",
                     Email = "fernandputra14@gmail.com",
-                    StatusAkun = StatusAkun.Aktif,
                     PasswordHash = new PasswordHasher<Mahasiswa>().HashPassword(null, "fernandilkom"),
                     EmailConfirmed = true,
                     NormalizedEmail = "fernandputra14@gmail.com".ToUpper(),

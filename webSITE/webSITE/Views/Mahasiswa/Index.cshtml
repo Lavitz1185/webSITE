@@ -9,10 +9,10 @@
 <style>
 
     :root {
-        --clr-primary : #651fff;
+        --clr-primary: #651fff;
         --clr-primary2: #651fff;
-        --clr-gray : #37474f;
-        --clr-gray-light : #b0bec5;
+        --clr-gray: #37474f;
+        --clr-gray-light: #b0bec5;
     }
 
     * {
@@ -22,7 +22,7 @@
     }
 
     body {
-        color: var(--clr-gray);     
+        color: var(--clr-gray);
     }
 
     .wrapper-grid {
@@ -30,13 +30,13 @@
         grid-template-columns: minmax(300px, 1fr);
         justify-content: center;
         grid-gap: 2rem;
-        margin: 1rem;     
+        margin: 1rem;
     }
 
-    
+
 
     .container {
-        box-shadow:0px 2px 8px 0px var(--clr-gray-light);
+        box-shadow: 0px 2px 8px 0px var(--clr-gray-light);
         text-align: center;
         border-radius: 1rem;
         position: relative;
@@ -47,13 +47,13 @@
         padding-top: 20px;
     }
 
-    
+
 
     .profile-img {
         width: 8rem;
         clip-path: circle(60px at center);
         margin-top: 1rem;
-        margin: 0 auto; 
+        margin: 0 auto;
     }
 
     .name-profile {
@@ -81,16 +81,16 @@
         color: white;
         background: #6b43ff;
         padding: 1rem;
-        margin-top: auto; 
+        margin-top: auto;
         margin-left: -20px;
         text-decoration: none;
     }
 
-    .btn-profile:hover {
-        text-decoration: none;
-        background: #5222fd;
-        color: white;
-    }
+        .btn-profile:hover {
+            text-decoration: none;
+            background: #5222fd;
+            color: white;
+        }
 
 </style>
 
@@ -100,12 +100,11 @@
     {
         <div class="container">
             <div class="banner-img"></div>
-            <img src="@mahasiswa.PhotoPath" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
+            <img src="Mahasiswa/FotoProfil/@mahasiswa.Id" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
             <h1 class="name-profile">@mahasiswa.NamaLengkap</h1>
             <h1 class="name2-profile">@mahasiswa.Nim</h1>
             <p class="bio">
-                Lorem ipsum dolor sit amet, consectetur ad tempor.
-                
+                @mahasiswa.Bio
             </p>
             <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-nim="@mahasiswa.Nim" class="btn-profile">Cek Profile</a>
         </div>
