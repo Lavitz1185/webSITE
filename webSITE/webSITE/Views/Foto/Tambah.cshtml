@@ -11,7 +11,7 @@
     <div class="row mb-2">
         <div class="col">
             <label asp-for="@Model.Tanggal"></label>
-            <input type="date" class="form-control" asp-for="@Model.Tanggal">
+            <input type="date" class="form-control" asp-for="@Model.Tanggal" value="@DateTime.Now">
             <span class="text-danger" asp-validation-for="@Model.Tanggal"></span>
         </div>
     </div>
