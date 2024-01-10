@@ -100,7 +100,7 @@
     {
         <div class="container">
             <div class="banner-img"></div>
-            <img src="Mahasiswa/FotoProfil/@mahasiswa.Id" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
+            <img src="@Url.ActionLink("FotoProfil", "File", new {Id = mahasiswa.Id, Area = ""})" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
             <h1 class="name-profile">@mahasiswa.NamaLengkap</h1>
             <h1 class="name2-profile">@mahasiswa.Nim</h1>
             <p class="bio">

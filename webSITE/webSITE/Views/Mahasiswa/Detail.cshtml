@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-12 mb-4 d-flex justify-content-center">
-                    <img src="@Url.Action("FotoProfil", new{Id = Model.Id})" class="img-thumbnail rounded-circle" height="250" width="250" />
+                    <img src="@Url.ActionLink("FotoProfil", "File", new {Id = Model.Id, Area = ""})" class="img-thumbnail rounded-circle" height="250" width="250" />
                 </div>
             </div>
             <div class="row">
