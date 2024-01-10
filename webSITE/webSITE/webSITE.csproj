@@ -25,8 +25,8 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Models\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\img\Foto\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\bootstrap\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\css\" />

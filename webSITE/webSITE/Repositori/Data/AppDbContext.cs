@@ -7,9 +7,11 @@ namespace webSITE.Repositori.Data
 {
     public class AppDbContext : IdentityDbContext<Mahasiswa>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
+        private readonly IConfiguration config;
 
+        public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration config) : base(options)
+        {
+            this.config = config;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -141,40 +143,42 @@ namespace webSITE.Repositori.Data
                 }
             );
 
+            string root = config.GetValue<string>("StoredFilesPath");
+
             builder.Entity<Foto>().HasData(
                 new Foto
                 {
                     Id = 1,
                     IdKegiatan = 1,
-                    PhotoPath = "/img/contoh.jpeg",
+                    PhotoPath = Path.Combine(root, "contoh.jpg"),
                     Tanggal = new DateTime(2023, 12, 03),
                 },
                 new Foto
                 {
                     Id = 2,
                     IdKegiatan = 1,
-                    PhotoPath = "/img/contoh.jpeg",
+                    PhotoPath = Path.Combine(root, "contoh.jpg"),
                     Tanggal = new DateTime(2023, 12, 04),
                 },
                 new Foto
                 {
                     Id = 3,
                     IdKegiatan = 1,
-                    PhotoPath = "/img/contoh.jpeg",
+                    PhotoPath = Path.Combine(root, "contoh.jpg"),
                     Tanggal = new DateTime(2023, 12, 04),
                 },
                 new Foto
                 {
                     Id = 4,
                     IdKegiatan = 1,
-                    PhotoPath = "/img/contoh.jpeg",
+                    PhotoPath = Path.Combine(root, "contoh.jpg"),
                     Tanggal = new DateTime(2023, 12, 05),
                 },
                 new Foto
                 {
                     Id = 5,
                     IdKegiatan = 1,
-                    PhotoPath = "/img/contoh.jpeg",
+                    PhotoPath = Path.Combine(root, "contoh.jpg"),
                     Tanggal = new DateTime(2023, 12, 06),
                 }
             );

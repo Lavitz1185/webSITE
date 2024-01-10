@@ -9,6 +9,7 @@ namespace webSITE.AutoMapperProfile
         public MappingProfile()
         {
             CreateMap<Mahasiswa, EditMahasiswaVM>().ReverseMap();
+            CreateMap<Foto, TambahFotoVM>().ReverseMap();
         }
     }
 }

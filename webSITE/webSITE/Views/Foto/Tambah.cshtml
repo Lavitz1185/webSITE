@@ -1,0 +1,50 @@
+﻿@model TambahFotoVM
+@inject IRepositoriKegiatan repositoriKegiatan
+@{
+    ViewData["Title"] = "Tambah Foto";
+    var listKegiatan = (await repositoriKegiatan.GetAll()).ToList();
+}
+
+<form enctype="multipart/form-data" method="post" class="container mt-4">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <label asp-for="@Model.Tanggal"></label>
+            <input type="date" class="form-control" asp-for="@Model.Tanggal">
+            <span class="text-danger" asp-validation-for="@Model.Tanggal"></span>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <label asp-for="@Model.IdKegiatan"></label>
+            <select class="form-control" asp-for="@Model.IdKegiatan">
+                <option value="@null">Tidak Ada</option>
+                @foreach (var kegiatan in listKegiatan)
+                {
+                    <option value="@kegiatan.Id">@kegiatan.NamaKegiatan</option>
+                }
+            </select>
+            <span class="text-danger" asp-validation-for="@Model.IdKegiatan"></span>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <label asp-for="@Model.FotoFormFile"></label>
+            <input class="form-control" asp-for="@Model.FotoFormFile" type="file" />
+            <span asp-validation-for="@Model.FotoFormFile" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col">
+            <button class="btn btn-primary" type="submit">Tambah Foto</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,19 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using webSITE.Models;
 using webSITE.Repositori.Implementasi;
 using webSITE.Repositori.Interface;
+using webSITE.Utilities;
 
 namespace webSITE.Controllers
 {
     public class FotoController : Controller
     {
+        private readonly string[] _permittedExtensions = { ".png", ".jpeg", ".jpg" };
+        private readonly string _targetFilePath;
+        private readonly long _fileSizeLimit;
+
         private readonly IRepositoriFoto _repositoriFoto;
         private readonly IRepositoriKegiatan _repositoriKegiatan;
+        private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public FotoController(IRepositoriFoto repositoriFoto, IRepositoriKegiatan repositoriKegiatan)
+        public FotoController(IRepositoriFoto repositoriFoto, IRepositoriKegiatan repositoriKegiatan, IConfiguration config, IMapper mapper)
         {
             _repositoriFoto = repositoriFoto;
-            this._repositoriKegiatan = repositoriKegiatan;
+            _repositoriKegiatan = repositoriKegiatan;
+            _config = config;
+
+            _targetFilePath = _config.GetValue<string>("StoredFilesPath");
+            _fileSizeLimit = _config.GetValue<long>("FileSizeLimit");
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> DetailFoto(int id)
@@ -82,7 +95,7 @@ namespace webSITE.Controllers
             }
             else if (groupBy == "Kegiatan")
             {
-                var listFoto = await _repositoriFoto.GetAll();
+                var listFoto = (await _repositoriFoto.GetAll()).Where(f => f.Kegiatan != null).ToList();
                 var model = (from f in listFoto
                              group f by f.Kegiatan into grp
                              select new FotoViewModel
@@ -98,6 +111,54 @@ namespace webSITE.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Tambah()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Tambah(TambahFotoVM tambahFotoVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Perbaiki form!");
+                return View();
+            }
+
+            var formFileContent =
+                await FileHelpers.ProcessFormFile<TambahFotoVM>(
+                    tambahFotoVM.FotoFormFile, ModelState, _permittedExtensions,
+                    _fileSizeLimit);
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var trustedFileNameForFileStorage = Path.GetRandomFileName() + Path.GetExtension(tambahFotoVM.FotoFormFile.FileName);
+            var filePath = Path.Combine(
+                _targetFilePath, trustedFileNameForFileStorage);
+
+            using (var fileStream = System.IO.File.Create(filePath))
+            {
+                await fileStream.WriteAsync(formFileContent);
+            }
+
+            Foto newFoto = _mapper.Map<Foto>(tambahFotoVM);
+            newFoto.PhotoPath = filePath;
+
+            newFoto = await _repositoriFoto.Create(newFoto);
+
+            if(newFoto == null)
+            {
+                ModelState.AddModelError(string.Empty, "Error menambahkan foto");
+                return View();
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

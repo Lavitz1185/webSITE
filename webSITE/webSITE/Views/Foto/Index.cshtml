@@ -4,49 +4,67 @@
 }
 
 <div class="mt-4">
-<div class="row">
-    <div class="col">
-        <div class="btn-group gap-4">
-            <a asp-controller="Foto" asp-action="Index" asp-route-groupBy="Tanggal" class="btn btn-primary">
-                Berdasarkan Tanggal
-            </a>
-            <a asp-controller="Foto" asp-action="Index" asp-route-groupBy="Kegiatan" class="btn btn-primary">
-                Berdasarkan Kegiatan
-            </a>
+    <div class="row">
+        <div class="col">
+            <div class="btn-group gap-4">
+                <a asp-controller="Foto" asp-action="Index" asp-route-groupBy="Tanggal" class="btn btn-primary">
+                    Berdasarkan Tanggal
+                </a>
+                <a asp-controller="Foto" asp-action="Index" asp-route-groupBy="Kegiatan" class="btn btn-primary">
+                    Berdasarkan Kegiatan
+                </a>
+                <a asp-controller="Foto" asp-action="Tambah" class="btn btn-primary d-flex flex-collumn align-items-center gap-1">
+                    <svg width="30" height="30" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="plus button">
+                            <path 
+                                fill-rule="evenodd" 
+                                clip-rule="evenodd" 
+                                d="M75 0C33.5786 0 0 33.5786 0 75V437C0 478.421 33.5786 512 75 512H437C478.421 512 512 478.421 512 437V75C512 33.5786 478.421 0 437 0H75ZM105 56C77.938 56 56 77.938 56 105V407C56 434.062 77.938 456 105 456H407C434.062 456 456 434.062 456 407V105C456 77.938 434.062 56 407 56H105Z" 
+                                fill="white" />
+                            <path 
+                                fill-rule="evenodd" 
+                                clip-rule="evenodd" 
+                                d="M237 103C225.954 103 217 111.954 217 123V217H123C111.954 217 103 225.954 103 237V275C103 286.046 111.954 295 123 295H217V389C217 400.046 225.954 409 237 409H275C286.046 409 295 400.046 295 389V295H389C400.046 295 409 286.046 409 275V237C409 225.954 400.046 217 389 217H295V123C295 111.954 286.046 103 275 103H237Z" 
+                                fill="white" 
+                                fill-opacity="1" />
+                        </g>
+                    </svg>
+                    Tambah Foto
+                </a>
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    @foreach (var groupFoto in Model)
-    {
-        <div class="col-md-4 p-2">
-            <div class="card">
-                <div class="card-title">
-                    <h5 class="text-center">@groupFoto.Key</h5>
-                </div>
-                <hr />
-                <div class="card-body">
-                    <div class="row">
-                        @foreach (var foto in groupFoto.DaftarFoto)
+    <div class="row">
+        @foreach (var groupFoto in Model)
+        {
+            <div class="col-md-4 p-2">
+                <div class="card">
+                    <div class="card-title">
+                        <h5 class="text-center">@groupFoto.Key</h5>
+                    </div>
+                    <hr />
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach (var foto in groupFoto.DaftarFoto)
+                            {
+                                <div class="col-4 mb-2">
+                                    <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area=""})" class="img-fluid" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center">
+                        @if (groupFoto.OrderBy == "Tanggal")
                         {
-                            <div class="col-4 mb-2">
-                                <img src="@foto.PhotoPath" class="img-fluid" />
-                            </div>
+                            <a asp-controller="Foto" asp-action="Detail" asp-route-tanggal="@groupFoto.Key">Detail</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Foto" asp-action="Detail" asp-route-idKegiatan="@groupFoto.DaftarFoto[0].IdKegiatan">Detail</a>
                         }
                     </div>
                 </div>
-                <div class="card-footer d-flex justify-content-center">
-                    @if(groupFoto.OrderBy == "Tanggal")
-                    {
-                        <a asp-controller="Foto" asp-action="Detail" asp-route-tanggal="@groupFoto.Key">Detail</a>
-                    }
-                    else
-                    {
-                        <a asp-controller="Foto" asp-action="Detail" asp-route-idKegiatan="@groupFoto.DaftarFoto[0].IdKegiatan">Detail</a>
-                    }
-                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
 </div>

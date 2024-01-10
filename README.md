@@ -34,9 +34,20 @@ Login
 email : aditaklal@gmail.com
 password : adiairnona
 
+email : fernandputra14@gmail.com
+password : fernandilkom
+
 Pertama kali jalankan :
   - Update-Database -context AppDbContext
   - Update-Database -context IdentityContext
+
+Ubah appsettings.json
+  - Ubah "StoredFilesPath" dengan cara : 
+    - Klik Kanan folder img di wwwroot
+    - Pilih Open Folder In File Explorer
+    - Paste ke appsettings.json di "StoredFilesPath"
+    - Contoh "StoredFilesPath": "D:\\latihan\\WebSITE\\webSITE\\webSITE\\webSITE\\wwwroot\\img\\"
+    - Save lalu Update-Database
 
 Link Dashboard
 http://localhost:8802/Dashboard/

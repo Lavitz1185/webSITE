@@ -17,13 +17,16 @@ namespace webSITE.Repositori.Implementasi
         public async Task<Foto> Create(Foto entity)
         {
             var entityDb = await Get(entity.Id);
-            if(entityDb == null)
+            if (entityDb == null)
             {
                 _dbContext.TblFoto.Add(entity);
                 await _dbContext.SaveChangesAsync();
-                entityDb = entity;
+                return entity;
             }
-            return entityDb;
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<Foto> Delete(int id)
