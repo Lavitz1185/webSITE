@@ -11,7 +11,7 @@
                 @foreach (var foto in Model.DaftarFoto)
                 {
                     <div class="col-4 mb-2">
-                        <img src="@foto.PhotoPath" class="img-thumbnail" />
+                        <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
                     </div>
                 }
             }
