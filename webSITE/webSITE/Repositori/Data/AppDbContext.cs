@@ -150,35 +150,35 @@ namespace webSITE.Repositori.Data
                 {
                     Id = 1,
                     IdKegiatan = 1,
-                    PhotoPath = Path.Combine(root, "contoh.jpg"),
+                    PhotoPath = Path.Combine(root, "contoh.jpeg"),
                     Tanggal = new DateTime(2023, 12, 03),
                 },
                 new Foto
                 {
                     Id = 2,
                     IdKegiatan = 1,
-                    PhotoPath = Path.Combine(root, "contoh.jpg"),
+                    PhotoPath = Path.Combine(root, "contoh.jpeg"),
                     Tanggal = new DateTime(2023, 12, 04),
                 },
                 new Foto
                 {
                     Id = 3,
                     IdKegiatan = 1,
-                    PhotoPath = Path.Combine(root, "contoh.jpg"),
+                    PhotoPath = Path.Combine(root, "contoh.jpeg"),
                     Tanggal = new DateTime(2023, 12, 04),
                 },
                 new Foto
                 {
                     Id = 4,
                     IdKegiatan = 1,
-                    PhotoPath = Path.Combine(root, "contoh.jpg"),
+                    PhotoPath = Path.Combine(root, "contoh.jpeg"),
                     Tanggal = new DateTime(2023, 12, 05),
                 },
                 new Foto
                 {
                     Id = 5,
                     IdKegiatan = 1,
-                    PhotoPath = Path.Combine(root, "contoh.jpg"),
+                    PhotoPath = Path.Combine(root, "contoh.jpeg"),
                     Tanggal = new DateTime(2023, 12, 06),
                 }
             );
