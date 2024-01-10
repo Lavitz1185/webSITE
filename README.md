@@ -37,6 +37,9 @@ password : adiairnona
 email : fernandputra14@gmail.com
 password : fernandilkom
 
+email : Lavitz1185@gmail.com
+password : albertilkom
+
 Pertama kali jalankan :
   - Update-Database -context AppDbContext
   - Update-Database -context IdentityContext
