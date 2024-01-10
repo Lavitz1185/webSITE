@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Repositori\Data\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\img\Foto\" />
     <Folder Include="wwwroot\js\" />

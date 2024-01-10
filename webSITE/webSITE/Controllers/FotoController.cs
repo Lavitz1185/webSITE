@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using webSITE.Models;
 using webSITE.Repositori.Implementasi;
@@ -114,6 +115,7 @@ namespace webSITE.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Tambah()
         {
             return View();
@@ -138,7 +140,7 @@ namespace webSITE.Controllers
                 return View();
             }
 
-            var trustedFileNameForFileStorage = Path.GetRandomFileName() + Path.GetExtension(tambahFotoVM.FotoFormFile.FileName);
+            var trustedFileNameForFileStorage = $"{Path.GetRandomFileName()}{Guid.NewGuid()}{Path.GetExtension(tambahFotoVM.FotoFormFile.FileName)}";
             var filePath = Path.Combine(
                 _targetFilePath, trustedFileNameForFileStorage);
 

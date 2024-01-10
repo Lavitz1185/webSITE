@@ -1,6 +1,8 @@
 ﻿@model EditMahasiswaVM
-
 @inject RoleManager<IdentityRole> _roleManager
+@{
+    ViewData["title"] = $"Edit {Model.NamaLengkap}";
+}
 
 <h1>Edit Mahasiswa</h1>
 

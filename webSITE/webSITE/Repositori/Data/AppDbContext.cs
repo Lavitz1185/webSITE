@@ -45,6 +45,7 @@ namespace webSITE.Repositori.Data
 
             string fotoProfilPath1 = @"wwwroot\img\student.png";
             string fotoProfilPath2 = @"wwwroot\img\SIte_Transparant.png";
+            string fotoProfilPath3 = @"wwwroot\img\generaluser.png";
 
             builder.Entity<Mahasiswa>().HasData(
                 new Mahasiswa
@@ -82,6 +83,24 @@ namespace webSITE.Repositori.Data
                     NormalizedEmail = "fernandputra14@gmail.com".ToUpper(),
                     UserName = "fernandputra14@gmail.com",
                     NormalizedUserName = "fernandputra14@gmail.com".ToUpper(),
+                },
+                new Mahasiswa
+                {
+                    Id = "3",
+                    Nim = "2206080095",
+                    NamaLengkap = "Albert Berliano Tapatab",
+                    NamaPanggilan = "Albert",
+                    TanggalLahir = new DateTime(2004, 1, 7),
+                    JenisKelamin = JenisKelamin.LakiLaki,
+                    FotoProfil = File.ReadAllBytes(fotoProfilPath3),
+                    StatusAkun = StatusAkun.Aktif,
+                    Bio = "Albert Berliano Tapatab ILKOM #1",
+                    Email = "Lavitz1185@gmail.com",
+                    PasswordHash = new PasswordHasher<Mahasiswa>().HashPassword(null, "albertilkom"),
+                    EmailConfirmed = true,
+                    NormalizedEmail = "Lavitz1185@gmail.com".ToUpper(),
+                    UserName = "Lavitz1185@gmail.com",
+                    NormalizedUserName = "Lavitz1185@gmail.com".ToUpper(),
                 }
            );
 
@@ -120,6 +139,16 @@ namespace webSITE.Repositori.Data
                 {
                     UserId = "2",
                     RoleId = "2",
+                },
+                new IdentityUserRole<string>()
+                {
+                    UserId = "3",
+                    RoleId = "1"
+                },
+                new IdentityUserRole<string>()
+                {
+                    UserId = "3",
+                    RoleId = "2",
                 }
             );
 
@@ -127,6 +156,15 @@ namespace webSITE.Repositori.Data
                 new Kegiatan
                 {
                     Id = 1,
+                    NamaKegiatan = "Foto Angkatan SITE",
+                    TanggalMulai = new DateTime(2023, 12, 03),
+                    TanggalBerakhir = new DateTime(2023, 12, 03),
+                    Keterangan = "Kegiatan Pertama",
+                    TempatKegiatan = "Undana"
+                },
+                new Kegiatan
+                {
+                    Id = 2,
                     NamaKegiatan = "Kegiatan 1",
                     TanggalMulai = new DateTime(2023, 12, 03),
                     TanggalBerakhir = new DateTime(2023, 12, 07),
@@ -140,6 +178,21 @@ namespace webSITE.Repositori.Data
                 {
                     IdKegiatan = 1,
                     IdMahasiswa = "1",
+                },
+                new PesertaKegiatan
+                {
+                    IdKegiatan = 1,
+                    IdMahasiswa = "2",
+                },
+                new PesertaKegiatan
+                {
+                    IdKegiatan = 1,
+                    IdMahasiswa = "3",
+                },
+                new PesertaKegiatan
+                {
+                    IdKegiatan = 2,
+                    IdMahasiswa = "2",
                 }
             );
 
@@ -150,34 +203,34 @@ namespace webSITE.Repositori.Data
                 {
                     Id = 1,
                     IdKegiatan = 1,
-                    PhotoPath = Path.Combine(root, "contoh.jpeg"),
+                    PhotoPath = Path.Combine(root, "Front_Building.jpg"),
                     Tanggal = new DateTime(2023, 12, 03),
                 },
                 new Foto
                 {
                     Id = 2,
-                    IdKegiatan = 1,
+                    IdKegiatan = 2,
                     PhotoPath = Path.Combine(root, "contoh.jpeg"),
                     Tanggal = new DateTime(2023, 12, 04),
                 },
                 new Foto
                 {
                     Id = 3,
-                    IdKegiatan = 1,
+                    IdKegiatan = 2,
                     PhotoPath = Path.Combine(root, "contoh.jpeg"),
                     Tanggal = new DateTime(2023, 12, 04),
                 },
                 new Foto
                 {
                     Id = 4,
-                    IdKegiatan = 1,
+                    IdKegiatan = 2,
                     PhotoPath = Path.Combine(root, "contoh.jpeg"),
                     Tanggal = new DateTime(2023, 12, 05),
                 },
                 new Foto
                 {
                     Id = 5,
-                    IdKegiatan = 1,
+                    IdKegiatan = 2,
                     PhotoPath = Path.Combine(root, "contoh.jpeg"),
                     Tanggal = new DateTime(2023, 12, 06),
                 }
@@ -191,23 +244,33 @@ namespace webSITE.Repositori.Data
                 },
                 new MahasiswaFoto
                 {
+                    IdFoto = 1,
+                    IdMahasiswa = "2",
+                },
+                new MahasiswaFoto
+                {
+                    IdFoto = 1,
+                    IdMahasiswa = "3",
+                },
+                new MahasiswaFoto
+                {
                     IdFoto = 2,
-                    IdMahasiswa = "1",
+                    IdMahasiswa = "2",
                 },
                 new MahasiswaFoto
                 {
                     IdFoto = 3,
-                    IdMahasiswa = "1",
+                    IdMahasiswa = "2",
                 },
                 new MahasiswaFoto
                 {
                     IdFoto = 4,
-                    IdMahasiswa = "1",
+                    IdMahasiswa = "2",
                 },
                 new MahasiswaFoto
                 {
                     IdFoto = 5,
-                    IdMahasiswa = "1",
+                    IdMahasiswa = "2",
                 }
             );
         }
