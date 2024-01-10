@@ -1,8 +1,8 @@
-﻿@{
+﻿@inject SignInManager<Mahasiswa> sigInManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
-
-@*HomeImage*@
 
 <section id="home" class="mb-5">
     <h2>SITE 22 ILMU KOMPUTER</h2>
@@ -12,9 +12,12 @@
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat exercitation ullamco laboris nisi ut aliquip.
     </p>
-    <div class="btn">
-        <a class="blue" id="login" asp-area="Identity" asp-page="/Account/Login">LOGIN MAHASISWA</a>
-    </div>
+    @if (!sigInManager.IsSignedIn(User))
+    {
+        <div class="btn">
+            <a class="blue" id="login" asp-area="Identity" asp-page="/Account/Login">LOGIN MAHASISWA</a>
+        </div>
+    }
 </section>
 
 @*About Us*@
@@ -88,5 +91,4 @@
 @*Album Preview*@
 
 <section class="">
-
 </section>
