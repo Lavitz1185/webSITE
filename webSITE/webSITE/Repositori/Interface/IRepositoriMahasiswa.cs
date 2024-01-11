@@ -11,5 +11,11 @@ namespace webSITE.Repositori.Interface
         Task<Mahasiswa> Update(Mahasiswa entity);
         Task<Mahasiswa> Delete(string id);
         Task<Mahasiswa> GetByNim(string nim);
+        Task<Mahasiswa> SetProfilePicture(string id, byte[] photoData);
+        Task<Mahasiswa> AddToFoto(string idMahasiswa, int idFoto);
+        Task<Mahasiswa> RemoveFromFoto(string idMahasiswa, int idFoto);
+        Task<Mahasiswa> AddToKegiatan(string idMahasiswa, int idKegiatan);
+        Task<Mahasiswa> RemoveFromKegiatan(string idMahasiswa, int idKegiatan);
     }
 }
+    

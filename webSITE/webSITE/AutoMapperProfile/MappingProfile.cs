@@ -10,6 +10,10 @@ namespace webSITE.AutoMapperProfile
         {
             CreateMap<Mahasiswa, EditMahasiswaVM>().ReverseMap();
             CreateMap<Foto, TambahFotoVM>().ReverseMap();
+            CreateMap<Mahasiswa, AccountIndexVM>().ReverseMap();
+            CreateMap<Mahasiswa, AccountFotoVM>().ReverseMap();
+
+            CreateMap<Mahasiswa, Mahasiswa>().ReverseMap();
         }
     }
 }

@@ -8,8 +8,8 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a class="nav-link" id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" 
-        title="Manage">Hello @((await repositoriMahasiswa.Get(UserManager.GetUserId(User))).NamaPanggilan)!</a>
+        <a class="nav-link" id="manage" asp-area="" asp-controller="Account" asp-action="Index" 
+        title="Manage">Hello @((await UserManager.GetUserAsync(User)).NamaPanggilan)!</a>
     </li>
     <li class="nav-item d-flex align-items-center">
         <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
