@@ -229,7 +229,7 @@ namespace webSITE.Migrations
 
                     b.HasIndex("IdKegiatan");
 
-                    b.ToTable("TblFoto");
+                    b.ToTable("TblFoto", (string)null);
 
                     b.HasData(
                         new
@@ -297,7 +297,7 @@ namespace webSITE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TblKegiatan");
+                    b.ToTable("TblKegiatan", (string)null);
 
                     b.HasData(
                         new
@@ -499,7 +499,7 @@ namespace webSITE.Migrations
 
                     b.HasIndex("IdMahasiswa");
 
-                    b.ToTable("TblMahasiswaFoto");
+                    b.ToTable("TblMahasiswaFoto", (string)null);
 
                     b.HasData(
                         new
@@ -551,7 +551,7 @@ namespace webSITE.Migrations
 
                     b.HasIndex("IdMahasiswa");
 
-                    b.ToTable("TblPesertaKegiatan");
+                    b.ToTable("TblPesertaKegiatan", (string)null);
 
                     b.HasData(
                         new

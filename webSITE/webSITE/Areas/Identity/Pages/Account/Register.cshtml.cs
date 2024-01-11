@@ -151,7 +151,7 @@ namespace webSITE.Areas.Identity.Pages.Account
                 user.JenisKelamin = Input.JenisKelamin;
                 user.StatusAkun = StatusAkun.TidakAktif;
 
-                string fotoProfilPath = @"wwwroot\img\student.png";
+                string fotoProfilPath = @"wwwroot/img/student.png";
                 user.FotoProfil = System.IO.File.ReadAllBytes(fotoProfilPath);
 
                 var duplicate = await _repositoriMahasiswa.GetByNim(user.Nim);

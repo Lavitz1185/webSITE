@@ -72,7 +72,11 @@ namespace webSITE.Repositori.Implementasi
             if(mahasiswa != null )
             {
                 dbContext.TblMahasiswa.Update(mahasiswa);
-                mahasiswa = _mapper.Map<Mahasiswa>(entity);
+                mahasiswa.Nim = entity.Nim;
+                mahasiswa.NamaLengkap = entity.NamaLengkap;
+                mahasiswa.NamaPanggilan = entity.NamaPanggilan;
+                mahasiswa.TanggalLahir = entity.TanggalLahir;
+                mahasiswa.JenisKelamin = entity.JenisKelamin;
             }
 
             await dbContext.SaveChangesAsync();
