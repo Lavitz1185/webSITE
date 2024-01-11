@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using webSITE.Models;
 using webSITE.Repositori.Interface;
+using webSITE.Utilities;
 
 namespace webSITE.Controllers
 {
@@ -14,6 +15,7 @@ namespace webSITE.Controllers
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly IMapper _mapper;
         private readonly long _sizeLimit;
+        private readonly string[] _permittedExtension = new string[] { ".png", ".jpg", ".jpeg" };
 
         public AccountController(
             UserManager<Mahasiswa> userManager,
@@ -56,13 +58,32 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> FotoProfil()
         {
-            return View();
+            var accountFotoVM = new AccountFotoVM { Id = _userManager.GetUserId(User) };
+
+            return View(accountFotoVM);
         }
 
         [HttpPost]
         public async Task<IActionResult> FotoProfil(AccountFotoVM accountFotoVM)
         {
-            return View();
+            var mahasiswa = await _userManager.GetUserAsync(User);
+
+            var photoData = await FileHelpers.ProcessFormFile<AccountFotoVM>(accountFotoVM.FotoFormFile
+                , ModelState, _permittedExtension, _sizeLimit);
+
+            if(!ModelState.IsValid)
+            {
+                RedirectToAction("FotoProfil");
+            }
+
+            mahasiswa = await _repositoriMahasiswa.SetProfilePicture(mahasiswa.Id, photoData);
+
+            if(mahasiswa == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error Menambahkan data");
+            }
+
+            return RedirectToAction("FotoProfil");
         }
     }
 }
