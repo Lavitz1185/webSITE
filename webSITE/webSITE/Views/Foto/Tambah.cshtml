@@ -32,31 +32,30 @@
         </div>
     </div>
 
-    <table class="table table-bordered" id="tbmahasiswa">
-        <thead>
-            <tr>
-                <th width="25%">ID</th>
-                <th width="50%">Nama</th>
-                <th width="25%">Aksi</th>
-            </tr>
-        </thead>
-        <tbody id="tbbody">
-            @foreach (var mahasiswa in listMahasiswa)
-            {
-                <tr>
-                    <td>
-                        <input class="form-control" value="@mahasiswa.Id" id="idMahasiswa">
-                    </td>
-                    <td>
-                        @mahasiswa.NamaLengkap
-                    </td>
-                    <td>
-                        <input type="checkbox" id="checkBoxMahasiswa">
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="row mb-2">
+        <div class="col">
+            <label>Dalam Foto</label>
+            <table class="table table-bordered" id="tbmahasiswa">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                    </tr>
+                </thead>
+                <tbody id="tbbody">
+                    @foreach (var mahasiswa in listMahasiswa)
+                    {
+                        <tr>
+                            <td>
+                                <input class="form-control" value="@mahasiswa.Id" id="idMahasiswa" hidden="hidden">
+                                @mahasiswa.NamaLengkap
+                                <input type="checkbox" id="checkBoxMahasiswa" hidden="hidden">
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <div class="row mb-2">
         <div class="col">
@@ -71,15 +70,39 @@
             <button class="btn btn-primary" id="btnAjaxSubmit" type="submit">Tambah Foto</button>
         </div>
     </div>
+    <a asp-action="Index">Kembali</a>
 </form>
 
-<a asp-action="Index">Kembali</a>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <partial name="_DataTable" />
 
     <script>
+        $(function () {
+            $('#tbbody > tr').click(function () {
+                $(this).find('#checkBoxMahasiswa').attr('checked', function (i, org) {
+
+                    let newOrg = !org;
+
+                    if (newOrg) {
+                        $(this).parents('tr').css({
+                            'background': 'blue',
+                            'color': 'white'
+                        });
+                    }
+                    else {
+                        $(this).parents('tr').css({
+                            'background': 'white',
+                            'color': 'black'
+                        });
+                    }
+
+                    return newOrg;
+                });
+            });
+        });
+
         async function AjaxSubmit(oFormElement) {
 
             const formData = new FormData(oFormElement);
@@ -95,8 +118,7 @@
                 }
             });
 
-            for (let i = 0; i < idMahasiswa.length; i++)
-            {
+            for (let i = 0; i < idMahasiswa.length; i++) {
                 formData.append('IdMahasiswa[' + i + ']', idMahasiswa[i]);
             }
 
