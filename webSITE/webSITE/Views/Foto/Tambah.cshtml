@@ -89,12 +89,9 @@
             $('#tbbody > tr').each((index, item) => {
                 let checkbox = $(item).find('#checkBoxMahasiswa:checked');
 
-                console.log(checkbox);
-
                 if (checkbox.length != 0) {
                     let id = parseInt($(item).find('#idMahasiswa').val());
                     idMahasiswa.push(id);
-                    console.log(id);
                 }
             });
 
