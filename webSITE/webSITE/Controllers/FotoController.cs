@@ -16,10 +16,14 @@ namespace webSITE.Controllers
 
         private readonly IRepositoriFoto _repositoriFoto;
         private readonly IRepositoriKegiatan _repositoriKegiatan;
+        private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        public FotoController(IRepositoriFoto repositoriFoto, IRepositoriKegiatan repositoriKegiatan, IConfiguration config, IMapper mapper)
+        public FotoController(IRepositoriFoto repositoriFoto,
+            IRepositoriKegiatan repositoriKegiatan,
+            IConfiguration config, IMapper mapper, 
+            IRepositoriMahasiswa repositoriMahasiswa)
         {
             _repositoriFoto = repositoriFoto;
             _repositoriKegiatan = repositoriKegiatan;
@@ -28,6 +32,7 @@ namespace webSITE.Controllers
             _targetFilePath = _config.GetValue<string>("StoredFilesPath");
             _fileSizeLimit = _config.GetValue<long>("FileSizeLimit");
             _mapper = mapper;
+            _repositoriMahasiswa = repositoriMahasiswa;
         }
 
         public async Task<IActionResult> DetailFoto(int id)
@@ -151,6 +156,9 @@ namespace webSITE.Controllers
 
             Foto newFoto = _mapper.Map<Foto>(tambahFotoVM);
             newFoto.PhotoPath = filePath;
+
+            newFoto.DaftarMahasiswa = (await _repositoriMahasiswa.GetAll())
+                .Where(m => tambahFotoVM.IdMahasiswa.Contains(m.Id)).ToList();
 
             newFoto = await _repositoriFoto.Create(newFoto);
 

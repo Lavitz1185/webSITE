@@ -12,6 +12,9 @@ namespace webSITE.Models
         [Display(Name = "Foto")]
         public IFormFile FotoFormFile { get; set; }
 
+        [Display(Name = "Dalam Foto")]
+        public List<string>? IdMahasiswa { get; set; }
+
         [Display(Name = "Kegiatan")]
         public int? IdKegiatan { get; set; }
     }
