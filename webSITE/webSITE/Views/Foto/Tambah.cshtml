@@ -1,10 +1,12 @@
 ﻿@model TambahFotoVM
 @inject IRepositoriKegiatan repositoriKegiatan
 @inject IRepositoriMahasiswa repositoriMahasiswa
+
 @{
     ViewData["Title"] = "Tambah Foto";
     var listKegiatan = (await repositoriKegiatan.GetAll()).ToList();
     var listMahasiswa = (await repositoriMahasiswa.GetAll()).ToList();
+
 }
 
 <form enctype="multipart/form-data" method="post" class="container mt-4" asp-action="Tambah" onsubmit="AjaxSubmit(this);return false">
