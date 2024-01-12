@@ -15,7 +15,7 @@
         </ul>
     </div>
     <div class="col-md-9 d-flex flex-column me-auto gap-1">
-        <div class="row">
+        <div class="row" id="fotoProfil">
             <div class="col-md-9 d-flex justify-content-center">
                 <img src="@Url.ActionLink("FotoProfil", "File", new {Id = Model.Id, Area = ""})" class="img-thumbnail" width="400">
             </div>
@@ -35,13 +35,13 @@
                 <div class="row mb-2">
                     <div class="col d-flex flex-md-row flex-column">
                         <button class="btn btn-primary" id="btnSubmit" type="submit">Simpan</button>
-                        <a id="btnBatal" class="btn btn-secondary ms-auto" hidden="hidden" asp-action="FotoProfil">Batal</a>
                     </div>
                 </div>
             </form>
         </div>
         <div class="row">
             <div class="col-md-9 d-flex justify-content-center">
+                <button id="btnBatal" class="btn btn-secondary me-auto" hidden="hidden">Batal</button>
                 <button id="btnEdit" class="btn btn-primary">Edit</button>
             </div>
         </div>
@@ -61,7 +61,21 @@
 
                 $('#btnBatal').prop('hidden', false);
 
-            })
+                $('#fotoProfil').prop('hidden', true);
+
+            });
+
+            $('#btnBatal').click(() => {
+
+                $('#formFotoProfil').css({ 'display': 'none' });
+
+                $('#btnEdit').prop('hidden', false);
+
+                $('#btnBatal').prop('hidden', true);
+
+                $('#fotoProfil').prop('hidden', false);
+
+            });
         })
     </script>
 }
