@@ -132,7 +132,7 @@ namespace webSITE.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError(string.Empty, "Perbaiki form!");
-                return View();
+                return BadRequest(tambahFotoVM);
             }
 
             var formFileContent =
@@ -142,7 +142,7 @@ namespace webSITE.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View();
+                return BadRequest(tambahFotoVM);
             }
 
             var trustedFileNameForFileStorage = $"{Path.GetRandomFileName()}{Guid.NewGuid()}{Path.GetExtension(tambahFotoVM.FotoFormFile.FileName)}";
@@ -165,7 +165,7 @@ namespace webSITE.Controllers
             if(newFoto == null)
             {
                 ModelState.AddModelError(string.Empty, "Error menambahkan foto");
-                return View();
+                return BadRequest(tambahFotoVM);
             }
 
             return RedirectToAction("Index");

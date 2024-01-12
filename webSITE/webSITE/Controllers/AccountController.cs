@@ -71,18 +71,23 @@ namespace webSITE.Controllers
             var photoData = await FileHelpers.ProcessFormFile<AccountFotoVM>(accountFotoVM.FotoFormFile
                 , ModelState, _permittedExtension, _sizeLimit);
 
+            accountFotoVM.Id = mahasiswa.Id;
             if(!ModelState.IsValid)
             {
-                RedirectToAction("FotoProfil");
+                TempData["status"] = false;
+                return View(accountFotoVM);
             }
 
             mahasiswa = await _repositoriMahasiswa.SetProfilePicture(mahasiswa.Id, photoData);
 
             if(mahasiswa == null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error Menambahkan data");
+                ModelState.AddModelError(string.Empty, "Error Menambahkan data");
+                TempData["status"] = false;
+                return View(accountFotoVM);
             }
 
+            TempData["status"] = true;
             return RedirectToAction("FotoProfil");
         }
     }

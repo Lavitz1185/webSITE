@@ -53,27 +53,38 @@
 
     <script type="text/javascript">
         $(() => {
+
+            const toggleEdit = (toggle) => {
+                if (toggle) {
+                    $('#formFotoProfil').css({ 'display': 'block' });
+                }
+                else {
+                    $('#formFotoProfil').css({ 'display': 'none' });
+                }
+
+                $('#btnEdit').prop('hidden', toggle);
+
+                $('#btnBatal').prop('hidden', !toggle);
+
+                $('#fotoProfil').prop('hidden', toggle);
+            };
+
+            let a = !!@(TempData["status"] == null ? "true" : TempData["status"]?.ToString()?.ToLower());
+
+            if (!a) {
+
+                toggleEdit(true);
+            }
+
             $('#btnEdit').click(() => {
 
-                $('#formFotoProfil').css({ 'display': 'block' });
-
-                $('#btnEdit').prop('hidden', true);
-
-                $('#btnBatal').prop('hidden', false);
-
-                $('#fotoProfil').prop('hidden', true);
+                toggleEdit(true);
 
             });
 
             $('#btnBatal').click(() => {
 
-                $('#formFotoProfil').css({ 'display': 'none' });
-
-                $('#btnEdit').prop('hidden', false);
-
-                $('#btnBatal').prop('hidden', true);
-
-                $('#fotoProfil').prop('hidden', false);
+                toggleEdit(false);
 
             });
         })

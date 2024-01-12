@@ -4,8 +4,7 @@ namespace webSITE.Models
 {
     public class AccountFotoVM
     {
-        [Required]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [Required]
         [Display(Name = "Foto Profil")]

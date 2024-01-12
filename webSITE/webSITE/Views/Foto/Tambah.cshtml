@@ -6,8 +6,34 @@
     ViewData["Title"] = "Tambah Foto";
     var listKegiatan = (await repositoriKegiatan.GetAll()).ToList();
     var listMahasiswa = (await repositoriMahasiswa.GetAll()).ToList();
-
 }
+
+<style>
+
+    .tag {
+        border: 1px solid;
+        border-color: #0dcaf0 !important;
+        border-radius: 10rem;
+        padding: .5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .close {
+        background: inherit;
+        box-sizing: border-box;
+        border: solid;
+        border-width: 1px;
+        border-color: white;
+        width: 1.5rem;
+        font-size: 1.3rem;
+    }
+
+        .close:active {
+            border-color: black;
+        }
+</style>
 
 <form enctype="multipart/form-data" method="post" class="container mt-4" asp-action="Tambah" onsubmit="AjaxSubmit(this);return false">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -37,6 +63,8 @@
     <div class="row mb-2">
         <div class="col">
             <label>Dalam Foto</label>
+            <div class="d-flex justify-content-start" id="tagContainer">
+            </div>
             <table class="table table-bordered" id="tbmahasiswa">
                 <thead>
                     <tr>
@@ -49,7 +77,7 @@
                         <tr>
                             <td>
                                 <input class="form-control" value="@mahasiswa.Id" id="idMahasiswa" hidden="hidden">
-                                @mahasiswa.NamaLengkap
+                                <div id="namaMahasiswa">@mahasiswa.NamaLengkap</div>
                                 <input type="checkbox" id="checkBoxMahasiswa" hidden="hidden">
                             </td>
                         </tr>
@@ -82,22 +110,59 @@
 
     <script>
         $(function () {
+            const AddRemoveAction = function () {
+                $('button.close').each(function (index, item) {
+                    $(item).click(function () {
+                        let nama = $(this).siblings('#namaMahasiswa').text();
+
+                        $('#tbbody').find('tr').each(function (index, item) {
+                            let found = $(item).find('#namaMahasiswa').text() == nama;
+
+                            if (found) {
+                                $(item).find('#checkBoxMahasiswa').attr('checked', false);
+                                $(item).css({
+                                    'background': 'white',
+                                    'color': 'black'
+                                });
+                            }
+                        });
+
+                        $(this).parent().remove();
+                    });
+                });
+            };
+
             $('#tbbody > tr').click(function () {
                 $(this).find('#checkBoxMahasiswa').attr('checked', function (i, org) {
 
                     let newOrg = !org;
+
+                    let nama = $(this).siblings('#namaMahasiswa').text();
 
                     if (newOrg) {
                         $(this).parents('tr').css({
                             'background': 'blue',
                             'color': 'white'
                         });
+
+                        $('#tagContainer').append(`
+                                                <div class="tag">
+                                                    <div id="namaMahasiswa">` + nama + `</div>
+                                                    <button type="button" class="close" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>`);
+                        AddRemoveAction();
                     }
                     else {
                         $(this).parents('tr').css({
                             'background': 'white',
                             'color': 'black'
                         });
+
+                        $('#tagContainer').find('.tag').filter(function () {
+                            return $(this).find('#namaMahasiswa').text() == nama;
+                        }).remove();;
                     }
 
                     return newOrg;
@@ -112,9 +177,9 @@
             let idMahasiswa = [];
 
             $('#tbbody > tr').each((index, item) => {
-                let checkbox = $(item).find('#checkBoxMahasiswa:checked');
+                let checkboxChecked = $(item).find('#checkBoxMahasiswa').attr('checked');
 
-                if (checkbox.length != 0) {
+                if (checkboxChecked) {
                     let id = parseInt($(item).find('#idMahasiswa').val());
                     idMahasiswa.push(id);
                 }
@@ -133,10 +198,11 @@
                 });
 
                 if (response.ok) {
+                    console.log(response);
                     window.location.href = '/Foto/Index';
                 }
             } catch (error) {
-                console.error('Error:', error);
+                alert('Error ' + error);
             }
         }
     </script>
