@@ -12,9 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 string connectionString = "";
 
 if (builder.Environment.IsDevelopment())
+{
     connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    var wwwRoot = builder.Environment.WebRootPath;
+    var fullPath = wwwRoot + @"\img\Foto";
+    builder.Configuration["StoredFilesPath"] = fullPath;
+}
 else
     connectionString = builder.Configuration.GetConnectionString("PublishedConnection");
+
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
