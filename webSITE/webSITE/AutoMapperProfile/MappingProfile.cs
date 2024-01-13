@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using webSITE.Areas.Dashboard.Models;
 using webSITE.Models;
+using webSITE.Models.Account;
+using webSITE.Models.FotoController;
 
 namespace webSITE.AutoMapperProfile
 {

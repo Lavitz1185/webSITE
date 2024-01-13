@@ -40,8 +40,7 @@ namespace webSITE.Repositori.Implementasi
         public async Task<Kegiatan> Get(int id)
         {
             var kegiatan = await _dbContext.TblKegiatan
-                .Include(k => k.DaftarFoto)
-                .Include(k => k.DaftarMahasiswa)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(k => k.Id == id);
 
             return kegiatan;
@@ -49,7 +48,31 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<IEnumerable<Kegiatan>> GetAll()
         {
-            var kegiatan = await _dbContext.TblKegiatan.ToListAsync();
+            var daftarKegiatan = await _dbContext.TblKegiatan
+                .AsNoTracking()
+                .ToListAsync();
+
+            return daftarKegiatan;
+        }
+
+        public async Task<IEnumerable<Kegiatan>> GetAllWithDetail()
+        {
+            var daftarKegiatan = await _dbContext.TblKegiatan
+                .Include(k => k.DaftarFoto)
+                .Include(k => k.DaftarMahasiswa)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return daftarKegiatan;
+        }
+
+        public async Task<Kegiatan> GetWithDetail(int id)
+        {
+            var kegiatan = await _dbContext.TblKegiatan
+                .Include(k => k.DaftarFoto)
+                .Include(k => k.DaftarMahasiswa)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(k => k.Id == id);
 
             return kegiatan;
         }

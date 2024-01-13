@@ -1,11 +1,9 @@
 ﻿@model TambahFotoVM
 @inject IRepositoriKegiatan repositoriKegiatan
-@inject IRepositoriMahasiswa repositoriMahasiswa
 
 @{
     ViewData["Title"] = "Tambah Foto";
     var listKegiatan = (await repositoriKegiatan.GetAll()).ToList();
-    var listMahasiswa = (await repositoriMahasiswa.GetAll()).ToList();
 }
 
 <style>
@@ -14,7 +12,7 @@
         border: 1px solid;
         border-color: #0dcaf0 !important;
         border-radius: 10rem;
-        padding: .5rem;
+        padding: .25rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -26,22 +24,37 @@
         border: solid;
         border-width: 1px;
         border-color: white;
-        width: 1.5rem;
-        font-size: 1.3rem;
+        font-size: 1rem;
+        padding: 0;
+        margin: 0;
     }
 
-        .close:active {
-            border-color: black;
+    #tbbody input#namaMahasiswa {
+        border: none;
+        background: inherit;
+        color: inherit;
+    }
+
+        #tbbody input#namaMahasiswa:focus {
+            outline: none;
         }
+
+        #tbbody input#namaMahasiswa:focus-visible {
+            outline: none;
+        }
+
+    .close:active {
+        border-color: black;
+    }
 </style>
 
-<form enctype="multipart/form-data" method="post" class="container mt-4" asp-action="Tambah" onsubmit="AjaxSubmit(this);return false">
+<form enctype="multipart/form-data" method="post" class="container mt-4" asp-action="Tambah">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="row mb-2">
         <div class="col">
             <label asp-for="@Model.Tanggal"></label>
-            <input type="date" class="form-control" asp-for="@Model.Tanggal" value="@DateTime.Now">
+            <input type="date" class="form-control" asp-for="@Model.Tanggal">
             <span class="text-danger" asp-validation-for="@Model.Tanggal"></span>
         </div>
     </div>
@@ -63,7 +76,7 @@
     <div class="row mb-2">
         <div class="col">
             <label>Dalam Foto</label>
-            <div class="d-flex justify-content-start" id="tagContainer">
+            <div class="d-flex justify-content-start gap-1" id="tagContainer">
             </div>
             <table class="table table-bordered" id="tbmahasiswa">
                 <thead>
@@ -72,13 +85,19 @@
                     </tr>
                 </thead>
                 <tbody id="tbbody">
-                    @foreach (var mahasiswa in listMahasiswa)
+                    @for (int i = 0; i < Model.DaftarMahasiswaTambahFotoVM.Length; i++)
                     {
                         <tr>
                             <td>
-                                <input class="form-control" value="@mahasiswa.Id" id="idMahasiswa" hidden="hidden">
-                                <div id="namaMahasiswa">@mahasiswa.NamaLengkap</div>
-                                <input type="checkbox" id="checkBoxMahasiswa" hidden="hidden">
+                                <input class="form-control" value="@Model.DaftarMahasiswaTambahFotoVM[@i].Id"
+                                       id="idMahasiswa" hidden="hidden"
+                                       asp-for="@Model.DaftarMahasiswaTambahFotoVM[@i].Id">
+                                <input id="namaMahasiswa"
+                                       value="@Model.DaftarMahasiswaTambahFotoVM[@i].NamaLengkap"
+                                       readonly="true"
+                                       asp-for="@Model.DaftarMahasiswaTambahFotoVM[@i].NamaLengkap" />
+                                <input type="checkbox" id="checkBoxMahasiswa" hidden="hidden"
+                                       asp-for="@Model.DaftarMahasiswaTambahFotoVM[@i].DalamFoto">
                             </td>
                         </tr>
                     }
@@ -116,7 +135,7 @@
                         let nama = $(this).siblings('#namaMahasiswa').text();
 
                         $('#tbbody').find('tr').each(function (index, item) {
-                            let found = $(item).find('#namaMahasiswa').text() == nama;
+                            let found = $(item).find('#namaMahasiswa').val() == nama;
 
                             if (found) {
                                 $(item).find('#checkBoxMahasiswa').attr('checked', false);
@@ -137,7 +156,7 @@
 
                     let newOrg = !org;
 
-                    let nama = $(this).siblings('#namaMahasiswa').text();
+                    let nama = $(this).siblings('#namaMahasiswa').val();
 
                     if (newOrg) {
                         $(this).parents('tr').css({
@@ -145,13 +164,13 @@
                             'color': 'white'
                         });
 
-                        $('#tagContainer').append(`
-                                                <div class="tag">
-                                                    <div id="namaMahasiswa">` + nama + `</div>
-                                                    <button type="button" class="close" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>`);
+                        $('#tagContainer').append(
+                            `<div class="tag">
+                                                        <div id="namaMahasiswa">` + nama + `</div>
+                                                        <button type="button" class="close" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>`);
                         AddRemoveAction();
                     }
                     else {
@@ -169,41 +188,5 @@
                 });
             });
         });
-
-        async function AjaxSubmit(oFormElement) {
-
-            const formData = new FormData(oFormElement);
-
-            let idMahasiswa = [];
-
-            $('#tbbody > tr').each((index, item) => {
-                let checkboxChecked = $(item).find('#checkBoxMahasiswa').attr('checked');
-
-                if (checkboxChecked) {
-                    let id = parseInt($(item).find('#idMahasiswa').val());
-                    idMahasiswa.push(id);
-                }
-            });
-
-            for (let i = 0; i < idMahasiswa.length; i++) {
-                formData.append('IdMahasiswa[' + i + ']', idMahasiswa[i]);
-            }
-
-            console.log(formData);
-
-            try {
-                const response = await fetch(oFormElement.action, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    console.log(response);
-                    window.location.href = '/Foto/Index';
-                }
-            } catch (error) {
-                alert('Error ' + error);
-            }
-        }
     </script>
 }

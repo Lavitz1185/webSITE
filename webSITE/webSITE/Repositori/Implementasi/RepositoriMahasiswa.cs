@@ -53,15 +53,15 @@ namespace webSITE.Repositori.Implementasi
         public async Task<Mahasiswa> Get(string id)
         {
             return await dbContext.TblMahasiswa
-                .Include(m => m.DaftarFoto)
-                .Include(m => m.DaftarKegiatan)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<IEnumerable<Mahasiswa>> GetAll()
         {
-            var list = await dbContext.TblMahasiswa.ToListAsync();
+            var list = await dbContext.TblMahasiswa
+                .AsNoTracking()
+                .ToListAsync();
             return list;
         }
 
@@ -167,6 +167,24 @@ namespace webSITE.Repositori.Implementasi
             await dbContext.SaveChangesAsync();
 
             return await Get(idMahasiswa);
+        }
+
+        public async Task<Mahasiswa> GetWithDetail(string id)
+        {
+            return await dbContext.TblMahasiswa
+                .Include(m => m.DaftarFoto)
+                .Include(m => m.DaftarKegiatan)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<IEnumerable<Mahasiswa>> GetAllWithDetail()
+        {
+            return await dbContext.TblMahasiswa
+                .Include(m => m.DaftarFoto)
+                .Include(m => m.DaftarKegiatan)
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

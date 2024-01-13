@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace webSITE.Models
+namespace webSITE.Models.Account
 {
     public class AccountFotoVM
     {

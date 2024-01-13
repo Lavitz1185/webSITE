@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 using webSITE.Models;
+using webSITE.Models.FotoController;
 using webSITE.Repositori.Implementasi;
 using webSITE.Repositori.Interface;
 using webSITE.Utilities;
@@ -37,7 +39,7 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> DetailFoto(int id)
         {
-            var foto = await _repositoriFoto.Get(id);
+            var foto = await _repositoriFoto.GetWithDetail(id);
 
             if(foto == null)
                 return NotFound();
@@ -101,7 +103,9 @@ namespace webSITE.Controllers
             }
             else if (groupBy == "Kegiatan")
             {
-                var listFoto = (await _repositoriFoto.GetAll()).Where(f => f.Kegiatan != null).ToList();
+                var listFoto = (await _repositoriFoto.GetAllWithDetail())
+                    .Where(f => f.Kegiatan != null).ToList();
+
                 var model = (from f in listFoto
                              group f by f.Kegiatan into grp
                              select new FotoViewModel
@@ -123,7 +127,19 @@ namespace webSITE.Controllers
         [Authorize]
         public async Task<IActionResult> Tambah()
         {
-            return View();
+            var listMahasiswa = (await _repositoriMahasiswa.GetAll())
+                .Select(m => new MahasiswaTambahFotoVM
+                {
+                    Id = m.Id,
+                    NamaLengkap = m.NamaLengkap,
+                    DalamFoto = false
+                }).ToArray();
+
+            return View(new TambahFotoVM
+            {
+                Tanggal = DateTime.Now,
+                DaftarMahasiswaTambahFotoVM = listMahasiswa
+            });
         }
 
         [HttpPost]
@@ -132,7 +148,7 @@ namespace webSITE.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError(string.Empty, "Perbaiki form!");
-                return BadRequest(tambahFotoVM);
+                return View(tambahFotoVM);
             }
 
             var formFileContent =
@@ -142,30 +158,32 @@ namespace webSITE.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(tambahFotoVM);
+                return View(tambahFotoVM);
             }
 
             var trustedFileNameForFileStorage = $"{Path.GetRandomFileName()}{Guid.NewGuid()}{Path.GetExtension(tambahFotoVM.FotoFormFile.FileName)}";
             var filePath = Path.Combine(
                 _targetFilePath, trustedFileNameForFileStorage);
 
-            using (var fileStream = System.IO.File.Create(filePath))
-            {
-                await fileStream.WriteAsync(formFileContent);
-            }
-
             Foto newFoto = _mapper.Map<Foto>(tambahFotoVM);
             newFoto.PhotoPath = filePath;
 
-            newFoto.DaftarMahasiswa = (await _repositoriMahasiswa.GetAll())
-                .Where(m => tambahFotoVM.IdMahasiswa.Contains(m.Id)).ToList();
+            newFoto.DaftarMahasiswa = tambahFotoVM.DaftarMahasiswaTambahFotoVM
+                .Where(m => m.DalamFoto == true)
+                .Select(m => _repositoriMahasiswa.Get(m.Id).Result)
+                .ToList();
 
             newFoto = await _repositoriFoto.Create(newFoto);
 
             if(newFoto == null)
             {
                 ModelState.AddModelError(string.Empty, "Error menambahkan foto");
-                return BadRequest(tambahFotoVM);
+                return View(tambahFotoVM);
+            }
+
+            using (var fileStream = System.IO.File.Create(filePath))
+            {
+                await fileStream.WriteAsync(formFileContent);
             }
 
             return RedirectToAction("Index");

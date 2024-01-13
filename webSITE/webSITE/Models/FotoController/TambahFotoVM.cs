@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace webSITE.Models
+namespace webSITE.Models.FotoController
 {
     public class TambahFotoVM
     {
@@ -13,7 +13,7 @@ namespace webSITE.Models
         public IFormFile FotoFormFile { get; set; }
 
         [Display(Name = "Dalam Foto")]
-        public List<string>? IdMahasiswa { get; set; }
+        public MahasiswaTambahFotoVM[] DaftarMahasiswaTambahFotoVM { get; set; }
 
         [Display(Name = "Kegiatan")]
         public int? IdKegiatan { get; set; }

@@ -23,7 +23,8 @@ namespace webSITE.Controllers
             if (id == null)
                 return BadRequest("Parameter id harus diisi");
 
-            var kegiatan = await _repositoriKegiatan.Get(id.Value);
+            var kegiatan = await _repositoriKegiatan.GetWithDetail(id.Value);
+
             if (kegiatan == null)
                 return NotFound($"Kegiatan dengan id {id} tidak ditemukan");
 
