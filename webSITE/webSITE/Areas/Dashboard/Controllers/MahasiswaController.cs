@@ -109,7 +109,7 @@ namespace webSITE.Areas.Dashboard.Controllers
 
         public async Task<IActionResult> Detail(string id)
         {
-            var mahasiswa = await _repositoriMahasiswa.Get(id);
+            var mahasiswa = await _repositoriMahasiswa.GetWithDetail(id);
 
             if(mahasiswa == null)
                 return NotFound();
