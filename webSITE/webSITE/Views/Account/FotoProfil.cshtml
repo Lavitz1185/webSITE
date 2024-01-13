@@ -1,6 +1,8 @@
-﻿@model AccountFotoVM
+﻿@inject UserManager<Mahasiswa> UserManager
+@model AccountFotoVM
 @{
     ViewData["title"] = "Foto Profil";
+    var id = UserManager.GetUserId(User);
 }
 
 <div class="row px-1 mt-3">
@@ -17,7 +19,7 @@
     <div class="col-md-9 d-flex flex-column me-auto gap-1">
         <div class="row" id="fotoProfil">
             <div class="col-md-9 d-flex justify-content-center">
-                <img src="@Url.ActionLink("FotoProfil", "File", new {Id = Model.Id, Area = ""})" class="img-thumbnail" width="400">
+                <img src="@Url.ActionLink("FotoProfil", "File", new {Id = id, Area = ""})" class="img-thumbnail" width="400">
             </div>
         </div>
         <div class="row">

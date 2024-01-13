@@ -59,7 +59,7 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> FotoProfil()
         {
-            var accountFotoVM = new AccountFotoVM { Id = _userManager.GetUserId(User) };
+            var accountFotoVM = new AccountFotoVM { };
 
             return View(accountFotoVM);
         }
@@ -72,7 +72,6 @@ namespace webSITE.Controllers
             var photoData = await FileHelpers.ProcessFormFile<AccountFotoVM>(accountFotoVM.FotoFormFile
                 , ModelState, _permittedExtension, _sizeLimit);
 
-            accountFotoVM.Id = mahasiswa.Id;
             if(!ModelState.IsValid)
             {
                 TempData["status"] = false;

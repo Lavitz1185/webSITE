@@ -100,7 +100,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             if (_userManager.GetUserId(User) == id)
-                return NotFound();
+                return BadRequest();
 
             await _repositoriMahasiswa.Delete(id);
 
