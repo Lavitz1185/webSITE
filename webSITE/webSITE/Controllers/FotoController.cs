@@ -21,11 +21,13 @@ namespace webSITE.Controllers
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public FotoController(IRepositoriFoto repositoriFoto,
             IRepositoriKegiatan repositoriKegiatan,
-            IConfiguration config, IMapper mapper, 
-            IRepositoriMahasiswa repositoriMahasiswa)
+            IConfiguration config, IMapper mapper,
+            IRepositoriMahasiswa repositoriMahasiswa, 
+            IWebHostEnvironment webHostEnvironment)
         {
             _repositoriFoto = repositoriFoto;
             _repositoriKegiatan = repositoriKegiatan;
@@ -35,6 +37,7 @@ namespace webSITE.Controllers
             _fileSizeLimit = _config.GetValue<long>("FileSizeLimit");
             _mapper = mapper;
             _repositoriMahasiswa = repositoriMahasiswa;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> DetailFoto(int id)
@@ -181,7 +184,7 @@ namespace webSITE.Controllers
                 return View(tambahFotoVM);
             }
 
-            using (var fileStream = System.IO.File.Create(filePath))
+            using (var fileStream = System.IO.File.Create(_webHostEnvironment.WebRootPath + filePath))
             {
                 await fileStream.WriteAsync(formFileContent);
             }
