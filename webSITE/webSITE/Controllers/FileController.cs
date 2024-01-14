@@ -8,11 +8,15 @@ namespace webSITE.Controllers
     {
         private readonly IRepositoriMahasiswa repositoriMahasiswa;
         private readonly IRepositoriFoto repositoriFoto;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public FileController(IRepositoriMahasiswa repositoriMahasiswa, IRepositoriFoto repositoriFoto)
+        public FileController(IRepositoriMahasiswa repositoriMahasiswa, 
+            IRepositoriFoto repositoriFoto, 
+            IWebHostEnvironment webHostEnvironment)
         {
             this.repositoriMahasiswa = repositoriMahasiswa;
             this.repositoriFoto = repositoriFoto;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> FotoProfil(string id)
@@ -31,7 +35,7 @@ namespace webSITE.Controllers
 
             if(foto == null) return NotFound();
 
-            return PhysicalFile(foto.PhotoPath, "image/jpeg");
+            return PhysicalFile(webHostEnvironment.WebRootPath + foto.PhotoPath, "image/jpeg");
         }
     }
 }
