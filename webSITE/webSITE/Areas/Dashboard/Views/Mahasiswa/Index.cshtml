@@ -7,22 +7,22 @@
 <table class="table table-bordered table-responsive-lg">
     <thead>
         <tr>
-            <th width="16%">
+            <th>
                 NIM
             </th>
-            <th width="18%">
+            <th>
                 Nama Lengkap
             </th>
-            <th width="18%">
+            <th>
                 Tanggal Lahir
             </th>
-            <th width="17%">
+            <th>
                 Jenis Kelamin
             </th>
             <th>
                 Status
             </th>
-            <th width="8%">
+            <th>
                 Aksi
             </th>
         </tr>
@@ -47,7 +47,7 @@
                     @mahasiswa.StrStatus
                 </td>
                 <td>
-                    <div class="btn-group gap-1" role="group">
+                    <div class="d-flex justify-content-center gap-1" role="group">
                         @if (User.Identity.Name != mahasiswa.UserName)
                         {
                             <a class="btn btn-primary" asp-action="Edit" asp-route-id="@mahasiswa.Id"><i class="fas fa-pen-square fa-lg"></i></a>

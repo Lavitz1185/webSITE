@@ -49,8 +49,6 @@
 }
 
 nav {
-    top: 0px;
-    left: 0px;
     z-index: 999;
 }
 
@@ -60,8 +58,6 @@ nav {
     --bg-primary: #23232e;
     --bg-secondary: #141418;
     --transition-speed: 600ms;
-    width: 5rem;
-    height: 100vh;
     position: fixed;
     background-color: var(--bg-primary);
     transition: width 200ms ease;
@@ -83,7 +79,7 @@ nav {
     width: 100%;
 }
 
-.nav-link {
+::deep .nav-link {
     --text-primary: #b6b6b6;
     --text-secondary: #ececec;
     --bg-primary: #23232e;
@@ -99,7 +95,7 @@ nav {
     transition: var(--transition-speed);
 }
 
-    .nav-link:hover {
+    ::deep .nav-link:hover {
         filter: grayscale(0%) opacity(1);
         color: var(--text-secondary);
         background-color: var(--bg-secondary);
@@ -108,6 +104,7 @@ nav {
 .link-text {
     display: none;
     margin-left: 1rem;
+    opacity : 0;
 }
 
 .account {
@@ -132,6 +129,8 @@ nav {
 
 .account-details {
     display: none;
+    opacity: 0;
+    transition: opacity var(--transition-speed);
     min-width: 10rem;
     flex-direction: column;
     align-items: start;
@@ -147,18 +146,6 @@ nav {
     max-width: 4rem;
     margin: 0 1.5rem;
 }
-
-.navbar:hover {
-    width: 16rem;
-}
-
-    .navbar:hover .link-text {
-        display: block;
-    }
-
-    .navbar:hover .account-details {
-        display: flex;
-    }
 
 .fa-primary {
     color: blue;
@@ -194,13 +181,14 @@ nav {
 }
 
 .dropdown:hover .dropdown-menu {
-    display: block;
+    display: inline;
 }
 
 .dropdown-menu {
     display: none;
     background-color: var(--bg-primary);
     transition: var(--transition-speed) ease;
+    position: static;
 }
 
 .dropdown-item {
@@ -215,3 +203,54 @@ nav {
         color: var(--text-secondary);
         filter: grayscale(0%) opacity(1);
     }
+
+/* typical phone screen resolution */
+@media only screen and (min-width : 667px) {
+    .navbar{
+        top: 0;
+        width: 5rem;
+        height: 100vh;
+    }
+
+    .navbar:hover {
+        width: 16rem;
+    }
+
+        .navbar:hover .link-text {
+            display: inline;
+            opacity: 1;
+            transition: opacity var(--transition-speed);
+        }
+
+        .navbar:hover .account-details {
+            display: flex;
+            opacity: 1;
+        }
+}
+
+@media only screen and (max-width : 667px) {
+    .navbar {
+        bottom: 0;
+        width: 100vw;
+        height: 5rem;
+    }
+
+    .logo{
+        display:none;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .dropdown{
+        position:initial;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        bottom: 100%;
+        right: 18vw;
+    }
+}
