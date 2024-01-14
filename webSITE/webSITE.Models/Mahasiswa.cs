@@ -8,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace webSITE.Models
+namespace webSITE.Domain
 {
     public class Mahasiswa : IdentityUser
     {

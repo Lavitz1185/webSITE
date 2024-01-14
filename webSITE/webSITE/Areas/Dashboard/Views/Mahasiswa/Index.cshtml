@@ -1,5 +1,4 @@
-﻿@using webSITE.Models
-@model List<Mahasiswa>
+﻿@model List<Mahasiswa>
 @{
     ViewData["title"] = "Mahasiswa";
 }
@@ -47,7 +46,7 @@
                     @mahasiswa.StrStatus
                 </td>
                 <td>
-                    <div class="d-flex justify-content-center gap-1" role="group">
+                    <div class="d-flex justify-content-start gap-1" role="group">
                         @if (User.Identity.Name != mahasiswa.UserName)
                         {
                             <a class="btn btn-primary" asp-action="Edit" asp-route-id="@mahasiswa.Id"><i class="fas fa-pen-square fa-lg"></i></a>

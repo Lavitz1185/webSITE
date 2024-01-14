@@ -37,8 +37,9 @@
                             <td>@kegiatan.TanggalBerakhir.ToShortDateString()</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a asp-controller="Kegiatan" asp-action="Detail" asp-route-id="@kegiatan.Id">
-                                        Detail
+                                    <a class="btn btn-warning"
+                                       asp-controller="Kegiatan" asp-action="Detail" asp-route-id="@kegiatan.Id">
+                                        <i class='fas fa-eye' style='color:#ffffff'></i>
                                     </a>
                                 </div>
                             </td>

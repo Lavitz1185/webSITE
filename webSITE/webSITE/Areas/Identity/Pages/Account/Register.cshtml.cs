@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using webSITE.Models;
+using webSITE.Domain;
 using webSITE.Repositori.Interface;
 
 namespace webSITE.Areas.Identity.Pages.Account

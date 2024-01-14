@@ -1,4 +1,6 @@
-﻿namespace webSITE.Models.FotoController
+﻿using webSITE.Domain;
+
+namespace webSITE.Models.FotoController
 {
     public class FotoViewModel
     {

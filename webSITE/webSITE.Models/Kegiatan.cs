@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace webSITE.Models
+namespace webSITE.Domain
 {
     public class Kegiatan
     {

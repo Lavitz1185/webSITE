@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using webSITE.Models;
+using webSITE.Domain;
 using webSITE.Repositori.Interface;
 
 namespace webSITE.Controllers

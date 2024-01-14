@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using webSITE.Models;
+using webSITE.Domain;
 using webSITE.Repositori.Data;
 using webSITE.Repositori.Interface;
 

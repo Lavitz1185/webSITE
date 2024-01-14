@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using webSITE.Models;
+using webSITE.Domain;
 using webSITE.Models.Account;
 using webSITE.Repositori.Interface;
 using webSITE.Utilities;

@@ -78,6 +78,7 @@
             </a>
         </li>
         <li class="nav-item dropdown">
+            <button type="button">&and;</button>
             <a class="nav-link active" asp-area="Dashboard" asp-controller="Kegiatan" asp-action="Index">
                 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <g id="Frame 1" clip-path="url(#clip0_1_2)">
@@ -130,3 +131,19 @@
         </li>
     </ul>
 </nav>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    var rotasi = 1;
+    $(function () {
+        $('.dropdown > button').click(function () {
+            
+            $(this).closest('.dropdown').toggleClass('hover');
+            $(this).css({
+                'transform' : 'rotate(' + new Number((180 * rotasi)).tostring() + 'deg)'
+            });
+            rotasi++;
+        });
+    });
+</script>

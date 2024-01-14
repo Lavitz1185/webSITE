@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using webSITE.Repositori.Implementasi;
+using webSITE.Domain;
 using webSITE.Repositori.Interface;
 
 namespace webSITE.Controllers

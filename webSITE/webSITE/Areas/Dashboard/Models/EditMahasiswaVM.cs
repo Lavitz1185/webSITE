@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using webSITE.Models;
+using webSITE.Domain;
 
 namespace webSITE.Areas.Dashboard.Models
 {

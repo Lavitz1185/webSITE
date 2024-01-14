@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using webSITE.Models;
+using webSITE.Domain;
 
 namespace webSITE.Repositori.Data
 {

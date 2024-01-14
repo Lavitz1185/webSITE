@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
-using webSITE.Models;
+using webSITE.Domain;
 using webSITE.Repositori.Data;
 using webSITE.Repositori.Interface;
 

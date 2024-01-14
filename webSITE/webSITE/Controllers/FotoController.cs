@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol;
-using webSITE.Models;
+using webSITE.Domain;
 using webSITE.Models.FotoController;
-using webSITE.Repositori.Implementasi;
 using webSITE.Repositori.Interface;
 using webSITE.Utilities;
 

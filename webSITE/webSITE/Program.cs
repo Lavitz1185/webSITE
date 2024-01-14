@@ -3,7 +3,7 @@ using webSITE.Repositori.Data;
 using webSITE.Repositori.Implementasi;
 using webSITE.Repositori.Interface;
 using Microsoft.AspNetCore.Identity;
-using webSITE.Models;
+using webSITE.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 

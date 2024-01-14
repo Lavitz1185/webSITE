@@ -180,7 +180,7 @@ nav {
     transform: rotate(-180deg);
 }
 
-.dropdown:hover .dropdown-menu {
+.dropdown:hover .dropdown-menu, .dropdown.hover .dropdown-menu {
     display: inline;
 }
 
@@ -198,7 +198,7 @@ nav {
     transition: var(--transition-speed) ease;
 }
 
-    .dropdown-item:hover {
+    .dropdown-item:hover{
         background: var(--bg-secondary);
         color: var(--text-secondary);
         filter: grayscale(0%) opacity(1);
@@ -244,13 +244,27 @@ nav {
         justify-content: center;
     }
 
-    .dropdown{
-        position:initial;
+    .dropdown {
+        position: initial;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .dropdown-menu {
         position: absolute;
+        right: 0vw;
+        left: 0vw;
         bottom: 100%;
-        right: 18vw;
     }
+
+        .dropdown > button {
+            background: inherit;
+            color: white;
+            width: 100%;
+            margin-bottom:-25px;
+            z-index:999;
+            border: none;
+        }
 }
