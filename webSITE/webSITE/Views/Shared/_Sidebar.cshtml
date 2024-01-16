@@ -62,7 +62,7 @@
                 <span class="link-text">Home</span>
             </a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item">
             <a class="nav-link active" asp-area="Dashboard" asp-controller="Mahasiswa" asp-action="Index">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="duoicon duoicon-user">
                     <path fill="currentColor"
@@ -101,6 +101,7 @@
             </div>
         </li>
         <li class="nav-item dropdown">
+            <button type="button">&and;</button>
             <a class="nav-link active" asp-area="Dashboard" asp-controller="Foto" asp-action="Index">
                 <svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
@@ -135,15 +136,9 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
-    var rotasi = 1;
     $(function () {
         $('.dropdown > button').click(function () {
-            
             $(this).closest('.dropdown').toggleClass('hover');
-            $(this).css({
-                'transform' : 'rotate(' + new Number((180 * rotasi)).tostring() + 'deg)'
-            });
-            rotasi++;
         });
     });
 </script>

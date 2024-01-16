@@ -180,6 +180,10 @@ nav {
     transform: rotate(-180deg);
 }
 
+.dropdown > button {
+    display: none;
+}
+
 .dropdown:hover .dropdown-menu, .dropdown.hover .dropdown-menu {
     display: inline;
 }
@@ -206,26 +210,30 @@ nav {
 
 /* typical phone screen resolution */
 @media only screen and (min-width : 667px) {
-    .navbar{
+    .navbar {
         top: 0;
         width: 5rem;
         height: 100vh;
     }
 
-    .navbar:hover {
-        width: 16rem;
+        .navbar:hover {
+            width: 16rem;
+        }
+
+            .navbar:hover .link-text {
+                display: inline;
+                opacity: 1;
+                transition: opacity var(--transition-speed);
+            }
+
+            .navbar:hover .account-details {
+                display: flex;
+                opacity: 1;
+            }
+
+    .dropdown > button {
+        display: none;
     }
-
-        .navbar:hover .link-text {
-            display: inline;
-            opacity: 1;
-            transition: opacity var(--transition-speed);
-        }
-
-        .navbar:hover .account-details {
-            display: flex;
-            opacity: 1;
-        }
 }
 
 @media only screen and (max-width : 667px) {
@@ -260,6 +268,7 @@ nav {
     }
 
         .dropdown > button {
+            display: inline;
             background: inherit;
             color: white;
             width: 100%;
