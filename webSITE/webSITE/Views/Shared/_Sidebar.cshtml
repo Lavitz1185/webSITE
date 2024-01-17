@@ -78,7 +78,9 @@
             </a>
         </li>
         <li class="nav-item dropdown">
-            <button type="button">&and;</button>
+            <button type="button" class="dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
             <a class="nav-link active" asp-area="Dashboard" asp-controller="Kegiatan" asp-action="Index">
                 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <g id="Frame 1" clip-path="url(#clip0_1_2)">
@@ -101,7 +103,9 @@
             </div>
         </li>
         <li class="nav-item dropdown">
-            <button type="button">&and;</button>
+            <button type="button" class="dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
             <a class="nav-link active" asp-area="Dashboard" asp-controller="Foto" asp-action="Index">
                 <svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
@@ -138,6 +142,7 @@
 <script type="text/javascript">
     $(function () {
         $('.dropdown > button').click(function () {
+
             $(this).closest('.dropdown').toggleClass('hover');
         });
     });

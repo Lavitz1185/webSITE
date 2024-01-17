@@ -275,5 +275,6 @@ nav {
             margin-bottom:-25px;
             z-index:999;
             border: none;
+            transform: rotate(180deg);
         }
 }
