@@ -7,5 +7,7 @@ namespace webSITE.Repositori.Interface
     {
         Task<IEnumerable<Foto>> GetAllByKegiatan(int kegiatanId);
         Task<IEnumerable<Foto>> GetAllByTanggal(DateTime tanggal);
+        Task<Foto> AddMahasiswa(string idMahasiswa, int idFoto);
+        Task<Foto> RemoveMahasiswa(string idMahasiswa, int idFoto);
     }
 }

@@ -14,26 +14,74 @@ namespace webSITE.Repositori.Implementasi
             _dbContext = dbContext;
         }
 
+        public async Task<Kegiatan> AddFoto(int idFoto, int idKegiatan)
+        {
+            var foto = await _dbContext.TblFoto.AsNoTracking()
+                .FirstOrDefaultAsync(f => f.Id == idFoto);
+            var kegiatan = await GetWithDetail(idKegiatan);
+
+            if (foto is null || kegiatan is null || kegiatan.DaftarFoto.Contains(foto))
+                return null;
+
+            _dbContext.TblKegiatan.Update(kegiatan);
+            kegiatan.DaftarFoto.Add(foto);
+
+            await _dbContext.SaveChangesAsync();
+
+            return await Get(idKegiatan);
+        }
+
+        public async Task<Kegiatan> AddMahasiswa(string idMahasiswa, int idKegiatan)
+        {
+            var mahasiswa = await _dbContext.TblMahasiswa
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == idMahasiswa);
+            var kegiatan = await Get(idKegiatan);
+            var pesertaKegiatan = await _dbContext.TblPesertaKegiatan
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.IdMahasiswa == idMahasiswa && x.IdKegiatan == idKegiatan);
+
+            if (mahasiswa is null || kegiatan is null || pesertaKegiatan is not null)
+                return null;
+
+            pesertaKegiatan = new PesertaKegiatan
+            {
+                IdMahasiswa = idMahasiswa,
+                IdKegiatan = idKegiatan
+            };
+
+            _dbContext.TblPesertaKegiatan.Add(pesertaKegiatan);
+            var result = await _dbContext.SaveChangesAsync();
+            if (result == 0)
+                return null;
+
+            return await Get(idKegiatan);
+        }
+
         public async Task<Kegiatan> Create(Kegiatan entity)
         {
-            var entityDb = await _dbContext.TblKegiatan.FindAsync(entity.Id);
-            if(entityDb == null)
-            {
-                _dbContext.Add(entity);
-                await _dbContext.SaveChangesAsync();
-                return entity;
-            }
-            return entityDb;
+            var entityDb = await Get(entity.Id);
+
+            if (entityDb != null)
+                return null;
+
+            var tracker = _dbContext.TblKegiatan.Add(entity);
+            var result = await _dbContext.SaveChangesAsync();
+
+            if (result == 0)
+                return null;
+
+            return await Get(tracker.Entity.Id);
         }
 
         public async Task<Kegiatan> Delete(int id)
         {
-            var entityDb = await _dbContext.TblKegiatan.FindAsync(id);
-            if (entityDb != null)
-            {
-                _dbContext.Remove(entityDb);
-                await _dbContext.SaveChangesAsync();
-            }
+            var entityDb = await GetWithDetail(id);
+            if (entityDb == null)
+                return null;
+
+            _dbContext.TblKegiatan.Remove(entityDb);
+            await _dbContext.SaveChangesAsync();
             return entityDb;
         }
 
@@ -77,17 +125,62 @@ namespace webSITE.Repositori.Implementasi
             return kegiatan;
         }
 
+        public async Task<Kegiatan> RemoveFoto(int idFoto, int idKegiatan)
+        {
+            var foto = await _dbContext.TblFoto.AsNoTracking()
+                .FirstOrDefaultAsync(f => f.Id == idFoto);
+            var kegiatan = await GetWithDetail(idKegiatan);
+
+            if (foto is null || kegiatan is null || kegiatan.DaftarFoto.Contains(foto))
+                return null;
+
+            _dbContext.TblKegiatan.Update(kegiatan);
+            kegiatan.DaftarFoto.Remove(foto);
+
+            await _dbContext.SaveChangesAsync();
+
+            return await Get(idKegiatan);
+        }
+
+        public async Task<Kegiatan> RemoveMahasiswa(string idMahasiswa, int idKegiatan)
+        {
+            var mahasiswa = await _dbContext.TblMahasiswa
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == idMahasiswa);
+            var kegiatan = await Get(idKegiatan);
+            var pesertaKegiatan = await _dbContext.TblPesertaKegiatan
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.IdMahasiswa == idMahasiswa && x.IdKegiatan == idKegiatan);
+
+            if (mahasiswa is null || kegiatan is null || pesertaKegiatan is null)
+                return null;
+
+            _dbContext.TblPesertaKegiatan.Remove(pesertaKegiatan);
+            await _dbContext.SaveChangesAsync();
+
+            return await Get(idKegiatan);
+        }
+
         public async Task<Kegiatan> Update(Kegiatan entity)
         {
-            var entityDb = await _dbContext.TblKegiatan.FindAsync(entity.Id);
-            if(entityDb != null)
-            {
-                _dbContext.Update(entity);
-                await _dbContext.SaveChangesAsync();
-                return entity;
-            }
+            var entityDb = await Get(entity.Id);
+            if (entityDb == null)
+                return null;
 
-            return entityDb;
+            _dbContext.TblKegiatan.Update(entityDb);
+
+            entityDb.NamaKegiatan = entity.NamaKegiatan;
+            entityDb.TanggalMulai = entity.TanggalMulai;
+            entityDb.TanggalBerakhir = entity.TanggalBerakhir;
+            entityDb.TempatKegiatan = entity.TempatKegiatan;
+            entityDb.Keterangan = entity.Keterangan;
+
+            var result = await _dbContext.SaveChangesAsync();
+
+            if (result == 0)
+                return null;
+
+            return await Get(entity.Id);
         }
     }
 }

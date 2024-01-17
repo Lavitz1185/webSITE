@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.InteropServices;
 using webSITE.Domain;
 using webSITE.Repositori.Data;
 using webSITE.Repositori.Interface;
@@ -21,10 +20,17 @@ namespace webSITE.Repositori.Implementasi
         public async Task<Mahasiswa> Create(Mahasiswa entity)
         {
             var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Nim == entity.Nim);
-            if(mahasiswa == null)
-                await dbContext.AddAsync(entity);
 
-            return mahasiswa;
+            if (mahasiswa != null)
+                return null;
+
+            var tracker = dbContext.TblMahasiswa.Add(entity);
+
+            var result = await dbContext.SaveChangesAsync();
+            if (result == 0)
+                return null;
+
+            return await Get(tracker.Entity.Id);
         }
 
         public async Task<Mahasiswa> Delete(string id)
@@ -43,9 +49,9 @@ namespace webSITE.Repositori.Implementasi
         public async Task<Mahasiswa> GetByNim(string nim)
         {
             var mahasiswa = await dbContext.TblMahasiswa
+                .AsNoTracking()
                 .Include(m => m.DaftarKegiatan)
                 .Include(m => m.DaftarFoto)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Nim == nim);
             return mahasiswa;
         }
@@ -69,19 +75,21 @@ namespace webSITE.Repositori.Implementasi
         {
             var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Id == entity.Id);
 
-            if(mahasiswa != null )
-            {
-                dbContext.TblMahasiswa.Update(mahasiswa);
-                mahasiswa.Nim = entity.Nim;
-                mahasiswa.NamaLengkap = entity.NamaLengkap;
-                mahasiswa.NamaPanggilan = entity.NamaPanggilan;
-                mahasiswa.TanggalLahir = entity.TanggalLahir;
-                mahasiswa.JenisKelamin = entity.JenisKelamin;
-            }
+            if (mahasiswa == null)
+                return null;
 
-            await dbContext.SaveChangesAsync();
+            dbContext.TblMahasiswa.Update(mahasiswa);
+            mahasiswa.Nim = entity.Nim;
+            mahasiswa.NamaLengkap = entity.NamaLengkap;
+            mahasiswa.NamaPanggilan = entity.NamaPanggilan;
+            mahasiswa.TanggalLahir = entity.TanggalLahir;
+            mahasiswa.JenisKelamin = entity.JenisKelamin;
 
-            mahasiswa = await Get(entity.Id);
+            var result = await dbContext.SaveChangesAsync();
+            if (result == 0)
+                return null;
+
+            mahasiswa = await Get(mahasiswa.Id);
 
             return mahasiswa;
         }
@@ -96,7 +104,9 @@ namespace webSITE.Repositori.Implementasi
             dbContext.Update(mahasiswa);
             mahasiswa.FotoProfil = photoData;
 
-            await dbContext.SaveChangesAsync();
+            var result = await dbContext.SaveChangesAsync();
+            if (result == 0)
+                return null;
 
             return mahasiswa;
         }
@@ -115,8 +125,9 @@ namespace webSITE.Repositori.Implementasi
             };
 
             dbContext.TblMahasiswaFoto.Add(mahasiswaFoto);
-
-            await dbContext.SaveChangesAsync();
+            var result = await dbContext.SaveChangesAsync();
+            if (result == 0)
+                return null;
 
             return await Get(idMahasiswa);
         }
@@ -129,7 +140,6 @@ namespace webSITE.Repositori.Implementasi
                 return null;
 
             dbContext.TblMahasiswaFoto.Remove(mahasiswaFoto);
-
             await dbContext.SaveChangesAsync();
 
             return await Get(idMahasiswa);
@@ -150,7 +160,9 @@ namespace webSITE.Repositori.Implementasi
 
             dbContext.TblPesertaKegiatan.Add(pesertaKegiatan);
 
-            await dbContext.SaveChangesAsync();
+            var result = await dbContext.SaveChangesAsync();
+            if (result == 0)
+                return null;
 
             return await Get(idMahasiswa);
         }
@@ -163,7 +175,6 @@ namespace webSITE.Repositori.Implementasi
                 return null;
 
             dbContext.TblPesertaKegiatan.Remove(pesertaKegiatan);
-
             await dbContext.SaveChangesAsync();
 
             return await Get(idMahasiswa);
