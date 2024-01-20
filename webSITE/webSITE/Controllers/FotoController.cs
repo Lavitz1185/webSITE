@@ -17,6 +17,7 @@ namespace webSITE.Controllers
         private readonly IRepositoriFoto _repositoriFoto;
         private readonly IRepositoriKegiatan _repositoriKegiatan;
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
+        private readonly IRepositoriMahasiswaFoto _repositoriMahasiswaFoto;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -24,18 +25,20 @@ namespace webSITE.Controllers
         public FotoController(IRepositoriFoto repositoriFoto,
             IRepositoriKegiatan repositoriKegiatan,
             IConfiguration config, IMapper mapper,
-            IRepositoriMahasiswa repositoriMahasiswa, 
-            IWebHostEnvironment webHostEnvironment)
+            IRepositoriMahasiswa repositoriMahasiswa,
+            IWebHostEnvironment webHostEnvironment, 
+            IRepositoriMahasiswaFoto repositoriMahasiswaFoto)
         {
             _repositoriFoto = repositoriFoto;
             _repositoriKegiatan = repositoriKegiatan;
             _config = config;
-
-            _targetFilePath = _config.GetValue<string>("StoredFilesPath");
-            _fileSizeLimit = _config.GetValue<long>("FileSizeLimit");
             _mapper = mapper;
             _repositoriMahasiswa = repositoriMahasiswa;
             _webHostEnvironment = webHostEnvironment;
+            _repositoriMahasiswaFoto = repositoriMahasiswaFoto;
+
+            _targetFilePath = _config.GetValue<string>("StoredFilesPath");
+            _fileSizeLimit = _config.GetValue<long>("FileSizeLimit");
         }
 
         public async Task<IActionResult> DetailFoto(int id)
@@ -152,10 +155,8 @@ namespace webSITE.Controllers
                 return View(tambahFotoVM);
             }
 
-            var formFileContent =
-                await FileHelpers.ProcessFormFile<TambahFotoVM>(
-                    tambahFotoVM.FotoFormFile, ModelState, _permittedExtensions,
-                    _fileSizeLimit);
+            var formFileContent = await FileHelpers.ProcessFormFile<TambahFotoVM>(
+                    tambahFotoVM.FotoFormFile, ModelState, _permittedExtensions, _fileSizeLimit);
 
             if (!ModelState.IsValid)
             {
@@ -169,10 +170,9 @@ namespace webSITE.Controllers
             Foto newFoto = _mapper.Map<Foto>(tambahFotoVM);
             newFoto.PhotoPath = filePath;
 
-            newFoto.DaftarMahasiswa = tambahFotoVM.DaftarMahasiswaTambahFotoVM
-                .Where(m => m.DalamFoto == true)
-                .Select(m => _repositoriMahasiswa.Get(m.Id).Result)
-                .ToList();
+            var idMahasiswaDalamFoto = tambahFotoVM.DaftarMahasiswaTambahFotoVM
+                .Where(x => x.DalamFoto == true)
+                .Select(x => x.Id).ToList();
 
             newFoto = await _repositoriFoto.Create(newFoto);
 
@@ -186,6 +186,9 @@ namespace webSITE.Controllers
             {
                 await fileStream.WriteAsync(formFileContent);
             }
+
+            foreach(var id in idMahasiswaDalamFoto)
+                await _repositoriMahasiswaFoto.Create(id, newFoto.Id);
 
             return RedirectToAction("Index");
         }

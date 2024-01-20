@@ -13,7 +13,7 @@ namespace webSITE.Controllers
             _repositoriKegiatan = repositoriKegiatan;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
             var listKegiatan = (await _repositoriKegiatan.GetAll()).ToList();
             return View(listKegiatan);

@@ -4,140 +4,143 @@
     ViewData["title"] = "Profil";
 }
 
-<div class="container-fluid mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-12 mb-4 d-flex justify-content-center">
-                    <img src="@Url.ActionLink("FotoProfil", "File", new {Id = Model.Id, Area = ""})" class="img-thumbnail rounded-circle" height="250" width="250" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 mx-auto">
-                    <div class="row">
-                        <div class="col mx-auto">
-                            <h2 class="text-center">Biodata</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <b>NIM</b>
-                        </div>
-                        <div class="col-6">
-                            @Model.Nim
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <b>Nama Lengkap</b>
-                        </div>
-                        <div class="col-6">
-                            @Model.NamaLengkap
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <b>Nama Panggilan</b>
-                        </div>
-                        <div class="col-6">
-                            @Model.NamaPanggilan
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <b>Jenis Kelamin</b>
-                        </div>
-                        <div class="col-6">
-                            @Model.StrJenisKelamin
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <b>Tanggal Lahir</b>
-                        </div>
-                        <div class="col-6">
-                            @Model.TanggalLahir.ToLongDateString()
-                        </div>
+@if (Model != null)
+{
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-12 mb-4 d-flex justify-content-center">
+                        <img src="@Url.ActionLink("FotoProfil", "File", new {Id = Model.Id, Area = ""})" class="img-thumbnail rounded-circle" height="250" width="250" />
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col">
-                    <div class="row">
-                        <div class="col mx-auto">
-                            <h4 class="text-center">Kegiatan</h4>
+                <div class="row">
+                    <div class="col-12 mx-auto">
+                        <div class="row">
+                            <div class="col mx-auto">
+                                <h2 class="text-center">Biodata</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <b>NIM</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.Nim
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <b>Nama Lengkap</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.NamaLengkap
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <b>Nama Panggilan</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.NamaPanggilan
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <b>Jenis Kelamin</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.StrJenisKelamin
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <b>Tanggal Lahir</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.TanggalLahir.ToLongDateString()
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        @if (Model.DaftarKegiatan != null && Model.DaftarKegiatan.Count > 0)
-                        {
-                            <table class="table table-bordetable-bordered">
-                                <thead>
-                                    <tr>
-                                        <th width="40%">
-                                            Nama
-                                        </th>
-                                        <th width="30%">
-                                            Tempat
-                                        </th>
-                                        <th width="30%">
-                                            Tanggal
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var kegiatan in Model.DaftarKegiatan)
-                                    {
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col mx-auto">
+                                <h4 class="text-center">Kegiatan</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            @if (Model.DaftarKegiatan != null && Model.DaftarKegiatan.Count > 0)
+                            {
+                                <table class="table table-bordetable-bordered">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                @kegiatan.NamaKegiatan
-                                            </td>
-                                            <td>
-                                                @kegiatan.TempatKegiatan
-                                            </td>
-                                            <td>
-                                                @kegiatan.TanggalMulai.ToShortDateString()
-                                            </td>
+                                            <th width="40%">
+                                                Nama
+                                            </th>
+                                            <th width="30%">
+                                                Tempat
+                                            </th>
+                                            <th width="30%">
+                                                Tanggal
+                                            </th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var kegiatan in Model.DaftarKegiatan)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @kegiatan.NamaKegiatan
+                                                </td>
+                                                <td>
+                                                    @kegiatan.TempatKegiatan
+                                                </td>
+                                                <td>
+                                                    @kegiatan.TanggalMulai.ToShortDateString()
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <h4 class="text-center"><b>Tidak Ada Kegiatan Yang Pernah Diikuti</b></h4>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="text-center">Album Foto</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @if (Model.DaftarFoto != null && Model.DaftarFoto.Count > 0)
+                        {
+                            @foreach (var foto in Model.DaftarFoto)
+                            {
+                                <div class="col-4 mb-3">
+                                    <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area = ""})" class="img-fluid" />
+                                </div>
+                            }
                         }
                         else
                         {
-                            <h4 class="text-center"><b>Tidak Ada Kegiatan Yang Pernah Diikuti</b></h4>
+                            <h3 class="text-center"><b>Tidak Ada Foto</b></h3>
                         }
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="row">
-                    <div class="col">
-                        <h3 class="text-center">Album Foto</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    @if(Model.DaftarFoto != null && Model.DaftarFoto.Count > 0)
-                    {
-                        @foreach(var foto in Model.DaftarFoto)
-                        {
-                            <div class="col-4 mb-3">
-                                <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area = ""})" class="img-fluid"/>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <h3 class="text-center"><b>Tidak Ada Foto</b></h3>
-                    }
                 </div>
             </div>
         </div>
+        <a asp-controller="Mahasiswa" asp-action="Index">Kembali</a>
     </div>
-    <a asp-controller="Mahasiswa" asp-action="Index">Kembali</a>
-</div>
+}
 
 @section Scripts {
     <partial name="_DataTable"></partial>

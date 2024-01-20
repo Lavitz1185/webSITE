@@ -33,7 +33,9 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var mahasiswa = await _userManager.GetUserAsync(User);
+            var id = _userManager.GetUserId(User);
+
+            var mahasiswa = await _repositoriMahasiswa.Get(id);
 
             var accountIndexVM = _mapper.Map<AccountIndexVM>(mahasiswa);
 
@@ -59,15 +61,15 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> FotoProfil()
         {
-            var accountFotoVM = new AccountFotoVM { };
-
-            return View(accountFotoVM);
+            return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> FotoProfil(AccountFotoVM accountFotoVM)
         {
-            var mahasiswa = await _userManager.GetUserAsync(User);
+            var id = _userManager.GetUserId(User);
+
+            var mahasiswa = await _repositoriMahasiswa.Get(id);
 
             var photoData = await FileHelpers.ProcessFormFile<AccountFotoVM>(accountFotoVM.FotoFormFile
                 , ModelState, _permittedExtension, _sizeLimit);
@@ -82,7 +84,7 @@ namespace webSITE.Controllers
 
             if(mahasiswa == null)
             {
-                ModelState.AddModelError(string.Empty, "Error Menambahkan data");
+                ModelState.AddModelError(string.Empty, "Error Mengganti Foto Profil");
                 TempData["status"] = false;
                 return View(accountFotoVM);
             }

@@ -42,33 +42,11 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Foto> Create(Foto entity)
         {
-            var daftarMahasiswa = entity.DaftarMahasiswa;
-
-            entity.DaftarMahasiswa = null;
-
             var tracker = _dbContext.TblFoto.Add(entity);
             var result = await _dbContext.SaveChangesAsync();
 
             if (result == 0)
                 return null;
-
-            if (daftarMahasiswa is not null && daftarMahasiswa.Count > 0)
-            {
-                foreach (var mahasiswa in daftarMahasiswa)
-                {
-                    _dbContext.TblMahasiswaFoto.Add(new MahasiswaFoto
-                    {
-                        IdFoto = tracker.Entity.Id,
-                        IdMahasiswa = mahasiswa.Id
-                    });
-
-                }
-
-                result = await _dbContext.SaveChangesAsync();
-
-                if (result == 0)
-                    return null;
-            }
 
             return await Get(tracker.Entity.Id);
         }

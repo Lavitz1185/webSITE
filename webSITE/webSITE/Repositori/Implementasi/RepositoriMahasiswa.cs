@@ -9,17 +9,15 @@ namespace webSITE.Repositori.Implementasi
     public class RepositoriMahasiswa : IRepositoriMahasiswa
     {
         private readonly AppDbContext dbContext;
-        private readonly IMapper _mapper;
 
-        public RepositoriMahasiswa(AppDbContext dbContext, IMapper mapper)
+        public RepositoriMahasiswa(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
-            _mapper = mapper;
         }
 
         public async Task<Mahasiswa> Create(Mahasiswa entity)
         {
-            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Nim == entity.Nim);
+            var mahasiswa = await Get(entity.Nim);
 
             if (mahasiswa != null)
                 return null;
@@ -49,9 +47,9 @@ namespace webSITE.Repositori.Implementasi
         public async Task<Mahasiswa> GetByNim(string nim)
         {
             var mahasiswa = await dbContext.TblMahasiswa
-                .AsNoTracking()
                 .Include(m => m.DaftarKegiatan)
                 .Include(m => m.DaftarFoto)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Nim == nim);
             return mahasiswa;
         }
@@ -96,7 +94,7 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Mahasiswa> SetProfilePicture(string id, byte[] photoData)
         {
-            var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Id == id);
+            var mahasiswa = await Get(id);
 
             if (mahasiswa == null)
                 return null;

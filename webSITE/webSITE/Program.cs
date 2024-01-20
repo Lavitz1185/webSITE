@@ -45,6 +45,8 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IRepositoriMahasiswa, RepositoriMahasiswa>();
 builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();
 builder.Services.AddScoped<IRepositoriKegiatan, RepositoriKegiatan>();
+builder.Services.AddScoped<IRepositoriMahasiswaFoto, RepositoriMahasiswaFoto>();
+builder.Services.AddScoped<IRepositoriPesertaKegiatan, RepositoriPesertaKegiatan>();
 
 builder.WebHost.UseStaticWebAssets();
 
