@@ -5,16 +5,18 @@ nav {
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
     width : 100%;
     position : fixed;
+    top:0;
+    left:0;
     z-index : 999;
 }
 
-.navbar-brand img {
+::deep .navbar-brand img {
     width: 120px;
     height: 50px;
     cursor: pointer;
 }
 
-.nav-link {
+::deep .nav-link {
     text-decoration: none;
     color: rgb(21, 21, 100);
     font-size: 16px;
@@ -22,7 +24,7 @@ nav {
     transition: 0.3s ease;
 }
 
-.nav-item form button {
+::deep .nav-item form button {
     border: none;
     background: none;
     text-decoration: none;
@@ -32,10 +34,10 @@ nav {
     transition: 0.3s ease;
 }
 
-    .nav-item form button:hover {
+    ::deep .nav-item form button:hover {
         color: #FDC93B
     }
 
-.nav-link:hover {
+::deep .nav-link:hover {
     color: #FDC93B
 }
