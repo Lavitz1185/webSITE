@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using webSITE.Domain;
 
-namespace webSITE.Repositori.Data
+namespace webSITE.DataAccess.Data
 {
     public class AppDbContext : IdentityDbContext<Mahasiswa>
     {
@@ -196,7 +197,7 @@ namespace webSITE.Repositori.Data
                 }
             );
 
-            string root = config.GetValue<string>("StoredFilesPath");
+            string root = config["StoredFilesPath"];
 
             builder.Entity<Foto>().HasData(
                 new Foto

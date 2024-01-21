@@ -20,14 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\webSITE.DataAccess\webSITE.DataAccess.csproj" />
     <ProjectReference Include="..\webSITE.Models\webSITE.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="Repositori\Data\" />
-    <Folder Include="Repositori\Exception\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\bootstrap\" />

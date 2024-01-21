@@ -1,7 +1,7 @@
 ﻿using webSITE.Domain;
-using webSITE.Repositori.Commons;
+using webSITE.DataAccess.Repositori.Commons;
 
-namespace webSITE.Repositori.Interface
+namespace webSITE.DataAccess.Repositori.Interface
 {
     public interface IRepositoriFoto : IBaseRepositori<Foto>
     {

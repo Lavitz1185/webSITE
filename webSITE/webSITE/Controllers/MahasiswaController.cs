@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using webSITE.Domain;
-using webSITE.Repositori.Interface;
+using webSITE.DataAccess.Repositori.Interface;
 
 namespace webSITE.Controllers
 {

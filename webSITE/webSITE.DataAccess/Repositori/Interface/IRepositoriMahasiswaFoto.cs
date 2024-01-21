@@ -1,6 +1,6 @@
 ﻿using webSITE.Domain;
 
-namespace webSITE.Repositori.Interface
+namespace webSITE.DataAccess.Repositori.Interface
 {
     public interface IRepositoriMahasiswaFoto
     {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using webSITE.Repositori.Data;
+using webSITE.DataAccess.Data;
 using webSITE.Repositori.Implementasi;
-using webSITE.Repositori.Interface;
+using webSITE.DataAccess.Repositori.Interface;
 using Microsoft.AspNetCore.Identity;
 using webSITE.Domain;
 

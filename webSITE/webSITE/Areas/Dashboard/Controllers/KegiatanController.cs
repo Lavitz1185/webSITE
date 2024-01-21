@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using webSITE.Repositori.Interface;
+using webSITE.DataAccess.Repositori.Interface;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {

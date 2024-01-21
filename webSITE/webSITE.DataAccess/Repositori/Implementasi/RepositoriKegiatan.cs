@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using webSITE.Domain;
-using webSITE.Repositori.Data;
-using webSITE.Repositori.Interface;
+using webSITE.DataAccess.Data;
+using webSITE.DataAccess.Repositori.Interface;
 
 namespace webSITE.Repositori.Implementasi
 {

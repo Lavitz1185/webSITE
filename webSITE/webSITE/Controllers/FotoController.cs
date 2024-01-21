@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using webSITE.Domain;
 using webSITE.Models.FotoController;
-using webSITE.Repositori.Interface;
+using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Utilities;
 
 namespace webSITE.Controllers

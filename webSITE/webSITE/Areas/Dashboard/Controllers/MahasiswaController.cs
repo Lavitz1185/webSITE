@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using webSITE.Areas.Dashboard.Models;
 using webSITE.Domain;
-using webSITE.Repositori.Interface;
+using webSITE.DataAccess.Repositori.Interface;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {

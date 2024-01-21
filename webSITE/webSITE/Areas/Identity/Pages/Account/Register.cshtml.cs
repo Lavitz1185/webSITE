@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using webSITE.Domain;
-using webSITE.Repositori.Interface;
+using webSITE.DataAccess.Repositori.Interface;
 
 namespace webSITE.Areas.Identity.Pages.Account
 {

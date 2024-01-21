@@ -1,4 +1,4 @@
-﻿namespace webSITE.Repositori.Commons
+﻿namespace webSITE.DataAccess.Repositori.Commons
 {
     public interface IBaseRepositori<T> where T : class
     {
