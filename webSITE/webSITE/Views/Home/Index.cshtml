@@ -5,8 +5,8 @@
 }
 
 <section id="home" class="mb-5">
-    <h2>SITE 22 ILMU KOMPUTER</h2>
-    <p>
+    <h2 class="animate__animated animate__slideInDown">SITE 22 ILMU KOMPUTER</h2>
+    <p class="animate__animated animate__slideInDown">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -14,7 +14,7 @@
     </p>
     @if (!sigInManager.IsSignedIn(User))
     {
-        <div class="btn">
+        <div class="btn animate__animated animate__zoomIn animate__slow">
             <a class="blue" id="login" asp-area="Identity" asp-page="/Account/Login">LOGIN MAHASISWA</a>
         </div>
     }
