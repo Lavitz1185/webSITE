@@ -1,0 +1,33 @@
+﻿<script type="text/javascript">
+    $('document').ready(function () {
+        $('div#main').css({
+            "margin-top": "0rem"
+        });
+
+        $('nav').css({
+            "background": "rgba(255, 255, 255, 0)",
+            "box-shadow": "none"
+        });
+    });
+
+    const changeBackGround = (scrollPos) => {
+        if (scrollPos == 0) {
+            $('nav').css({
+                "background": "rgba(255, 255, 255, 0)",
+                "box-shadow": "none"
+            });
+        }
+        else {
+            $('nav').css({
+                "background": "rgba(255, 255, 255, 1)",
+                "box-shadow": "4px 4px 4px rgba(0, 0, 0, 0.3)"
+            });
+        }
+    };
+
+    document.addEventListener("scroll", (event) => {
+        let lastKnownScrollPosition = window.scrollY;
+
+        changeBackGround(lastKnownScrollPosition);
+    });
+</script>

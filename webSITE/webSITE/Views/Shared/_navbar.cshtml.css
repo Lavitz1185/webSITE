@@ -1,13 +1,16 @@
 ﻿/* Navigation */
 
 nav {
-    background-color: white;
+    position: fixed;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
-    width : 100%;
-    position : fixed;
-    top:0;
-    left:0;
-    z-index : 999;
+    background: rgb(255, 255, 255, 1);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    transition: background 0.3s ease-in;
+    height:5rem;
 }
 
 ::deep .navbar-brand img {
