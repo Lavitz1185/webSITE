@@ -99,7 +99,8 @@
             "margin-top": "0rem"
         });
 
-        toggleNavbarTransparent(true);
+        if(window.scrollY === 0)
+            toggleNavbarTransparent(true);
 
         $('.navbar-toggler').click(function () {
             navbarToggled = !navbarToggled;
