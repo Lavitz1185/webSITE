@@ -4,6 +4,23 @@
             "margin-top": "0rem"
         });
 
+        $('.nav-link').css({
+            "color": "white"
+        })
+
+        $('.nav-link').hover(
+            function () { 
+                $(this).css({
+                    "color": "#FDC93B",
+                })
+            },
+            function () { 
+                $(this).css({
+                    "color" : "white"
+                })
+            }
+        );
+
         $('nav').css({
             "background": "rgba(255, 255, 255, 0)",
             "box-shadow": "none"
@@ -16,12 +33,46 @@
                 "background": "rgba(255, 255, 255, 0)",
                 "box-shadow": "none"
             });
+
+            $('.nav-link').css({
+                "color": "white"
+            });
+
+            $('.nav-link').hover(
+                function () {
+                    $(this).css({
+                        "color": "#FDC93B",
+                    })
+                },
+                function () {
+                    $(this).css({
+                        "color": "white"
+                    })
+                }
+            );
         }
         else {
             $('nav').css({
                 "background": "rgba(255, 255, 255, 1)",
                 "box-shadow": "4px 4px 4px rgba(0, 0, 0, 0.3)"
             });
+
+            $('.nav-link').css({
+                "color": "rgb(21, 21, 100)"
+            })
+
+            $('.nav-link').hover(
+                function () {
+                    $(this).css({
+                        "color": "#FDC93B",
+                    })
+                },
+                function () {
+                    $(this).css({
+                        "color": "rgb(21, 21, 100)"
+                    })
+                }
+            );
         }
     };
 
