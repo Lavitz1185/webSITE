@@ -3,3 +3,98 @@
     ViewData["Title"] = "Detail";
 }
 
+<div class="container-fluid">
+    <a asp-action="Index">&lt;&lt;&lt;Kembali</a>
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6"><b>ID</b></div>
+                <div class="col-6">@Model.Id</div>
+            </div>
+            <div class="row">
+                <div class="col-6"><b>Nama Kegiatan</b></div>
+                <div class="col-6">@Model.NamaKegiatan</div>
+            </div>
+            <div class="row">
+                <div class="col-6"><b>Tempat Kegiatan</b></div>
+                <div class="col-6">@Model.TempatKegiatan</div>
+            </div>
+            <div class="row">
+                <div class="col-6"><b>Waktu</b></div>
+                <div class="col-6">
+                    @if (Model.TanggalMulai != Model.TanggalBerakhir)
+                    {
+                        @($"{Model.TanggalMulai:d} - {Model.TanggalBerakhir:d}")
+                    }
+                    else
+                    {
+                        @($"{Model.TanggalMulai:d}")
+                        ;
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6"><b>Keterangan</b></div>
+                <div class="col-6">@Model.Keterangan</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-12"><h3 class="text-center">Daftar Foto</h3></div>
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tanggal</th>
+                                <th>Dalam Foto</th>
+                                <th>Foto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var foto in Model.DaftarFoto)
+                            {
+                                <tr>
+                                    <td>@foto.Id</td>
+                                    <td>@foto.Tanggal.ToShortDateString()</td>
+                                    <td>
+                                        @string.Join(", ", foto.DaftarMahasiswa.Select(m => m.NamaLengkap))
+                                    </td>
+                                    <td>
+                                        <img width="120" src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area = ""})" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center">Peserta Kegiatan</h3>
+                </div>
+                <div class="col-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>NIM</th>
+                                <th>Nama Lengkap</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var mahasiswa in Model.DaftarMahasiswa)
+                            {
+                                <tr>
+                                    <td>@mahasiswa.Nim</td>
+                                    <td>@mahasiswa.NamaLengkap</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

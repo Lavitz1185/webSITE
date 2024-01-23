@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using webSITE.Areas.Dashboard.Models;
+using webSITE.Areas.Dashboard.Models.MahasiswaController;
 using webSITE.Domain;
 using webSITE.Models.Account;
 using webSITE.Models.FotoController;

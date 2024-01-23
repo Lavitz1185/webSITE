@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using webSITE.Areas.Dashboard.Models;
 using webSITE.Domain;
 using webSITE.DataAccess.Repositori.Interface;
+using webSITE.Areas.Dashboard.Models.MahasiswaController;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {

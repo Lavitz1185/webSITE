@@ -117,7 +117,7 @@ namespace webSITE.Repositori.Implementasi
         public async Task<Kegiatan> GetWithDetail(int id)
         {
             var kegiatan = await _dbContext.TblKegiatan
-                .Include(k => k.DaftarFoto)
+                .Include(k => k.DaftarFoto).ThenInclude(f => f.DaftarMahasiswa)
                 .Include(k => k.DaftarMahasiswa)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(k => k.Id == id);

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using webSITE.Domain;
 
-namespace webSITE.Areas.Dashboard.Models
+namespace webSITE.Areas.Dashboard.Models.MahasiswaController
 {
     public class EditMahasiswaVM
     {
