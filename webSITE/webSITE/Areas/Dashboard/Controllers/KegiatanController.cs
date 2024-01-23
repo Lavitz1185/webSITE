@@ -39,7 +39,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             return View(kegiatan);
         }
 
-        [HttpPost("{id}")]
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             await _repositoriKegiatan.Delete(id);

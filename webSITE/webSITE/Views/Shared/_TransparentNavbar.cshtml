@@ -6,9 +6,26 @@
 
         $('.nav-link').css({
             "color": "white"
-        })
+        });
+
+        $('.nav-item form button').css({
+            "color": "white"
+        });
 
         $('.nav-link').hover(
+            function () {
+                $(this).css({
+                    "color": "#FDC93B",
+                })
+            },
+            function () {
+                $(this).css({
+                    "color": "white"
+                })
+            }
+        );
+
+        $('.nav-item form button').hover(
             function () {
                 $(this).css({
                     "color": "#FDC93B",
@@ -38,6 +55,10 @@
                 $('.nav-link').css({
                     "color": "rgb(21, 21, 100)"
                 });
+
+                $('.nav-item form button').css({
+                    "color": "rgb(21, 21, 100)"
+                });
             }
             else {
                 $('nav').css({
@@ -45,6 +66,10 @@
                 });
 
                 $('.nav-link').css({
+                    "color": "white"
+                });
+
+                $('.nav-item form button').css({
                     "color": "white"
                 });
             }
@@ -59,6 +84,10 @@
             });
 
             $('.nav-link').css({
+                "color": "white"
+            });
+
+            $('.nav-item form button').css({
                 "color": "white"
             });
 
@@ -83,9 +112,26 @@
 
             $('.nav-link').css({
                 "color": "rgb(21, 21, 100)"
-            })
+            });
+
+            $('.nav-item form button').css({
+                "color": "rgb(21, 21, 100)"
+            });
 
             $('.nav-link').hover(
+                function () {
+                    $(this).css({
+                        "color": "#FDC93B",
+                    })
+                },
+                function () {
+                    $(this).css({
+                        "color": "rgb(21, 21, 100)"
+                    })
+                }
+            );
+
+            $('.nav-item form button').hover(
                 function () {
                     $(this).css({
                         "color": "#FDC93B",

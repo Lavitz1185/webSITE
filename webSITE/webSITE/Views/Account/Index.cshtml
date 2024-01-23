@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="row">
-            <form id="formProfil" class="col-md-9 d-flex flex-column gap-1" method="post">
+            <form id="formProfil" asp-controller="Account" asp-area="" asp-action="Index" class="col-md-9 d-flex flex-column gap-1" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-center"></div>
                 <div class="row">
                     <div class="col-3 my-auto"><label asp-for="@Model.Nim"></label></div>
