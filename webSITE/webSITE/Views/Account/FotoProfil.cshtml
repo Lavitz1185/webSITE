@@ -5,46 +5,48 @@
     var id = UserManager.GetUserId(User);
 }
 
-<div class="row px-1 pt-5">
-    <div class="col-md-3">
-        <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-                <a asp-action="Index" class="nav-link">Profil</a>
-            </li>
-            <li class="nav-item">
-                <a asp-action="FotoProfil" class="nav-link active">Foto Profil</a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-9 d-flex flex-column me-auto gap-1">
-        <div class="row" id="fotoProfil">
-            <div class="col-md-9 d-flex justify-content-center">
-                <img src="@Url.ActionLink("FotoProfil", "File", new {Id = id, Area = ""})" class="img-thumbnail" width="400">
+<div class="container-fluid pt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a asp-action="Index" class="nav-link">Profil</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FotoProfil" class="nav-link active">Foto Profil</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9 d-flex flex-column me-auto gap-1">
+            <div class="row" id="fotoProfil">
+                <div class="col-md-9 d-flex justify-content-center">
+                    <img src="@Url.ActionLink("FotoProfil", "File", new {Id = id, Area = ""})" class="img-thumbnail" width="400">
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <form id="formFotoProfil" style="display:none" enctype="multipart/form-data" method="post" class="col-md-9" asp-action="FotoProfil">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <form id="formFotoProfil" style="display:none" enctype="multipart/form-data" method="post" class="col-md-9" asp-action="FotoProfil">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="row mb-2">
-                    <div class="col">
-                        <label asp-for="@Model.FotoFormFile"></label>
-                        <input class="form-control" asp-for="@Model.FotoFormFile" type="file" />
-                        <span asp-validation-for="@Model.FotoFormFile" class="text-danger"></span>
+                    <div class="row mb-2">
+                        <div class="col">
+                            <label asp-for="@Model.FotoFormFile"></label>
+                            <input class="form-control" asp-for="@Model.FotoFormFile" type="file" />
+                            <span asp-validation-for="@Model.FotoFormFile" class="text-danger"></span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row mb-2">
-                    <div class="col d-flex flex-md-row flex-column">
-                        <button class="btn btn-primary" id="btnSubmit" type="submit">Simpan</button>
+                    <div class="row mb-2">
+                        <div class="col d-flex flex-md-row flex-column">
+                            <button class="btn btn-primary" id="btnSubmit" type="submit">Simpan</button>
+                        </div>
                     </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-md-9 d-flex justify-content-center">
+                    <button id="btnBatal" class="btn btn-secondary me-auto" hidden="hidden">Batal</button>
+                    <button id="btnEdit" class="btn btn-primary">Edit</button>
                 </div>
-            </form>
-        </div>
-        <div class="row">
-            <div class="col-md-9 d-flex justify-content-center">
-                <button id="btnBatal" class="btn btn-secondary me-auto" hidden="hidden">Batal</button>
-                <button id="btnEdit" class="btn btn-primary">Edit</button>
             </div>
         </div>
     </div>

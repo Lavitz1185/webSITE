@@ -3,76 +3,78 @@
     ViewData["title"] = $"Profil {Model.NamaLengkap}";
 }
 
-<div class="row px-1 pt-5">
-    <div class="col-md-3">
-        <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-                <a asp-action="Index" class="nav-link active">Profil</a>
-            </li>
-            <li class="nav-item">
-                <a asp-action="FotoProfil" class="nav-link">Foto Profil</a>
-            </li>
-        </ul>
-    </div>
-    <div id="profil" class="col-md-9 me-auto">
-        <div class="row">
-            <div class="col">
-                <h1>Profil @Model.NamaLengkap</h1>
+<div class="container-fluid pt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a asp-action="Index" class="nav-link active">Profil</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="FotoProfil" class="nav-link">Foto Profil</a>
+                </li>
+            </ul>
+        </div>
+        <div id="profil" class="col-md-9 me-auto">
+            <div class="row">
+                <div class="col">
+                    <h1>Profil @Model.NamaLengkap</h1>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <form id="formProfil" asp-controller="Account" asp-area="" asp-action="Index" class="col-md-9 d-flex flex-column gap-1" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-center"></div>
-                <div class="row">
-                    <div class="col-3 my-auto"><label asp-for="@Model.Nim"></label></div>
-                    <div class="col-9">
-                        <input type="text" class="form-control" asp-for="@Model.Nim" readonly="true">
+            <div class="row">
+                <form id="formProfil" asp-controller="Account" asp-area="" asp-action="Index" class="col-md-9 d-flex flex-column gap-1" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-center"></div>
+                    <div class="row">
+                        <div class="col-3 my-auto"><label asp-for="@Model.Nim"></label></div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" asp-for="@Model.Nim" readonly="true">
+                        </div>
+                        <span asp-validation-for="@Model.Nim" class="text-danger"></span>
                     </div>
-                    <span asp-validation-for="@Model.Nim" class="text-danger"></span>
-                </div>
-                <div class="row">
-                    <div class="col-3 my-auto"><label asp-for="@Model.NamaLengkap"></label></div>
-                    <div class="col-9">
-                        <input type="text" class="form-control" asp-for="@Model.NamaLengkap" readonly="true">
+                    <div class="row">
+                        <div class="col-3 my-auto"><label asp-for="@Model.NamaLengkap"></label></div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" asp-for="@Model.NamaLengkap" readonly="true">
+                        </div>
+                        <span asp-validation-for="@Model.NamaLengkap" class="text-danger"></span>
                     </div>
-                    <span asp-validation-for="@Model.NamaLengkap" class="text-danger"></span>
-                </div>
-                <div class="row">
-                    <div class="col-3 my-auto"><label asp-for="@Model.NamaPanggilan"></label></div>
-                    <div class="col-9">
-                        <input type="text" class="form-control" asp-for="@Model.NamaPanggilan" readonly="true">
+                    <div class="row">
+                        <div class="col-3 my-auto"><label asp-for="@Model.NamaPanggilan"></label></div>
+                        <div class="col-9">
+                            <input type="text" class="form-control" asp-for="@Model.NamaPanggilan" readonly="true">
+                        </div>
+                        <span asp-validation-for="@Model.NamaPanggilan" class="text-danger"></span>
                     </div>
-                    <span asp-validation-for="@Model.NamaPanggilan" class="text-danger"></span>
-                </div>
-                <div class="row">
-                    <div class="col-3 my-auto"><label asp-for="@Model.TanggalLahir"></label></div>
-                    <div class="col-9">
-                        <input type="date" class="form-control" asp-for="@Model.TanggalLahir" readonly="true">
+                    <div class="row">
+                        <div class="col-3 my-auto"><label asp-for="@Model.TanggalLahir"></label></div>
+                        <div class="col-9">
+                            <input type="date" class="form-control" asp-for="@Model.TanggalLahir" readonly="true">
+                        </div>
+                        <span asp-validation-for="@Model.TanggalLahir" class="text-danger"></span>
                     </div>
-                    <span asp-validation-for="@Model.TanggalLahir" class="text-danger"></span>
-                </div>
-                <div class="row">
-                    <div class="col-3 my-auto"><label asp-for="@Model.JenisKelamin"></label></div>
-                    <div class="col-9">
-                        <select class="form-control" asp-for="@Model.JenisKelamin" disabled>
-                            @foreach (JenisKelamin jenisKelamin in Enum.GetValues(typeof(JenisKelamin)))
-                            {
-                                <option value="@jenisKelamin">@JenisKelaminExtension.ToString(jenisKelamin)</option>
-                            }
-                        </select>
+                    <div class="row">
+                        <div class="col-3 my-auto"><label asp-for="@Model.JenisKelamin"></label></div>
+                        <div class="col-9">
+                            <select class="form-control" asp-for="@Model.JenisKelamin" disabled>
+                                @foreach (JenisKelamin jenisKelamin in Enum.GetValues(typeof(JenisKelamin)))
+                                {
+                                    <option value="@jenisKelamin">@JenisKelaminExtension.ToString(jenisKelamin)</option>
+                                }
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col d-flex">
-                        <button id="btnSubmit" class="btn btn-primary" hidden="hidden" type="submit">Simpan</button>
-                        <a id="btnBatal" class="ms-md-auto btn btn-secondary" asp-action="Index" hidden="hidden">Batal</a>
+                    <div class="row">
+                        <div class="col d-flex">
+                            <button id="btnSubmit" class="btn btn-primary" hidden="hidden" type="submit">Simpan</button>
+                            <a id="btnBatal" class="ms-md-auto btn btn-secondary" asp-action="Index" hidden="hidden">Batal</a>
+                        </div>
                     </div>
+                </form>
+            </div>
+            <div class="row mt-1">
+                <div class="col-md-9 d-flex">
+                    <button id="btnEdit" class="ms-md-auto btn btn-primary">Edit</button>
                 </div>
-            </form>
-        </div>
-        <div class="row mt-1">
-            <div class="col-md-9 d-flex">
-                <button id="btnEdit" class="ms-md-auto btn btn-primary">Edit</button>
             </div>
         </div>
     </div>

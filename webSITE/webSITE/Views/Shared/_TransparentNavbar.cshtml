@@ -1,83 +1,10 @@
 ﻿<script type="text/javascript">
-    $('document').ready(function () {
-        $('div#main').css({
-            "margin-top": "0rem"
-        });
 
-        $('.nav-link').css({
-            "color": "white"
-        });
+    let navbarTransparant = true;
 
-        $('.nav-item form button').css({
-            "color": "white"
-        });
+    const toggleNavbarTransparent = (toggle) => {
 
-        $('.nav-link').hover(
-            function () {
-                $(this).css({
-                    "color": "#FDC93B",
-                })
-            },
-            function () {
-                $(this).css({
-                    "color": "white"
-                })
-            }
-        );
-
-        $('.nav-item form button').hover(
-            function () {
-                $(this).css({
-                    "color": "#FDC93B",
-                })
-            },
-            function () {
-                $(this).css({
-                    "color": "white"
-                })
-            }
-        );
-
-        $('nav').css({
-            "background": "rgba(255, 255, 255, 0)",
-            "box-shadow": "none"
-        });
-
-        let toggle = false;
-        $('.navbar-toggler').click(function () {
-            toggle = !toggle;
-
-            if (toggle) {
-                $('nav').css({
-                    "background": "rgba(255, 255, 255, 1)"
-                });
-
-                $('.nav-link').css({
-                    "color": "rgb(21, 21, 100)"
-                });
-
-                $('.nav-item form button').css({
-                    "color": "rgb(21, 21, 100)"
-                });
-            }
-            else {
-                $('nav').css({
-                    "background": "rgba(255, 255, 255, 0)"
-                });
-
-                $('.nav-link').css({
-                    "color": "white"
-                });
-
-                $('.nav-item form button').css({
-                    "color": "white"
-                });
-            }
-        });
-    });
-
-    const changeBackGround = (scrollPos) => {
-        if (scrollPos == 0) {
+        if (toggle === true) {
             $('nav').css({
                 "background": "rgba(255, 255, 255, 0)",
                 "box-shadow": "none"
@@ -103,8 +30,20 @@
                     })
                 }
             );
-        }
-        else {
+
+            $('.nav-item form button').hover(
+                function () {
+                    $(this).css({
+                        "color": "#FDC93B",
+                    })
+                },
+                function () {
+                    $(this).css({
+                        "color": "white"
+                    })
+                }
+            );
+        } else {
             $('nav').css({
                 "background": "rgba(255, 255, 255, 1)",
                 "box-shadow": "4px 4px 4px rgba(0, 0, 0, 0.3)"
@@ -146,9 +85,35 @@
         }
     };
 
+    $('document').ready(function () {
+        $('div#main').css({
+            "margin-top": "0rem"
+        });
+
+        toggleNavbarTransparent(true);
+
+        let toggle = false;
+        $('.navbar-toggler').click(function () {
+            toggle = !toggle;
+
+            if (toggle === true)
+                toggleNavbarTransparent(false);
+            else if (toggle === false && navbarTransparant === true)
+                toggleNavbarTransparent(true);
+        });
+    });
+
     document.addEventListener("scroll", (event) => {
         let lastKnownScrollPosition = window.scrollY;
 
-        changeBackGround(lastKnownScrollPosition);
+        if (lastKnownScrollPosition === 0 && navbarTransparant === false) {
+            navbarTransparant = true;
+            toggleNavbarTransparent(true);
+        }
+        else if (lastKnownScrollPosition > 0 && navbarTransparant === true) { 
+            navbarTransparant = false;
+            toggleNavbarTransparent(false);
+        }
+
     });
 </script>
