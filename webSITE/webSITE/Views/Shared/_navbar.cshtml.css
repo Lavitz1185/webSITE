@@ -1,7 +1,6 @@
 ﻿/* Navigation */
 
 nav {
-    position: fixed;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
     background: rgb(255, 255, 255, 1);
     width: 100%;
@@ -10,7 +9,7 @@ nav {
     left: 0;
     z-index: 999;
     transition: background 0.3s ease-in;
-    height:5rem;
+    min-height: 5rem;
 }
 
 ::deep .navbar-brand img {

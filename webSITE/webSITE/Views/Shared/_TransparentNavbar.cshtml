@@ -9,14 +9,14 @@
         })
 
         $('.nav-link').hover(
-            function () { 
+            function () {
                 $(this).css({
                     "color": "#FDC93B",
                 })
             },
-            function () { 
+            function () {
                 $(this).css({
-                    "color" : "white"
+                    "color": "white"
                 })
             }
         );
@@ -24,6 +24,30 @@
         $('nav').css({
             "background": "rgba(255, 255, 255, 0)",
             "box-shadow": "none"
+        });
+
+        let toggle = false;
+        $('.navbar-toggler').click(function () {
+            toggle = !toggle;
+
+            if (toggle) {
+                $('nav').css({
+                    "background": "rgba(255, 255, 255, 1)"
+                });
+
+                $('.nav-link').css({
+                    "color": "rgb(21, 21, 100)"
+                });
+            }
+            else {
+                $('nav').css({
+                    "background": "rgba(255, 255, 255, 0)"
+                });
+
+                $('.nav-link').css({
+                    "color": "white"
+                });
+            }
         });
     });
 
