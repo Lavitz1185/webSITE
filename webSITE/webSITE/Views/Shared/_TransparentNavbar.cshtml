@@ -1,6 +1,7 @@
 ﻿<script type="text/javascript">
 
     let navbarTransparant = true;
+    let navbarToggled = false;
 
     const toggleNavbarTransparent = (toggle) => {
 
@@ -8,6 +9,10 @@
             $('nav').css({
                 "background": "rgba(255, 255, 255, 0)",
                 "box-shadow": "none"
+            });
+
+            $('.navbar-brand img').css({
+                "filter": "invert(100%)"
             });
 
             $('.nav-link').css({
@@ -47,6 +52,10 @@
             $('nav').css({
                 "background": "rgba(255, 255, 255, 1)",
                 "box-shadow": "4px 4px 4px rgba(0, 0, 0, 0.3)"
+            });
+
+            $('.navbar-brand img').css({
+                "filter": "invert(0%)"
             });
 
             $('.nav-link').css({
@@ -92,13 +101,12 @@
 
         toggleNavbarTransparent(true);
 
-        let toggle = false;
         $('.navbar-toggler').click(function () {
-            toggle = !toggle;
+            navbarToggled = !navbarToggled;
 
-            if (toggle === true)
+            if (navbarToggled === true)
                 toggleNavbarTransparent(false);
-            else if (toggle === false && navbarTransparant === true)
+            else if (navbarToggled === false && navbarTransparant === true)
                 toggleNavbarTransparent(true);
         });
     });
@@ -106,7 +114,7 @@
     document.addEventListener("scroll", (event) => {
         let lastKnownScrollPosition = window.scrollY;
 
-        if (lastKnownScrollPosition === 0 && navbarTransparant === false) {
+        if (lastKnownScrollPosition === 0 && navbarTransparant === false && navbarToggled === false) {
             navbarTransparant = true;
             toggleNavbarTransparent(true);
         }
