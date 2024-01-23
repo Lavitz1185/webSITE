@@ -5,8 +5,8 @@
 }
 
 <section id="home" class="mb-5">
-    <h2>SITE 22 ILMU KOMPUTER</h2>
-    <p>
+    <h2 class="animate__animated animate__slideInDown">SITE 22 ILMU KOMPUTER</h2>
+    <p class="animate__animated animate__slideInDown">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -14,7 +14,7 @@
     </p>
     @if (!sigInManager.IsSignedIn(User))
     {
-        <div class="btn">
+        <div class="btn animate__animated animate__zoomIn animate__slow">
             <a class="blue" id="login" asp-area="Identity" asp-page="/Account/Login">LOGIN MAHASISWA</a>
         </div>
     }
@@ -23,31 +23,31 @@
 @*About Us*@
 
 <section id="about-container" class="mb-5">
-    <div class="about-img">
+    <div class="about-img animate__animated animate__fadeIn animate__slow">
         <img src="~/img/Gambar_Boot.png" />
     </div>
     <div class="about-text">
-        <h2>Selamat Datang di Website SITE22, Semoga Betah</h2>
-        <p>
+        <h2 class="animate__animated animate__fadeInRightBig">Selamat Datang di Website SITE22, Semoga Betah</h2>
+        <p class="animate__animated animate__fadeInRightBig animate__slow">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
             quis nostrud exercitation ullamco laboris.
         </p>
         <div class="about-fe">
-            <img src="~/img/programmer.png" alt="" />
+            <img src="~/img/programmer.png" alt="" class="animate__animated animate__fadeIn animate__delay-1s" />
             <div class="fe-text">
-                <h5>Jumlah Coders</h5>
-                <p>
+                <h5 class="animate__animated animate__fadeInRightBig animate__slower">Jumlah Coders</h5>
+                <p class="animate__animated animate__fadeInRightBig animate__slower">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                     tempor incididunt ut labore et dolore magna aliqua.
                 </p>
             </div>
         </div>
         <div class="about-fe">
-            <img src="~/img/student.png" alt="" />
+            <img src="~/img/student.png" alt="" class="animate__animated animate__fadeIn animate__delay-1s" />
             <div class="fe-text">
-                <h5>Berdirinya SITE</h5>
-                <p>
+                <h5 class="animate__animated animate__fadeInRightBig animate__slower">Berdirinya SITE</h5>
+                <p class="animate__animated animate__fadeInRightBig animate__slower">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                     tempor incididunt ut labore et dolore magna aliqua.
                 </p>
