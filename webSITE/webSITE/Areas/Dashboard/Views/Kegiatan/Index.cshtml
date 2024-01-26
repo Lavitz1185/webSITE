@@ -35,8 +35,12 @@
                             <td>@kegiatan.Keterangan</td>
                             <td>
                                 <div class="d-flex gap-1 justify-content-start">
-                                    <a class="btn btn-warning" asp-action="Detail" asp-route-id="@kegiatan.Id"><i class='fas fa-eye' style='color:#ffffff'></i></a>
-                                    <a class="btn btn-primary"><i class="fas fa-pen-square fa-lg"></i></a>
+                                    <a class="btn btn-warning" asp-action="Detail" asp-route-id="@kegiatan.Id">
+                                        <i class='fas fa-eye' style='color:#ffffff'></i>
+                                    </a>
+                                    <a class="btn btn-primary">
+                                        <i class="fas fa-pen-square fa-lg"></i>
+                                    </a>
                                     <form asp-action="Delete" asp-route-id="@kegiatan.Id" method="post">
                                         <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
                                     </form>

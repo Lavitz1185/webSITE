@@ -26,6 +26,11 @@ nav {
     transition: 0.3s ease;
 }
 
+::deep .nav-link.active {
+    border-bottom: solid;
+    border-bottom-color: yellow;
+}
+
 ::deep .nav-item form button {
     border: none;
     background: none;

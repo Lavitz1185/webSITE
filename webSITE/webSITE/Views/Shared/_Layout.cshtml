@@ -49,6 +49,19 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    <script type="text/javascript">
+        let activeLink = "@(ViewData["Active"] ?? "")";
+
+        $('document').ready(function () {
+            $('.nav-link').each(function (imdex, item) {
+                console.log(item);
+                if ($(item).text() === activeLink) {
+                    $(item).toggleClass('active');
+                }
+            });
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
