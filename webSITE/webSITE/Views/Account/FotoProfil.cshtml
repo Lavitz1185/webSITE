@@ -1,8 +1,14 @@
 ﻿@inject UserManager<Mahasiswa> UserManager
+@inject IRepositoriMahasiswa RepositoriMahasiswa
 @model AccountFotoVM
 @{
     ViewData["title"] = "Foto Profil";
+
     var id = UserManager.GetUserId(User);
+    var user = await RepositoriMahasiswa.Get(id);
+
+    ViewData["Active"] = $"Hello {user.NamaPanggilan}!";
+
 }
 
 <div class="container-fluid pt-5">
