@@ -26,10 +26,11 @@ nav {
     transition: 0.3s ease;
 }
 
-::deep .nav-link.active {
-    border-bottom: solid;
-    border-bottom-color: yellow;
-}
+    ::deep .nav-link.active {
+        color: #FDC93B;
+        border-bottom: solid;
+        border-bottom-color: #FDC93B;
+    }
 
 ::deep .nav-item form button {
     border: none;
@@ -46,5 +47,5 @@ nav {
     }
 
 ::deep .nav-link:hover {
-    color: #FDC93B
+    color: #FDC93B;
 }

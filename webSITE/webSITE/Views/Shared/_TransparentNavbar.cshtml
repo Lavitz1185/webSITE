@@ -19,6 +19,10 @@
                 "color": "white"
             });
 
+            $('.nav-link.active').css({
+                "color": "#FDC93B"
+            });
+
             $('.nav-item form button').css({
                 "color": "white"
             });
@@ -62,6 +66,10 @@
                 "color": "rgb(21, 21, 100)"
             });
 
+            $('.nav-link.active').css({
+                "color": "#FDC93B"
+            });
+
             $('.nav-item form button').css({
                 "color": "rgb(21, 21, 100)"
             });
@@ -77,7 +85,7 @@
                         "color": "rgb(21, 21, 100)"
                     })
                 }
-            );
+            );            
 
             $('.nav-item form button').hover(
                 function () {
@@ -109,6 +117,10 @@
                 toggleNavbarTransparent(false);
             else if (navbarToggled === false && navbarTransparant === true)
                 toggleNavbarTransparent(true);
+        });
+
+        $('.nav-link.active').css({
+            "color": "#FDC93B"
         });
     });
 
