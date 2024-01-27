@@ -100,9 +100,15 @@ footer {
     right: 50px;
     z-index: 999;
     border-radius: 50%;
-    opacity: 70%;
+    opacity: 30%;
     text-decoration: none;
     text-align: center;
     line-height: 50px;
     color: white;
+    font-size: 30px;
+}
+
+.gotopbtn:hover {
+    opacity: 100%;
+    transition: .5s;
 }
