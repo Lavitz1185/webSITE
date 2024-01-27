@@ -18,6 +18,11 @@ nav {
     cursor: pointer;
 }
 
+::deep .nav:item {
+    display: flex;
+    justify-content: center;
+}
+
 ::deep .nav-link {
     text-decoration: none;
     color: rgb(21, 21, 100);
@@ -28,8 +33,8 @@ nav {
 
     ::deep .nav-link.active {
         color: #FDC93B;
-        border-bottom: solid;
-        border-bottom-color: #FDC93B;
+        border-bottom: 2px solid #FDC93B;
+        transition: .6s;
     }
 
 ::deep .nav-item form button {
