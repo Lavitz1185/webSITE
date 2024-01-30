@@ -8,10 +8,101 @@ nav {
     top: 0;
     left: 0;
     z-index: 999;
-    transition: background 0.6s;    
-    s ease-in;
+    transition: background 1s ease-in;    
     min-height: 5rem;
 }
+
+::deep .user-pic {
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+::deep .sub-menu-wrap {
+    position: absolute;
+    border-radius: 20%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    top: 100%;
+    right: 5%;
+    width: 250px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+::deep .sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+
+::deep .sub-menu {
+    background: #fff;
+    padding : 20px;
+    margin: 10px;
+}
+
+::deep .user-info {
+    display: flex;
+    align-items: center;
+}
+
+::deep .user-info {
+    display: flex;
+    align-items: center;
+}
+
+::deep .user-info img {
+    width: 30px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+::deep .user-info h2 {
+    font-weight : 500;
+    font-size: 18px;
+}
+
+::deep .sub-menu hr {
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #ccc;
+    margin : 15px 0 10px;
+}
+
+::deep .sub-menu-link {
+   display: flex;
+   align-items : center;
+   text-decoration: none;
+   color: #525252;
+}
+
+::deep .sub-menu-link p{
+    width: 100%;
+    margin-left: 8px;
+    padding-top: 12px;
+}
+
+::deep .sub-menu-link i{
+    padding: 8px;
+}
+
+::deep .sub-menu-link span{
+    font-size: 22px;
+    transition: transform 0.5s;
+}
+
+::deep .sub-menu-link:hover span{
+    font-size: 22px;
+    transform: translate(5px);
+}
+
+::deep .sub-menu-link:hover p {
+    font-weight: 600;
+}
+
+
+
 
 ::deep .navbar-brand img {
     width: 120px;
