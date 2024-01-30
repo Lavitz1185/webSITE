@@ -8,8 +8,7 @@ nav {
     top: 0;
     left: 0;
     z-index: 999;
-    transition: background 0.6s;    
-    s ease-in;
+    transition: background 0.6s ease-in;    
     min-height: 5rem;
 }
 
@@ -19,9 +18,10 @@ nav {
     cursor: pointer;
 }
 
-::deep .nav:item {
+::deep .nav-item {
     display: flex;
     justify-content: center;
+    margin-right: 5px;
 }
 
 ::deep .nav-link {
@@ -34,7 +34,7 @@ nav {
 
     ::deep .nav-link.active {
         color: #FDC93B;
-        border-bottom: 2px solid #FDC93B;
+        border-bottom: 3px solid #FDC93B;
         transition: .6s;
     }
 
