@@ -1,5 +1,5 @@
 ﻿<script type="text/javascript">
-
+    let activeLink1 = "@(ViewData["Active"] ?? "")";
     let navbarTransparant = true;
     let navbarToggled = false;
 
@@ -19,6 +19,10 @@
                 "color": "white"
             });
 
+            $('.nav-link.active').css({
+                "color": "#FDC93B"
+            });
+
             $('.nav-item form button').css({
                 "color": "white"
             });
@@ -30,9 +34,11 @@
                     })
                 },
                 function () {
-                    $(this).css({
-                        "color": "white"
-                    })
+                    if ($(this).text() != activeLink1) {
+                        $(this).css({
+                            "color": "white"
+                        });
+                    }
                 }
             );
 
@@ -43,9 +49,11 @@
                     })
                 },
                 function () {
-                    $(this).css({
-                        "color": "white"
-                    })
+                    if ($(this).text() != activeLink1) {
+                        $(this).css({
+                            "color": "white"
+                        })
+                    }
                 }
             );
         } else {
@@ -62,6 +70,10 @@
                 "color": "rgb(21, 21, 100)"
             });
 
+            $('.nav-link.active').css({
+                "color": "#FDC93B"
+            });
+
             $('.nav-item form button').css({
                 "color": "rgb(21, 21, 100)"
             });
@@ -73,9 +85,11 @@
                     })
                 },
                 function () {
-                    $(this).css({
-                        "color": "rgb(21, 21, 100)"
-                    })
+                    if ($(this).text() != activeLink1) {
+                        $(this).css({
+                            "color": "rgb(21, 21, 100)"
+                        })
+                    }
                 }
             );
 
@@ -86,9 +100,12 @@
                     })
                 },
                 function () {
-                    $(this).css({
-                        "color": "rgb(21, 21, 100)"
-                    })
+                    
+                    if($(this).text() != activeLink1) {
+                        $(this).css({
+                            "color": "rgb(21, 21, 100)"
+                        });
+                    }
                 }
             );
         }
@@ -99,7 +116,7 @@
             "margin-top": "0rem"
         });
 
-        if(window.scrollY === 0)
+        if (window.scrollY === 0)
             toggleNavbarTransparent(true);
 
         $('.navbar-toggler').click(function () {
@@ -110,6 +127,10 @@
             else if (navbarToggled === false && navbarTransparant === true)
                 toggleNavbarTransparent(true);
         });
+
+        $('.nav-link.active').css({
+            "color": "#FDC93B"
+        });
     });
 
     document.addEventListener("scroll", (event) => {
@@ -119,7 +140,7 @@
             navbarTransparant = true;
             toggleNavbarTransparent(true);
         }
-        else if (lastKnownScrollPosition > 0 && navbarTransparant === true) { 
+        else if (lastKnownScrollPosition > 0 && navbarTransparant === true) {
             navbarTransparant = false;
             toggleNavbarTransparent(false);
         }

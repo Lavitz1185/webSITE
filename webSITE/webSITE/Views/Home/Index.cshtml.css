@@ -130,6 +130,147 @@
                 padding-top: 10px;
             }
 
+
+/*Kontak dan Laporkan Error*/
+#contact {
+    padding: 5vw 8vw 5vw 8vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#contact .kontak {
+    width: 330px;
+}
+
+#contact .kontak h2{
+    color: #2c234d;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: .8;
+    margin-bottom: 16px;
+}   
+
+
+#contact .kontak p{
+    color: #686875;
+    line-height: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e4ed
+} 
+
+
+#contact .kontak h3{
+    color: #2c234d;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    margin-bottom: 15px;
+}     
+
+#contact .kontak .kontak-details div {
+    display : flex;
+}
+
+#contact .kontak .kontak-details div .get {
+    font-size : 16px;
+    line-height : 22px;
+    color: #5838fc;
+    margin-right: 20px;
+}
+
+#contact .kontak .kontak-details div p{
+    border-bottom: none;
+    line-height: 22px;
+    margin-bottom: 30px;
+}
+
+#contact .laporkan {
+    width: 70%;
+    background: #f7f6fa;
+    padding : 40px;
+    border-radius: 10px;
+}
+
+#contact .laporkan h4 {
+    font-size: 24px;
+    color: #2c234d;
+    line-height: 30px;
+    margin-bottom: 8px;
+}
+
+#contact .laporkan p {
+    color: #686875;
+    line-height: 24px;
+    padding-bottom: 25px;
+}
+
+#contact .laporkan .laporkan-row {
+    display : flex;
+    justify-content: space-between;
+    width : 100%;
+}
+
+#contact .laporkan .laporkan-row input {
+    width : 48%;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 3px;
+    border: none;
+    background: #fff;
+    color: #7e7c87;
+    outline: none;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+}
+
+#contact .laporkan .laporkan-col input,
+#contact .laporkan .laporkan-col textarea{
+    width : 100%;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 3px;
+    border: none;
+    background: #fff;
+    color: #7e7c87;
+    outline: none;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+}
+
+
+#contact .laporkan button {
+    font-size: .9rem;
+    padding: 13px 25px;
+    background: rgb(21, 21, 100);
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+#pro-links {
+    margin-top: 10px;
+}
+
+.pro-links i{
+    padding: 10px 13px;
+    margin-right: 3px;
+    border: 1px solid rgb(21, 21, 100);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.pro-links i:hover {
+    background: rgb(21, 21, 100);
+    color: #ffffff;
+    border: 1px solid rgb(21, 21, 100);
+    cursor: pointer;
+}
+
 @media (max-width: 769px) {
     #home ::deep p {
         width: 75%;
@@ -142,6 +283,14 @@
         #about-container ::deep .about-img {
             padding-right: 30px;
         }
+
+    /*#contact {
+        padding: 8vw 4vw;
+    }
+
+    #contact .kontak {
+        width: 250px;
+    }*/
 }
 
 @media (max-width:670px) {
@@ -159,3 +308,35 @@
             padding-bottom: 20px;
         }
 }
+
+@media (max-width:1300px) {
+    #contact {
+        padding: 8vw 4vw;
+        flex-direction: column;
+        align-content: flex-start;
+        justify-content: flex-start;
+    }
+
+    #contact .kontak {
+        width : 100%;
+        margin-bottom: 30px;
+    }
+
+    #contact .laporkan {
+        width: 100%;
+        padding: 40px 30px;
+    }
+
+    #contact .laporkan .laporkan-row {
+    display : flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width : 100%;
+    }
+
+    #contact .laporkan .laporkan-row input {
+        width : 100%;
+    }
+}
+
+

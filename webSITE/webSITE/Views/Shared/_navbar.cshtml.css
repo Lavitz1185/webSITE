@@ -8,7 +8,8 @@ nav {
     top: 0;
     left: 0;
     z-index: 999;
-    transition: background 0.3s ease-in;
+    transition: background 0.6
+    s ease-in;
     min-height: 5rem;
 }
 
@@ -16,6 +17,11 @@ nav {
     width: 120px;
     height: 50px;
     cursor: pointer;
+}
+
+::deep .nav:item {
+    display: flex;
+    justify-content: center;
 }
 
 ::deep .nav-link {
@@ -26,10 +32,11 @@ nav {
     transition: 0.3s ease;
 }
 
-::deep .nav-link.active {
-    border-bottom: solid;
-    border-bottom-color: yellow;
-}
+    ::deep .nav-link.active {
+        color: #FDC93B;
+        border-bottom: 2px solid #FDC93B;
+        transition: .6s;
+    }
 
 ::deep .nav-item form button {
     border: none;
@@ -46,5 +53,5 @@ nav {
     }
 
 ::deep .nav-link:hover {
-    color: #FDC93B
+    color: #FDC93B;
 }
