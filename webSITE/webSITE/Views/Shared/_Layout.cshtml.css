@@ -123,13 +123,18 @@ footer {
         cursor: pointer;
     }
 
-.footer-col a {
+.laporan {
     margin-left: 5px;
     color: #232355;
 }
 
-.footer-col a:hover {
+.laporan:hover {
     color: blue;
+}
+
+a {
+    text-decoration: none;
+    color: #F5F5F5;
 }
     /*.footer-content h3 {*/
         /*font-size: 1.8rem;
