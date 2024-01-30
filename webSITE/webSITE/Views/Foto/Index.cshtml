@@ -73,23 +73,64 @@
 
 <style>
 
-    .card-img-top {
-        border-radius: 50px;
-        padding: 20px;
+    .parent {
+        height: 320px;
+        overflow: hidden;
+        border-radius: 5px;
+        padding: 0px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+
+    }
+
+    .child {
         width: 100%; /* lebar 100% dari wadah */
-        height: 350px; /* tinggi gambar terserah anda */
+        height: 100%; /* tinggi gambar terserah anda */
         object-fit: cover; /* gambar dalam kotak cuy */
+        transition: .5s;
+        background-size: cover;
+    }
+
+    .parent:hover .child {
+        transform: scale(1.1);
+        cursor: pointer;
+        filter: brightness(70%);
+    }
+
+    .parent:hover .content {
+        opacity: 0.8;
+        color: white;
     }
 
     .card{
-        border-radius : 30px;
+        border-radius : 15px;
         box-shadow: 0px 2px 8px 0px #b0bec5;
+        transition: 1s;
     }
 
     .card-body{
-        padding: 25px;
-        margin-top: -15px;
+        padding: 14px;
+        margin-top: 0px;
 
+    }
+
+    .content {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        opacity: 0;
+        transition: 0.2s ease-in-out;
+
+    }
+
+    .content h3 {
+            font-size: 45px;
     }
 
     .btn-primary{
@@ -101,9 +142,9 @@
         background-color: black;
     }
 
-    h3 {
+/*     h3 {
         color: #37474f;
-    }
+    } */
 
     h5 {
         font-weight: 700;
@@ -120,7 +161,7 @@
 <div class="container-fluid py-5">
     <h2 class="text-center">Album Mahasiswa</h2>
     <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
-        <div class="col">
+       @*  <div class="col">
             <div class="card">
                 <img src="~/img/Front_Building.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -137,116 +178,94 @@
                 </div>
 
             </div>
-        </div>
+        </div> *@
 
         <div class="col">
             <div class="card">
-                <img src="~/img/Front_Building.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h1 class="card-title">Kegiatan Upacara</h1>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod consectetur adipisicing elit.</p>
+                <div class="parent">
+                <img src="~/img/Front_Building.jpg" class="child" alt="...">
+                    <div class="content">
+                        <h3>Select</h3>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-around mb-5">
-                    <h5>17 Agustus 1945</h5>
-                    <button class="btn btn-primary">
-                        Lihat Folder
-                    </button>
+                <div class="card-body">
+                    <h1 class="card-title">Dies Natalis</h1>
+                    <h4 class="card-text">1</h4>
                 </div>
             </div>
         </div>
 
         <div class="col">
             <div class="card">
-                <img src="~/img/Front_Building.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h1 class="card-title">Kegiatan Upacara</h1>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod consectetur adipisicing elit.</p>
+                <div class="parent">
+                <img src="~/img/Front_Building.jpg" class="child" alt="...">
+                    <div class="content">
+                        <h3>Select</h3>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-around mb-5">
-                    <h5>17 Agustus 1945</h5>
-                    <button class="btn btn-primary">
-                        Lihat Folder
-                    </button>
+                <div class="card-body">
+                    <h1 class="card-title">Dies Natalis</h1>
+                    <h4 class="card-text">1</h4>
                 </div>
             </div>
         </div>
 
         <div class="col">
             <div class="card">
-                <img src="~/img/Front_Building.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h1 class="card-title">Kegiatan Upacara</h1>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod consectetur adipisicing elit.</p>
+                <div class="parent">
+                    <img src="~/img/Front_Building.jpg" class="child" alt="...">
+                    <div class="content">
+                        <h3>Select</h3>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-around mb-5">
-                    <h5>17 Agustus 1945</h5>
-                    <button class="btn btn-primary">
-                        Lihat Folder
-                    </button>
+                <div class="card-body">
+                    <h1 class="card-title">Dies Natalis</h1>
+                    <h4 class="card-text">1</h4>
                 </div>
             </div>
         </div>
 
         <div class="col">
             <div class="card">
-                <img src="~/img/Front_Building.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h1 class="card-title">Kegiatan Upacara</h1>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod consectetur adipisicing elit.</p>
+                <div class="parent">
+                    <img src="~/img/Front_Building.jpg" class="child" alt="...">
+                    <div class="content">
+                        <h3>Select</h3>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-around mb-5">
-                    <h5>17 Agustus 1945</h5>
-                    <button class="btn btn-primary">
-                        Lihat Folder
-                    </button>
+                <div class="card-body">
+                    <h1 class="card-title">Dies Natalis</h1>
+                    <h4 class="card-text">1</h4>
                 </div>
             </div>
         </div>
 
         <div class="col">
             <div class="card">
-                <img src="~/img/Front_Building.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h1 class="card-title">Kegiatan Upacara</h1>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod consectetur adipisicing elit.</p>
+                <div class="parent">
+                    <img src="~/img/Front_Building.jpg" class="child" alt="...">
+                    <div class="content">
+                        <h3>Select</h3>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-around mb-5">
-                    <h5>17 Agustus 1945</h5>
-                    <button class="btn btn-primary">
-                        Lihat Folder
-                    </button>
+                <div class="card-body">
+                    <h1 class="card-title">Dies Natalis</h1>
+                    <h4 class="card-text">1</h4>
                 </div>
             </div>
         </div>
 
         <div class="col">
             <div class="card">
-                <img src="~/img/Front_Building.jpg" class="card-img-top" alt="...">
+                <div class="parent">
+                    <img src="~/img/Front_Building.jpg" class="child" alt="...">
+                    <div class="content">
+                        <h3>Select</h3>
+                    </div>
+                </div>
                 <div class="card-body">
-                    <h1 class="card-title">Kegiatan Upacara</h1>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod consectetur adipisicing elit.</p>
-                </div>
-                <div class="d-flex justify-content-around mb-5">
-                    <h5>17 Agustus 1945</h5>
-                    <button class="btn btn-primary">
-                        Lihat Folder
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card">
-                <img src="~/img/Front_Building.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h1 class="card-title">Kegiatan Upacara</h1>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod consectetur adipisicing elit.</p>
-                </div>
-                <div class="d-flex justify-content-around mb-5">
-                    <h5>17 Agustus 1945</h5>
-                    <button class="btn btn-primary">
-                        Lihat Folder
-                    </button>
+                    <h1 class="card-title">Dies Natalis</h1>
+                    <h4 class="card-text">1</h4>
                 </div>
             </div>
         </div>
