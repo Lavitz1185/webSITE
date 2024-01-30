@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using webSITE.Areas.Dashboard.Models.KegiatanController;
 using webSITE.DataAccess.Repositori.Interface;
 
 namespace webSITE.Areas.Dashboard.Controllers
@@ -44,6 +45,15 @@ namespace webSITE.Areas.Dashboard.Controllers
         {
             await _repositoriKegiatan.Delete(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> TambahKegiatan()
+        {
+            return View(new TambahKegiatanVM
+            {
+                TanggalMulai = DateTime.Now,
+                TanggalBerakhir = DateTime.Now
+            });
         }
     }
 }
