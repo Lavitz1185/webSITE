@@ -47,13 +47,28 @@ namespace webSITE.Areas.Dashboard.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> TambahKegiatan()
+        public async Task<IActionResult> TambahKegiatan(int? pageNumber)
         {
+            pageNumber = pageNumber ?? 1;
+
+            ViewData["PageNumber"] = pageNumber;
+
+            if (pageNumber == 1)
+                ViewData["EnableNext"] = false;
+            else
+                ViewData["EnableNext"] = true;
+
             return View(new TambahKegiatanVM
             {
                 TanggalMulai = DateTime.Now,
                 TanggalBerakhir = DateTime.Now
             });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TambahKegiatan(TambahKegiatanVM tambahKegiatanVM)
+        {
+            return RedirectToAction(nameof(TambahKegiatan), new { pageNumber = 2 });
         }
     }
 }
