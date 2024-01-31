@@ -21,7 +21,6 @@ nav {
 
 ::deep .sub-menu-wrap {
     position: absolute;
-    border-radius: 20%;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     top: 100%;
     right: 5%;
