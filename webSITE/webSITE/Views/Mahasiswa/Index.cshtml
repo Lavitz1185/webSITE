@@ -36,7 +36,7 @@
 
 
 
-    .container {
+    .container-siters {
         box-shadow: 0px 2px 8px 0px var(--clr-gray-light);
         text-align: center;
         border-radius: 1rem;
@@ -95,11 +95,11 @@
 
 </style>
 
-<h2 class="text-center pt-5">Mahasiswa SITE22</h2>
+<h2 class="text-center pt-5 animate__animated animate__fadeInDown">Mahasiswa SITE22</h2>
 <div class="wrapper-grid pt-5 animate__animated animate__fadeInLeftBig">
     @foreach (var mahasiswa in Model)
     {
-        <div class="container">
+        <div class="container-siters">
             <div class="banner-img"></div>
             <img src="@Url.ActionLink("FotoProfil", "File", new {Id = mahasiswa.Id, Area = ""})" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
             <h1 class="name-profile">@mahasiswa.NamaLengkap</h1>
