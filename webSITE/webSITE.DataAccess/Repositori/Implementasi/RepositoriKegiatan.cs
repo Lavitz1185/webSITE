@@ -170,8 +170,8 @@ namespace webSITE.Repositori.Implementasi
             _dbContext.TblKegiatan.Update(entityDb);
 
             entityDb.NamaKegiatan = entity.NamaKegiatan;
-            entityDb.TanggalMulai = entity.TanggalMulai;
-            entityDb.TanggalBerakhir = entity.TanggalBerakhir;
+            entityDb.Tanggal = entity.Tanggal;
+            entityDb.JumlahHari = entity.JumlahHari;
             entityDb.TempatKegiatan = entity.TempatKegiatan;
             entityDb.Keterangan = entity.Keterangan;
 

@@ -60,8 +60,8 @@ namespace webSITE.Areas.Dashboard.Controllers
 
             return View(new TambahKegiatanVM
             {
-                TanggalMulai = DateTime.Now,
-                TanggalBerakhir = DateTime.Now
+                Tanggal = DateTime.Now,
+                JumlahHari = 1
             });
         }
 

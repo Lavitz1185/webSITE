@@ -20,18 +20,12 @@
                 <div class="col-6">@Model.TempatKegiatan</div>
             </div>
             <div class="row">
-                <div class="col-6"><b>Waktu</b></div>
-                <div class="col-6">
-                    @if (Model.TanggalMulai != Model.TanggalBerakhir)
-                    {
-                        @($"{Model.TanggalMulai:d} - {Model.TanggalBerakhir:d}")
-                    }
-                    else
-                    {
-                        @($"{Model.TanggalMulai:d}")
-                        ;
-                    }
-                </div>
+                <div class="col-6"><b>Tanggal</b></div>
+                <div class="col-6">@Model.Tanggal.ToShortDateString()</div>
+            </div>
+            <div class="row">
+                <div class="col-6"><b>Jumlah Hari</b></div>
+                <div class="col-6">@Model.JumlahHari</div>
             </div>
             <div class="row">
                 <div class="col-6"><b>Keterangan</b></div>

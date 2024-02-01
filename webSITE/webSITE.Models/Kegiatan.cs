@@ -10,8 +10,8 @@ namespace webSITE.Domain
     {
         public int Id { get; set; }
         public string NamaKegiatan { get; set; }
-        public DateTime TanggalMulai { get; set; }
-        public DateTime TanggalBerakhir { get; set; }
+        public DateTime Tanggal { get; set; }
+        public int JumlahHari { get; set; }
         public string TempatKegiatan { get; set; }
         public string Keterangan { get; set; }
 

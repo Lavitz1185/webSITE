@@ -8,13 +8,14 @@ namespace webSITE.Areas.Dashboard.Models.KegiatanController
         [Required(ErrorMessage = "{0} harus diisi")]
         public string NamaKegiatan { get; set; }
 
-        [Display(Name = "Tanggal Mulai")]
+        [Display(Name = "Tanggal")]
         [Required(ErrorMessage = "{0} harus diisi")]
-        public DateTime TanggalMulai { get; set; }
+        public DateTime Tanggal { get; set; }
 
-        [Display(Name = "Tanggal Berakhir")]
+        [Display(Name = "Jumlah Hari")]
         [Required(ErrorMessage = "{0} harus diisi")]
-        public DateTime TanggalBerakhir { get; set; }
+        [Range(1, 200, ErrorMessage = "{0} antara {1} dan {2}")]
+        public int JumlahHari { get; set; }
 
         [Display(Name = "Tempat Kegiatan")]
         [Required(ErrorMessage = "{0} harus diisi")]

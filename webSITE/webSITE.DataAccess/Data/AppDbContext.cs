@@ -158,8 +158,8 @@ namespace webSITE.DataAccess.Data
                 {
                     Id = 1,
                     NamaKegiatan = "Foto Angkatan SITE",
-                    TanggalMulai = new DateTime(2023, 12, 03),
-                    TanggalBerakhir = new DateTime(2023, 12, 03),
+                    Tanggal = new DateTime(2023, 12, 03),
+                    JumlahHari = 1,
                     Keterangan = "Kegiatan Pertama",
                     TempatKegiatan = "Undana"
                 },
@@ -167,8 +167,8 @@ namespace webSITE.DataAccess.Data
                 {
                     Id = 2,
                     NamaKegiatan = "Kegiatan 1",
-                    TanggalMulai = new DateTime(2023, 12, 03),
-                    TanggalBerakhir = new DateTime(2023, 12, 07),
+                    Tanggal = new DateTime(2023, 12, 03),
+                    JumlahHari = 3,
                     Keterangan = "Kegiatan Pertama",
                     TempatKegiatan = "Undana"
                 }
