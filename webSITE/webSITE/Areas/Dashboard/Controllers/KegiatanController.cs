@@ -92,7 +92,10 @@ namespace webSITE.Areas.Dashboard.Controllers
                 return View(tambahKegiatanVM);
             }
 
-            return RedirectToAction(nameof(TambahKegiatan), new { pageNumber = 2 });
+            ViewData["IdKegiatan"] = kegiatan.Id;
+            ViewData["PageNumber"] = 2;
+            ViewData["EnableNext"] = true;
+            return View();
         }
     }
 }
