@@ -60,11 +60,6 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<Kegiatan> Create(Kegiatan entity)
         {
-            var entityDb = await Get(entity.Id);
-
-            if (entityDb != null)
-                return null;
-
             var tracker = _dbContext.TblKegiatan.Add(entity);
             var result = await _dbContext.SaveChangesAsync();
 
@@ -112,6 +107,15 @@ namespace webSITE.Repositori.Implementasi
                 .ToListAsync();
 
             return daftarKegiatan;
+        }
+
+        public async Task<Kegiatan> GetKegiatanByNamaKegiatan(string namaKegiatan)
+        {
+            var kegiatan = await _dbContext.TblKegiatan
+                .AsNoTracking()
+                .FirstOrDefaultAsync(k => k.NamaKegiatan.ToLower() == namaKegiatan.ToLower());
+
+            return kegiatan;
         }
 
         public async Task<Kegiatan> GetWithDetail(int id)

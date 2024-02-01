@@ -1,10 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Routing;
 @inject UserManager<Mahasiswa> _userManager
+@inject IRepositoriMahasiswa _repositoriMahasiswa
 
 @{
-    var user = await _userManager.FindByNameAsync(User.Identity.Name);
+    var userId = _userManager.GetUserId(User);
+    var user = _repositoriMahasiswa.Get(userId).Result;
 }
-
 <nav class="navbar">
     <ul class="navbar-nav">
         <li class="logo">

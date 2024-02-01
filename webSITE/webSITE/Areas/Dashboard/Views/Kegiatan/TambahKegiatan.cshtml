@@ -4,6 +4,9 @@
     const int maxPageNumber = 3;
     int pageNumber = (int)(ViewData["PageNumber"] ?? 1);
     bool enableNext = (bool)(ViewData["EnableNext"] ?? true);
+    int idKegiatan = 0;
+    if (pageNumber == 2)
+        idKegiatan = (int)(ViewData["IdKegiatan"] ?? 0);
 }
 
 <style>
@@ -31,7 +34,7 @@
     <div id="content" class="col-12 py-2">
         <div data-page="1">
             <form method="post" class="row" asp-action="TambahKegiatan" asp-area="Dashboard" asp-controller="Kegiatan">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
 
                 <div class="col-md-6 mt-2">
                     <label asp-for="@Model.NamaKegiatan"></label>

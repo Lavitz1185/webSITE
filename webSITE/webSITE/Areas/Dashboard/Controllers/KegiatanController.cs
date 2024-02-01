@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using webSITE.Areas.Dashboard.Models.KegiatanController;
 using webSITE.DataAccess.Repositori.Interface;
+using webSITE.Domain;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {
@@ -13,17 +15,20 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IRepositoriPesertaKegiatan _repositoriPesertaKegiatan;
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly IRepositoriFoto _repositoriFoto;
+        private readonly IMapper _mapper;
 
         public KegiatanController(
             IRepositoriKegiatan repositoriKegiatan,
             IRepositoriPesertaKegiatan pesertaKegiatan,
             IRepositoriMahasiswa repositoriMahasiswa,
-            IRepositoriFoto repositoriFoto)
+            IRepositoriFoto repositoriFoto,
+            IMapper mapper)
         {
             _repositoriKegiatan = repositoriKegiatan;
             _repositoriPesertaKegiatan = pesertaKegiatan;
             _repositoriMahasiswa = repositoriMahasiswa;
             _repositoriFoto = repositoriFoto;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
@@ -68,6 +73,25 @@ namespace webSITE.Areas.Dashboard.Controllers
         [HttpPost]
         public async Task<IActionResult> TambahKegiatan(TambahKegiatanVM tambahKegiatanVM)
         {
+            //Validasi
+            var kegiatanDB = await _repositoriKegiatan.GetKegiatanByNamaKegiatan(tambahKegiatanVM.NamaKegiatan);
+            if (kegiatanDB != null)
+            {
+                ModelState.AddModelError("NamaKegiatan", "Kegiatan dengan nama yang sama sudah ada");
+                ViewData["EnableNext"] = false;
+                return View(tambahKegiatanVM);
+            }
+
+            var kegiatan = _mapper.Map<Kegiatan>(tambahKegiatanVM);
+            kegiatan.Id = 0;
+            kegiatan = await _repositoriKegiatan.Create(kegiatan);
+            if(kegiatan == null)
+            {
+                ModelState.AddModelError(string.Empty, "Error menambahkan data, silahkan hubungi admin");
+                ViewData["EnableNext"] = false;
+                return View(tambahKegiatanVM);
+            }
+
             return RedirectToAction(nameof(TambahKegiatan), new { pageNumber = 2 });
         }
     }
