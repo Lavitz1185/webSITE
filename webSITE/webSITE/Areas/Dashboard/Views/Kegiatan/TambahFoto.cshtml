@@ -1,6 +1,8 @@
-﻿@model TambahFotoVM
+﻿@using webSITE.DataAccess.Repositori.Interface;
+@model TambahFotoVM
+@inject IRepositoriKegiatan RepositoriKegiatan
 @{
-
+    var kegiatan = RepositoriKegiatan.Get(Model.IdKegiatan).Result;
 }
 
 <style>
@@ -8,17 +10,72 @@
         height: 50vh;
         overflow: auto;
     }
+
+    .tag {
+        border: 1px solid;
+        border-color: #0dcaf0 !important;
+        border-radius: 10rem;
+        padding: .25rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .close {
+        background: inherit;
+        box-sizing: border-box;
+        border: solid;
+        border-width: 1px;
+        border-color: white;
+        font-size: 1rem;
+        padding: 0;
+        margin: 0;
+    }
+
+    #daftarMahasiswa input#namaMahasiswa {
+        border: none;
+        background: inherit;
+        color: inherit;
+        cursor: pointer;
+    }
+
+        #daftarMahasiswa input#namaMahasiswa:focus {
+            outline: none;
+        }
+
+        #daftarMahasiswa input#namaMahasiswa:focus-visible {
+            outline: none;
+        }
+
+    .close:active {
+        border-color: black;
+    }
 </style>
 
-<form class="container" method="post" asp-action="TambahFoto">
+<h1 class="text-center">Tambah Foto</h1>
+<form class="container" enctype="multipart/form-data" method="post" asp-action="TambahFoto">
+    <input type="text" asp-for="@Model.NextUrl" hidden>
+    <input type="text" asp-for="@Model.IdKegiatan" hidden>
+    <div class="row">
+        <div class="col-12">
+            <b>Nama Kegiatan</b> : @kegiatan.NamaKegiatan
+        </div>
+        <div class="col-12">
+            <b>Tanggal</b> : @kegiatan.Tanggal.ToShortDateString()
+        </div>
+        <div class="col-12">
+            <b>Jumlah Hari</b> : @kegiatan.JumlahHari
+        </div>
+    </div>
     <div class="row justify-content-between">
         <div id="foto" class="col-md-5 scrollable border border-3 p-1">
-            @foreach (var foto in Model.FotoTanpaKegiatan)
+            @for (int i = 0; i < Model.FotoTanpaKegiatan.Count; i++)
             {
                 <div class="d-flex mb-1 justify-content-start">
-                    <input id="checkboxDalamFoto" type="checkbox" asp-for="@foto.DalamKegiatan" />
-                    <input id="idFoto" type="text" asp-for="@foto.IdFoto" hidden>
-                    <img height="150" class="ms-3" src="@Url.Action("Foto", "File", new {Area = "", Id = foto.IdFoto})">
+                    <input id="checkboxDalamFoto" type="checkbox" asp-for="@Model.FotoTanpaKegiatan[@i].DalamKegiatan">
+                    <input id="idFoto" type="text" asp-for="@Model.FotoTanpaKegiatan[@i].IdFoto" hidden>
+                    <img height="150" class="ms-3"
+                         src="@Url.Action("Foto", "File", new {Area = "", Id = Model.FotoTanpaKegiatan[@i].IdFoto})">
                 </div>
             }
         </div>
@@ -29,26 +86,122 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-12">
+            <label asp-for="@Model.FotoBaru.Tanggal"></label>
+            <input class="form-control" type="date" asp-for="@Model.FotoBaru.Tanggal">
+            <span asp-validation-for="@Model.FotoBaru.Tanggal" class="text-danger"></span>
+        </div>
+
+        <div class="col-12">
+            <label>Dalam Kegiatan</label>
+            <div class="d-flex justify-content-start gap-1" id="tagContainer">
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nama Mahasiswa</th>
+                    </tr>
+                </thead>
+                <tbody id="daftarMahasiswa">
+                    @for (int i = 0; i < Model.FotoBaru.DaftarMahasiswa.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <input id="idMahasiswa" type="text"
+                                       asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].IdMahasiswa" hidden>
+                                <input id="checkboxMahasiswa" type="checkbox"
+                                       asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].DalamFoto" hidden>
+                                <input id="namaMahasiswa" type="text"
+                                       asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].NamaLengkap"
+                                       readonly="true">
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12">
+            <label asp-for="@Model.FotoBaru.FotoFormFile"></label>
+            <input class="form-control" type="file" asp-for="@Model.FotoBaru.FotoFormFile">
+            <span asp-validation-for="@Model.FotoBaru.FotoFormFile" class="text-danger"></span>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit" asp-route-fotoBaru="true">Tambah Foto</button>
+        </div>
     </div>
 </form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <partial name="_DataTable" />
+
+    <script type="text/javascript">
+
+        const removeTag = (idMahasiswa) => {
+            $('#tagContainer #' + idMahasiswa).remove();
+        };
+
+        const addTag = (idMahasiswa, namaMahasiswa) => {
+            $('#tagContainer').append(`
+                                                            <div id="` + idMahasiswa + `" class="tag">
+                                                                <div id="namaMahasiswa">`+ namaMahasiswa + `</div>
+                                                                <button type="button" class="close" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            `);
+
+            $('#tagContainer #' + idMahasiswa + ' .close').on('click', function () {
+                removeTag(idMahasiswa);
+            });
+        }
+
+        const selectedStyle = {
+            'background': 'blue',
+            'color': 'white'
+        };
+
+        const unselectedStyle = {
+            'background': 'white',
+            'color': 'black'
+        };
+
+        $('#daftarMahasiswa > tr').each(function (index, item) {
+            $(item).on('click', function () {
+                const checkBox = $(item).find('#checkboxMahasiswa').prop('checked');
+                const newCheckBox = !checkBox;
+                const idMahasiswa = $(item).find('#idMahasiswa').val();
+                const namaMahasiswa = $(item).find('#namaMahasiswa').val();
+
+                if (newCheckBox === true) {
+                    $(item).css(selectedStyle);
+                    addTag(idMahasiswa, namaMahasiswa);
+                }
+                else {
+                    $(item).css(unselectedStyle);
+                    removeTag(idMahasiswa);
+                }
+
+                $(item).find('#checkboxMahasiswa').prop('checked', newCheckBox);
+            });
+        });
+
+    </script>
 
     <script type="text/javascript">
         const getHtmlFotoTerpilih = (idFoto) => {
             const url = "/File/Foto/" + idFoto;
 
             return `<div id="` + idFoto + `" class="d-flex mb-1 justify-content-center">
-                                        <img height="150" class="ms-3" src="`+ url + `">
-                                    </div>`;
-        }
+                                                                        <img height="150" class="ms-3" src="` + url + `">
+                                                                    </div>`;
+        };
 
         const addFoto = (idFoto) => {
             const html = getHtmlFotoTerpilih(idFoto);
 
             $('#fotoTerpilih').append(html);
-        }
+        };
 
         const removeFoto = (idFoto) => {
             $('#fotoTerpilih #' + idFoto).remove();

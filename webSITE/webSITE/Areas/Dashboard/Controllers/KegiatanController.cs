@@ -104,7 +104,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                 new
                 {
                     idKegiatan = kegiatan.Id,
-                    nextUrl = Url.ActionLink("TambahMahasiswa", "Kegiatan", new { Area = "" , idKegiatan = kegiatan.Id})
+                    nextUrl = Url.ActionLink("TambahMahasiswa", "Kegiatan", new { Area = "", idKegiatan = kegiatan.Id })
                 }
             );
         }
@@ -120,11 +120,16 @@ namespace webSITE.Areas.Dashboard.Controllers
 
             var daftarFotoTanpaKegiatan = (await _repositoriFoto.GetAll())
                 .Where(f => f.IdKegiatan == null)
-                .Select(f => (f.Id, false))
+                .Select(f => new FotoTambahFotoVM { IdFoto = f.Id, DalamKegiatan = false })
                 .ToList();
 
             var daftarMahasiswa = (await _repositoriMahasiswa.GetAll())
-                .Select(m => (m.Id, m.NamaLengkap, false))
+                .Select(m => new MahasiswaTambahFotoVM
+                {
+                    IdMahasiswa = m.Id,
+                    NamaLengkap = m.NamaLengkap,
+                    DalamFoto = false
+                })
                 .ToList();
 
             return View(new TambahFotoVM
@@ -132,7 +137,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                 IdKegiatan = idKegiatan,
                 NextUrl = nextUrl,
                 FotoTanpaKegiatan = daftarFotoTanpaKegiatan,
-                FotoBaru = new FotoTambahFotoVM
+                FotoBaru = new FotoBaruTambahFotoVM
                 {
                     Tanggal = kegiatan.Tanggal,
                     DaftarMahasiswa = daftarMahasiswa
@@ -187,11 +192,16 @@ namespace webSITE.Areas.Dashboard.Controllers
 
                 tambahFotoVM.FotoBaru.FotoFormFile = null;
                 tambahFotoVM.FotoBaru.DaftarMahasiswa = (await _repositoriMahasiswa.GetAll())
-                    .Select(m => (m.Id, m.NamaLengkap, false))
+                    .Select(m => new MahasiswaTambahFotoVM
+                    {
+                        IdMahasiswa = m.Id,
+                        NamaLengkap = m.NamaLengkap,
+                        DalamFoto = false
+                    })
                     .ToList();
                 tambahFotoVM.FotoBaru.Tanggal = default;
 
-                tambahFotoVM.FotoTanpaKegiatan.Add((newFoto.Id, true));
+                tambahFotoVM.FotoTanpaKegiatan.Add(new FotoTambahFotoVM { IdFoto = newFoto.Id, DalamKegiatan = true });
 
                 return View(tambahFotoVM);
             }
@@ -203,14 +213,14 @@ namespace webSITE.Areas.Dashboard.Controllers
                     .ToList();
 
                 foreach (var id in daftarIdFoto)
-                { 
+                {
                     var result = await _repositoriKegiatan.AddFoto(id, tambahFotoVM.IdKegiatan);
                     if (result == null)
                     {
                         ModelState.AddModelError(string.Empty, $"Gagal menambah foto dengan id {id} pada kegiatan");
                         tambahFotoVM.FotoTanpaKegiatan = (await _repositoriFoto.GetAll())
                             .Where(f => f.IdKegiatan == null)
-                            .Select(f => (f.Id, false))
+                            .Select(f => new FotoTambahFotoVM { IdFoto = f.Id, DalamKegiatan = false })
                             .ToList();
 
                         return View(tambahFotoVM);

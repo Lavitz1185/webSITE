@@ -23,10 +23,13 @@ namespace webSITE.Repositori.Implementasi
             if (foto is null || kegiatan is null || kegiatan.DaftarFoto.Contains(foto))
                 return null;
 
-            _dbContext.TblKegiatan.Update(kegiatan);
+            var tracker = _dbContext.TblKegiatan.Update(kegiatan);
             kegiatan.DaftarFoto.Add(foto);
 
             await _dbContext.SaveChangesAsync();
+
+            tracker.State = EntityState.Detached;
+            _dbContext.ChangeTracker.Clear();
 
             return await Get(idKegiatan);
         }
@@ -121,7 +124,7 @@ namespace webSITE.Repositori.Implementasi
         public async Task<Kegiatan> GetWithDetail(int id)
         {
             var kegiatan = await _dbContext.TblKegiatan
-                .Include(k => k.DaftarFoto).ThenInclude(f => f.DaftarMahasiswa)
+                .Include(k => k.DaftarFoto)
                 .Include(k => k.DaftarMahasiswa)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(k => k.Id == id);

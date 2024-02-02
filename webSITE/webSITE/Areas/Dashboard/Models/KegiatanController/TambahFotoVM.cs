@@ -6,7 +6,7 @@
 
         public string NextUrl { get; set; }
 
-        public List<(int IdFoto, bool DalamKegiatan)> FotoTanpaKegiatan { get; set; }
-        public FotoTambahFotoVM FotoBaru { get; set; }
+        public List<FotoTambahFotoVM> FotoTanpaKegiatan { get; set; }
+        public FotoBaruTambahFotoVM FotoBaru { get; set; }
     }
 }

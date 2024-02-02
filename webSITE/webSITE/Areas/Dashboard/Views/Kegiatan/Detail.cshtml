@@ -41,7 +41,6 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Tanggal</th>
-                                <th>Dalam Foto</th>
                                 <th>Foto</th>
                             </tr>
                         </thead>
@@ -51,9 +50,6 @@
                                 <tr>
                                     <td>@foto.Id</td>
                                     <td>@foto.Tanggal.ToShortDateString()</td>
-                                    <td>
-                                        @string.Join(", ", foto.DaftarMahasiswa.Select(m => m.NamaLengkap))
-                                    </td>
                                     <td>
                                         <img width="120" src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area = ""})" />
                                     </td>
