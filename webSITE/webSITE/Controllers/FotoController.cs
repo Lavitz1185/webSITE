@@ -56,7 +56,19 @@ namespace webSITE.Controllers
             var kegiatan = await _repositoriKegiatan.Get(idKegiatan);
 
             if (kegiatan == null)
-                return View(new FotoViewModel());
+            {
+                var daftarFotoTanpaKegiatan = await _repositoriFoto.GetAll();
+                daftarFotoTanpaKegiatan = daftarFotoTanpaKegiatan
+                    .Where(f => f.IdKegiatan == null)
+                    .OrderBy(f => f.Tanggal);
+
+                return View(new FotoViewModel
+                {
+                    NamaKegiatan = "Lain - Lain",
+                    Tanggal = daftarFotoTanpaKegiatan.First().Tanggal,
+                    DaftarFoto = daftarFotoTanpaKegiatan.ToList()
+                });
+            }
 
             var daftarFoto = await _repositoriFoto.GetAllByKegiatan(idKegiatan);
 
@@ -68,7 +80,9 @@ namespace webSITE.Controllers
                 IdKegiatan = idKegiatan,
                 NamaKegiatan = kegiatan.NamaKegiatan,
                 Tanggal = kegiatan.Tanggal,
-                DaftarFoto = daftarFoto.ToList()
+                DaftarFoto = daftarFoto
+                    .OrderBy(f => f.Tanggal)
+                    .ToList()
             };
 
             return View(model);
@@ -85,6 +99,7 @@ namespace webSITE.Controllers
                 });
 
             var group = (from foto in daftarFoto
+                         where foto.IdKegiatan != null
                          group foto by foto.IdKegiatan into grp
                          select grp);
 
@@ -100,6 +115,22 @@ namespace webSITE.Controllers
                     JumlahFoto = grp.Count()
                 };
             }).ToList();
+
+            var fotoTanpaKegiatan = daftarFoto
+                .Where(f => f.IdKegiatan == null)
+                .OrderBy(f => f.Tanggal)
+                .ToList();
+
+            if (fotoTanpaKegiatan != null && fotoTanpaKegiatan.Count > 0)
+            {
+                viewModel.Add(new FotoViewModel
+                {
+                    NamaKegiatan = "Lain - Lain",
+                    IdThumbnail = fotoTanpaKegiatan.First().Id,
+                    JumlahFoto = fotoTanpaKegiatan.Count,
+                    Tanggal = fotoTanpaKegiatan.First().Tanggal
+                });
+            }
 
             return View(viewModel);
         }

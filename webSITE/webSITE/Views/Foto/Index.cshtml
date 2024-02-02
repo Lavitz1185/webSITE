@@ -89,9 +89,11 @@
 
 
 
+<a asp-action="Tambah" asp-controller="Foto" asp-area="">Tambah Foto</a>
 <div class="container-fluid py-5">
     <h2 class="text-center animate__animated animate__fadeInDown">Album Mahasiswa</h2>
     <div class="row row-cols-1 row-cols-md-3 g-4 py-5 animate__animated animate__fadeInLeftBig">
+
 
         @foreach (var fotoViewModel in Model)
         {
