@@ -48,7 +48,7 @@ namespace webSITE.Repositori.Implementasi
             if (result == 0)
                 return null;
 
-            return await Get(tracker.Entity.Id);
+            return await Get(entity.Id);
         }
 
         public async Task<Foto> Delete(int id)

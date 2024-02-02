@@ -1,0 +1,88 @@
+﻿@model TambahFotoVM
+@{
+
+}
+
+<style>
+    .scrollable {
+        height: 50vh;
+        overflow: auto;
+    }
+</style>
+
+<form class="container" method="post" asp-action="TambahFoto">
+    <div class="row justify-content-between">
+        <div id="foto" class="col-md-5 scrollable border border-3 p-1">
+            @foreach (var foto in Model.FotoTanpaKegiatan)
+            {
+                <div class="d-flex mb-1 justify-content-start">
+                    <input id="checkboxDalamFoto" type="checkbox" asp-for="@foto.DalamKegiatan" />
+                    <input id="idFoto" type="text" asp-for="@foto.IdFoto" hidden>
+                    <img height="150" class="ms-3" src="@Url.Action("Foto", "File", new {Area = "", Id = foto.IdFoto})">
+                </div>
+            }
+        </div>
+        <div id="fotoTerpilih" class="col-md-5 scrollable border border-3 p-1">
+        </div>
+        <div class="col-md-12">
+            <button class="btn btn-primary" type="submit" asp-route-fotoBaru="false">Simpan</button>
+        </div>
+    </div>
+    <div class="row">
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        const getHtmlFotoTerpilih = (idFoto) => {
+            const url = "/File/Foto/" + idFoto;
+
+            return `<div id="` + idFoto + `" class="d-flex mb-1 justify-content-center">
+                                        <img height="150" class="ms-3" src="`+ url + `">
+                                    </div>`;
+        }
+
+        const addFoto = (idFoto) => {
+            const html = getHtmlFotoTerpilih(idFoto);
+
+            $('#fotoTerpilih').append(html);
+        }
+
+        const removeFoto = (idFoto) => {
+            $('#fotoTerpilih #' + idFoto).remove();
+        }
+
+        const init = () => {
+            $('#foto > div').each(function (index, item) {
+                const idFoto = $(item).find('#idFoto').val();
+                const val = $(item).find('#checkboxDalamFoto').prop('checked');
+
+                if (val === true) {
+                    addFoto(idFoto);
+                }
+            });
+        };
+
+        init();
+
+        const addCheckboxAction = () => {
+            $('#foto > div').each(function (index, item) {
+                const idFoto = $(item).find('#idFoto').val();
+                $(item).find('#checkboxDalamFoto').on('click', function () {
+                    const val = $(this).prop('checked');
+
+                    if (val === true) {
+                        addFoto(idFoto);
+                    }
+                    else {
+                        removeFoto(idFoto);
+                    }
+                });
+            });
+        };
+
+        addCheckboxAction();
+    </script>
+}

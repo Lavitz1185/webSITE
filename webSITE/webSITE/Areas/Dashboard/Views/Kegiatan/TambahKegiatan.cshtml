@@ -1,38 +1,10 @@
 ﻿@model TambahKegiatanVM
 @{
     ViewData["Title"] = "TambahKegiatan";
-    const int maxPageNumber = 3;
-    int pageNumber = (int)(ViewData["PageNumber"] ?? 1);
-    bool enableNext = (bool)(ViewData["EnableNext"] ?? true);
-    int idKegiatan = 0;
-    if (pageNumber == 2)
-        idKegiatan = (int)(ViewData["IdKegiatan"] ?? 0);
 }
 
-<style>
-    #content > div {
-        display: none;
-    }
-</style>
-
 <div class="row">
-    <div class="col-12">
-        <ul class="nav nav-pills d-inline-flex flex-row">
-            <li class="nav-item">
-                <a class="nav-link" data-page="1">Tambah Kegiatan</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-page="2">Tambah Peserta Kegiatan</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-page="3">Tambah Foto</a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="row">
-    <div id="content" class="col-12 py-2">
-        <div data-page="1">
+    <div class="col-12 py-2">
             <form method="post" class="row" asp-action="TambahKegiatan" asp-area="Dashboard" asp-controller="Kegiatan">
                 <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -58,7 +30,8 @@
                 </div>
                 <div class="col-12 mt-2">
                     <label asp-for="@Model.Keterangan"></label>
-                    <input class="form-control" multiple type="text" asp-for="@Model.Keterangan">
+                    <textarea class="form-control"type="text" rows="5" cols="30" asp-for="@Model.Keterangan">
+                    </textarea>
                     <span class="text-danger" asp-validation-for="@Model.Keterangan"></span>
                 </div>
 
@@ -66,49 +39,9 @@
                     <button class="btn btn-primary" type="submit">Simpan</button>
                 </div>
             </form>
-
-        </div>
-        <div data-page="2">
-            @idKegiatan
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam aperiam itaque ex commodi repellat tempore esse natus asperiores excepturi, enim sequi repellendus? Quia quidem doloribus esse perferendis sapiente id consectetur!
-            </p>
-        </div>
-        <div data-page="3">
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam aperiam itaque ex commodi repellat tempore esse natus asperiores excepturi, enim sequi repellendus? Quia quidem doloribus esse perferendis sapiente id consectetur!
-            </p>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12 d-flex justify-content-between">
-        @if (enableNext == true)
-        {
-            <a id="nextBtn" class="btn btn-primary" asp-area="Dashboard" asp-controller="Kegiatan" asp-action="TambahKegiatan">Selanjutnya</a>
-        }
     </div>
 </div>
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
-
-    <script type="text/javascript">
-        const pageNumber = @pageNumber;
-        const maxPageNumber = @maxPageNumber;
-
-        $('.nav-link[data-page="' + pageNumber + '"]').toggleClass('active');
-
-        $('#content > div[data-page="' + pageNumber + '"]').css({
-            "display": "block"
-        });
-
-        //Tombol Selanjutnya
-        const nextPage = (pageNumber + 1) > maxPageNumber ? 3 : pageNumber + 1;
-
-        $('#nextBtn').attr('href', function (index, org) {
-            return org + '?pageNumber=' + nextPage;
-        });
-
-    </script>
 }
