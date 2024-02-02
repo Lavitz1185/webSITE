@@ -1,13 +1,13 @@
 ﻿@model FotoViewModel
 @{
-    ViewData["Title"] = "Detail";
+    ViewData["Title"] = "ALbum";
     ViewData["Active"] = "Album";
 }
 
 <div class="row pt-5">
     <div class="col gap-3 d-flex">
-        <a asp-controller="Foto" asp-action="Index" asp-route-orderBy="@Model.OrderBy" class="btn btn-primary">Kembali</a>
-        <h2>@Model.Key</h2>
+        <a asp-controller="Foto" asp-action="Index" class="btn btn-primary">Kembali</a>
+        <h2>@Model.IdKegiatan</h2>
     </div>
 </div>
 <div class="row">

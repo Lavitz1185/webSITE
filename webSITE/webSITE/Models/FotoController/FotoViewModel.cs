@@ -4,8 +4,11 @@ namespace webSITE.Models.FotoController
 {
     public class FotoViewModel
     {
-        public string OrderBy { get; set; }
-        public string Key { get; set; }
-        public IList<Foto> DaftarFoto { get; set; }
+        public int IdKegiatan { get ; set; }
+        public string NamaKegiatan { get; set; }
+        public DateTime Tanggal { get; set; }
+        public int? IdThumbnail { get; set; }
+        public int JumlahFoto { get; set; }
+        public List<Foto>? DaftarFoto { get; set; }
     }
 }

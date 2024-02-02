@@ -26,7 +26,7 @@ namespace webSITE.Controllers
             IRepositoriKegiatan repositoriKegiatan,
             IConfiguration config, IMapper mapper,
             IRepositoriMahasiswa repositoriMahasiswa,
-            IWebHostEnvironment webHostEnvironment, 
+            IWebHostEnvironment webHostEnvironment,
             IRepositoriMahasiswaFoto repositoriMahasiswaFoto)
         {
             _repositoriFoto = repositoriFoto;
@@ -45,86 +45,63 @@ namespace webSITE.Controllers
         {
             var foto = await _repositoriFoto.GetWithDetail(id);
 
-            if(foto == null)
+            if (foto == null)
                 return NotFound();
 
             return View(foto);
         }
 
-        public async Task<IActionResult> Detail(string? tanggal, int? idKegiatan)
+        public async Task<IActionResult> Album(int idKegiatan)
         {
-            if (tanggal == null && idKegiatan == null)
-                return BadRequest();
+            var kegiatan = await _repositoriKegiatan.Get(idKegiatan);
 
-            if(tanggal != null)
+            if (kegiatan == null)
+                return View(new FotoViewModel());
+
+            var daftarFoto = await _repositoriFoto.GetAllByKegiatan(idKegiatan);
+
+            if (daftarFoto == null)
+                return View(new FotoViewModel());
+
+            var model = new FotoViewModel
             {
-                DateTime tanggalFoto = DateTime.Parse(tanggal);
-                var listFoto = await _repositoriFoto.GetAllByTanggal(tanggalFoto);
-                var model = new FotoViewModel
-                {
-                    OrderBy = "Tanggal",
-                    Key = tanggal,
-                    DaftarFoto = listFoto.ToList()
-                };
-                return View(model);
-            }
-            else
-            {
-                var kegiatan = await _repositoriKegiatan.Get(idKegiatan.Value);
-                if(kegiatan == null)
-                    return NotFound();
+                IdKegiatan = idKegiatan,
+                NamaKegiatan = kegiatan.NamaKegiatan,
+                Tanggal = kegiatan.Tanggal,
+                DaftarFoto = daftarFoto.ToList()
+            };
 
-                var listFoto = await _repositoriFoto.GetAllByKegiatan(kegiatan.Id);
-                var model = new FotoViewModel
-                {
-                    OrderBy = "Kegiatan",
-                    Key = kegiatan.NamaKegiatan,
-                    DaftarFoto = listFoto.ToList()
-                };
-
-                return View(model);
-            }
+            return View(model);
         }
 
-        public async Task<IActionResult> Index(string? groupBy)
+        public async Task<IActionResult> Index()
         {
-            if(groupBy == null)
-                groupBy = "Tanggal";
+            var daftarFoto = await _repositoriFoto.GetAllWithDetail();
 
-            if (groupBy == "Tanggal")
+            if (daftarFoto == null)
+                return View(new List<FotoViewModel>()
+                {
+                    new FotoViewModel()
+                });
+
+            var group = (from foto in daftarFoto
+                         group foto by foto.IdKegiatan into grp
+                         select grp);
+
+            List<FotoViewModel> viewModel = group.Select(grp =>
             {
-                var listFoto = await _repositoriFoto.GetAll();
-                var model = (from f in listFoto
-                             group f by f.Tanggal into grp
-                             select new FotoViewModel
-                             {
-                                 OrderBy = "Tanggal",
-                                 Key = grp.Key.ToShortDateString(),
-                                 DaftarFoto = grp.Select(f => f).ToList()
-                             }).ToList();
+                var kegiatan = _repositoriKegiatan.Get(grp.Key.Value).Result;
+                return new FotoViewModel
+                {
+                    IdKegiatan = grp.Key.Value,
+                    NamaKegiatan = kegiatan.NamaKegiatan,
+                    Tanggal = kegiatan.Tanggal,
+                    IdThumbnail = grp.First().Id,
+                    JumlahFoto = grp.Count()
+                };
+            }).ToList();
 
-                return View(model);
-            }
-            else if (groupBy == "Kegiatan")
-            {
-                var listFoto = (await _repositoriFoto.GetAllWithDetail())
-                    .Where(f => f.Kegiatan != null).ToList();
-
-                var model = (from f in listFoto
-                             group f by f.Kegiatan into grp
-                             select new FotoViewModel
-                             {
-                                 OrderBy = "Kegiatan",
-                                 Key = grp.Key.NamaKegiatan,
-                                 DaftarFoto = grp.Select(f => f).ToList()
-                             }).ToList();
-
-                return View(model);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -176,7 +153,7 @@ namespace webSITE.Controllers
 
             newFoto = await _repositoriFoto.Create(newFoto);
 
-            if(newFoto == null)
+            if (newFoto == null)
             {
                 ModelState.AddModelError(string.Empty, "Error menambahkan foto");
                 return View(tambahFotoVM);
@@ -187,7 +164,7 @@ namespace webSITE.Controllers
                 await fileStream.WriteAsync(formFileContent);
             }
 
-            foreach(var id in idMahasiswaDalamFoto)
+            foreach (var id in idMahasiswaDalamFoto)
                 await _repositoriMahasiswaFoto.Create(id, newFoto.Id);
 
             return RedirectToAction("Index");
