@@ -271,6 +271,21 @@
     cursor: pointer;
 }
 
+
+#map{
+    width : 100%;
+    height: 60vh;
+}
+
+#map iframe {
+    width : 100%;
+    height : 100%;
+}
+
+
+
+
+
 @media (max-width: 769px) {
     #home ::deep p {
         width: 75%;
