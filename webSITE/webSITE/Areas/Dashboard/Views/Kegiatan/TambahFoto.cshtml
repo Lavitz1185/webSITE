@@ -1,8 +1,9 @@
 ﻿@using webSITE.DataAccess.Repositori.Interface;
-@model TambahFotoVM
+@model TambahFotoDiKegiatanVM
 @inject IRepositoriKegiatan RepositoriKegiatan
 @{
     var kegiatan = RepositoriKegiatan.Get(Model.IdKegiatan).Result;
+    ViewData["Title"] = "Tambah Foto Di Kegiatan";
 }
 
 <style>
@@ -52,7 +53,7 @@
     }
 </style>
 
-<h1 class="text-center">Tambah Foto</h1>
+<h1 class="text-center">Tambah Foto Di Kegiatan</h1>
 <form class="container" enctype="multipart/form-data" method="post" asp-action="TambahFoto">
     <input type="text" asp-for="@Model.NextUrl" hidden>
     <input type="text" asp-for="@Model.IdKegiatan" hidden>
@@ -120,7 +121,7 @@
                                 <input id="idMahasiswa" type="text"
                                        asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].IdMahasiswa" hidden>
                                 <input id="checkboxMahasiswa" type="checkbox"
-                                       asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].DalamFoto" hidden>
+                                       asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].Included" hidden>
                                 <input id="namaMahasiswa" type="text"
                                        asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].NamaLengkap"
                                        readonly="true">

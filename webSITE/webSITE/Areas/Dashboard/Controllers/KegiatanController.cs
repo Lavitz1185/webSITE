@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using webSITE.Areas.Dashboard.Models.KegiatanController;
+using webSITE.Areas.Dashboard.Models.Shared;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Domain;
 using webSITE.Utilities;
@@ -106,40 +106,41 @@ namespace webSITE.Areas.Dashboard.Controllers
                 new
                 {
                     idKegiatan = kegiatan.Id,
-                    nextUrl = Url.ActionLink("TambahMahasiswa", "Kegiatan", new { Area = "", idKegiatan = kegiatan.Id })
+                    nextUrl = Url.ActionLink("TambahMahasiswa", "Kegiatan", 
+                                  new { Area = "Dashboard", idKegiatan = kegiatan.Id })
                 }
             );
         }
 
         public async Task<IActionResult> TambahFoto(int idKegiatan, string? nextUrl)
         {
-            nextUrl = nextUrl ?? Url.ActionLink("Index", "Kegiatan", new { Area = "" });
+            nextUrl = nextUrl ?? Url.ActionLink("Index", "Kegiatan", new { Area = "Dashboard" });
 
             var kegiatan = await _repositoriKegiatan.Get(idKegiatan);
 
             if (kegiatan == null)
-                return View(new TambahFotoVM());
+                return View(new TambahFotoDiKegiatanVM());
 
             var daftarFotoTanpaKegiatan = (await _repositoriFoto.GetAll())
                 .Where(f => f.IdKegiatan == null)
-                .Select(f => new FotoTambahFotoVM { IdFoto = f.Id, DalamKegiatan = false })
+                .Select(f => new FotoTambahFotoDiKegiatanVM { IdFoto = f.Id, DalamKegiatan = false })
                 .ToList();
 
             var daftarMahasiswa = (await _repositoriMahasiswa.GetAll())
-                .Select(m => new MahasiswaTambahFotoVM
+                .Select(m => new MahasiswaIncludeVM
                 {
                     IdMahasiswa = m.Id,
                     NamaLengkap = m.NamaLengkap,
-                    DalamFoto = false
+                    Included = false
                 })
                 .ToList();
 
-            return View(new TambahFotoVM
+            return View(new TambahFotoDiKegiatanVM
             {
                 IdKegiatan = idKegiatan,
                 NextUrl = nextUrl,
                 FotoTanpaKegiatan = daftarFotoTanpaKegiatan,
-                FotoBaru = new FotoBaruTambahFotoVM
+                FotoBaru = new FotoBaruTambahFotoDiKegiatanVM
                 {
                     Tanggal = kegiatan.Tanggal,
                     DaftarMahasiswa = daftarMahasiswa
@@ -148,7 +149,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TambahFoto(TambahFotoVM tambahFotoVM, bool fotoBaru)
+        public async Task<IActionResult> TambahFoto(TambahFotoDiKegiatanVM tambahFotoVM, bool fotoBaru)
         {
             if (fotoBaru)
             {
@@ -158,7 +159,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                     return View(tambahFotoVM);
                 }
 
-                var formFileContent = await FileHelpers.ProcessFormFile<TambahFotoVM>(
+                var formFileContent = await FileHelpers.ProcessFormFile<TambahFotoDiKegiatanVM>(
                     tambahFotoVM.FotoBaru.FotoFormFile, ModelState, _permittedExtensions, _fileSizeLimit);
 
                 if (!ModelState.IsValid)
@@ -179,7 +180,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                 newFoto.PhotoPath = filePath;
 
                 var idMahasiswaDalamFoto = tambahFotoVM.FotoBaru.DaftarMahasiswa
-                    .Where(x => x.DalamFoto == true)
+                    .Where(x => x.Included == true)
                     .Select(x => x.IdMahasiswa).ToList();
 
                 newFoto = await _repositoriFoto.Create(newFoto);
@@ -200,16 +201,16 @@ namespace webSITE.Areas.Dashboard.Controllers
 
                 tambahFotoVM.FotoBaru.FotoFormFile = null;
                 tambahFotoVM.FotoBaru.DaftarMahasiswa = (await _repositoriMahasiswa.GetAll())
-                    .Select(m => new MahasiswaTambahFotoVM
+                    .Select(m => new MahasiswaIncludeVM
                     {
                         IdMahasiswa = m.Id,
                         NamaLengkap = m.NamaLengkap,
-                        DalamFoto = false
+                        Included = false
                     })
                     .ToList();
                 tambahFotoVM.FotoBaru.Tanggal = default;
 
-                tambahFotoVM.FotoTanpaKegiatan.Add(new FotoTambahFotoVM { IdFoto = newFoto.Id, DalamKegiatan = true });
+                tambahFotoVM.FotoTanpaKegiatan.Add(new FotoTambahFotoDiKegiatanVM { IdFoto = newFoto.Id, DalamKegiatan = true });
 
                 return View(tambahFotoVM);
             }
@@ -228,7 +229,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                         ModelState.AddModelError(string.Empty, $"Gagal menambah foto dengan id {id} pada kegiatan");
                         tambahFotoVM.FotoTanpaKegiatan = (await _repositoriFoto.GetAll())
                             .Where(f => f.IdKegiatan == null)
-                            .Select(f => new FotoTambahFotoVM { IdFoto = f.Id, DalamKegiatan = false })
+                            .Select(f => new FotoTambahFotoDiKegiatanVM { IdFoto = f.Id, DalamKegiatan = false })
                             .ToList();
 
                         return View(tambahFotoVM);
@@ -237,6 +238,50 @@ namespace webSITE.Areas.Dashboard.Controllers
 
                 return Redirect(tambahFotoVM.NextUrl);
             }
+        }
+
+        public async Task<IActionResult> TambahMahasiswa(int idKegiatan)
+        {
+            var kegiatanDB = await _repositoriKegiatan.GetWithDetail(idKegiatan);
+
+            var daftarMahasiswa = await _repositoriMahasiswa.GetAll();
+
+            var tambahMahasiswaDiKegiatanVM = new TambahMahasiswaDiKegiatanVM
+            {
+                IdKegiatan = idKegiatan,
+                NamaKegiatan = kegiatanDB.NamaKegiatan,
+                Tanggal = kegiatanDB.Tanggal,
+                NamaPesertaKegiatan = kegiatanDB.DaftarMahasiswa
+                    .Select(m => m.NamaLengkap)
+                    .ToList(),
+                DaftarPesertaBaru = daftarMahasiswa
+                    .Where(m => !kegiatanDB.DaftarMahasiswa.Contains(m))
+                    .Select(m => new MahasiswaIncludeVM
+                    {
+                        IdMahasiswa = m.Id,
+                        NamaLengkap = m.NamaLengkap,
+                        Included = false
+                    }).ToList()
+            };
+
+            return View(tambahMahasiswaDiKegiatanVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TambahMahasiswa(TambahMahasiswaDiKegiatanVM tambahMahasiswaVM)
+        {
+            List<string> idMahasiswaDalamKegiatan = tambahMahasiswaVM.DaftarPesertaBaru
+                .Where(m => m.Included == true)
+                .Select(m => m.IdMahasiswa)
+                .ToList();
+
+            if (idMahasiswaDalamKegiatan is null || idMahasiswaDalamKegiatan.Count == 0)
+                return RedirectToAction("Index", "Kegiatan", new { Area = "Dashboard" });
+
+            foreach(var idMahasiswa in idMahasiswaDalamKegiatan)
+                await _repositoriPesertaKegiatan.Create(idMahasiswa, tambahMahasiswaVM.IdKegiatan);
+
+            return RedirectToAction("Index", "Kegiatan", new { Area = "Dashboard" });
         }
     }
 }

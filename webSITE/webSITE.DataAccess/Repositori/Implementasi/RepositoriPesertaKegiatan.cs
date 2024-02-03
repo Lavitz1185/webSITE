@@ -16,7 +16,9 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<PesertaKegiatan> Create(string idMahasiswa, int idKegiatan)
         {
-            var pesertaKegiatan = await dbContext.TblPesertaKegiatan.FindAsync(idMahasiswa, idKegiatan);
+            var pesertaKegiatan = await dbContext.TblPesertaKegiatan
+                .AsNoTracking()
+                .FirstOrDefaultAsync(pk => pk.IdMahasiswa == idMahasiswa && pk.IdKegiatan == idKegiatan);
 
             if (pesertaKegiatan != null)
                 return null;
@@ -38,7 +40,9 @@ namespace webSITE.Repositori.Implementasi
 
         public async Task<PesertaKegiatan> Delete(string idMahasiswa, int idKegiatan)
         {
-            var pesertaKegiatan = await dbContext.TblPesertaKegiatan.FindAsync(idMahasiswa, idKegiatan);
+            var pesertaKegiatan = await dbContext.TblPesertaKegiatan
+                .AsNoTracking()
+                .FirstOrDefaultAsync(pk => pk.IdMahasiswa == idMahasiswa && pk.IdKegiatan == idKegiatan);
 
             if (pesertaKegiatan == null)
                 return null;
