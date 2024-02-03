@@ -1,4 +1,5 @@
 ﻿@model List<Kegiatan>
+@inject IRepositoriFoto RepostoriFoto
 @{
     ViewData["title"] = "Kegiatan";
     ViewData["Active"] = "Kegiatan";
@@ -31,12 +32,11 @@
 
     .card p {
         line-height: 1.4em;
-        
     }
 
     .card-body {
         height: 290px;
-        overflow: auto; 
+        overflow: auto;
     }
 
         .card-body .card-title,
@@ -53,12 +53,21 @@
     <div class="row g-3 py-5">
         @foreach (var kegiatan in Model)
         {
+            var fotoThumnail = (await RepostoriFoto.GetAllByKegiatan(kegiatan.Id))
+                .OrderBy(f => f.Tanggal)
+                .FirstOrDefault();
+
+            string url = fotoThumnail is null ?
+            "/img/LOGO_SITE-removebg-preview.png" : Url.Action("Foto", "File", new { Area = "", Id = fotoThumnail.Id });
+
+
             <div class="col-12 col-md-6">
                 <div class="card">
                     <div class="row g-0">
                         <div class="col-12 col-md-5">
                             <!-- Gambar di kiri -->
-                            <img src="~/img/Front_Building.jpg" class="card-img img-fluid rounded-start" alt="Foto Card" />
+                            <img src="@url" 
+                                 class="card-img img-fluid rounded-start" alt="Foto Card" />
                         </div>
                         <div class="col-12 col-md-7">
                             <!-- Card-body di kanan -->
@@ -95,58 +104,6 @@
         }
     </div>
 </div>
-
-
-
-@*<div class="pt-5 mx-4">
-    <h2>Daftar Kegiatan</h2>
-    <div class="row">
-        <div class="col">
-            <table class="table table-bordered reponsive">
-                <thead>
-                    <tr>
-                        <th>
-                            Nama Kegiatan
-                        </th>
-                        <th>
-                            Tempat Kegiatan
-                        </th>
-                        <th>
-                            Tanggal
-                        </th>
-                        <th>
-                            Jumlah Hari
-                        </th>
-                        <th>
-                            Aksi
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var kegiatan in Model)
-                    {
-                        <tr>
-                            <td>@kegiatan.NamaKegiatan</td>
-                            <td>@kegiatan.TempatKegiatan</td>
-                            <td>@kegiatan.Tanggal.ToShortDateString()</td>
-                            <td>@kegiatan.JumlahHari</td>
-                            <td>
-                                <div class="btn-group" role="group">
-                                    <a class="btn btn-warning"
-                                       asp-controller="Kegiatan" asp-action="Detail" asp-route-id="@kegiatan.Id">
-                                        <i class='fas fa-eye' style='color:#ffffff'></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>*@
-
-
 
 @section Scripts {
     <partial name="_DataTable"></partial>
