@@ -1,10 +1,8 @@
 ﻿namespace webSITE.Areas.Dashboard.Models.KegiatanController
 {
-    public class FotoBaruTambahFotoVM
+    public class FotoTambahFotoVM
     {
-        public IFormFile? FotoFormFile { get; set; }
-        public DateTime Tanggal { get; set; }
-
-        public List<MahasiswaTambahFotoVM> DaftarMahasiswa { get; set; }
+        public int IdFoto { get; set; }
+        public bool DalamKegiatan { get; set; }
     }
 }

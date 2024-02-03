@@ -82,12 +82,14 @@ namespace webSITE.Areas.Dashboard.Controllers
         public async Task<IActionResult> TambahKegiatan(TambahKegiatanVM tambahKegiatanVM)
         {
             //Validasi
-            var kegiatanDB = await _repositoriKegiatan.GetKegiatanByNamaKegiatan(tambahKegiatanVM.NamaKegiatan);
-            if (kegiatanDB != null)
+            var daftarKegiatanDB = await _repositoriKegiatan.GetAllByNamaKegiatan(tambahKegiatanVM.NamaKegiatan);
+            if (daftarKegiatanDB != null && daftarKegiatanDB.Count > 0)
             {
-                ModelState.AddModelError("NamaKegiatan", "Kegiatan dengan nama yang sama sudah ada");
-                ViewData["EnableNext"] = false;
-                return View(tambahKegiatanVM);
+                if (daftarKegiatanDB.Any(k => k.Tanggal.Date == tambahKegiatanVM.Tanggal.Date))
+                {
+                    ModelState.AddModelError("NamaKegiatan", "Kegiatan dengan nama dan tanggal yang sama sudah ada");
+                    return View(tambahKegiatanVM);
+                }
             }
 
             var kegiatan = _mapper.Map<Kegiatan>(tambahKegiatanVM);
@@ -150,6 +152,12 @@ namespace webSITE.Areas.Dashboard.Controllers
         {
             if (fotoBaru)
             {
+                if(tambahFotoVM.FotoBaru.FotoFormFile == null)
+                {
+                    ModelState.AddModelError("FotoBaru.FotoFormFile", "File Foto Harus Diisi!");
+                    return View(tambahFotoVM);
+                }
+
                 var formFileContent = await FileHelpers.ProcessFormFile<TambahFotoVM>(
                     tambahFotoVM.FotoBaru.FotoFormFile, ModelState, _permittedExtensions, _fileSizeLimit);
 

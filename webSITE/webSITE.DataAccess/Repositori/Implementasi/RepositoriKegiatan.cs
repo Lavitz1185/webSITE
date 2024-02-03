@@ -112,11 +112,12 @@ namespace webSITE.Repositori.Implementasi
             return daftarKegiatan;
         }
 
-        public async Task<Kegiatan> GetKegiatanByNamaKegiatan(string namaKegiatan)
+        public async Task<List<Kegiatan>> GetAllByNamaKegiatan(string namaKegiatan)
         {
             var kegiatan = await _dbContext.TblKegiatan
                 .AsNoTracking()
-                .FirstOrDefaultAsync(k => k.NamaKegiatan.ToLower() == namaKegiatan.ToLower());
+                .Where(k => k.NamaKegiatan.ToLower() == namaKegiatan.ToLower())
+                .ToListAsync();
 
             return kegiatan;
         }

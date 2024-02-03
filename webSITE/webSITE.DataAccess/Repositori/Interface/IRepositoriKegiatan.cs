@@ -5,7 +5,7 @@ namespace webSITE.DataAccess.Repositori.Interface
 {
     public interface IRepositoriKegiatan : IBaseRepositori<Kegiatan>
     {
-        Task<Kegiatan> GetKegiatanByNamaKegiatan(string namaKegiatan);
+        Task<List<Kegiatan>> GetAllByNamaKegiatan(string namaKegiatan);
 
         Task<Kegiatan> AddMahasiswa(string idMahasiswa, int idKegiatan);
         Task<Kegiatan> RemoveMahasiswa(string idMahasiswa, int idKegiatan);
