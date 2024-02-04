@@ -6,19 +6,53 @@
 }
 
 <section id="home" class="mb-5">
-    <h2 class="animate__animated animate__slideInDown">SITE 22 ILMU KOMPUTER</h2>
-    <p class="animate__animated animate__slideInDown">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat exercitation ullamco laboris nisi ut aliquip.
-    </p>
-    @if (!sigInManager.IsSignedIn(User))
-    {
-        <div class="btn animate__animated animate__zoomIn animate__slow">
-            <a class="blue" id="login" asp-area="Identity" asp-page="/Account/Login">LOGIN MAHASISWA</a>
+    <div class="slider">
+        
+        <div class="gradient"></div>
+
+        <div class="list">
+            <div class="item">
+                <img src="~/img/Front_Building.jpg" alt="" style="width:100%; height:100vh; object-fit: cover" />
+            </div>
+
+            <div class="item">
+                <img src="~/img/IMG_4611.jpeg" alt="" style="width:100%; height:100vh; object-fit: cover" />
+            </div>
+
+            <div class="item">
+                <img src="~/img/IMG_4634.jpeg" alt="" style="width:100%; height:100vh; object-fit: cover" />
+            </div>
         </div>
-    }
+
+        <!--button slide-->
+        <div class="buttons">
+            <button id="prev">&#60;</button>
+            <button id="next">&#62;</button>
+            <div class="element">
+                <h2 class="animate__animated animate__slideInDown">SITE 22 ILMU KOMPUTER</h2>
+                <p class="animate__animated animate__slideInDown">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat exercitation ullamco laboris nisi ut aliquip.
+                </p>
+                @if (!sigInManager.IsSignedIn(User))
+                {
+                    <div class="btn animate__animated animate__zoomIn animate__slow">
+                        <a class="blue" id="login" asp-area="Identity" asp-page="/Account/Login">LOGIN MAHASISWA</a>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!--dots-->
+        <ul class="dots">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+    </div>
 </section>
 
 @*About Us*@
@@ -157,3 +191,70 @@
 @section Scripts{
     <partial name="_TransparentNavbar" />
 }
+
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.querySelector(".slider");
+        const list = document.querySelector(".list");
+        const items = document.querySelectorAll(".item");
+        const prevBtn = document.getElementById("prev");
+        const nextBtn = document.getElementById("next");
+        const dots = document.querySelectorAll(".dots li");
+
+        let index = 0;
+        let interval;
+
+        function showSlide() {
+            list.style.transform = `translateX(${-index * 100}%)`;
+            updateDots();
+        }
+
+        function updateDots() {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle("active", i === index);
+            });
+        }
+
+        function nextSlide() {
+            index = (index + 1) % items.length;
+            showSlide();
+        }
+
+        function prevSlide() {
+            index = (index - 1 + items.length) % items.length;
+            showSlide();
+        }
+
+        function startAutoSlide() {
+            interval = setInterval(nextSlide, 3000); // slide setiap 5s
+        }
+
+        function stopAutoSlide() {
+            clearInterval(interval);
+        }
+
+        nextBtn.addEventListener("click", () => {
+            nextSlide();
+            stopAutoSlide();
+        });
+
+        prevBtn.addEventListener("click", () => {
+            prevSlide();
+            stopAutoSlide();
+        });
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener("click", () => {
+                index = i;
+                showSlide();
+                stopAutoSlide();
+            });
+        });
+
+        slider.addEventListener("mouseenter", stopAutoSlide);
+        slider.addEventListener("mouseleave", startAutoSlide);
+
+        startAutoSlide();
+    });
+
+</script>

@@ -197,6 +197,30 @@
                 }
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const gotopBtn = document.querySelector(".gotopbtn");
+
+            function toggleButtonVisibility() {
+                if (window.scrollY >= 650) {
+                    gotopBtn.style.opacity = "1"; //  opacity 1 ketika scroll down 650px
+                } else {
+                    gotopBtn.style.opacity = "0"; //  opacity 0
+                }
+            }
+
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            }
+
+            gotopBtn.addEventListener("click", scrollToTop);
+            window.addEventListener("scroll", toggleButtonVisibility);
+            
+            toggleButtonVisibility();
+        });
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
