@@ -85,6 +85,11 @@ footer .container-fluid .quicklinks {
         display: inline-block;
     }
 
+        footer .container-fluid .quicklinks ul li a:hover {
+            color: orange;
+            font-weight: 700;
+        }
+
 footer .container-fluid .contact .info {
     position: relative;
 }
