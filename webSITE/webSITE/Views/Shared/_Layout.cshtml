@@ -24,7 +24,100 @@
         </main>
     </div>
 
-    <footer >
+    <footer>
+        <div class="container-fluid">      
+            <div class="sec quicklinks">
+                @*<h2>Angkatan SITE22</h2>*@
+                <img src="~/img/SITE 22_Logo.png" style="width:250px; filter: invert(100%);"/>              
+                @*<ul>
+                    <li><a href="">FAQ</a></li>
+                    <li><a href="">Privacy Policy</a></li>
+                    <li><a href="">Help</a></li>
+                    <li><a href="">Contact</a></li>
+                </ul>*@
+            </div>
+            <div class="sec quicklinks">
+                <h2>Link Cepat</h2>
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Siters</a></li>
+                    <li><a href="">Kegiatan</a></li>
+                    <li><a href="">Album</a></li>
+                </ul>
+            </div>
+            <div class="sec contact">
+                <h2>Kontak Kami</h2>
+                <ul class="info">
+                    <li>
+                        <span><i class="ri-map-pin-fill"></i></span>
+                        <p>
+                            <a href="">
+                                Undana, Kupang, NTT, Indonesia
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <span><i class="ri-phone-fill"></i></span>
+                        <p>
+                            <a href="">
+                                +08 214 4711 486
+                            </a>
+                        </p>
+                    </li>
+                    <li>
+                        <span><i class="ri-mail-fill"></i></span>
+                        <p>
+                            <a href="">
+                                Fernandputra14@gmail.com
+                            </a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="sec aboutus">
+                <h2>Tentang Kami</h2>
+                <p>
+                    Bantu kami untuk memperbaiki sistem informasi ini dengan
+                    melaporkan bug yang anda lihat <a href=""><span style="text-decoration: underline;">disini</span></a>
+                </p>
+                <ul class="sci">                                    
+                    <li><a href="https://www.instagram.com/site22_unc?igsh=MXdmYjZ3YnJqN2FvbA=="><i class="ri-instagram-fill"></i></a></li>
+                    <li><a href="https://github.com/Lavitz1185/webSITE.git"><i class="ri-github-fill"></i></a></li>
+                    <li><a href="https://discord.gg/e6H6FZkh"><i class="ri-discord-fill"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <div class="copyrightText">
+        <p>Copyright &copy;2024 Site22. All rights Reserved.</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<footer >
         <div class="footer-content">
                 <div class="row">
                     <!-- sm => 540px -->
@@ -83,7 +176,7 @@
             <p>copyright &copy;2024 Site22. designed by <span>Team Sukses Prabowo-Gibran</span></p>
         </div>
 
-    </footer>
+    </footer>*@
 
     <a class="gotopbtn" href="#"><i class="ri-arrow-up-s-line" style="width: 1000px"></i></a>
 
@@ -103,6 +196,30 @@
                     $(item).toggleClass('active');
                 }
             });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const gotopBtn = document.querySelector(".gotopbtn");
+
+            function toggleButtonVisibility() {
+                if (window.scrollY >= 650) {
+                    gotopBtn.style.opacity = "1"; //  opacity 1 ketika scroll down 650px
+                } else {
+                    gotopBtn.style.opacity = "0"; //  opacity 0
+                }
+            }
+
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            }
+
+            gotopBtn.addEventListener("click", scrollToTop);
+            window.addEventListener("scroll", toggleButtonVisibility);
+            
+            toggleButtonVisibility();
         });
     </script>
 
