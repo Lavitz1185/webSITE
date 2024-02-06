@@ -54,7 +54,7 @@
 </style>
 
 <h1 class="text-center">Tambah Foto Di Kegiatan</h1>
-<form class="container" enctype="multipart/form-data" method="post" asp-action="TambahFoto">
+<form class="container" enctype="multipart/form-data" method="post" asp-action="TambahFoto" asp-area="Dashboard" asp-controller="Kegiatan">
     <input type="text" asp-for="@Model.NextUrl" hidden>
     <input type="text" asp-for="@Model.IdKegiatan" hidden>
     <div class="row">
@@ -72,14 +72,17 @@
         <div id="fotoGrid" class="col-md-6 scrollable border border-3 p-1">
             Foto Tanpa Kegiatan
             <div class="row">
-                @for (int i = 0; i < Model.FotoTanpaKegiatan.Count; i++)
+                @if (Model.FotoTanpaKegiatan != null)
                 {
-                    <div id="fotoItem" data-id="@Model.FotoTanpaKegiatan[@i].IdFoto" class="col-4 mb-1">
-                        <input id="checkboxDalamFoto" type="checkbox" asp-for="@Model.FotoTanpaKegiatan[@i].DalamKegiatan" hidden>
-                        <input id="idFoto" type="text" asp-for="@Model.FotoTanpaKegiatan[@i].IdFoto" hidden>
-                        <img id="foto" class="img-fluid border border-2"
-                             src="@Url.Action("Foto", "File", new {Area = "", Id = Model.FotoTanpaKegiatan[@i].IdFoto})">
-                    </div>
+                    @for (int i = 0; i < Model.FotoTanpaKegiatan.Count; i++)
+                    {
+                        <div id="fotoItem" data-id="@Model.FotoTanpaKegiatan[@i].IdFoto" class="col-4 mb-1">
+                            <input id="checkboxDalamFoto" type="checkbox" asp-for="@Model.FotoTanpaKegiatan[@i].DalamKegiatan" hidden>
+                            <input id="idFoto" type="text" asp-for="@Model.FotoTanpaKegiatan[@i].IdFoto" hidden>
+                            <img id="foto" class="img-fluid border border-2"
+                                 src="@Url.Action("Foto", "File", new {Area = "", Id = Model.FotoTanpaKegiatan[@i].IdFoto})">
+                        </div>
+                    }
                 }
             </div>
         </div>
@@ -114,19 +117,22 @@
                     </tr>
                 </thead>
                 <tbody id="daftarMahasiswa">
-                    @for (int i = 0; i < Model.FotoBaru.DaftarMahasiswa.Count; i++)
+                    @if(Model.FotoBaru.DaftarMahasiswa != null)
                     {
-                        <tr>
-                            <td>
-                                <input id="idMahasiswa" type="text"
-                                       asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].IdMahasiswa" hidden>
-                                <input id="checkboxMahasiswa" type="checkbox"
-                                       asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].Included" hidden>
-                                <input id="namaMahasiswa" type="text"
-                                       asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].NamaLengkap"
-                                       readonly="true">
-                            </td>
-                        </tr>
+                        @for (int i = 0; i < Model.FotoBaru.DaftarMahasiswa.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input id="idMahasiswa" type="text"
+                                           asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].IdMahasiswa" hidden>
+                                    <input id="checkboxMahasiswa" type="checkbox"
+                                           asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].Included" hidden>
+                                    <input id="namaMahasiswa" type="text"
+                                           asp-for="@Model.FotoBaru.DaftarMahasiswa[@i].NamaLengkap"
+                                           readonly="true">
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
@@ -154,13 +160,13 @@
 
         const addTag = (idMahasiswa, namaMahasiswa) => {
             $('#tagContainer').append(`
-                                                    <div id="` + idMahasiswa + `" class="tag">
-                                                        <div id="namaMahasiswa">`+ namaMahasiswa + `</div>
-                                                        <button type="button" class="close" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    `);
+                                      <div id="` + idMahasiswa + `" class="tag">
+                                          <div id="namaMahasiswa">`+ namaMahasiswa + `</div>
+                                          <button type="button" class="close" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      `);
 
             $('#tagContainer #' + idMahasiswa + ' .close').on('click', function () {
                 removeTag(idMahasiswa);

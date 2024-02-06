@@ -20,6 +20,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IRepositoriMahasiswaFoto _repositoriMahasiswaFoto;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ILogger<KegiatanController> _logger;
 
         private readonly string[] _permittedExtensions = { ".png", ".jpeg", ".jpg" };
         private readonly string _targetFilePath;
@@ -33,7 +34,8 @@ namespace webSITE.Areas.Dashboard.Controllers
             IRepositoriMahasiswaFoto repositoriMahasiswaFoto,
             IMapper mapper,
             IConfiguration config,
-            IWebHostEnvironment webHostEnvironment
+            IWebHostEnvironment webHostEnvironment,
+            ILogger<KegiatanController> logger
             )
         {
             _repositoriKegiatan = repositoriKegiatan;
@@ -43,7 +45,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             _repositoriMahasiswaFoto = repositoriMahasiswaFoto;
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
-
+            _logger = logger;
             _targetFilePath = config.GetValue<string>("StoredFilesPath");
             _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
         }
@@ -151,66 +153,76 @@ namespace webSITE.Areas.Dashboard.Controllers
         [HttpPost]
         public async Task<IActionResult> TambahFoto(TambahFotoDiKegiatanVM tambahFotoVM, bool fotoBaru)
         {
+            tambahFotoVM.FotoTanpaKegiatan = tambahFotoVM.FotoTanpaKegiatan ?? new List<FotoTambahFotoDiKegiatanVM>();
+            ModelState.Clear();
+
             if (fotoBaru)
             {
-                if(tambahFotoVM.FotoBaru.FotoFormFile == null)
+                try
                 {
-                    ModelState.AddModelError("FotoBaru.FotoFormFile", "File Foto Harus Diisi!");
-                    return View(tambahFotoVM);
-                }
-
-                var formFileContent = await FileHelpers.ProcessFormFile<TambahFotoDiKegiatanVM>(
-                    tambahFotoVM.FotoBaru.FotoFormFile, ModelState, _permittedExtensions, _fileSizeLimit);
-
-                if (!ModelState.IsValid)
-                {
-                    return View(tambahFotoVM);
-                }
-
-                var trustedFileNameForFileStorage = $"{Path.GetRandomFileName()}{Guid.NewGuid()}{Path.GetExtension(tambahFotoVM.FotoBaru.FotoFormFile.FileName)}";
-                var filePath = Path.Combine(
-                    _targetFilePath, trustedFileNameForFileStorage);
-
-                Foto newFoto = new Foto
-                {
-                    Tanggal = tambahFotoVM.FotoBaru.Tanggal,
-                    IdKegiatan = null
-                };
-
-                newFoto.PhotoPath = filePath;
-
-                var idMahasiswaDalamFoto = tambahFotoVM.FotoBaru.DaftarMahasiswa
-                    .Where(x => x.Included == true)
-                    .Select(x => x.IdMahasiswa).ToList();
-
-                newFoto = await _repositoriFoto.Create(newFoto);
-
-                if (newFoto == null)
-                {
-                    ModelState.AddModelError(string.Empty, "Error menambahkan foto");
-                    return View(tambahFotoVM);
-                }
-
-                using (var fileStream = System.IO.File.Create(_webHostEnvironment.WebRootPath + filePath))
-                {
-                    await fileStream.WriteAsync(formFileContent);
-                }
-
-                foreach (var id in idMahasiswaDalamFoto)
-                    await _repositoriMahasiswaFoto.Create(id, newFoto.Id);
-
-                tambahFotoVM.FotoBaru.FotoFormFile = null;
-                tambahFotoVM.FotoBaru.DaftarMahasiswa = (await _repositoriMahasiswa.GetAll())
-                    .Select(m => new MahasiswaIncludeVM
+                    if (tambahFotoVM.FotoBaru.FotoFormFile == null)
                     {
-                        IdMahasiswa = m.Id,
-                        NamaLengkap = m.NamaLengkap,
-                        Included = false
-                    })
-                    .ToList();
-                tambahFotoVM.FotoBaru.Tanggal = default;
+                        ModelState.AddModelError("FotoBaru.FotoFormFile", "File Foto Harus Diisi!");
+                        return View(tambahFotoVM);
+                    }
 
-                tambahFotoVM.FotoTanpaKegiatan.Add(new FotoTambahFotoDiKegiatanVM { IdFoto = newFoto.Id, DalamKegiatan = true });
+                    var formFileContent = await FileHelpers.ProcessFormFile<TambahFotoDiKegiatanVM>(
+                        tambahFotoVM.FotoBaru.FotoFormFile, ModelState, _permittedExtensions, _fileSizeLimit);
+
+                    if (!ModelState.IsValid)
+                    {
+                        return View(tambahFotoVM);
+                    }
+
+                    var trustedFileNameForFileStorage = $"{Path.GetRandomFileName()}{Guid.NewGuid()}{Path.GetExtension(tambahFotoVM.FotoBaru.FotoFormFile.FileName)}";
+                    var filePath = Path.Combine(
+                        _targetFilePath, trustedFileNameForFileStorage);
+
+                    Foto newFoto = new Foto
+                    {
+                        Tanggal = tambahFotoVM.FotoBaru.Tanggal,
+                        IdKegiatan = null
+                    };
+
+                    newFoto.PhotoPath = filePath;
+
+                    var idMahasiswaDalamFoto = tambahFotoVM.FotoBaru.DaftarMahasiswa
+                        .Where(x => x.Included == true)
+                        .Select(x => x.IdMahasiswa).ToList();
+
+                    newFoto = await _repositoriFoto.Create(newFoto);
+
+                    if (newFoto == null)
+                    {
+                        ModelState.AddModelError(string.Empty, "Error menambahkan foto");
+                        return View(tambahFotoVM);
+                    }
+
+                    using (var fileStream = System.IO.File.Create(_webHostEnvironment.WebRootPath + filePath))
+                    {
+                        await fileStream.WriteAsync(formFileContent);
+                    }
+
+                    foreach (var id in idMahasiswaDalamFoto)
+                        await _repositoriMahasiswaFoto.Create(id, newFoto.Id);
+
+                    tambahFotoVM.FotoBaru.FotoFormFile = null;
+                    tambahFotoVM.FotoBaru.DaftarMahasiswa = (await _repositoriMahasiswa.GetAll())
+                        .Select(m => new MahasiswaIncludeVM
+                        {
+                            IdMahasiswa = m.Id,
+                            NamaLengkap = m.NamaLengkap,
+                            Included = false
+                        })
+                        .ToList();
+                    tambahFotoVM.FotoBaru.Tanggal = default;
+
+                    tambahFotoVM.FotoTanpaKegiatan.Add(new FotoTambahFotoDiKegiatanVM { IdFoto = newFoto.Id, DalamKegiatan = true });
+                }
+                catch(Exception ex)
+                {
+                    _logger.LogError("Tambah Foto Baru", ex);
+                }
 
                 return View(tambahFotoVM);
             }
