@@ -18,9 +18,12 @@ namespace webSITE.Repositori.Implementasi
         {
             var foto = await _dbContext.TblFoto.AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == idFoto);
-            var kegiatan = await GetWithDetail(idKegiatan);
+            var kegiatan = await _dbContext.TblKegiatan
+                .Include(k => k.DaftarFoto)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(k => k.Id == idKegiatan);
 
-            if (foto is null || kegiatan is null || kegiatan.DaftarFoto.Contains(foto))
+            if (foto is null || kegiatan is null || kegiatan.DaftarFoto.FirstOrDefault(f => f.Id == foto.Id) is not null)
                 return null;
 
             var tracker = _dbContext.TblKegiatan.Update(kegiatan);
@@ -137,13 +140,17 @@ namespace webSITE.Repositori.Implementasi
         {
             var foto = await _dbContext.TblFoto.AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == idFoto);
-            var kegiatan = await GetWithDetail(idKegiatan);
 
-            if (foto is null || kegiatan is null || kegiatan.DaftarFoto.Contains(foto))
+            var kegiatan = await _dbContext.TblKegiatan
+                .Include(k => k.DaftarFoto)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == idKegiatan);
+
+            if (foto is null || kegiatan is null || kegiatan.DaftarFoto.FirstOrDefault(f => f.Id == foto.Id) is null)
                 return null;
 
             _dbContext.TblKegiatan.Update(kegiatan);
-            kegiatan.DaftarFoto.Remove(foto);
+            kegiatan.DaftarFoto = kegiatan.DaftarFoto.Where(f => f.Id != foto.Id).ToList();
 
             await _dbContext.SaveChangesAsync();
 

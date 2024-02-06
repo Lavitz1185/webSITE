@@ -38,7 +38,7 @@
                                     <a class="btn btn-warning" asp-action="Detail" asp-route-id="@kegiatan.Id">
                                         <i class='fas fa-eye' style='color:#ffffff'></i>
                                     </a>
-                                    <a class="btn btn-primary">
+                                    <a class="btn btn-primary" asp-action="EditKegiatan" asp-route-id="@kegiatan.Id">
                                         <i class="fas fa-pen-square fa-lg"></i>
                                     </a>
                                     <form asp-action="Delete" asp-route-id="@kegiatan.Id" method="post">

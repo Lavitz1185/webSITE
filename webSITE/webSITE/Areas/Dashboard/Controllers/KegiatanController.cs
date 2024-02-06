@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using webSITE.Areas.Dashboard.Models.KegiatanController;
 using webSITE.Areas.Dashboard.Models.Shared;
 using webSITE.DataAccess.Repositori.Interface;
@@ -108,7 +109,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                 new
                 {
                     idKegiatan = kegiatan.Id,
-                    nextUrl = Url.ActionLink("TambahMahasiswa", "Kegiatan", 
+                    nextUrl = Url.ActionLink("TambahMahasiswa", "Kegiatan",
                                   new { Area = "Dashboard", idKegiatan = kegiatan.Id })
                 }
             );
@@ -219,7 +220,7 @@ namespace webSITE.Areas.Dashboard.Controllers
 
                     tambahFotoVM.FotoTanpaKegiatan.Add(new FotoTambahFotoDiKegiatanVM { IdFoto = newFoto.Id, DalamKegiatan = true });
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _logger.LogError("Tambah Foto Baru", ex);
                 }
@@ -252,8 +253,10 @@ namespace webSITE.Areas.Dashboard.Controllers
             }
         }
 
-        public async Task<IActionResult> TambahMahasiswa(int idKegiatan)
+        public async Task<IActionResult> TambahMahasiswa(int idKegiatan, string? nextUrl)
         {
+            nextUrl = nextUrl ?? Url.Action("Index");
+
             var kegiatanDB = await _repositoriKegiatan.GetWithDetail(idKegiatan);
 
             var daftarMahasiswa = await _repositoriMahasiswa.GetAll();
@@ -263,11 +266,12 @@ namespace webSITE.Areas.Dashboard.Controllers
                 IdKegiatan = idKegiatan,
                 NamaKegiatan = kegiatanDB.NamaKegiatan,
                 Tanggal = kegiatanDB.Tanggal,
+                NextUrl = nextUrl,
                 NamaPesertaKegiatan = kegiatanDB.DaftarMahasiswa
                     .Select(m => m.NamaLengkap)
                     .ToList(),
                 DaftarPesertaBaru = daftarMahasiswa
-                    .Where(m => !kegiatanDB.DaftarMahasiswa.Contains(m))
+                    .Where(m => !kegiatanDB.DaftarMahasiswa.Any(x => x.Id == m.Id))
                     .Select(m => new MahasiswaIncludeVM
                     {
                         IdMahasiswa = m.Id,
@@ -282,18 +286,101 @@ namespace webSITE.Areas.Dashboard.Controllers
         [HttpPost]
         public async Task<IActionResult> TambahMahasiswa(TambahMahasiswaDiKegiatanVM tambahMahasiswaVM)
         {
+            if (tambahMahasiswaVM.DaftarPesertaBaru == null || tambahMahasiswaVM.DaftarPesertaBaru.Count == 0)
+                return Redirect(tambahMahasiswaVM.NextUrl);
+
             List<string> idMahasiswaDalamKegiatan = tambahMahasiswaVM.DaftarPesertaBaru
                 .Where(m => m.Included == true)
                 .Select(m => m.IdMahasiswa)
                 .ToList();
 
             if (idMahasiswaDalamKegiatan is null || idMahasiswaDalamKegiatan.Count == 0)
-                return RedirectToAction("Index", "Kegiatan", new { Area = "Dashboard" });
+                return Redirect(tambahMahasiswaVM.NextUrl);
 
-            foreach(var idMahasiswa in idMahasiswaDalamKegiatan)
+            foreach (var idMahasiswa in idMahasiswaDalamKegiatan)
                 await _repositoriPesertaKegiatan.Create(idMahasiswa, tambahMahasiswaVM.IdKegiatan);
 
-            return RedirectToAction("Index", "Kegiatan", new { Area = "Dashboard" });
+            return Redirect(tambahMahasiswaVM.NextUrl);
+        }
+
+        public async Task<IActionResult> EditKegiatan(int id)
+        {
+            var kegiatan = await _repositoriKegiatan.GetWithDetail(id);
+
+            if (kegiatan == null)
+                return RedirectToAction("Index");
+
+            var model = new EditKegiatanVM
+            {
+                Id = kegiatan.Id,
+                NamaKegiatan = kegiatan.NamaKegiatan,
+                Tanggal = kegiatan.Tanggal,
+                JumlahHari = kegiatan.JumlahHari,
+                TempatKegiatan = kegiatan.TempatKegiatan,
+                Keterangan = kegiatan.Keterangan,
+                DaftarFoto = kegiatan.DaftarFoto?.ToList() ?? new List<Foto>(),
+                DaftarMahasiswa = kegiatan.DaftarMahasiswa.ToList() ?? new List<Mahasiswa>()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditKegiatan(EditKegiatanVM editKegiatanVM)
+        {
+            //Validasi
+            var kegiatanNamaSama = await _repositoriKegiatan.GetAllByNamaKegiatan(editKegiatanVM.NamaKegiatan);
+
+            if (kegiatanNamaSama.Any(k => k.Tanggal.Date == editKegiatanVM.Tanggal.Date))
+            {
+                var kegiatanDetail = await _repositoriKegiatan.GetWithDetail(editKegiatanVM.Id);
+
+                editKegiatanVM.DaftarFoto = kegiatanDetail.DaftarFoto?.ToList();
+                editKegiatanVM.DaftarMahasiswa = kegiatanDetail.DaftarMahasiswa.ToList();
+
+                ModelState.AddModelError<EditKegiatanVM>(k => k.NamaKegiatan,
+                    "Kegiatan dengan nama dan tanggal yang sama sudah ada");
+                return View(editKegiatanVM);
+            }
+
+            var result = await _repositoriKegiatan.Update(new Kegiatan
+            {
+                Id = editKegiatanVM.Id,
+                NamaKegiatan = editKegiatanVM.NamaKegiatan,
+                Tanggal = editKegiatanVM.Tanggal,
+                TempatKegiatan = editKegiatanVM.TempatKegiatan,
+                JumlahHari = editKegiatanVM.JumlahHari,
+                Keterangan = editKegiatanVM.Keterangan
+            });
+
+            if (result == null)
+            {
+                var kegiatanDetail = await _repositoriKegiatan.GetWithDetail(editKegiatanVM.Id);
+
+                editKegiatanVM.DaftarFoto = kegiatanDetail.DaftarFoto?.ToList();
+                editKegiatanVM.DaftarMahasiswa = kegiatanDetail.DaftarMahasiswa.ToList();
+
+                ModelState.AddModelError(string.Empty, "Error Mengubah Kegiatan");
+                return View(editKegiatanVM);
+            }
+
+            return RedirectToAction("Detail", new { Id = editKegiatanVM.Id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteFoto(int idKegiatan, int idFoto)
+        {
+            var result = await _repositoriKegiatan.RemoveFoto(idFoto, idKegiatan);
+
+            return RedirectToAction(nameof(EditKegiatan), new { Id = idKegiatan });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteMahasiswa(int idKegiatan, string idMahasiswa)
+        {
+            var result = await _repositoriPesertaKegiatan.Delete(idMahasiswa, idKegiatan);
+
+            return RedirectToAction(nameof(EditKegiatan), new { Id = idKegiatan });
         }
     }
 }

@@ -48,6 +48,7 @@
 <h1 class="text-center">Tambah Mahasiswa Di Kegiatan</h1>
 <form class="container" method="post" asp-action="TambahMahasiswa" asp-controller="Kegiatan" asp-area="Dashboard">
     <input type="text" asp-for="@Model.IdKegiatan" hidden>
+    <input type="text" asp-for="@Model.NextUrl" hidden="hidden">
     <div class="row">
         <div class="col-12"><b>Nama Kegiatan</b> : @Model.NamaKegiatan</div>
         <div class="col-12"><b>Tanggal Kegiatan</b> : @Model.Tanggal.ToShortDateString()</div>
@@ -123,13 +124,13 @@
 
         const addTag = (idMahasiswa, namaMahasiswa) => {
             $('#tagContainer').append(`
-                     <div id="` + idMahasiswa + `" class="tag">
-                         <div id="namaMahasiswa">`+ namaMahasiswa + `</div>
-                         <button type="button" class="close" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                         </button>
-                     </div>
-                     `);
+                             <div id="` + idMahasiswa + `" class="tag">
+                                 <div id="namaMahasiswa">`+ namaMahasiswa + `</div>
+                                 <button type="button" class="close" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                             `);
 
             $('#tagContainer #' + idMahasiswa + ' .close').on('click', function () {
                 removeTag(idMahasiswa);

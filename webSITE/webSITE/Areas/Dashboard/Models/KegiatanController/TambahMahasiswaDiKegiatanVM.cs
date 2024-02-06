@@ -10,6 +10,8 @@ namespace webSITE.Areas.Dashboard.Models.KegiatanController
 
         public DateTime Tanggal { get; set; }
 
+        public string NextUrl { get; set; }
+
         public List<string> NamaPesertaKegiatan { get; set; }
 
         public List<MahasiswaIncludeVM> DaftarPesertaBaru { get; set; }
