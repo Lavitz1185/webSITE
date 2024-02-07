@@ -63,12 +63,22 @@ footer .container-fluid {
             align-content: center;
             justify-content: center;
             text-decoration: none;
+            transition: 0.3s ease;
+            /*border: 1px solid rgb(100, 100, 100);*/
         }
 
         footer .container-fluid .sci li a i {
             color: #fff;
             font-size: 20px;
+
         }
+
+            footer .container-fluid .sci li a:hover {
+                background: rgb(21, 21, 100);
+                color: #ffffff;
+                /*border: 1px solid rgb(21, 21, 100);*/
+                cursor: pointer;
+            }
 
 footer .container-fluid .quicklinks {
     position: relative;

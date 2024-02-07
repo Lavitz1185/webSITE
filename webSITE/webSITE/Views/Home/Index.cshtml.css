@@ -1,12 +1,11 @@
 ﻿/* Home */
-
 #home {
     position: relative;
-    overflow: hidden;
 }
 
 #home .slider {
     position: relative;
+    overflow: hidden;
 }
 
 #home .gradient {
@@ -17,26 +16,26 @@
     z-index: 999;
 }
 
-    #home .list {
-        position: relative; /* Tambahkan ini untuk memastikan posisi relatif */
-        height: 100vh; /* Sesuaikan ketinggian */
-        width: 100%; /* Sesuaikan lebar */
-    }
+#home .list {
+    position: relative; /* Tambahkan ini untuk memastikan posisi relatif */
+    height: 100vh; /* Sesuaikan ketinggian */
+    width: 100%; /* Sesuaikan lebar */
+}
 
-    #home .item {
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        transition: opacity 1.7s ease;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+#home .item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1.7s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-        #home .item.active {
-            opacity: 1;
-        }
+    #home .item.active {
+        opacity: 1;
+    }
 
 #home .buttons {
     position: absolute;
@@ -68,17 +67,17 @@
             color: whitesmoke;
         }
 
-    #prev, #next {
-        z-index: 1002;
+#prev, #next {
+    z-index: 1002;
+}
+
+    #prev:hover {
+        background-image: linear-gradient(to right,#00000053,transparent);
     }
 
-        #prev:hover {
-            background-image: linear-gradient(to right,#00000053,transparent);
-        }
-        
-        #next:hover {
-            background-image: linear-gradient(to left,#00000053,transparent);
-        }
+    #next:hover {
+        background-image: linear-gradient(to left,#00000053,transparent);
+    }
 
 #home .element {
     position: absolute;
@@ -93,42 +92,42 @@
     padding-top: 20px;
 }
 
-    #home ::deep h2 {
+#home ::deep h2 {
+    color: white;
+    font-size: 3rem;
+    letter-spacing: 1px;
+}
+
+#home ::deep p {
+    color: white;
+    width: 50%;
+    font-size: 1rem;
+    line-height: 25px;
+}
+
+#home ::deep .btn {
+    margin-top: 5px;
+}
+
+#home ::deep a {
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 13px 35px;
+    background-color: white;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+    #home ::deep a.blue {
         color: white;
-        font-size: 3rem;
-        letter-spacing: 1px;
+        background: rgb(21, 21, 100);
+        transition: 0.3s ease;
     }
 
-    #home ::deep p {
-        color: white;
-        width: 50%;
-        font-size: 1rem;
-        line-height: 25px;
-    }
-
-    #home ::deep .btn {
-        margin-top: 5px;
-    }
-
-    #home ::deep a {
-        text-decoration: none;
-        font-size: 1rem;
-        padding: 13px 35px;
-        background-color: white;
-        font-weight: 600;
-        border-radius: 5px;
-    }
-
-        #home ::deep a.blue {
-            color: white;
-            background: rgb(21, 21, 100);
-            transition: 0.3s ease;
+        #home ::deep a.blue:hover {
+            color: rgb(21, 21, 100);
+            background: white;
         }
-
-            #home ::deep a.blue:hover {
-                color: rgb(21, 21, 100);
-                background: white;
-            }
 
 #home .dots {
     padding: 0;
@@ -157,10 +156,11 @@
         opacity: 60%;
     }
 
-        #home .dots li.active {            
-            width: 30px;     
+        #home .dots li.active {
+            width: 30px;
             opacity: 80%;
         }
+
 
 
 /* About Us */
