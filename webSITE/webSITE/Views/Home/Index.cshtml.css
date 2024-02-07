@@ -17,14 +17,26 @@
     z-index: 999;
 }
 
-#home .list {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
- }
+    #home .list {
+        position: relative; /* Tambahkan ini untuk memastikan posisi relatif */
+        height: 100vh; /* Sesuaikan ketinggian */
+        width: 100%; /* Sesuaikan lebar */
+    }
 
     #home .item {
-        flex: 0 0 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 1.7s ease;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
+
+        #home .item.active {
+            opacity: 1;
+        }
 
 #home .buttons {
     position: absolute;
