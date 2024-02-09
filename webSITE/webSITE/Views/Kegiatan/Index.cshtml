@@ -49,8 +49,8 @@
 
 
 <div class="container-fluid py-5">
-    <h2 class="text-center">Kegiatan Mahasiswa</h2>
-    <div class="row g-3 py-5">
+    <h2 class="text-center animate__animated animate__fadeInDown">Kegiatan Mahasiswa</h2>
+    <div class="row g-3 py-5 animate__animated animate__fadeInLeftBig">
         @foreach (var kegiatan in Model)
         {
             var fotoThumnail = (await RepostoriFoto.GetAllByKegiatan(kegiatan.Id))
@@ -61,7 +61,7 @@
             "/img/LOGO_SITE-removebg-preview.png" : Url.Action("Foto", "File", new { Area = "", Id = fotoThumnail.Id });
 
 
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-12 col-lg-6">
                 <div class="card">
                     <div class="row g-0">
                         <div class="col-12 col-md-5">
