@@ -133,10 +133,12 @@
 
                                     </div>
                                     <div class="col-6">
-                                        <button class="btn btn-dark w-100">
+                                        <a class="btn btn-dark w-100" asp-action="Album" asp-controller="Foto"
+                                           asp-route-idKegiatan="@kegiatan.Id"
+                                           asp-route-returnUrl="@Url.Action("Index", "Kegiatan", new {Area = ""})">
                                             <i class="ri-search-2-line me-1"></i>
-                                            Detail
-                                        </button>
+                                            Album
+                                        </a>
                                     </div>
                                 </div>
                             </div>
