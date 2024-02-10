@@ -51,8 +51,12 @@ namespace webSITE.Controllers
             return View(foto);
         }
 
-        public async Task<IActionResult> Album(int idKegiatan)
+        public async Task<IActionResult> Album(int idKegiatan, string? returnUrl)
         {
+            returnUrl = returnUrl ?? Url.Action("Index", "Foto", new { Area = "" });
+
+            ViewData["ReturnUrl"] = returnUrl;
+
             var kegiatan = await _repositoriKegiatan.Get(idKegiatan);
 
             if (kegiatan == null)

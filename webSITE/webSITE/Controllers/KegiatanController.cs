@@ -18,18 +18,5 @@ namespace webSITE.Controllers
             var listKegiatan = (await _repositoriKegiatan.GetAllWithDetail()).ToList();
             return View(listKegiatan);
         }
-
-        public async Task<IActionResult> Detail(int? id)
-        {
-            if (id == null)
-                return BadRequest("Parameter id harus diisi");
-
-            var kegiatan = await _repositoriKegiatan.GetWithDetail(id.Value);
-
-            if (kegiatan == null)
-                return NotFound($"Kegiatan dengan id {id} tidak ditemukan");
-
-            return View(kegiatan);
-        }
     }
 }
