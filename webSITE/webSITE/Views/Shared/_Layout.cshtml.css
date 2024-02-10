@@ -88,6 +88,7 @@ footer .container-fluid .quicklinks {
         list-style: none;
     }
 
+
     footer .container-fluid .quicklinks ul li a {
         color: #555;
         text-decoration: none;
@@ -98,6 +99,7 @@ footer .container-fluid .quicklinks {
         footer .container-fluid .quicklinks ul li a:hover {
             color: orange;
             font-weight: 700;
+            transition: 0.2s ease;
         }
 
 footer .container-fluid .contact .info {
@@ -118,6 +120,7 @@ footer .container-fluid .contact .info {
         footer .container-fluid .contact .info li a {
             color: #555;
             text-decoration: none;
+            cursor: default;
         }
 
 .copyrightText {
