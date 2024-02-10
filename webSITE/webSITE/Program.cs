@@ -4,6 +4,7 @@ using webSITE.Repositori.Implementasi;
 using webSITE.DataAccess.Repositori.Interface;
 using Microsoft.AspNetCore.Identity;
 using webSITE.Domain;
+using NuGet.Protocol;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,11 @@ builder.Services.AddDefaultIdentity<Mahasiswa>
     )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.ConfigureApplicationCookie(option =>
+{
+    option.AccessDeniedPath = new PathString("/Account/AccessDenied");
+});
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

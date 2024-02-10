@@ -1,0 +1,21 @@
+﻿@inject SignInManager<Mahasiswa> SignInManager
+
+<style>
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+        a:hover {
+            color: inherit;
+        }
+</style>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a asp-action="Index" asp-controller="Home" asp-area="Dashboard">Site22</a>
+}
+else
+{
+    <div style="display:inline">Site22</div>
+}

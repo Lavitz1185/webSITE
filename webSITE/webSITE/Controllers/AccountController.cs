@@ -92,5 +92,10 @@ namespace webSITE.Controllers
             TempData["status"] = true;
             return RedirectToAction("FotoProfil");
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
