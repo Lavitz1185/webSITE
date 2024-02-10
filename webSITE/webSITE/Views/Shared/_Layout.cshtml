@@ -12,7 +12,6 @@
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="~/webSITE.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="/@(nameof(webSITE)).styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="animate.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
@@ -182,8 +181,8 @@
 
     <a class="gotopbtn" href="#"><i class="ri-arrow-up-s-line" style="width: 1000px"></i></a>
 
-    @* <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/popper/popper.min.js"></script>
     @* <script src="https://unpkg.com/scrollreveal"></script> *@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -197,7 +196,6 @@
 
         $('document').ready(function () {
             $('.nav-link').each(function (imdex, item) {
-                console.log(item);
                 if ($(item).text() === activeLink) {
                     $(item).toggleClass('active');
                 }

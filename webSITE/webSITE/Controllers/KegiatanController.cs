@@ -15,7 +15,7 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var listKegiatan = (await _repositoriKegiatan.GetAll()).ToList();
+            var listKegiatan = (await _repositoriKegiatan.GetAllWithDetail()).ToList();
             return View(listKegiatan);
         }
 

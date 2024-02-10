@@ -1,5 +1,4 @@
 ﻿@model List<Kegiatan>
-@inject IRepositoriFoto RepostoriFoto
 @{
     ViewData["title"] = "Kegiatan";
     ViewData["Active"] = "Kegiatan";
@@ -47,26 +46,68 @@
         }
 </style>
 
+@foreach (var kegiatan in Model)
+{
+    <!-- Modal -->
+    <div class="modal fade" id="modal@(kegiatan.Id)" tabindex="-1" aria-labelledby="modal@(kegiatan.Id)" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar Peserta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="10%">Foto</th>
+                                <th>NIM</th>
+                                <th>Nama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var mahasiswa in kegiatan.DaftarMahasiswa)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="@Url.Action("FotoProfil", "File", new { Area = "", id = mahasiswa.Id})"
+                                             alt="" class="img-thumbnail">
+                                    </td>
+                                    <td>@mahasiswa.Nim</td>
+                                    <td>
+                                        @mahasiswa.NamaLengkap
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <div class="container-fluid py-5">
     <h2 class="text-center animate__animated animate__fadeInDown">Kegiatan Mahasiswa</h2>
     <div class="row g-3 py-5 animate__animated animate__fadeInLeftBig">
         @foreach (var kegiatan in Model)
         {
-            var fotoThumnail = (await RepostoriFoto.GetAllByKegiatan(kegiatan.Id))
-                .OrderBy(f => f.Tanggal)
-                .FirstOrDefault();
+            var fotoThumnail = kegiatan.DaftarFoto
+            .OrderBy(f => f.Tanggal)
+            .FirstOrDefault();
 
             string url = fotoThumnail is null ?
             "/img/LOGO_SITE-removebg-preview.png" : Url.Action("Foto", "File", new { Area = "", Id = fotoThumnail.Id });
-
 
             <div class="col-12 col-md-12 col-lg-6">
                 <div class="card">
                     <div class="row g-0">
                         <div class="col-12 col-md-5">
                             <!-- Gambar di kiri -->
-                            <img src="@url" 
+                            <img src="@url"
                                  class="card-img img-fluid rounded-start" alt="Foto Card" />
                         </div>
                         <div class="col-12 col-md-7">
@@ -84,10 +125,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <button class="btn btn-dark w-100">
+                                        <button class="btn btn-dark w-100" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#modal@(kegiatan.Id)">
                                             <i class="ri-search-2-line me-1"></i>
                                             Peserta
                                         </button>
+
                                     </div>
                                     <div class="col-6">
                                         <button class="btn btn-dark w-100">
@@ -104,7 +147,3 @@
         }
     </div>
 </div>
-
-@section Scripts {
-    <partial name="_DataTable"></partial>
-}
