@@ -6,7 +6,345 @@
     var userId = _userManager.GetUserId(User);
     var user = _repositoriMahasiswa.Get(userId).Result;
 }
-<nav class="navbar">
+
+<style>
+    :root {
+        --header-height: 3.5rem;
+        --nav-width: 219px;
+        --first-color: #6923D0;
+        --first-color-light: #F4F0FA;
+        --title-color: #19181B;
+        --text-color: #58555E;
+        --text-color-light: #A5A1AA;
+        --body-color: #F9F6FD;
+        --container-color: #ffffff;
+        --normal-font-size: .938rem;
+        --small-font-size: .75rem;
+        --smaller-font-size: .75rem;
+        --font-medium: 500;
+        --font-semi-bold: 600;
+        --z-fixed: 100;
+    }
+
+
+    *, ::before, ::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: var(--header-height) 0 0 0;
+        padding: 1rem 1rem 0;
+        font-size: var(--normal-font-size);
+        background-color: var(--body-color);
+        color: var(--text-color);
+    }
+
+    h3 {
+        margin: 0;
+    }
+
+    ::deep a {
+        text-decoration: none;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--container-color);
+        box-shadow: 0 1px 0 rgba(22,8,43,.1);
+        padding: 0 1rem;
+        z-index: var(--z-fixed);
+    }
+
+    .header_container {
+        display: flex;
+        align-items: center;
+        height: var(--header-height);
+        justify-content: space-between;
+    }
+
+    .header_logo {
+        color: var(--title-color);
+        font-weight: var(--font-medium);
+        display: none;
+    }
+
+    .header_search {
+        display: flex;
+        padding: .40rem .75rem;
+        background-color: var(--first-color-light);
+        border-radius: .25rem;
+    }
+
+    .header_input {
+        width: 100%;
+        border: none;
+        outline: none;
+        background-color: var(--first-color-light);
+    }
+
+        .header_input::placeholder {
+            color: var(--text-color);
+        }
+
+    .header_icon, header_toggle {
+        font-size: 1.2rem;
+    }
+
+    .header_toggle {
+        color: var(--title-color);
+        cursor: pointer;
+    }
+
+
+    .nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        height: 100vh;
+        padding: 1rem 1rem 3rem;
+        background-color: var(--container-color);
+        box-shadow: 1px 0 0 rgba(22,8,43,.1);
+        z-index: var(--z-fixed);
+        transition: .4s;
+    }
+
+    .nav_container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: auto;
+        scrollbar-width: none;
+    }
+
+        .nav_container::-webkit-scrollbar {
+            display: none;
+        }
+
+    .nav_logo {
+        font-weight: var(--font-semi-bold);
+        margin-bottom: 2.5rem;
+    }
+
+    .nav_list, .nav_items {
+        display: grid;
+    }
+
+    .nav_list {
+        row-gap: 2.5rem;
+    }
+
+    .nav_items {
+        row-gap: 1.5rem;
+    }
+
+    .nav_subtitle {
+        font-size: var(--normal-font-size);
+        text-transform: uppercase;
+        letter-spacing: .1rem;
+        color: var(--text-color-light);
+    }
+
+    .nav_link {
+        display: flex;
+        align-items: center;
+        color: var(--text-color);
+    }
+
+        .nav_link:hover {
+            color: var(--first-color);
+        }
+
+    .nav_icon {
+        font-size: 1.2rem;
+        margin-right: .5rem;
+    }
+
+    .nav_name {
+        font-size: var(--small-font-size);
+        font-weight: var(--font-medium);
+        white-space: nowrap;
+    }
+
+    .nav_logout {
+        margin-top: 5rem;
+    }
+
+    .nav_dropdown {
+        overflow: hidden;
+        max-height: 21px;
+        transition: .4s ease-in-out;
+    }
+
+    .nav_dropdown-collapse {
+        background-color: var(--first-color-light);
+        border-radius: .25rem;
+        margin-top: 1rem;
+    }
+
+    .nav_dropdown-content {
+        display: grid;
+        row-gap: .5rem;
+        padding: .75rem 2.5rem .75rem 1.8rem;
+    }
+
+    .nav_dropdown-item {
+        font-size: var(--small-font-size);
+        font-weight: var(--font-medium);
+        color: var(--text-color);
+    }
+
+        .nav_dropdown-item:hover {
+            color: var(--first-color);
+        }
+
+    .nav_dropdown-icon {
+        margin-left: auto;
+        transition: .4s;
+    }
+
+
+    .nav_dropdown:hover {
+        max-height: 100rem;
+    }
+
+        .nav_dropdown:hover .nav_dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+    .show-menu {
+        left: 0;
+    }
+
+    .active {
+        color: var(--first-color);
+    }
+
+    /*.nav_logo-name {
+        opacity: 0;
+    }*/
+
+</style>
+
+
+@*HEADER*@
+<header class="header">
+    <div class="header_container">
+
+
+        <img src="@Url.ActionLink("FotoProfil", "File", new {Id = user.Id, Area = ""})" class="header_img" alt="" style="width:35px; height:35px; border-radius:50%;" />
+
+        <a href="" class="header_logo">SITE22</a>
+
+        <div class="header_search">
+            <input type="search" placeholder="Search" class="header_input" />
+            <i class="ri-search-line header_icon"></i>
+        </div>
+
+        <div class="header_toggle">
+            <i class="ri-menu-line" id="header-toggle"></i>
+        </div>
+
+    </div>
+</header>
+
+<div class="nav" id="navbar">
+    <nav class="nav_container">
+        <div>
+            <a href="#" class="nav_link nav_logo">
+                <i class="ri-honor-of-kings-line nav_icon"></i>
+                <span class="nav_logo-name">SITE22</span>
+            </a>
+
+            <div class="nav_list">
+                <div class="nav_items">
+                    <h3 class="nav_subtitle">Menu</h3>
+
+                    <a asp-area="Dashboard" asp-controller="Home" asp-action="Index" class="nav_link">
+                        <i class="ri-home-8-line nav_icon"></i>
+                        <span class="nav_name">Home</span>
+                    </a>
+
+                    <a asp-area="Dashboard" asp-controller="Mahasiswa" asp-action="Index" class="nav_link">
+                        <i class="ri-user-line nav_icon"></i>
+                        <span class="nav_name">Mahasiswa</span>
+                    </a>
+
+                    @*<a href="" class="nav_link">
+                        <i class="ri-chat-3-line nav_icon"></i>
+                        <span class="nav_name">Messages</span>
+                    </a>*@
+                </div>
+
+                <div class="nav_items">
+                    <h3 class="nav_subtitle">Kegiatan</h3>
+
+                    <a asp-area="Dashboard" asp-controller="Kegiatan" asp-action="Index" class="nav_link">
+                        <i class="ri-calendar-line nav_icon"></i>
+                        <span class="nav_name">Kegiatan</span>
+                    </a>
+
+                    <a asp-area="Dashboard" asp-action="TambahKegiatan" asp-controller="Kegiatan" class="nav_link">
+                        <i class="ri-add-line nav_icon"></i>
+                        <span class="nav_name">Tambah</span>
+                    </a>
+                </div>
+
+                <div class="nav_items">
+                    <h3 class="nav_subtitle">Album</h3>
+
+                    <a asp-area="Dashboard" asp-controller="Foto" asp-action="Index" class="nav_link">
+                        <i class="ri-camera-3-line nav_icon"></i>
+                        <span class="nav_name">Foto</span>
+                    </a>
+
+                    <a href="" class="nav_link">
+                        <i class="ri-add-line nav_icon"></i>
+                        <span class="nav_name">Tambah</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <a href="" class="nav_link nav_logout">
+            <i class="ri-logout-box-line nav_icon"></i>
+            <span class="nav_name">Keluar</span>
+        </a>
+    </nav>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<nav class="navbar">
     <ul class="navbar-nav">
         <li class="logo">
             <a href="#" class="nav-link">
@@ -136,11 +474,46 @@
             </div>
         </li>
     </ul>
-</nav>
+</nav>*@
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 <script type="text/javascript">
+    const showMenu = (headerToggle, navbarId) => {
+        const toggle = document.getElementById(headerToggle),
+            nav = document.getElementById(navbarId);
+
+        // Validate that variables exist
+        if (toggle && nav) {
+            toggle.addEventListener('click', () => {
+                // Toggle the 'show-menu' class on the navbar
+                nav.classList.toggle('show-menu');
+
+            });
+        }
+    }
+
+    showMenu('header-toggle', 'navbar');
+
+    const linkcolor = document.querySelectorAll('.nav_link');
+
+    function colorLink() {
+        linkcolor.forEach(link => link.classList.remove('active'));
+        this.classList.add('active');
+    }
+
+    linkcolor.forEach(link => link.addEventListener('click', colorLink));
+
+
+</script>
+
+
+
+
+@*<script type="text/javascript">
     $(function () {
         $('.dropdown > button').click(function () {
 
@@ -148,4 +521,5 @@
 
         });
     });
-</script>
+</script>*@
+
