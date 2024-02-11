@@ -41,14 +41,28 @@ namespace webSITE.Controllers
             _fileSizeLimit = _config.GetValue<long>("FileSizeLimit");
         }
 
-        public async Task<IActionResult> DetailFoto(int id)
+        public async Task<IActionResult> DetailFoto(int? id, int? idKegiatan)
         {
-            var foto = await _repositoriFoto.GetWithDetail(id);
+            var daftarSemuaFoto = await _repositoriFoto.GetAllWithDetail();
 
-            if (foto == null)
-                return NotFound();
+            var daftarFotoAlbum = daftarSemuaFoto.Where( f => f.IdKegiatan == idKegiatan).ToList();
 
-            return View(foto);
+            if (daftarFotoAlbum == null || daftarFotoAlbum.Count == 0)
+                return RedirectToAction("Album", new {idKegiatan});
+
+            id = id ?? daftarFotoAlbum[0].Id;
+
+            var fotoAktif = daftarFotoAlbum.Find(f => f.Id == id);
+
+            ViewData["SelectedIndex"] = daftarFotoAlbum.IndexOf(fotoAktif);
+            ViewData["IdKegiatan"] = idKegiatan;
+            
+            if(idKegiatan is not null)
+                ViewData["NamaKegiatan"] = (await _repositoriKegiatan.Get(idKegiatan.Value)).NamaKegiatan;
+            else
+                ViewData["NamaKegiatan"] = "Lain - Lain";
+
+            return View(daftarFotoAlbum);
         }
 
         public async Task<IActionResult> Album(int idKegiatan, string? returnUrl)
@@ -62,11 +76,15 @@ namespace webSITE.Controllers
             if (kegiatan == null)
             {
                 var daftarFotoTanpaKegiatan = await _repositoriFoto.GetAll();
+
                 daftarFotoTanpaKegiatan = daftarFotoTanpaKegiatan
                     .Where(f => f.IdKegiatan == null)
                     .OrderBy(f => f.Tanggal);
 
-                return View(new FotoViewModel
+                if (daftarFotoTanpaKegiatan == null || daftarFotoTanpaKegiatan.Count() == 0)
+                    return RedirectToAction("Index");
+
+                return View(new AlbumVM
                 {
                     NamaKegiatan = "Lain - Lain",
                     Tanggal = daftarFotoTanpaKegiatan.First().Tanggal,
@@ -76,10 +94,10 @@ namespace webSITE.Controllers
 
             var daftarFoto = await _repositoriFoto.GetAllByKegiatan(idKegiatan);
 
-            if (daftarFoto == null)
-                return View(new FotoViewModel());
+            if (daftarFoto == null || daftarFoto.Count() == 0)
+                return RedirectToAction("Index");
 
-            var model = new FotoViewModel
+            var model = new AlbumVM
             {
                 IdKegiatan = idKegiatan,
                 NamaKegiatan = kegiatan.NamaKegiatan,
@@ -97,9 +115,9 @@ namespace webSITE.Controllers
             var daftarFoto = await _repositoriFoto.GetAllWithDetail();
 
             if (daftarFoto == null)
-                return View(new List<FotoViewModel>()
+                return View(new List<AlbumVM>()
                 {
-                    new FotoViewModel()
+                    new AlbumVM()
                 });
 
             var group = (from foto in daftarFoto
@@ -107,10 +125,10 @@ namespace webSITE.Controllers
                          group foto by foto.IdKegiatan into grp
                          select grp);
 
-            List<FotoViewModel> viewModel = group.Select(grp =>
+            List<AlbumVM> viewModel = group.Select(grp =>
             {
                 var kegiatan = _repositoriKegiatan.Get(grp.Key.Value).Result;
-                return new FotoViewModel
+                return new AlbumVM
                 {
                     IdKegiatan = grp.Key.Value,
                     NamaKegiatan = kegiatan.NamaKegiatan,
@@ -127,7 +145,7 @@ namespace webSITE.Controllers
 
             if (fotoTanpaKegiatan != null && fotoTanpaKegiatan.Count > 0)
             {
-                viewModel.Add(new FotoViewModel
+                viewModel.Add(new AlbumVM
                 {
                     NamaKegiatan = "Lain - Lain",
                     IdThumbnail = fotoTanpaKegiatan.First().Id,
@@ -141,7 +159,7 @@ namespace webSITE.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Tambah()
+        public async Task<IActionResult> Tambah(int? idKegiatan)
         {
             var listMahasiswa = (await _repositoriMahasiswa.GetAll())
                 .Select(m => new MahasiswaTambahFotoVM
@@ -154,7 +172,8 @@ namespace webSITE.Controllers
             return View(new TambahFotoVM
             {
                 Tanggal = DateTime.Now,
-                DaftarMahasiswaTambahFotoVM = listMahasiswa
+                DaftarMahasiswaTambahFotoVM = listMahasiswa,
+                IdKegiatan = idKegiatan
             });
         }
 
@@ -203,6 +222,16 @@ namespace webSITE.Controllers
                 await _repositoriMahasiswaFoto.Create(id, newFoto.Id);
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, string? returnUrl)
+        {
+            returnUrl = returnUrl ?? Url.Action("Index");
+
+            var result = await _repositoriFoto.Delete(id);
+
+            return Redirect(returnUrl);
         }
     }
 }

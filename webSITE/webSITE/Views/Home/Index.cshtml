@@ -181,8 +181,6 @@
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7854.6012934210685!2d123.66063784444012!3d-10.156198999077231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c5683014f4531cf%3A0x4242205fc88842ff!2sProdi%20Ilmu%20Komputer%20Undana!5e0!3m2!1sid!2sid!4v1706842308468!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>
 
-
-
 @*Album Preview*@
 
 <section class="">
@@ -190,76 +188,75 @@
 
 @section Scripts{
     <partial name="_TransparentNavbar" />
-}
 
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-        const slider = document.querySelector(".slider");
-        const items = document.querySelectorAll(".item");
-        const prevBtn = document.getElementById("prev");
-        const nextBtn = document.getElementById("next");
-        const dots = document.querySelectorAll(".dots li");
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            const slider = document.querySelector(".slider");
+            const items = document.querySelectorAll(".item");
+            const prevBtn = document.getElementById("prev");
+            const nextBtn = document.getElementById("next");
+            const dots = document.querySelectorAll(".dots li");
 
-        let index = 0;
-        let interval;
+            let index = 0;
+            let interval;
 
-        function showSlide() {
-            items.forEach(item => {
-                item.style.opacity = 0;
-                item.style.pointerEvents = "none";
-            });
-            items[index].style.opacity = 1;
-            items[index].style.pointerEvents = "auto";
-            updateDots();
-        }
+            function showSlide() {
+                items.forEach(item => {
+                    item.style.opacity = 0;
+                    item.style.pointerEvents = "none";
+                });
+                items[index].style.opacity = 1;
+                items[index].style.pointerEvents = "auto";
+                updateDots();
+            }
 
-        function updateDots() {
-            dots.forEach((dot, i) => {
-                dot.classList.toggle("active", i === index);
-            });
-        }
+            function updateDots() {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle("active", i === index);
+                });
+            }
 
-        function nextSlide() {
-            index = (index + 1) % items.length;
-            showSlide();
-        }
-
-        function prevSlide() {
-            index = (index - 1 + items.length) % items.length;
-            showSlide();
-        }
-
-        function startAutoSlide() {
-            interval = setInterval(nextSlide, 5000); // slide setiap 5s
-        }
-
-        function stopAutoSlide() {
-            clearInterval(interval);
-        }
-
-        nextBtn.addEventListener("click", () => {
-            nextSlide();
-            stopAutoSlide();
-        });
-
-        prevBtn.addEventListener("click", () => {
-            prevSlide();
-            stopAutoSlide();
-        });
-
-        dots.forEach((dot, i) => {
-            dot.addEventListener("click", () => {
-                index = i;
+            function nextSlide() {
+                index = (index + 1) % items.length;
                 showSlide();
+            }
+
+            function prevSlide() {
+                index = (index - 1 + items.length) % items.length;
+                showSlide();
+            }
+
+            function startAutoSlide() {
+                interval = setInterval(nextSlide, 5000); // slide setiap 5s
+            }
+
+            function stopAutoSlide() {
+                clearInterval(interval);
+            }
+
+            nextBtn.addEventListener("click", () => {
+                nextSlide();
                 stopAutoSlide();
             });
+
+            prevBtn.addEventListener("click", () => {
+                prevSlide();
+                stopAutoSlide();
+            });
+
+            dots.forEach((dot, i) => {
+                dot.addEventListener("click", () => {
+                    index = i;
+                    showSlide();
+                    stopAutoSlide();
+                });
+            });
+
+            slider.addEventListener("mouseenter", stopAutoSlide);
+            slider.addEventListener("mouseleave", startAutoSlide);
+
+            startAutoSlide();
         });
 
-        slider.addEventListener("mouseenter", stopAutoSlide);
-        slider.addEventListener("mouseleave", startAutoSlide);
-
-        startAutoSlide();
-    });
-
-
-</script>
+    </script>
+}

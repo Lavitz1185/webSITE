@@ -1,10 +1,8 @@
 ﻿@model TambahFotoVM
-@inject IRepositoriKegiatan repositoriKegiatan
 
 @{
     ViewData["Title"] = "Tambah Foto";
     ViewData["Active"] = "Album";
-    var listKegiatan = (await repositoriKegiatan.GetAll()).ToList();
 }
 
 <style>
@@ -61,19 +59,7 @@
         </div>
     </div>
 
-    <div class="row mb-2">
-        <div class="col">
-            <label asp-for="@Model.IdKegiatan"></label>
-            <select class="form-control" asp-for="@Model.IdKegiatan">
-                <option value="@null">Tidak Ada</option>
-                @foreach (var kegiatan in listKegiatan)
-                {
-                    <option value="@kegiatan.Id">@kegiatan.NamaKegiatan</option>
-                }
-            </select>
-            <span class="text-danger" asp-validation-for="@Model.IdKegiatan"></span>
-        </div>
-    </div>
+    <input type="text" asp-for="@Model.IdKegiatan" hidden="hidden">
 
     <div class="row mb-2">
         <div class="col">
@@ -121,7 +107,7 @@
             <button class="btn btn-primary" id="btnAjaxSubmit" type="submit">Tambah Foto</button>
         </div>
     </div>
-    <a asp-action="Index">Kembali</a>
+    <a asp-action="Album" asp-route-idKegiatan="@Model.IdKegiatan">Kembali</a>
 </form>
 
 
@@ -168,11 +154,11 @@
 
                         $('#tagContainer').append(
                             `<div class="tag">
-                                        <div id="namaMahasiswa">` + nama + `</div>
-                                        <button type="button" class="close" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>`);
+                                                <div id="namaMahasiswa">` + nama + `</div>
+                                                <button type="button" class="close" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>`);
                         AddRemoveAction();
                     }
                     else {

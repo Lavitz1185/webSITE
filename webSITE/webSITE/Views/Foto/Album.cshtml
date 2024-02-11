@@ -1,4 +1,4 @@
-﻿@model FotoViewModel
+﻿@model AlbumVM
 @{
     ViewData["Title"] = "ALbum";
     ViewData["Active"] = "Album";
@@ -14,10 +14,16 @@
     @foreach (var foto in Model.DaftarFoto)
     {
         <div class="col-4 p-2">
-            <a asp-action="DetailFoto" asp-route-id="@foto.Id">
+            <a asp-action="DetailFoto" asp-route-id="@foto.Id" asp-route-idKegiatan="@Model.IdKegiatan">
                 <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
             </a>
         </div>
     }
+
+    <div class="col-4 p-2">
+        <a asp-action="Tambah" asp-route-idKegiatan="@Model.IdKegiatan">
+            <h2 class="text-center">Tambah Foto</h2>
+        </a>
+    </div>
 </div>
 

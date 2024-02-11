@@ -2,7 +2,7 @@
 
 namespace webSITE.Models.FotoController
 {
-    public class FotoViewModel
+    public class AlbumVM
     {
         public int? IdKegiatan { get ; set; }
         public string NamaKegiatan { get; set; }

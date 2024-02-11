@@ -1,76 +1,171 @@
-﻿@model Foto
+﻿@model List<Foto>
 @{
     ViewData["Title"] = "Detail";
     ViewData["Active"] = "Album";
-
 }
 
-<div class="row pt-5">
-    <div class="col">
-        <img src="@Url.ActionLink("Foto", "File", new {Id = Model.Id, Area=""})" class="img-fluid" />
+<div class="slider">
+
+    <div class="menu px-4 d-flex justify-content-between align-items-center">
+        <a asp-action="Album" asp-route-idKegiatan="@ViewData["IdKegiatan"]"
+           class="close">&times;</a>
+        <h3 class="text-center">@ViewData["NamaKegiatan"]</h3>
+        <button id="detail" class="btn btn-primary">
+            ...
+        </button>
     </div>
-</div>
-<div class="row">
-    <div class="col-6">
-        <b>Tanggal</b>
-    </div>
-    <div class="col-6">
-        @Model.Tanggal.ToShortDateString()
-    </div>
-</div>
-<div class="row">
-    <div class="col-6">
-        <b>Kegiatan</b>
-    </div>
-    <div class="col-6">
-        @Model.Kegiatan?.NamaKegiatan
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col">
-                <div class="row">
-                    <div class="col mx-auto">
-                        <h4 class="text-center">Dalam Foto</h4>
-                    </div>
+
+    <div class="details">
+        <div class="d-flex justify-content-between align-items-center px-4">
+            <button class="close me-4">&times;</button>
+            <h5>Detail Foto</h5>
+            <form id="formHapus" asp-action="Delete" method="post">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fa fa-regular fa-trash"></i>
+                </button>
+            </form>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <label for="tanggalFoto">Tanggal</label>
+                    <div id="tanggalFoto"></div>
                 </div>
-                <div class="row">
-                    @if (Model.DaftarMahasiswa != null && Model.DaftarMahasiswa.Count > 0)
-                    {
-                        <table class="table table-bordetable-bordered">
-                            <thead>
-                                <tr>
-                                    <th width="50%">
-                                        NIM
-                                    </th>
-                                    <th width="50%">
-                                        Nama
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var mahasiswa in Model.DaftarMahasiswa)
-                                {
-                                    <tr>
-                                        <td>
-                                            @mahasiswa.Nim
-                                        </td>
-                                        <td>
-                                            @mahasiswa.NamaLengkap
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    }
-                    else
-                    {
-                        <h4 class="text-center"><b>Tidak Ada Peserta Yang Pernah Diikuti</b></h4>
-                    }
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label for="daftarMahasiswa">Dalam Foto</label>
+                    <div id="daftarMahasiswa"></div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="list">
+        @foreach (var foto in Model)
+        {
+            var daftarMahasiswa = string.Join(", ", foto.DaftarMahasiswa.Select(m => m.NamaLengkap));
+            <div class="item d-flex justify-content-center align-items-center">
+                <input id="idFoto" type="text" hidden="hidden" value="@foto.Id">
+                <input id="tanggalFoto" type="text" hidden="hidden" value="@foto.Tanggal.ToShortDateString()">
+                <input id="daftarMahasiswa" type="text" hidden="hidden" value="@daftarMahasiswa">
+                <img src="@Url.Action("Foto", "File", new {Area = "", Id = foto.Id})" />
+            </div>
+        }
+    </div>
+
+    <!--button slide-->
+    <div class="buttons">
+        <button id="prev">&#60;</button>
+        <button id="next">&#62;</button>
+    </div>
+
+    <!--dots-->
+    <ul class="dots">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <li></li>
+        }
+    </ul>
+
 </div>
 
+@section Scripts{
+
+    <script type="text/javascript">
+        $('document').ready(function () {
+
+            const details = $('.details');
+            const slider = $('.slider');
+            const items = $('.item');
+            const prevBtn = $('#prev');
+            const nextBtn = $('#next');
+            const dots = $('.dots li');
+            const detailBtn = $('#detail');
+            const closeDetailBtn = $('.details .close');
+
+
+            const activeIndex = @ViewData["SelectedIndex"];
+            const idKegiatan = @(ViewData["IdKegiatan"] ?? "null");
+
+            let index = 0;
+
+            const updateDetails = () => {
+                const idFoto = $(items[index]).find('#idFoto').val();
+                const tanggalFoto = $(items[index]).find('#tanggalFoto').val();
+                const daftarMahasiswa = $(items[index]).find('#daftarMahasiswa').val();
+
+                $(details).find('#formHapus').attr('action', '/Foto/Delete/' + idFoto + '?returnUrl=%2FFoto%2FDetailFoto%3FidKegiatan%3D' + idKegiatan);
+
+                $(details).find('#tanggalFoto').text(tanggalFoto);
+                $(details).find('#daftarMahasiswa').text(daftarMahasiswa);
+            };
+
+            const updateDots = () => {
+                $(dots).each((i, item) => {
+                    if (i === index) {
+                        $(item).addClass('active');
+                    }
+                    else {
+                        $(item).removeClass('active');
+                    }
+                });
+            }
+
+            const showSlide = () => {
+                $(items).each((i, item) => {
+                    if (index === i) {
+                        $(item).css({
+                            "opacity": "1",
+                            "pointerEvents": "auto"
+                        });
+                    } else {
+                        $(item).css({
+                            "opacity": "0",
+                            "pointerEvents": "none"
+                        });
+                    }
+                });
+
+                updateDots();
+                updateDetails();
+            };
+
+            const nextSlide = () => {
+                index = (index + 1) % items.length;
+                showSlide();
+            }
+
+            const prevSlide = () => {
+                index = (index - 1 + items.length) % items.length;
+                showSlide();
+            }
+
+            $(prevBtn).on('click', prevSlide);
+            $(nextBtn).on('click', nextSlide);
+
+            $(detailBtn).on('click', () => {
+                $('.details').css({
+                    'display': 'block'
+                });
+            });
+
+            $(closeDetailBtn).on('click', () => {
+                $('.details').css({
+                    'display': 'none'
+                });
+            });
+
+            $(dots).each((i, item) => {
+                $(item).on('click', () => {
+                    index = i;
+                    showSlide();
+                });
+            });
+
+            index = activeIndex;
+            showSlide();
+        });
+
+    </script>
+}

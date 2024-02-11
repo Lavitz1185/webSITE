@@ -1,4 +1,4 @@
-﻿@model List<FotoViewModel>
+﻿@model List<AlbumVM>
 @{
     ViewData["Title"] = "Album";
     ViewData["Active"] = "Album";
@@ -97,9 +97,8 @@
 
 <div class="container-fluid py-5">
     <h2 class="text-center animate__animated animate__fadeInDown">Album Mahasiswa</h2>
-    <a asp-action="Tambah" asp-controller="Foto" asp-area="">Tambah Foto</a>
-    <div class="row row-cols-1 row-cols-md-3 g-4 py-5 animate__animated animate__fadeInLeftBig">
 
+    <div class="row row-cols-1 row-cols-md-3 g-4 py-5 animate__animated animate__fadeInLeftBig">
 
         @foreach (var fotoViewModel in Model)
         {
