@@ -224,6 +224,7 @@ namespace webSITE.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete(int id, string? returnUrl)
         {
