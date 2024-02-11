@@ -105,9 +105,20 @@
             <div class="col-md-6 col-lg-4">
                 <div class="card">
                     <div class="parent">
-                        <img src="@Url.Action("Foto", "File", new {Area = "", Id = fotoViewModel.IdThumbnail})"
-                             class="child"
-                             alt="...">
+
+                        @if(fotoViewModel.IdThumbnail == null)
+                        {
+                            <img src=""
+                                 class="child"
+                                 alt="...">
+                        }
+                        else
+                        {
+                            <img src="@Url.Action("Foto", "File", new {Area = "", Id = fotoViewModel.IdThumbnail})"
+                                 class="child"
+                                 alt="...">
+                        }
+
                         <div class="content">
                             <a asp-action="Album" asp-controller="Foto" asp-route-idKegiatan="@fotoViewModel.IdKegiatan">
                                 <h3>Select</h3>

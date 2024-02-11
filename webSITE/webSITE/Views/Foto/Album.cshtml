@@ -11,13 +11,16 @@
     </div>
 </div>
 <div class="row">
-    @foreach (var foto in Model.DaftarFoto)
+    @if (Model.DaftarFoto != null && Model.DaftarFoto.Count > 0)
     {
-        <div class="col-4 p-2">
-            <a asp-action="DetailFoto" asp-route-id="@foto.Id" asp-route-idKegiatan="@Model.IdKegiatan">
-                <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
-            </a>
-        </div>
+        @foreach (var foto in Model.DaftarFoto)
+        {
+            <div class="col-4 p-2">
+                <a asp-action="DetailFoto" asp-route-id="@foto.Id" asp-route-idKegiatan="@Model.IdKegiatan">
+                    <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
+                </a>
+            </div>
+        }
     }
 
     <div class="col-4 p-2">

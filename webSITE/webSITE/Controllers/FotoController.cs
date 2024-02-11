@@ -82,7 +82,10 @@ namespace webSITE.Controllers
                     .OrderBy(f => f.Tanggal);
 
                 if (daftarFotoTanpaKegiatan == null || daftarFotoTanpaKegiatan.Count() == 0)
-                    return RedirectToAction("Index");
+                    return View(new AlbumVM
+                    {
+                        NamaKegiatan = "Lain - Lain"
+                    });
 
                 return View(new AlbumVM
                 {
@@ -151,6 +154,14 @@ namespace webSITE.Controllers
                     IdThumbnail = fotoTanpaKegiatan.First().Id,
                     JumlahFoto = fotoTanpaKegiatan.Count,
                     Tanggal = fotoTanpaKegiatan.First().Tanggal
+                });
+            }
+            else
+            {
+                viewModel.Add(new AlbumVM
+                {
+                    NamaKegiatan = "Lain -Lain",
+                    JumlahFoto = 0
                 });
             }
 

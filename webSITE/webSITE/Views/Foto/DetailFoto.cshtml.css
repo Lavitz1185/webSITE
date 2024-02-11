@@ -153,13 +153,9 @@
         }
 
 
-@media only screen and (orientation : landscape) {
-    .menu {
-    }
-}
-
 @media only screen and (max-width: 667px) {
-    .menu {
+    .details{
+        width: 100%;
     }
 }
 
