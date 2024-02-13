@@ -5,6 +5,81 @@
 }
 
 <style>
+    .container {
+        max-width: 1500px;
+/*      margin-left: auto;
+        margin-right: auto;*/
+        /*padding-left: 10px;
+        padding-right: 10px;*/
+    }
+
+    .custom-modal {
+        max-width: 800px; /* Atur lebar maksimum modal sesuai kebutuhan */
+    }
+
+    .modal .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .img-thumbnail {
+        border-radius: 50%;
+        outline: none;
+        border: none;
+    }
+
+    .kepala-modal {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        z-index: 999;
+    }
+
+    .aku-h2 {
+        font-size: 26px;
+        margin: 20px 0;
+        text-align: center;      
+    }
+
+    .responsive-table {
+        padding-right: 30px;
+        width : 100%;
+    }
+
+    .responsive-table li      
+    {
+        border-radius: 3px;
+        padding: 25px 20px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 25px;
+    }
+
+    .table-header {
+        background-color: #95A5A6;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .table-row {
+        background-color: #ffffff;
+        box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    }
+
+    .col-1 {
+        flex-basis: 10%;
+    }
+
+    .col-2 {
+        flex-basis: 40%;
+    }
+
+    .col-3 {
+        flex-basis: 25%;
+    }
+
+    .col-4 {
+        flex-basis: 25%;
+    }
 
     .card {
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -50,37 +125,35 @@
 {
     <!-- Modal -->
     <div class="modal fade" id="modal@(kegiatan.Id)" tabindex="-1" aria-labelledby="modal@(kegiatan.Id)" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered custom-modal">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Daftar Peserta</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="kepala-modal">
+                    <h2 class="aku-h2" id="exampleModalLabel">Daftar Peserta</h2>
+                    @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
                 </div>
                 <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="10%">Foto</th>
-                                <th>NIM</th>
-                                <th>Nama</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+
+                    <div class="container">
+                        @*<h2 class="aku-h2">Anggota Peserta</h2>*@
+                        <ul class="responsive-table">
+                            <li class="table-header">
+                                <div class="col col-1 text-center">Foto</div>
+                                <div class="col col-2 text-center">NIM</div>
+                                <div class="col col-4 text-center">Nama</div>
+                            </li>
                             @foreach (var mahasiswa in kegiatan.DaftarMahasiswa)
                             {
-                                <tr>
-                                    <td>
-                                        <img src="@Url.Action("FotoProfil", "File", new { Area = "", id = mahasiswa.Id})"
-                                             alt="" class="img-thumbnail">
-                                    </td>
-                                    <td>@mahasiswa.Nim</td>
-                                    <td>
-                                        @mahasiswa.NamaLengkap
-                                    </td>
-                                </tr>
+                                <li class="table-row">
+                                    <div class="col col-1 text-center" @*data-label="Foto"*@>
+                                        <img src="@Url.Action("FotoProfil", "File", new { Area = "", id = mahasiswa.Id })" alt="" class="img-thumbnail">
+                                    </div>
+                                    <div class="col col-2 text-center" @*data-label="NIM"*@>@mahasiswa.Nim</div>
+                                    <div class="col col-4 text-center" @*data-label="Nama"*@>@mahasiswa.NamaLengkap</div>
+                                </li>
                             }
-                        </tbody>
-                    </table>
+                        </ul>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

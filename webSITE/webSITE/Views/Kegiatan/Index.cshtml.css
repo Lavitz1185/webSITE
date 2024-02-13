@@ -1,0 +1,35 @@
+﻿@media all and (max-width: 767px) {
+    .table-header {
+        display: none;
+    }
+
+    .img-thumbnail {
+        width: 100px;
+        border-radius: 50%;
+    }
+
+    .table-row {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+    }
+
+    li {
+        display: block;
+    }
+
+    .col {
+        flex-basis: 100%;
+        text-align: left;
+        padding: 5px 10px;
+    }
+
+        .col:before {
+            color: #6C7A89;
+            padding-right: 10px;
+            content: attr(data-label);
+            flex-basis: 50%;
+            text-align: right;
+        }
+}
