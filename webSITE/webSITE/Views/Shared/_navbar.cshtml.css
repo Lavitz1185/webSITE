@@ -12,97 +12,6 @@ nav {
     min-height: 5rem;
 }
 
-::deep .user-pic {
-    width: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-::deep .sub-menu-wrap {
-    position: absolute;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    top: 100%;
-    right: 5%;
-    width: 250px;
-    max-height: 0px;
-    overflow: hidden;
-    transition: max-height 0.5s;
-}
-
-::deep .sub-menu-wrap.open-menu{
-    max-height: 400px;
-}
-
-::deep .sub-menu {
-    background: #fff;
-    padding : 20px;
-    margin: 10px;
-}
-
-::deep .user-info {
-    display: flex;
-    align-items: center;
-}
-
-::deep .user-info {
-    display: flex;
-    align-items: center;
-}
-
-::deep .user-info img {
-    width: 30px;
-    border-radius: 50%;
-    margin-right: 15px;
-}
-
-::deep .user-info h2 {
-    font-weight : 500;
-    font-size: 18px;
-}
-
-::deep .sub-menu hr {
-    border: 0;
-    height: 1px;
-    width: 100%;
-    background: #ccc;
-    margin : 15px 0 10px;
-}
-
-::deep .sub-menu-link {
-   display: flex;
-   align-items : center;
-   text-decoration: none;
-   color: #525252;
-}
-
-::deep .sub-menu-link p{
-    width: 100%;
-    margin-left: 8px;
-    padding-top: 12px;
-}
-
-::deep .sub-menu-link i{
-    padding: 8px;
-}
-
-::deep .sub-menu-link span{
-    font-size: 22px;
-    transition: transform 0.5s;
-}
-
-::deep .sub-menu-link:hover span{
-    font-size: 22px;
-    transform: translate(5px);
-}
-
-::deep .sub-menu-link:hover p {
-    font-weight: 600;
-}
-
-
-
-
 ::deep .navbar-brand img {
     width: 120px;
     height: 50px;
@@ -128,20 +37,6 @@ nav {
         color: #FDC93B;
         border-bottom: 3px solid #FDC93B;
         transition: .6s;
-    }
-
-::deep .nav-item form button {
-    border: none;
-    background: none;
-    text-decoration: none;
-    color: rgb(21, 21, 100);
-    font-size: 16px;
-    font-weight: 500;
-    transition: 0.3s ease;
-}
-
-    ::deep .nav-item form button:hover {
-        color: #FDC93B
     }
 
 ::deep .nav-link:hover {

@@ -25,55 +25,5 @@
             </li>
             <partial name="_LoginPartial" />
         </ul>
-        @*Tambahan*@
-        <img src="~/img/generaluser.png" class="user-pic" onclick="toggleMenu()"/>
-        <div class="sub-menu-wrap" id="subMenu">
-            <div class="sub-menu">
-                <div class="user-info">
-                    <img src="~/img/generaluser.png"/>
-                    <h2>Fernand</h2>
-                </div>
-                <hr>
-
-                <a href="" class="sub-menu-link">
-                    <i class="ri-pencil-fill"></i>
-                    <p>Ubah Profile</p>
-                    <span>></span>
-                </a>
-
-                <a href="" class="sub-menu-link">
-                    <i class="ri-camera-fill"></i>
-                    <p>Ubah Foto</p>
-                    <span>></span>
-                </a>
-
-                <a href="" class="sub-menu-link">
-                    <i class="ri-mail-add-fill"></i>
-                    <p>Ubah E-mail</p>
-                    <span>></span>
-                </a>
-
-                <a href="" class="sub-menu-link">
-                    <i class="ri-lock-unlock-fill"></i>
-                    <p>Ubah Password</p>
-                    <span>></span>
-                </a>
-
-                <a href="" class="sub-menu-link">
-                    <i class="ri-logout-box-r-fill"></i>
-                    <p>Keluar</p>
-                    <span>></span>
-                </a>
-
-            </div>            
-        </div>
     </div>
 </nav>
-
-<script>
-    let subMenu = document.getElementById("subMenu");
-
-    function toggleMenu(){
-        subMenu.classList.toggle("open-menu");
-    }
-</script>
