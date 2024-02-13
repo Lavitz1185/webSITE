@@ -6,7 +6,7 @@
 
 <div class="slider">
 
-    <div class="menu px-4 d-flex justify-content-between align-items-center">
+    <div class="menu px-4 d-flex justify-content-between align-items-center animate__animated animate__fadeInDown">
         <a asp-action="Album" asp-route-idKegiatan="@ViewData["IdKegiatan"]"
            class="close">&times;</a>
         <h3 class="text-center">@ViewData["NamaKegiatan"]</h3>
@@ -15,7 +15,7 @@
         </button>
     </div>
 
-    <div class="details">
+    <div class="details animate__animated animate__fadeInRight">
         <div class="d-flex justify-content-between align-items-center px-4">
             <button class="close me-4">&times;</button>
             <h5>Detail Foto</h5>
