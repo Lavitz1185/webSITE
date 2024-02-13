@@ -98,7 +98,7 @@
         color: azure;
         font-family: monospace;
         font-size: 50px;
-        opacity: 50%;
+        opacity: 0;
         transition: .2s ease-in-out;
     }
 
@@ -154,7 +154,7 @@
 
 
 @media only screen and (max-width: 667px) {
-    .details{
+    .details {
         width: 100%;
     }
 }

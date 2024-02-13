@@ -4,29 +4,126 @@
     ViewData["Active"] = "Album";
 }
 
-<div class="row pt-5">
-    <div class="col gap-3 d-flex">
-        <a href="@ViewData["ReturnUrl"]" class="btn btn-primary">Kembali</a>
-        <h2>@Model.IdKegiatan</h2>
+<style>
+    .row {
+        width: 100%;
+        margin: 20px 0px;
+    }
+
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .col {
+        flex-basis: calc(20% - 20px); /* 20% for laptop, adjust as needed */
+        margin-bottom: 20px;
+    }
+
+    .tambah {
+        display: flex;
+        width: 100%;
+        height: 250px;
+        align-items: center;
+        padding: 1px;
+    }
+
+        .tambah a{
+            display: flex;
+            height: 250px;
+            width: 100%;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background-color: #a1a1a173;
+            font-size: 80px;
+            transition: .3s;
+        }
+
+            .tambah a:hover{
+                color: whitesmoke;
+                font-size: 90px;
+                background-color: #b0b0b0;
+            }
+
+    .top a {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 60px;
+        justify-content: center;
+        transition: .2s;
+        border-radius: 50%;
+        color: rgb(35, 35, 85);
+    }
+        
+        .top a:hover {
+            opacity: 70%;            
+        }
+    
+    .content {
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+    }
+
+    .img-thumbnail {
+        padding: 0;
+        border-radius: 0;
+        width: 100%; /* lebar 100% dari wadah */
+        height: 100%; /* tinggi gambar terserah anda */
+        object-fit: cover; /* gambar dalam kotak cuy */
+        transition: .3s;
+        background-size: cover;
+    }
+
+        .content:hover .img-thumbnail{
+            transform: scale(1.05);
+        }
+
+    .top h2 {
+        display: flex;
+        align-items: center;
+        margin: 0;
+    }
+
+</style>
+
+<div class="row pt-4 animate__animated animate__fadeInLeft">
+    <div class="top col gap-2 d-flex" style="margin: 0; padding: 0px 5px">
+        <a href="@ViewData["ReturnUrl"]" style="width: 90px; height: 100px"><i class="ri-arrow-left-line"></i></a>
+        <h2>@Model.NamaKegiatan</h2>
     </div>
 </div>
-<div class="row">
+<div class="galery animate__animated animate__fadeIn animate__slow">
+    <div class="row no-gutters" style="padding: 1px">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-6" style="padding: 0;">
+        <div class="tambah">
+            <a asp-action="Tambah" asp-route-idKegiatan="@Model.IdKegiatan">
+                <i class="ri-add-circle-line"></i>
+            </a>
+        </div>        
+    </div>
+
     @if (Model.DaftarFoto != null && Model.DaftarFoto.Count > 0)
     {
+        
         @foreach (var foto in Model.DaftarFoto)
         {
-            <div class="col-4 p-2">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6" style="padding: 1px">
+                <div class="content">
                 <a asp-action="DetailFoto" asp-route-id="@foto.Id" asp-route-idKegiatan="@Model.IdKegiatan">
                     <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
                 </a>
+                </div>
             </div>
-        }
+        }   
     }
 
-    <div class="col-4 p-2">
-        <a asp-action="Tambah" asp-route-idKegiatan="@Model.IdKegiatan">
-            <h2 class="text-center">Tambah Foto</h2>
-        </a>
     </div>
 </div>
 
