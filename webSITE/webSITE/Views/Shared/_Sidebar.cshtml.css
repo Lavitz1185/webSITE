@@ -4,6 +4,11 @@
         --small-font-size: .875rem;
         --smaller-font-size: .813rem;
     }
+
+    .header_logo {
+        padding-left: 65px;
+        font-weight: 600;
+    }
 }
 
 
@@ -72,8 +77,8 @@
     .nav:hover {
         width: 219px;
     }
-
-    .nav:hover .nav_logo-name{
+  
+    .nav:hover .nav_logo-name {
         opacity: 1;
     }
     .nav:hover .nav_subtitle{
