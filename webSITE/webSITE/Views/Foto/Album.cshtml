@@ -7,19 +7,21 @@
 <style>
     .row {
         width: 100%;
-        margin: 20px 0px;
+        margin: 0;
+        padding: 1px 0px;
     }
 
     .gallery {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        width: 100%;
+        width: 100%;        
     }
 
     .col {
         flex-basis: calc(20% - 20px); /* 20% for laptop, adjust as needed */
         margin-bottom: 20px;
+        padding: 1px;
     }
 
     .tambah {
@@ -54,15 +56,16 @@
         text-align: center;
         align-items: center;
         cursor: pointer;
-        font-size: 60px;
+        font-size: 30px;
         justify-content: center;
         transition: .2s;
-        border-radius: 50%;
-        color: rgb(35, 35, 85);
+        color: white;
+        background-color: rgb(35, 35, 85);
     }
         
         .top a:hover {
-            opacity: 70%;            
+            opacity: 90%;
+            color: white;
         }
     
     .content {
@@ -89,40 +92,41 @@
         display: flex;
         align-items: center;
         margin: 0;
+        font-size: 30px;
     }
 
 </style>
 
-<div class="row pt-4 animate__animated animate__fadeInLeft">
-    <div class="top col gap-2 d-flex" style="margin: 0; padding: 0px 5px">
-        <a href="@ViewData["ReturnUrl"]" style="width: 90px; height: 100px"><i class="ri-arrow-left-line"></i></a>
+<div class="row animate__animated animate__fadeInLeft">
+    <div class="top col gap-3 d-flex" style="margin: 0; padding: 0">
+        <a href="@ViewData["ReturnUrl"]" style="width: 90px; height: 90px"><i class="ri-arrow-left-line"></i></a>
         <h2>@Model.NamaKegiatan</h2>
     </div>
 </div>
 <div class="galery animate__animated animate__fadeIn animate__slow">
-    <div class="row no-gutters" style="padding: 1px">
-    <div class="col-lg-2 col-md-3 col-sm-4 col-6" style="padding: 0;">
-        <div class="tambah">
-            <a asp-action="Tambah" asp-route-idKegiatan="@Model.IdKegiatan">
-                <i class="ri-add-circle-line"></i>
-            </a>
-        </div>        
-    </div>
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-6" style="padding: 1px;">
+            <div class="tambah">
+                 <a asp-action="Tambah" asp-route-idKegiatan="@Model.IdKegiatan">
+                    <i class="ri-add-circle-line"></i>
+                 </a>
+            </div>        
+        </div>
 
-    @if (Model.DaftarFoto != null && Model.DaftarFoto.Count > 0)
-    {
-        
-        @foreach (var foto in Model.DaftarFoto)
+        @if (Model.DaftarFoto != null && Model.DaftarFoto.Count > 0)
         {
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6" style="padding: 1px">
-                <div class="content">
-                <a asp-action="DetailFoto" asp-route-id="@foto.Id" asp-route-idKegiatan="@Model.IdKegiatan">
-                    <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
-                </a>
+            
+            @foreach (var foto in Model.DaftarFoto)
+            {
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6" style="padding: 1px">
+                    <div class="content">
+                    <a asp-action="DetailFoto" asp-route-id="@foto.Id" asp-route-idKegiatan="@Model.IdKegiatan">
+                        <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
+                    </a>
+                    </div>
                 </div>
-            </div>
-        }   
-    }
+            }   
+        }
 
     </div>
 </div>
