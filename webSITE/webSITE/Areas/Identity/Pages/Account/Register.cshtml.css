@@ -30,7 +30,7 @@
         background: transparent;
         outline: none;
         border-radius: 8px;
-        text-indent: 20px;
+        text-indent: 10px;
         margin-top: 6px;
         transition: all 0.3s ease;
     }
@@ -96,16 +96,45 @@
         width: 50%;
         margin-bottom: 20px;
     }
+
+    .col-md-4 {
+        margin-top: 5px; /* Atur jarak atas antara input */
+        margin-bottom: 0px; /* Atur jarak bawah antara input */
+    }
+
+    ::deep h1 {
+        /*margin-bottom: 40px;*/
+    }
 }
 
 @media (max-width: 773px) {
     .container ::deep .col-md-4 {
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     #register-form {
         padding-top: 30px;
     }
 }
+
+::deep input[type=date] {
+    font-family: 'Poppins', sans-serif; /* Ganti dengan font yang Anda inginkan */
+    padding-right: 10px; /* Atur padding sesuai kebutuhan */
+}
+
+.container ::deep .divider {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+
+    .container ::deep .divider .line {
+        height: 1px;
+        width: 100%;
+        background: #1d1d1d;
+        opacity: 0.2;
+        margin: 30px 0 16px;
+    }
 
