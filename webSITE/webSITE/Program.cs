@@ -31,7 +31,7 @@ builder.Services.AddDefaultIdentity<Mahasiswa>
     (
         options =>
         {
-            options.SignIn.RequireConfirmedAccount = true;
+            options.SignIn.RequireConfirmedAccount = false;
             options.User.RequireUniqueEmail = true;
             options.Password.RequireDigit = false;
             options.Password.RequireNonAlphanumeric = false;

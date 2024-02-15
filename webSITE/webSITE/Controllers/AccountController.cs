@@ -6,6 +6,11 @@ using webSITE.Domain;
 using webSITE.Models.Account;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Utilities;
+using webSITE.Models.AccountController;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text.Encodings.Web;
+using System.Text;
 
 namespace webSITE.Controllers
 {
@@ -15,6 +20,12 @@ namespace webSITE.Controllers
         private readonly UserManager<Mahasiswa> _userManager;
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly IMapper _mapper;
+        private readonly SignInManager<Mahasiswa> _signInManager;
+        private readonly IUserStore<Mahasiswa> _userStore;
+        private readonly IUserEmailStore<Mahasiswa> _emailStore;
+        private readonly ILogger<AccountController> _logger;
+        private readonly IEmailSender _emailSender;
+
         private readonly long _sizeLimit;
         private readonly string[] _permittedExtension = new string[] { ".png", ".jpg", ".jpeg" };
 
@@ -22,12 +33,19 @@ namespace webSITE.Controllers
             UserManager<Mahasiswa> userManager,
             IRepositoriMahasiswa repositoriMahasiswa,
             IConfiguration config,
-            IMapper mapper)
+            IMapper mapper,
+            IUserStore<Mahasiswa> userStore,
+            SignInManager<Mahasiswa> signInManager,
+            ILogger<AccountController> logger,
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _repositoriMahasiswa = repositoriMahasiswa;
             _mapper = mapper;
-
+            _userStore = userStore;
+            _signInManager = signInManager;
+            _logger = logger;
+            _emailSender = emailSender;
             _sizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
@@ -96,6 +114,97 @@ namespace webSITE.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        [AllowAnonymous]
+        public IActionResult Daftar(string? returnUrl)
+        {
+            returnUrl = returnUrl ?? Url.Action("Index", "Home", new { Area = "" });
+
+            return View(new RegisterVM
+            {
+                ReturnUrl = returnUrl
+            });
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Daftar(RegisterVM registerVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = CreateUser();
+
+                user.Nim = registerVM.Nim;
+                user.NamaLengkap = registerVM.NamaLengkap;
+                user.NamaPanggilan = registerVM.NamaPanggilan;
+                user.TanggalLahir = registerVM.TanggalLahir;
+                user.JenisKelamin = registerVM.JenisKelamin;
+                user.StatusAkun = StatusAkun.TidakAktif;
+
+                string fotoProfilPath = @"wwwroot/img/student.png";
+                user.FotoProfil = System.IO.File.ReadAllBytes(fotoProfilPath);
+
+                var duplicate = await _repositoriMahasiswa.GetByNim(user.Nim);
+                if (duplicate != null)
+                {
+                    ModelState.AddModelError("Nim", "NIM sudah digunakan");
+                    return View(registerVM);
+                }
+
+                await _userManager.SetUserNameAsync(user, registerVM.Email);
+                await _userManager.SetEmailAsync(user, registerVM.Email);
+                var result = await _userManager.CreateAsync(user, registerVM.Password);
+
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User created a new account with password.");
+
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var callbackUrl = Url.Page(
+                        "/Account/ConfirmEmail",
+                        pageHandler: null,
+                        values: new { area = "Identity", userId = userId, code = code, returnUrl = registerVM.ReturnUrl },
+                        protocol: Request.Scheme);
+
+                    await _emailSender.SendEmailAsync(registerVM.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    {
+                        return RedirectToPage("RegisterConfirmation",
+                                              new { email = registerVM.Email, returnUrl = registerVM.ReturnUrl });
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "Mahasiswa");
+                        return Content("Status Akun anda belum aktif. Akun anda akan direview terlebih dahulu.");
+                    }
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(registerVM);
+        }
+
+        private Mahasiswa CreateUser()
+        {
+            try
+            {
+                return Activator.CreateInstance<Mahasiswa>();
+            }
+            catch
+            {
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(Mahasiswa)}'. " +
+                    $"Ensure that '{nameof(Mahasiswa)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+            }
         }
     }
 }

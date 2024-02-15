@@ -9,15 +9,6 @@
 
 <section id="login-form" class="mb-5 pb-5">
     <div class="container mt-4 animate__animated animate__backInDown">
-        <h1>Masuk ke akun anda</h1>
-        @*<div class="social-login">
-            <button class="google">
-                <i class="ri-google-fill"></i>Gunakan Google</button>
-        </div>*@
-        <div class="divider">
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
         <form id="account" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <label asp-for="Input.Email">Email:</label>
@@ -34,7 +25,7 @@
             </div>
             <button class="login">Masuk</button>
             <div class="links">
-                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Tidak Punya Akun ?</a>
+                <a asp-action="Daftar" asp-controller="Account" asp-area="" asp-route-returnUrl="@Model.ReturnUrl">Tidak Punya Akun ?</a>
             </div>
         </form>
     </div>
