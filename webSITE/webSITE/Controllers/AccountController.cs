@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text.Encodings.Web;
 using System.Text;
+using Microsoft.AspNetCore.Authentication;
 
 namespace webSITE.Controllers
 {
@@ -191,6 +192,65 @@ namespace webSITE.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(registerVM);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(string? returnUrl = null)
+        {
+            if (TempData["ErrorMessage"] is not null)
+            {
+                ModelState.AddModelError(string.Empty, TempData["ErrorMessage"] as string);
+            }
+
+            ViewData["ReturnUrl"] = returnUrl ?? Url.Action("Index", "Home", new { Area = "" });
+
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            return View(new LoginVM());
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginVM loginVM, string? returnUrl = null)
+        {
+            returnUrl ??= Url.Action("Index", "Home", new { });
+            ViewData["ReturnUrl"] = returnUrl;
+
+            if (ModelState.IsValid)
+            {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+                var user = await _userManager.FindByEmailAsync(loginVM.Email);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Akun dengan email ini tidak ditemukan");
+                    return View(loginVM);
+                }
+
+                if (user.StatusAkun == StatusAkun.TidakAktif)
+                {
+                    ModelState.AddModelError(string.Empty, "Status akun tidak aktif");
+                    return View(loginVM);
+                }
+
+                var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, loginVM.RememberMe, lockoutOnFailure: false);
+
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User logged in.");
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Login Gagal");
+                    return View(loginVM);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(loginVM);
         }
 
         private Mahasiswa CreateUser()

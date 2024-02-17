@@ -39,7 +39,7 @@
                 @if (!sigInManager.IsSignedIn(User))
                 {
                     <div class="btn animate__animated animate__zoomIn animate__slow">
-                        <a class="blue" id="login" asp-area="Identity" asp-page="/Account/Login">LOGIN MAHASISWA</a>
+                        <a class="blue" id="login" asp-area="Login" asp-controller="Account" asp-area="">LOGIN MAHASISWA</a>
                     </div>
                 }
             </div>

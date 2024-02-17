@@ -44,6 +44,7 @@ builder.Services.AddDefaultIdentity<Mahasiswa>
 builder.Services.ConfigureApplicationCookie(option =>
 {
     option.AccessDeniedPath = new PathString("/Account/AccessDenied");
+    option.LoginPath = new PathString("/Account/Login");
 });
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

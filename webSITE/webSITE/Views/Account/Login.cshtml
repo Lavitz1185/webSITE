@@ -1,0 +1,37 @@
+﻿@model LoginVM
+@{
+    ViewData["Title"] = "Log in";
+    ViewData["Active"] = "Masuk";
+}
+
+<section id="login-form" class="mb-5 pb-5">
+    <div class="container mt-4 animate__animated animate__backInDown">
+        <form id="account" method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <label asp-for="@Model.Email">Email:</label>
+            <div class="custome-input">
+                <input asp-for="@Model.Email" type="email" placeholder="Your Email" autocomplete="off" />
+                <i class="ri-mail-add-line"></i>
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            </div>
+
+            <label asp-for="@Model.Password">Password:</label>
+            <div class="custome-input">
+                <input asp-for="@Model.Password" type="password" placeholder="Your Password" />
+                <i class="ri-key-fill"></i>
+                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+            </div>
+
+            <button class="login">Masuk</button>
+
+            <div class="links">
+                <a asp-action="Daftar" asp-controller="Account" asp-area="" asp-route-returnUrl="@TempData["ReturnUrl"]">Tidak Punya Akun ?</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
