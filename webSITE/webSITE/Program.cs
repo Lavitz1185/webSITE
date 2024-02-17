@@ -4,7 +4,9 @@ using webSITE.Repositori.Implementasi;
 using webSITE.DataAccess.Repositori.Interface;
 using Microsoft.AspNetCore.Identity;
 using webSITE.Domain;
-using NuGet.Protocol;
+using webSITE.Configuration;
+using webSITE.Services.Contracts;
+using webSITE.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,7 @@ if (builder.Environment.IsDevelopment())
 else
     connectionString = builder.Configuration.GetConnectionString("PublishedConnection");
 
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
@@ -31,7 +34,7 @@ builder.Services.AddDefaultIdentity<Mahasiswa>
     (
         options =>
         {
-            options.SignIn.RequireConfirmedAccount = false;
+            options.SignIn.RequireConfirmedAccount = true;
             options.User.RequireUniqueEmail = true;
             options.Password.RequireDigit = false;
             options.Password.RequireNonAlphanumeric = false;
@@ -54,6 +57,8 @@ builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();
 builder.Services.AddScoped<IRepositoriKegiatan, RepositoriKegiatan>();
 builder.Services.AddScoped<IRepositoriMahasiswaFoto, RepositoriMahasiswaFoto>();
 builder.Services.AddScoped<IRepositoriPesertaKegiatan, RepositoriPesertaKegiatan>();
+
+builder.Services.AddTransient<IMailService, MailService>();
 
 builder.WebHost.UseStaticWebAssets();
 

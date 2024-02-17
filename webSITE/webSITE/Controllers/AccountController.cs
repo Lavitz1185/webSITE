@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text.Encodings.Web;
 using System.Text;
 using Microsoft.AspNetCore.Authentication;
+using webSITE.Services.Contracts;
+using webSITE.Models;
 
 namespace webSITE.Controllers
 {
@@ -25,7 +27,7 @@ namespace webSITE.Controllers
         private readonly IUserStore<Mahasiswa> _userStore;
         private readonly IUserEmailStore<Mahasiswa> _emailStore;
         private readonly ILogger<AccountController> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly IMailService _mailService;
 
         private readonly long _sizeLimit;
         private readonly string[] _permittedExtension = new string[] { ".png", ".jpg", ".jpeg" };
@@ -38,7 +40,7 @@ namespace webSITE.Controllers
             IUserStore<Mahasiswa> userStore,
             SignInManager<Mahasiswa> signInManager,
             ILogger<AccountController> logger,
-            IEmailSender emailSender)
+            IMailService mailService)
         {
             _userManager = userManager;
             _repositoriMahasiswa = repositoriMahasiswa;
@@ -46,7 +48,7 @@ namespace webSITE.Controllers
             _userStore = userStore;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
+            _mailService = mailService;
             _sizeLimit = config.GetValue<long>("FileSizeLimit");
         }
 
@@ -93,7 +95,7 @@ namespace webSITE.Controllers
             var photoData = await FileHelpers.ProcessFormFile<AccountFotoVM>(accountFotoVM.FotoFormFile
                 , ModelState, _permittedExtension, _sizeLimit);
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 TempData["status"] = false;
                 return View(accountFotoVM);
@@ -101,7 +103,7 @@ namespace webSITE.Controllers
 
             mahasiswa = await _repositoriMahasiswa.SetProfilePicture(mahasiswa.Id, photoData);
 
-            if(mahasiswa == null)
+            if (mahasiswa == null)
             {
                 ModelState.AddModelError(string.Empty, "Error Mengganti Foto Profil");
                 TempData["status"] = false;
@@ -170,19 +172,21 @@ namespace webSITE.Controllers
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = registerVM.ReturnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(registerVM.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    var success = await _mailService.SendMailAsync(new MailData
+                    {
+                        EmailToName = user.NamaLengkap,
+                        EmailToId = registerVM.Email,
+                        EmailSubject = "Confirm Your Email",
+                        EmailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."
+                    });
 
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation",
-                                              new { email = registerVM.Email, returnUrl = registerVM.ReturnUrl });
-                    }
+                    if (success)
+                        _logger.LogInformation("Email terkirim");
                     else
-                    {
-                        await _userManager.AddToRoleAsync(user, "Mahasiswa");
-                        return Content("Status Akun anda belum aktif. Akun anda akan direview terlebih dahulu.");
-                    }
+                        _logger.LogError("Email tidak terkirim");
+
+                    await _userManager.AddToRoleAsync(user, "Mahasiswa");
+                    return Content("Status Akun anda belum aktif. Akun anda akan direview terlebih dahulu.");
                 }
                 foreach (var error in result.Errors)
                 {
