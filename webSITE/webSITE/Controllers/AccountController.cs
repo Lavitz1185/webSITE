@@ -14,6 +14,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication;
 using webSITE.Services.Contracts;
 using webSITE.Models;
+using NuGet.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace webSITE.Controllers
 {
@@ -169,10 +171,10 @@ namespace webSITE.Controllers
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = registerVM.ReturnUrl },
+                    var callbackUrl = Url.Action(
+                        action: nameof(ConfirmEmail),
+                        controller: "Account",
+                        values: new {Area = "", userId, code},
                         protocol: Request.Scheme);
 
                     var success = await _mailService.SendMailAsync(new MailData
@@ -184,12 +186,13 @@ namespace webSITE.Controllers
                     });
 
                     if (success)
-                        _logger.LogInformation("Email terkirim");
+                        _logger.LogDebug("Email terkirim");
                     else
-                        _logger.LogError("Email tidak terkirim");
+                        _logger.LogDebug("Email tidak terkirim");
 
                     await _userManager.AddToRoleAsync(user, "Mahasiswa");
-                    return Content("Status Akun anda belum aktif. Akun anda akan direview terlebih dahulu.");
+
+                    return RedirectToAction(nameof(SuccessRegistration), new {Area="", userId});
                 }
                 foreach (var error in result.Errors)
                 {
@@ -202,19 +205,76 @@ namespace webSITE.Controllers
         }
 
         [AllowAnonymous]
+        public IActionResult SuccessRegistration(string userId)
+        {
+            ViewData["UserId"] = userId;
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> SuccessRegistrationPOST(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            var callbackUrl = Url.Action(
+                action: nameof(ConfirmEmail),
+                controller: "Account",
+                values: new { Area = "", userId = userId, code = code },
+                protocol: Request.Scheme);
+
+            var success = await _mailService.SendMailAsync(new MailData
+            {
+                EmailToName = user.NamaLengkap,
+                EmailToId = user.Email,
+                EmailSubject = "Confirm Your Email",
+                EmailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."
+            });
+
+            if (success)
+                _logger.LogDebug("Email terkirim");
+            else
+                _logger.LogDebug("Email tidak terkirim");
+
+            return RedirectToAction(
+                actionName: nameof(SuccessRegistration),
+                routeValues: new { Area = "", userId });
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return Content("Akun tidak ditemukan");
+
+            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+
+            if (result.Succeeded == false)
+                return Content("Konfirmasi gagal");
+
+            return View(nameof(ConfirmEmail));
+        }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Login(string? returnUrl = null)
         {
             returnUrl ??= Url.Action("Index", "Home", new { Area = "" });
 
             if (_signInManager.IsSignedIn(User))
                 return Redirect(returnUrl);
-
+            
             if (TempData["ErrorMessage"] is not null)
             {
                 ModelState.AddModelError(string.Empty, TempData["ErrorMessage"] as string);
             }
 
-            ViewData["ReturnUrl"] = returnUrl; 
+            ViewData["ReturnUrl"] = returnUrl;
 
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
@@ -237,7 +297,13 @@ namespace webSITE.Controllers
 
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Akun dengan email ini tidak ditemukan");
+                    ModelState.AddModelError("Email", "Akun dengan email ini tidak ditemukan");
+                    return View(loginVM);
+                }
+
+                if (user.EmailConfirmed == false)
+                {
+                    ModelState.AddModelError(string.Empty, "Login gagal");
                     return View(loginVM);
                 }
 
