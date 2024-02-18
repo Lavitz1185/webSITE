@@ -124,6 +124,9 @@ namespace webSITE.Controllers
         {
             returnUrl = returnUrl ?? Url.Action("Index", "Home", new { Area = "" });
 
+            if (_signInManager.IsSignedIn(User))
+                return Redirect(returnUrl);
+
             return View(new RegisterVM
             {
                 ReturnUrl = returnUrl
@@ -201,12 +204,17 @@ namespace webSITE.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string? returnUrl = null)
         {
+            returnUrl ??= Url.Action("Index", "Home", new { Area = "" });
+
+            if (_signInManager.IsSignedIn(User))
+                return Redirect(returnUrl);
+
             if (TempData["ErrorMessage"] is not null)
             {
                 ModelState.AddModelError(string.Empty, TempData["ErrorMessage"] as string);
             }
 
-            ViewData["ReturnUrl"] = returnUrl ?? Url.Action("Index", "Home", new { Area = "" });
+            ViewData["ReturnUrl"] = returnUrl; 
 
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
@@ -217,7 +225,7 @@ namespace webSITE.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVM, string? returnUrl = null)
         {
-            returnUrl ??= Url.Action("Index", "Home", new { });
+            returnUrl ??= Url.Action("Index", "Home", new { Area = "" });
             ViewData["ReturnUrl"] = returnUrl;
 
             if (ModelState.IsValid)
