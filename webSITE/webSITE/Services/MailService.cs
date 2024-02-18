@@ -33,12 +33,13 @@ namespace webSITE.Services
                     emailMessage.Subject = mailData.EmailSubject;
 
                     BodyBuilder emailBodyBuilder = new BodyBuilder();
-                    emailBodyBuilder.TextBody = mailData.EmailBody;
+                    emailBodyBuilder.HtmlBody = mailData.EmailBody;
 
                     emailMessage.Body = emailBodyBuilder.ToMessageBody();
 
                     using (SmtpClient mailClient = new SmtpClient())
                     {
+                        mailClient.CheckCertificateRevocation = false;
                         await mailClient.ConnectAsync(_mailSettings.Server, _mailSettings.Port, SecureSocketOptions.StartTls);
                         await mailClient.AuthenticateAsync(_mailSettings.UserName, _mailSettings.Password);
                         await mailClient.SendAsync(emailMessage);
