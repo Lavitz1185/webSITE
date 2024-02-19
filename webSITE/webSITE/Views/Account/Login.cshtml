@@ -6,8 +6,17 @@
 
 <section id="login-form" class="mb-5 pb-5">
     <div class="container mt-4 animate__animated animate__backInDown">
+        
+        <h1 class="text-center">Masuk ke akun anda</h1>
+
         <form id="account" method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="divider">
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
 
             <label asp-for="@Model.Email">Email:</label>
             <div class="custome-input">
