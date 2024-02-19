@@ -7,21 +7,13 @@
     var id = UserManager.GetUserId(User);
     var user = await RepositoriMahasiswa.Get(id);
 
-    ViewData["Active"] = $"Hello {user.NamaPanggilan}!";
-
+    ViewData["ActiveMenuId"] = "fotoProfil";
 }
 
 <div class="container-fluid pt-5">
     <div class="row">
         <div class="col-md-3">
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a asp-action="Index" class="nav-link">Profil</a>
-                </li>
-                <li class="nav-item">
-                    <a asp-action="FotoProfil" class="nav-link active">Foto Profil</a>
-                </li>
-            </ul>
+            <partial name="_MenuPartial" />
         </div>
         <div class="col-md-9 d-flex flex-column me-auto gap-1">
             <div class="row" id="fotoProfil">

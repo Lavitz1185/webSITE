@@ -290,9 +290,6 @@ namespace webSITE.Controllers
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-
                 var user = await _userManager.FindByEmailAsync(loginVM.Email);
 
                 if (user == null)
@@ -329,6 +326,47 @@ namespace webSITE.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(loginVM);
+        }
+
+        public IActionResult UbahPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UbahPassword(UbahPasswordVM ubahPasswordVM)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            //Validasi
+            if(!(await _userManager.CheckPasswordAsync(user, ubahPasswordVM.Password)))
+            {
+                ModelState.AddModelError("Password", "Password salah");
+                return View(ubahPasswordVM);
+            }
+
+            if(ubahPasswordVM.PasswordBaru == ubahPasswordVM.Password)
+            {
+                ModelState.AddModelError("PasswordBaru", "Password baru sama dengan password lama");
+                return View(ubahPasswordVM);
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user,
+                                                                ubahPasswordVM.Password,
+                                                                ubahPasswordVM.PasswordBaru);
+
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors.Select(result => $"{result.Code} : {result.Description}");
+
+                var errorString = string.Join("\n", errors);
+
+                _logger.LogError(errorString);
+                ModelState.AddModelError(string.Empty, "Proses mengganti password gagal silahkan hubungi admin");
+                return View();
+            }
+
+            return View();
         }
 
         private Mahasiswa CreateUser()

@@ -1,20 +1,13 @@
 ﻿@model AccountIndexVM
 @{
     ViewData["title"] = $"Profil {Model.NamaLengkap}";
-    ViewData["Active"] = $"Hello {Model.NamaPanggilan}!";
+    ViewData["ActiveMenuId"] = "profil";
 }
 
 <div class="container-fluid pt-5">
     <div class="row">
         <div class="col-md-3">
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a asp-action="Index" class="nav-link active">Profil</a>
-                </li>
-                <li class="nav-item">
-                    <a asp-action="FotoProfil" class="nav-link">Foto Profil</a>
-                </li>
-            </ul>
+            <partial name="_MenuPartial" />
         </div>
         <div id="profil" class="col-md-9 me-auto">
             <div class="row">
