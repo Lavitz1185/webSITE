@@ -131,6 +131,11 @@ footer .container-fluid .contact .info {
         font-size: 20px;
     }
 
+        footer .container-fluid .contact .info li p {
+            display: flex;
+            align-items: center;
+        }
+
         footer .container-fluid .contact .info li a {
             color: #555;
             text-decoration: none;
@@ -302,11 +307,10 @@ footer .row {
     line-height: 50px;
     color: white;
     font-size: 30px;
-    transition: .5s;
+    transition: .3s ease;
 }
 
 .gotopbtn:hover {
     opacity: 100%;
-    bottom: 52px;
-    transition: .5s;
+    bottom: 45px;
 }
