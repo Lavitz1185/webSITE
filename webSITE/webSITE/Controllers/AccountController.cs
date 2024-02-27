@@ -457,7 +457,7 @@ namespace webSITE.Controllers
             if (!success)
                 ModelState.AddModelError(string.Empty, "Email verfikasi gagal terkirim silahkan coba lagi");
 
-            return View();
+            return View(nameof(UbahEmailTunggu));
         }
 
         public async Task<IActionResult> ConfirmChangeEmail(string userId, string code, string email)
