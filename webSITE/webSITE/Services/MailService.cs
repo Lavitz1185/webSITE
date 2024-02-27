@@ -47,12 +47,15 @@ namespace webSITE.Services
                     }
                 }
 
+                logger.LogDebug($"Email terkirim ke {mailData.EmailToId}");
+
                 return true;
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                // Exception Details
+                logger.LogDebug($"Email tidak terkirim ke {mailData.EmailToId}");
+
                 return false;
             }
         }

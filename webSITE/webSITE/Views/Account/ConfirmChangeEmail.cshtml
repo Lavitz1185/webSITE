@@ -1,0 +1,29 @@
+﻿@model UbahEmailVM
+@{
+    ViewData["Title"] = "Ubah Email";
+    ViewData["ActiveMenuId"] = "ubahEmail";
+}
+
+<div class="container-fluid pt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="_MenuPartial" />
+        </div>
+        <div id="profil" class="col-md-9 me-auto">
+            <div class="row">
+                <div class="col">
+                    <h1>Ubah Email</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-center">Email berhasil diubah</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -185,11 +185,6 @@ namespace webSITE.Controllers
                         EmailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."
                     });
 
-                    if (success)
-                        _logger.LogDebug("Email terkirim");
-                    else
-                        _logger.LogDebug("Email tidak terkirim");
-
                     await _userManager.AddToRoleAsync(user, "Mahasiswa");
 
                     return RedirectToAction(nameof(SuccessRegistration), new {Area="", userId});
@@ -351,6 +346,7 @@ namespace webSITE.Controllers
                 return View(ubahPasswordVM);
             }
 
+            //Ubah password
             var result = await _userManager.ChangePasswordAsync(user,
                                                                 ubahPasswordVM.Password,
                                                                 ubahPasswordVM.PasswordBaru);
@@ -365,6 +361,118 @@ namespace webSITE.Controllers
                 ModelState.AddModelError(string.Empty, "Proses mengganti password gagal silahkan hubungi admin");
                 return View();
             }
+
+            return View();
+        }
+
+        public async Task<IActionResult> UbahEmail()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var email = user.Email;
+
+            return View(new UbahEmailVM
+            {
+                Email = email
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UbahEmail(UbahEmailVM ubahEmailVM)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var userSameEmail = await _userManager.FindByEmailAsync(ubahEmailVM.EmailBaru);
+
+            //Validasi
+            if(ubahEmailVM.Email == ubahEmailVM.EmailBaru)
+            {
+                ModelState.AddModelError("EmailBaru", "Email baru sama dengan email");
+                return View(ubahEmailVM);
+            }
+
+            if(userSameEmail != user && userSameEmail != null)
+            {
+                ModelState.AddModelError("EmailBaru", "Email sudah digunakan");
+                return View(ubahEmailVM);
+            }
+
+            //Kirim email verifikasi
+            var userId = await _userManager.GetUserIdAsync(user);
+            var code = await _userManager.GenerateChangeEmailTokenAsync(user, ubahEmailVM.EmailBaru);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            var callbackUrl = Url.Action(
+                action: nameof(ConfirmChangeEmail),
+                controller: "Account",
+                values: new { Area = "", userId, code, email = ubahEmailVM.EmailBaru },
+                protocol: Request.Scheme);
+
+            var success = await _mailService.SendMailAsync(new MailData
+            {
+                EmailToName = user.NamaLengkap,
+                EmailToId = ubahEmailVM.EmailBaru,
+                EmailSubject = "Confirm Your Email",
+                EmailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."
+            });
+
+            if(!success) 
+            {
+                ModelState.AddModelError(string.Empty, "Email verfikasi gagal terkirim silahkan coba lagi");
+                return View(ubahEmailVM);
+            }
+
+            return RedirectToAction(nameof(UbahEmailTunggu), new {Area = "", email = ubahEmailVM.EmailBaru});
+        }
+
+        public IActionResult UbahEmailTunggu(string email)
+        {
+            ViewData["Email"] = email;
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UbahEmailTungguPOST(string email)
+        {
+            ViewData["Email"] = email;
+
+            var user = await _userManager.GetUserAsync(User);
+
+            //Kirim email verifikasi
+            var userId = await _userManager.GetUserIdAsync(user);
+            var code = await _userManager.GenerateChangeEmailTokenAsync(user, email);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            var callbackUrl = Url.Action(
+                action: nameof(ConfirmChangeEmail),
+                controller: "Account",
+                values: new { Area = "", userId, code, email },
+                protocol: Request.Scheme);
+
+            var success = await _mailService.SendMailAsync(new MailData
+            {
+                EmailToName = user.NamaLengkap,
+                EmailToId = email,
+                EmailSubject = "Confirm Your Email",
+                EmailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."
+            });
+
+            if (!success)
+                ModelState.AddModelError(string.Empty, "Email verfikasi gagal terkirim silahkan coba lagi");
+
+            return View();
+        }
+
+        public async Task<IActionResult> ConfirmChangeEmail(string userId, string code, string email)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return Content("Akun tidak ditemukan");
+
+            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+
+            var result = await _userManager.ChangeEmailAsync(user, email, code);
+
+            if (result.Succeeded == false)
+                return Content("Verifikasi email gagal, email tidak berubah");
 
             return View();
         }
