@@ -1,8 +1,8 @@
 ﻿namespace webSITE.Models
 {
-    public class Notification
+    public class ToastrNotification
     {
-        public NotificationType Type { get; set; } = NotificationType.Info;
+        public ToastrNotificationType Type { get; set; } = ToastrNotificationType.Info;
         public string Title { get; set; }
         public string Message { get; set; }
     }

@@ -57,10 +57,9 @@ builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();
 builder.Services.AddScoped<IRepositoriKegiatan, RepositoriKegiatan>();
 builder.Services.AddScoped<IRepositoriMahasiswaFoto, RepositoriMahasiswaFoto>();
 builder.Services.AddScoped<IRepositoriPesertaKegiatan, RepositoriPesertaKegiatan>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 builder.Services.AddTransient<IMailService, MailService>();
-
-builder.Services.AddSingleton<INotificationService, NotificationService>();
 
 builder.WebHost.UseStaticWebAssets();
 

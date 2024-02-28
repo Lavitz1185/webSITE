@@ -1,6 +1,6 @@
 ﻿namespace webSITE.Models
 {
-    public enum NotificationType
+    public enum ToastrNotificationType
     {
         Info, Warning, Success, Error
     }

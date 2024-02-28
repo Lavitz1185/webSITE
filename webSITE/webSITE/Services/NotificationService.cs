@@ -1,22 +1,40 @@
-﻿using webSITE.Models;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Newtonsoft.Json;
+using webSITE.Models;
 using webSITE.Services.Contracts;
 
 namespace webSITE.Services
 {
     public class NotificationService : INotificationService
     {
-        private readonly Queue<Notification> _notifications = new Queue<Notification>();
+        private readonly string _tempDataKey = "WebSITE.Notification";
+        private readonly ITempDataDictionary _tempData;
 
-        public Queue<Notification> Notifications { get { return _notifications; } }
+        public string TempDataKey { get { return _tempDataKey; } }
 
-        public void AddNotification(NotificationType type, string title, string message)
+        public NotificationService(
+            IHttpContextAccessor httpContextAccessor,
+            ITempDataDictionaryFactory tempDataDictionaryFactory)
         {
-            _notifications.Enqueue(new Notification
+            var httpContext = httpContextAccessor.HttpContext;
+
+            _tempData = tempDataDictionaryFactory.GetTempData(httpContext);
+        }
+
+        public void AddNotification(ToastrNotification notification)
+        {
+            if (_tempData.Peek(_tempDataKey) == null)
             {
-                Type = type,
-                Title = title,
-                Message = message
-            });
+                _tempData[_tempDataKey] = JsonConvert.SerializeObject(new List<ToastrNotification>());
+            }
+
+            var list = JsonConvert
+                .DeserializeObject<List<ToastrNotification>>(_tempData[_tempDataKey] as string);
+
+            list.Add(notification);
+
+            _tempData[_tempDataKey] = JsonConvert.SerializeObject(list);
+            _tempData.Keep(_tempDataKey);
         }
     }
 }

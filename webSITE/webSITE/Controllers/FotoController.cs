@@ -6,6 +6,7 @@ using webSITE.Models.FotoController;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Utilities;
 using webSITE.Services.Contracts;
+using webSITE.Models;
 
 namespace webSITE.Controllers
 {
@@ -49,10 +50,10 @@ namespace webSITE.Controllers
         {
             var daftarSemuaFoto = await _repositoriFoto.GetAllWithDetail();
 
-            var daftarFotoAlbum = daftarSemuaFoto.Where( f => f.IdKegiatan == idKegiatan).ToList();
+            var daftarFotoAlbum = daftarSemuaFoto.Where(f => f.IdKegiatan == idKegiatan).ToList();
 
             if (daftarFotoAlbum == null || daftarFotoAlbum.Count == 0)
-                return RedirectToAction("Album", new {idKegiatan});
+                return RedirectToAction("Album", new { idKegiatan });
 
             id = id ?? daftarFotoAlbum[0].Id;
 
@@ -60,8 +61,8 @@ namespace webSITE.Controllers
 
             ViewData["SelectedIndex"] = daftarFotoAlbum.IndexOf(fotoAktif);
             ViewData["IdKegiatan"] = idKegiatan;
-            
-            if(idKegiatan is not null)
+
+            if (idKegiatan is not null)
                 ViewData["NamaKegiatan"] = (await _repositoriKegiatan.Get(idKegiatan.Value)).NamaKegiatan;
             else
                 ViewData["NamaKegiatan"] = "Lain - Lain";
@@ -237,9 +238,12 @@ namespace webSITE.Controllers
                 await _repositoriMahasiswaFoto.Create(id, newFoto.Id);
 
             _notificationService.AddNotification(
-                NotificationType.Success,
-                "Tambah Foto Sukses",
-                "Foto berhasil ditambahkan");
+                new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Success,
+                    Title = "Tambah Foto Sukses",
+                    Message = "Foto berhasil ditambahkan"
+                });
 
             return RedirectToAction("Index");
         }
@@ -252,16 +256,23 @@ namespace webSITE.Controllers
 
             var result = await _repositoriFoto.Delete(id);
 
-            if(result == null)
+            if (result == null)
                 _notificationService.AddNotification(
-                NotificationType.Error,
-                "Hapus Foto Gagal",
-                $"Foto dengan id {id} gagal dihapus");
+                    new ToastrNotification
+                    {
+                        Type = ToastrNotificationType.Error,
+                        Title = "Hapus Foto Gagal",
+                        Message = $"Foto dengan id {id} gagal dihapus"
+                    });
             else
                 _notificationService.AddNotification(
-                NotificationType.Success,
-                "Hapus Foto Sukses",
-                "Foto berhasil dihapus");
+                    new ToastrNotification
+                    {
+                        Type = ToastrNotificationType.Success,
+                        Title = "Hapus Foto Sukses",
+                        Message = $"Foto dengan id {id} berhasil dihapus"
+                    });
+
 
             return Redirect(returnUrl);
         }
