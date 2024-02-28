@@ -1,8 +1,37 @@
-﻿<link href="~/lib/toastr/css/toastr.min.css" rel="stylesheet" />
+﻿@using webSITE.Services.Contracts;
+@inject INotificationService NotificationService
+
+<link href="~/lib/toastr/css/toastr.min.css" rel="stylesheet" />
 <script src="~/lib/toastr/js/toastr.min.js"></script>
 
-<script type="text/javascript">
+@while (NotificationService.Notifications.Count > 0)
+{
+    var notification = NotificationService.Notifications.Dequeue();
 
-    toastr.info('Are you the 6 fingered man?')
+    <script type="text/javascript">
 
-</script>
+        const type = "@notification.Type.ToString()";
+        const title = "@notification.Title";
+        const message = "@notification.Message";
+
+        switch (type) {
+
+            case "@NotificationType.Info.ToString()":
+                toastr.info(message, title);
+                break;
+
+            case "@NotificationType.Success.ToString()":
+                toastr.success(message, title);
+                break;
+
+            case "@NotificationType.Warning.ToString()":
+                toastr.warning(message, title);
+                break;
+
+            case "@NotificationType.Error.ToString()":
+                toastr.error(message, title);
+                break
+        }
+
+    </script>
+}

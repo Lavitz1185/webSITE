@@ -5,6 +5,7 @@ using webSITE.Domain;
 using webSITE.Models.FotoController;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Utilities;
+using webSITE.Services.Contracts;
 
 namespace webSITE.Controllers
 {
@@ -21,13 +22,15 @@ namespace webSITE.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly INotificationService _notificationService;
 
         public FotoController(IRepositoriFoto repositoriFoto,
             IRepositoriKegiatan repositoriKegiatan,
             IConfiguration config, IMapper mapper,
             IRepositoriMahasiswa repositoriMahasiswa,
             IWebHostEnvironment webHostEnvironment,
-            IRepositoriMahasiswaFoto repositoriMahasiswaFoto)
+            IRepositoriMahasiswaFoto repositoriMahasiswaFoto,
+            INotificationService notificationService)
         {
             _repositoriFoto = repositoriFoto;
             _repositoriKegiatan = repositoriKegiatan;
@@ -36,6 +39,7 @@ namespace webSITE.Controllers
             _repositoriMahasiswa = repositoriMahasiswa;
             _webHostEnvironment = webHostEnvironment;
             _repositoriMahasiswaFoto = repositoriMahasiswaFoto;
+            _notificationService = notificationService;
 
             _targetFilePath = _config.GetValue<string>("StoredFilesPath");
             _fileSizeLimit = _config.GetValue<long>("FileSizeLimit");
@@ -232,6 +236,11 @@ namespace webSITE.Controllers
             foreach (var id in idMahasiswaDalamFoto)
                 await _repositoriMahasiswaFoto.Create(id, newFoto.Id);
 
+            _notificationService.AddNotification(
+                NotificationType.Success,
+                "Tambah Foto Sukses",
+                "Foto berhasil ditambahkan");
+
             return RedirectToAction("Index");
         }
 
@@ -242,6 +251,17 @@ namespace webSITE.Controllers
             returnUrl = returnUrl ?? Url.Action("Index");
 
             var result = await _repositoriFoto.Delete(id);
+
+            if(result == null)
+                _notificationService.AddNotification(
+                NotificationType.Error,
+                "Hapus Foto Gagal",
+                $"Foto dengan id {id} gagal dihapus");
+            else
+                _notificationService.AddNotification(
+                NotificationType.Success,
+                "Hapus Foto Sukses",
+                "Foto berhasil dihapus");
 
             return Redirect(returnUrl);
         }

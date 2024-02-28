@@ -60,6 +60,8 @@ builder.Services.AddScoped<IRepositoriPesertaKegiatan, RepositoriPesertaKegiatan
 
 builder.Services.AddTransient<IMailService, MailService>();
 
+builder.Services.AddSingleton<INotificationService, NotificationService>();
+
 builder.WebHost.UseStaticWebAssets();
 
 var app = builder.Build();
