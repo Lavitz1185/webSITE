@@ -21,8 +21,8 @@ else
 
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
-builder.Services.AddRazorPages();
-builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages().AddSessionStateTempDataProvider();
+builder.Services.AddControllersWithViews().AddSessionStateTempDataProvider();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
@@ -51,6 +51,7 @@ builder.Services.ConfigureApplicationCookie(option =>
 });
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddSession();
 
 builder.Services.AddScoped<IRepositoriMahasiswa, RepositoriMahasiswa>();
 builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();
@@ -80,6 +81,8 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 

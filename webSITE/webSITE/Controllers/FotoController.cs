@@ -53,7 +53,15 @@ namespace webSITE.Controllers
             var daftarFotoAlbum = daftarSemuaFoto.Where(f => f.IdKegiatan == idKegiatan).ToList();
 
             if (daftarFotoAlbum == null || daftarFotoAlbum.Count == 0)
-                return RedirectToAction("Album", new { idKegiatan });
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Detail Foto",
+                    Message = $"Foto dengan id kegiatan = {idKegiatan} tidak ada"
+                });
+                return RedirectToAction("Index");
+            }
 
             id = id ?? daftarFotoAlbum[0].Id;
 
@@ -70,15 +78,13 @@ namespace webSITE.Controllers
             return View(daftarFotoAlbum);
         }
 
-        public async Task<IActionResult> Album(int idKegiatan, string? returnUrl)
+        public async Task<IActionResult> Album(int? idKegiatan, string? returnUrl)
         {
             returnUrl = returnUrl ?? Url.Action("Index", "Foto", new { Area = "" });
 
             ViewData["ReturnUrl"] = returnUrl;
 
-            var kegiatan = await _repositoriKegiatan.Get(idKegiatan);
-
-            if (kegiatan == null)
+            if (idKegiatan == null)
             {
                 var daftarFotoTanpaKegiatan = await _repositoriFoto.GetAll();
 
@@ -100,10 +106,32 @@ namespace webSITE.Controllers
                 });
             }
 
-            var daftarFoto = await _repositoriFoto.GetAllByKegiatan(idKegiatan);
+            var kegiatan = await _repositoriKegiatan.Get(idKegiatan ?? 0);
+
+            if (kegiatan == null)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Album Foto",
+                    Message = $"Kegiatan dengan Id = {idKegiatan} tidak ada"
+                });
+                return RedirectToAction("Index");
+            }
+
+            var daftarFoto = await _repositoriFoto.GetAllByKegiatan(kegiatan.Id);
 
             if (daftarFoto == null || daftarFoto.Count() == 0)
-                return RedirectToAction("Index");
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Album Foto",
+                    Message = $"Foto dengan id kegiatan = {idKegiatan} tidak ada"
+                });
+
+                daftarFoto ??= new List<Foto>();
+            }
 
             var model = new AlbumVM
             {
@@ -120,31 +148,33 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var daftarFoto = await _repositoriFoto.GetAllWithDetail();
+            var daftarFoto = await _repositoriFoto.GetAll();
+            var daftarKegiatan = await _repositoriKegiatan.GetAllWithDetail();
 
-            if (daftarFoto == null)
-                return View(new List<AlbumVM>()
-                {
-                    new AlbumVM()
-                });
+            List<AlbumVM> viewModel = new List<AlbumVM>();
 
-            var group = (from foto in daftarFoto
-                         where foto.IdKegiatan != null
-                         group foto by foto.IdKegiatan into grp
-                         select grp);
-
-            List<AlbumVM> viewModel = group.Select(grp =>
+            foreach (var kegiatan in daftarKegiatan)
             {
-                var kegiatan = _repositoriKegiatan.Get(grp.Key.Value).Result;
-                return new AlbumVM
+                if (kegiatan.DaftarFoto != null && kegiatan.DaftarFoto.Count > 0)
                 {
-                    IdKegiatan = grp.Key.Value,
-                    NamaKegiatan = kegiatan.NamaKegiatan,
-                    Tanggal = kegiatan.Tanggal,
-                    IdThumbnail = grp.First().Id,
-                    JumlahFoto = grp.Count()
-                };
-            }).ToList();
+                    var fotoThumbnail = kegiatan.DaftarFoto.OrderBy(f => f.Tanggal).First();
+                    viewModel.Add(new AlbumVM
+                    {
+                        NamaKegiatan = kegiatan.NamaKegiatan,
+                        IdKegiatan = kegiatan.Id,
+                        IdThumbnail = fotoThumbnail.Id,
+                        JumlahFoto = kegiatan.DaftarFoto.Count(),
+                        Tanggal = fotoThumbnail.Tanggal,
+                    });
+                }
+                else
+                    viewModel.Add(new AlbumVM
+                    {
+                        NamaKegiatan = kegiatan.NamaKegiatan,
+                        IdKegiatan = kegiatan.Id,
+                        JumlahFoto = 0
+                    });
+            }
 
             var fotoTanpaKegiatan = daftarFoto
                 .Where(f => f.IdKegiatan == null)
