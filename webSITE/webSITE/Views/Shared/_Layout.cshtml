@@ -16,7 +16,7 @@
     <link href="~/lib/lightbox/css/lightbox.css" rel="stylesheet" />
 </head>
 <body>
-
+    <partial name="_AlertPartial.cshtml" />
     <partial name="_navbar.cshtml" />
 
     @*Isi dalam*@
@@ -136,6 +136,27 @@
             
             toggleButtonVisibility();
         });
+    </script>
+
+    <script type="text/javascript">
+
+        const alertBs = $('.alert');
+        console.log(alertBs);
+
+        if (alertBs.length != 0) {
+            const navbar = $('nav');
+
+            $(navbar).css({
+                "top": "auto"
+            });
+
+            $(alertBs).on('closed.bs.alert', () => {
+                $(navbar).css({
+                    "top": "0"
+                });
+            })
+        }
+
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)

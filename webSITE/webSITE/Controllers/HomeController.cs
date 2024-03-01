@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using webSITE.Models;
+using webSITE.Utilities;
 
 namespace webSITE.Controllers
 {
@@ -15,6 +16,7 @@ namespace webSITE.Controllers
 
         public IActionResult Index()
         {
+            TempData[Utility.AlertTempDataKey] = "Pesan Error";
             return View();
         }
 
