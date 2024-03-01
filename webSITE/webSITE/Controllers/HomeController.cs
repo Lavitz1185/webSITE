@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Diagnostics;
 using webSITE.Models;
 using webSITE.Utilities;
@@ -16,7 +19,6 @@ namespace webSITE.Controllers
 
         public IActionResult Index()
         {
-            TempData[Utility.AlertTempDataKey] = "Pesan Error";
             return View();
         }
 
@@ -33,7 +35,15 @@ namespace webSITE.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var exceptionHandlerPathFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            var path = HttpContext.Request.Path;
+
+            if (exceptionHandlerPathFeature?.Error is SqlException)
+                TempData[Utility.AlertTempDataKey] = "Database error";
+            else if (exceptionHandlerPathFeature?.Error is Exception)
+                TempData[Utility.AlertTempDataKey] = "Telah terjadi error pada server";
+
+            return Redirect("/");
         }
     }
 }
