@@ -6,47 +6,35 @@
 <script src="~/lib/toastr/js/toastr.min.js"></script>
 
 @{
-    var notifications = TempData[NotificationService.TempDataKey] == null ? 
-        new List<ToastrNotification>() : 
-        JsonConvert
-            .DeserializeObject<List<ToastrNotification>>(TempData[NotificationService.TempDataKey] as string);
+    var notifications = TempData[NotificationService.TempDataKey] as string;
+    notifications ??= "[]";
+    TempData.Remove(NotificationService.TempDataKey);
 }
 
-@foreach (var notification in notifications)
-{
-    var guid = string.Join("", Guid.NewGuid().ToString().Split("-"));
+<input type="text" value="@notifications" hidden="hidden" id="@NotificationService.TempDataKey">
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        const title_@guid = "@notification.Title";
-        const message_@guid = "@notification.Message";
+    $(document).ready(function () {
+        const notificationJSON = $("input#@(NotificationService.TempDataKey)").prop('value');
+        const notifications = JSON.parse(notificationJSON);
 
-    </script>
+        for (let notification of notifications) {
+            switch (notification.Type) {
+                case @((int)ToastrNotificationType.Info):
+                    toastr.info(notification.Message, notification.Title);
+                    break;
+                case @((int)ToastrNotificationType.Warning):
+                    toastr.warning(notification.Message, notification.Title);
+                    break;
+                case @((int)ToastrNotificationType.Success):
+                    toastr.success(notification.Message, notification.Title);
+                    break;
+                case @((int)ToastrNotificationType.Error):
+                    toastr.error(notification.Message, notification.Title);
+                    break;
+            }
+        }
+    });
 
-    switch (notification.Type)
-    {
-        case ToastrNotificationType.Info:
-            <script type="text/javascript">
-                toastr.info(message_@guid, title_@guid);
-            </script>
-            break;
-
-        case ToastrNotificationType.Success:
-            <script type="text/javascript">
-                toastr.success(message_@guid, title_@guid);
-            </script>
-            break;
-
-        case ToastrNotificationType.Warning:
-            <script type="text/javascript">
-                toastr.warning(message_@guid, title_@guid);
-            </script>
-            break;
-
-        case ToastrNotificationType.Error:
-            <script type="text/javascript">
-                toastr.error(message_@guid, title_@guid);
-            </script>
-            break;
-    }
-}
+</script>

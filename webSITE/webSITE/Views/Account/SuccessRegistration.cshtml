@@ -5,4 +5,7 @@
 <p>
     Pendaftaran Sukses. Silahkan cek email anda untuk mengkonfirmasi email anda.
 </p>
-<a asp-action="SuccessRegistrationPOST" asp-route-userId="@ViewData["UserId"]">Kirim Ulang Email</a>
+
+<form method="post" asp-action="SuccessRegistrationPOST" asp-route-userId="@ViewData["UserId"]">
+    <button class="btn btn-primary">Kirim Ulang Email Verifikasi</button>
+</form>

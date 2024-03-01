@@ -16,7 +16,7 @@
             <partial name="_MenuPartial" />
         </div>
         <div class="col-md-9 d-flex flex-column me-auto gap-1">
-            <div class="row" id="fotoProfil">
+            <div class="row" id="fotoProfilFoto">
                 <div class="col-md-9 d-flex justify-content-center">
                     <img src="@Url.ActionLink("FotoProfil", "File", new {Id = id, Area = ""})" class="img-thumbnail" width="400">
                 </div>
@@ -68,7 +68,7 @@
 
                 $('#btnBatal').prop('hidden', !toggle);
 
-                $('#fotoProfil').prop('hidden', toggle);
+                $('#fotoProfilFoto').prop('hidden', toggle);
             };
 
             let a = !!@(TempData["status"] == null ? "true" : TempData["status"]?.ToString()?.ToLower());

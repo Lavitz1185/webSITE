@@ -7,7 +7,7 @@ namespace webSITE.Services
 {
     public class NotificationService : INotificationService
     {
-        private readonly string _tempDataKey = "WebSITE.Notification";
+        private readonly string _tempDataKey = "WebSITENotificationKey";
         private readonly ITempDataDictionary _tempData;
 
         public string TempDataKey { get { return _tempDataKey; } }
