@@ -19,7 +19,7 @@ namespace webSITE.Controllers
 
         public IActionResult Index()
         {
-            TempData[Utility.AlertTempDataKey] = "Halo Exception";
+            TempData[Utility.AlertTempDataKey] = "Halo Exception! Hanya Test";
             return View();
         }
 

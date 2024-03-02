@@ -56,11 +56,11 @@ namespace webSITE.Controllers
             {
                 _notificationService.AddNotification(new ToastrNotification
                 {
-                    Type = ToastrNotificationType.Error,
+                    Type = ToastrNotificationType.Info,
                     Title = "Detail Foto",
-                    Message = $"Foto dengan id kegiatan = {idKegiatan} tidak ada"
+                    Message = $"Album tidak memiliki foto"
                 });
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Album), new {idKegiatan});
             }
 
             id = id ?? daftarFotoAlbum[0].Id;
@@ -97,7 +97,7 @@ namespace webSITE.Controllers
                     {
                         NamaKegiatan = "Lain - Lain"
                     });
-
+                    
                 return View(new AlbumVM
                 {
                     NamaKegiatan = "Lain - Lain",
@@ -116,22 +116,12 @@ namespace webSITE.Controllers
                     Title = "Album Foto",
                     Message = $"Kegiatan dengan Id = {idKegiatan} tidak ada"
                 });
-                return RedirectToAction("Index");
+                return Redirect(returnUrl);
             }
 
             var daftarFoto = await _repositoriFoto.GetAllByKegiatan(kegiatan.Id);
-
-            if (daftarFoto == null || daftarFoto.Count() == 0)
-            {
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Album Foto",
-                    Message = $"Foto dengan id kegiatan = {idKegiatan} tidak ada"
-                });
-
-                daftarFoto ??= new List<Foto>();
-            }
+            
+            daftarFoto ??= new List<Foto>();
 
             var model = new AlbumVM
             {
@@ -148,6 +138,8 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> Index()
         {
+            TempData[Utility.AlertTempDataKey] = "Halo Exception! Hanya Test";
+
             var daftarFoto = await _repositoriFoto.GetAll();
             var daftarKegiatan = await _repositoriKegiatan.GetAllWithDetail();
 
@@ -275,7 +267,7 @@ namespace webSITE.Controllers
                     Message = "Foto berhasil ditambahkan"
                 });
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Album), new {idKegiatan = tambahFotoVM.IdKegiatan});
         }
 
         [Authorize]
