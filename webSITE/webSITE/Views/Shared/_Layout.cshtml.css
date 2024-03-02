@@ -16,7 +16,6 @@ div#main {
     height: 4rem;
 }
 
-
 footer {
     position: relative;
     width: 100%;
@@ -301,7 +300,7 @@ footer .row {
     right: 50px;
     z-index: 999;
     border-radius: 50%;
-    opacity: 30%;
+    opacity: 0%;
     text-decoration: none;
     text-align: center;
     line-height: 50px;

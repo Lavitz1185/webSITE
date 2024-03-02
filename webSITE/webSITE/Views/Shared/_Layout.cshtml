@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" type="image/x-icon" href="~/img/Logo Site Bulat.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/Logo Site Bulat.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - webSITE</title>
 
@@ -27,9 +27,9 @@
     </div>
 
     <footer>
-        <div class="container-fluid">      
+        <div class="container-fluid">
             <div class="sec quicklinks">
-                <img src="~/img/SITE 22_Logo.png" style="width:250px; filter: invert(100%); padding-top: 25px;"/>                          
+                <img src="~/img/SITE 22_Logo.png" style="width:250px; filter: invert(100%); padding-top: 25px;" />
             </div>
             <div class="sec quicklinks">
                 <h2>Link Cepat</h2>
@@ -75,11 +75,11 @@
                     Bantu kami untuk memperbaiki sistem informasi ini dengan
                     melaporkan bug yang anda lihat <a asp-controller="Home" asp-action="LaporError" asp-route-id=""><span style="text-decoration: underline; color: rgb(21, 21, 150)">disini</span></a>
                 </p>
-                <ul class="sci">                                    
+                <ul class="sci">
                     <li><a href="https://www.instagram.com/site22_unc?igsh=MXdmYjZ3YnJqN2FvbA=="><i class="ri-instagram-fill"></i></a></li>
                     <li><a href=""><i class="ri-tiktok-fill"></i></a></li>
                     <li><a href="https://github.com/Lavitz1185/webSITE.git"><i class="ri-github-fill"></i></a></li>
-                    <li><a href="https://discord.gg/e6H6FZkh"><i class="ri-discord-fill"></i></a></li>                  
+                    <li><a href="https://discord.gg/e6H6FZkh"><i class="ri-discord-fill"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -97,13 +97,12 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="~/lib/lightbox/js/lightbox.js"></script>
-    <partial name="_ToastrPartial"/>
-    <script>
-        AOS.init();
-    </script>
+    <partial name="_ToastrPartial" />
 
     <script type="text/javascript">
-        let activeLink = "@(ViewData["Active"] ?? "")";
+        AOS.init();
+
+        const activeLink = "@(ViewData["Active"] ?? "")";
 
         $('document').ready(function () {
             $('.nav-link').each(function (imdex, item) {
@@ -113,52 +112,34 @@
             });
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const gotopBtn = document.querySelector(".gotopbtn");
+        $(document).ready(function () {
+            const gotopbtn = $('.gotopbtn');
 
-            function toggleButtonVisibility() {
-                if (window.scrollY >= 650) {
-                    gotopBtn.style.opacity = "1"; //  opacity 1 ketika scroll down 650px
+            const toggleButtonVisibility = () => {
+                if ($(document).scrollTop() >= 650) {
+                    $(gotopbtn).css('opacity', '1'); //  opacity 1 ketika scroll down 650px
                 } else {
-                    gotopBtn.style.opacity = "0"; //  opacity 0
+                    $(gotopbtn).css('opacity', '0'); //  opacity 0
                 }
-            }
+            };
 
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-            }
-
-            gotopBtn.addEventListener("click", scrollToTop);
-            window.addEventListener("scroll", toggleButtonVisibility);
-            
-            toggleButtonVisibility();
+            $(gotopbtn).on('click', () => $(document).scrollTo(0));
+            $(document).on('scroll', toggleButtonVisibility);
         });
-    </script>
-
-    <script type="text/javascript">
 
         const alertBs = $('.alert');
 
         if (alertBs.length != 0) {
             const navbar = $('nav');
 
-            $(navbar).css({
-                "top": "auto"
-            });
+            $(navbar).css("top", "auto");
 
             $(alertBs).on('closed.bs.alert', () => {
-                $(navbar).css({
-                    "top": "0"
-                });
+                $(navbar).css("top", "0");
             })
         }
-
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
-
 </body>
 </html>

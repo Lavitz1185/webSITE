@@ -7,7 +7,7 @@
 
 <section id="home" class="mb-5">
     <div class="slider">
-        
+
         <div class="gradient"></div>
 
         <div class="list">
@@ -152,7 +152,7 @@
             </div>
         </div>
 
-        
+
 
     </div>
     <div class="laporkan">
@@ -190,29 +190,42 @@
     <partial name="_TransparentNavbar" />
 
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            const slider = document.querySelector(".slider");
-            const items = document.querySelectorAll(".item");
-            const prevBtn = document.getElementById("prev");
-            const nextBtn = document.getElementById("next");
-            const dots = document.querySelectorAll(".dots li");
+        $(document).ready(function () {
+            const slider = $(".slider");
+            const items = $(".item");
+            const prevBtn = $("#prev");
+            const nextBtn = $("#next");
+            const dots = $(".dots li");
 
             let index = 0;
             let interval;
 
             function showSlide() {
-                items.forEach(item => {
-                    item.style.opacity = 0;
-                    item.style.pointerEvents = "none";
+                $(items).each((i, item) => {
+                    if (index === i) {
+                        $(item).css({
+                            "opacity": "1",
+                            "pointerEvents": "auto"
+                        });
+                    } else {
+                        $(item).css({
+                            "opacity": "0",
+                            "pointerEvents": "none"
+                        });
+                    }
                 });
-                items[index].style.opacity = 1;
-                items[index].style.pointerEvents = "auto";
+
                 updateDots();
             }
 
             function updateDots() {
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle("active", i === index);
+                $(dots).each((i, item) => {
+                    if (i === index) {
+                        $(item).addClass('active');
+                    }
+                    else {
+                        $(item).removeClass('active');
+                    }
                 });
             }
 
@@ -234,26 +247,26 @@
                 clearInterval(interval);
             }
 
-            nextBtn.addEventListener("click", () => {
+            $(nextBtn).on("click", () => {
                 nextSlide();
                 stopAutoSlide();
             });
 
-            prevBtn.addEventListener("click", () => {
+            $(prevBtn).on("click", () => {
                 prevSlide();
                 stopAutoSlide();
             });
 
-            dots.forEach((dot, i) => {
-                dot.addEventListener("click", () => {
+            $(dots).each((i, item) => {
+                $(item).on('click', () => {
                     index = i;
                     showSlide();
                     stopAutoSlide();
                 });
             });
 
-            slider.addEventListener("mouseenter", stopAutoSlide);
-            slider.addEventListener("mouseleave", startAutoSlide);
+            $(slider).on("mouseenter", stopAutoSlide);
+            $(slider).on("mouseleave", startAutoSlide);
 
             startAutoSlide();
         });
