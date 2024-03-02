@@ -1,0 +1,70 @@
+﻿@inject UserManager<Mahasiswa> UserManager
+@inject SignInManager<Mahasiswa> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = await UserManager.GetUserAsync(User);
+    <li class="nav-item align-items-center">
+        <img src="@Url.Action("FotoProfil", "File", new {Area = "", id = user.Id})"
+             class="user-pic" />
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="@Url.Action("FotoProfil", "File", new {Area = "", id = user.Id})" />
+                    <h2>@user.NamaPanggilan</h2>
+                </div>
+                <hr>
+
+                <a asp-action="Index" asp-controller="Account" asp-area=""
+                   class="sub-menu-link">
+                    <i class="ri-pencil-fill"></i>
+                    <p>Ubah Profile</p>
+                    <span>></span>
+                </a>
+
+                <a asp-action="FotoProfil" asp-controller="Account" asp-area=""
+                   class="sub-menu-link">
+                    <i class="ri-camera-fill"></i>
+                    <p>Ubah Foto</p>
+                    <span>></span>
+                </a>
+
+                <a asp-action="UbahEmail" asp-controller="Account" asp-area=""
+                   class="sub-menu-link">
+                    <i class="ri-mail-add-fill"></i>
+                    <p>Ubah E-mail</p>
+                    <span>></span>
+                </a>
+
+                <a asp-action="UbahPassword" asp-controller="Account" asp-area=""
+                   class="sub-menu-link">
+                    <i class="ri-lock-unlock-fill"></i>
+                    <p>Ubah Password</p>
+                    <span>></span>
+                </a>
+
+                <form asp-area="Identity" asp-page="/Account/Logout"
+                      asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button class="sub-menu-link" type="submit">
+                        <i class="ri-logout-box-r-fill"></i>
+                        <p>Keluar</p>
+                        <span>></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </li>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $('document').ready(function () {
+            const subMenu = $("#subMenu");
+
+            const toggleMenu = () => {
+                $(subMenu).toggleClass('open-menu');
+            }
+
+            $('.user-pic').on('click', toggleMenu);
+        });
+    </script>
+}
