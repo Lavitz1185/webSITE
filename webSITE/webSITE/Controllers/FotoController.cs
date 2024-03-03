@@ -278,6 +278,8 @@ namespace webSITE.Controllers
 
             var result = await _repositoriFoto.Delete(id);
 
+            System.IO.File.Delete(_webHostEnvironment.WebRootPath + result.PhotoPath);
+
             if (result == null)
                 _notificationService.AddNotification(
                     new ToastrNotification
