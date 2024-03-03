@@ -27,7 +27,6 @@ namespace webSITE.Controllers
         private readonly IMapper _mapper;
         private readonly SignInManager<Mahasiswa> _signInManager;
         private readonly IUserStore<Mahasiswa> _userStore;
-        private readonly IUserEmailStore<Mahasiswa> _emailStore;
         private readonly ILogger<AccountController> _logger;
         private readonly IMailService _mailService;
         private readonly INotificationService _notificationService;

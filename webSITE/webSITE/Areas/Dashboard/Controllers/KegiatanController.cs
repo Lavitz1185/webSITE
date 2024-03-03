@@ -72,7 +72,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> TambahKegiatan()
+        public IActionResult TambahKegiatan()
         {
             return View(new TambahKegiatanVM
             {
