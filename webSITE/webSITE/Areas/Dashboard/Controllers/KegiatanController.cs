@@ -333,7 +333,8 @@ namespace webSITE.Areas.Dashboard.Controllers
             //Validasi
             var kegiatanNamaSama = await _repositoriKegiatan.GetAllByNamaKegiatan(editKegiatanVM.NamaKegiatan);
 
-            if (kegiatanNamaSama.Any(k => k.Tanggal.Date == editKegiatanVM.Tanggal.Date))
+            if (kegiatanNamaSama.Any(k => k.Id != editKegiatanVM.Id
+                && k.Tanggal.Date == editKegiatanVM.Tanggal.Date))
             {
                 var kegiatanDetail = await _repositoriKegiatan.GetWithDetail(editKegiatanVM.Id);
 
