@@ -1,0 +1,44 @@
+﻿.scrollable {
+    height: 500px;
+    overflow: auto;
+}
+
+::deep .tag {
+    border: 1px solid;
+    border-color: #0dcaf0 !important;
+    border-radius: 10rem;
+    padding: .25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+::deep .close {
+    background: inherit;
+    box-sizing: border-box;
+    border: solid;
+    border-width: 1px;
+    border-color: white;
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+}
+
+::deep #daftarMahasiswa input#namaMahasiswa {
+    border: none;
+    background: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+    ::deep #daftarMahasiswa input#namaMahasiswa:focus {
+        outline: none;
+    }
+
+    ::deep #daftarMahasiswa input#namaMahasiswa:focus-visible {
+        outline: none;
+    }
+
+::deep .close:active {
+    border-color: black;
+}

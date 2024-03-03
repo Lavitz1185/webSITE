@@ -1,0 +1,18 @@
+﻿.container ::deep h2 {
+    font-weight: 600;
+    font-size: 70px;
+}
+
+.container ::deep h3 {
+    font-weight: 500;
+    font-size: 30px;
+    color: rgb(35, 35, 85);
+}
+
+.container ::deep p {
+    color: rgb(35, 35, 85);
+}
+
+.container ::deep img {
+    width: 300px;
+}

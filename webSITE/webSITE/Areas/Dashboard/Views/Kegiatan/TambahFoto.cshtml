@@ -6,53 +6,6 @@
     ViewData["Title"] = "Tambah Foto Di Kegiatan";
 }
 
-<style>
-    .scrollable {
-        height: 500px;
-        overflow: auto;
-    }
-
-    .tag {
-        border: 1px solid;
-        border-color: #0dcaf0 !important;
-        border-radius: 10rem;
-        padding: .25rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .close {
-        background: inherit;
-        box-sizing: border-box;
-        border: solid;
-        border-width: 1px;
-        border-color: white;
-        font-size: 1rem;
-        padding: 0;
-        margin: 0;
-    }
-
-    #daftarMahasiswa input#namaMahasiswa {
-        border: none;
-        background: inherit;
-        color: inherit;
-        cursor: pointer;
-    }
-
-        #daftarMahasiswa input#namaMahasiswa:focus {
-            outline: none;
-        }
-
-        #daftarMahasiswa input#namaMahasiswa:focus-visible {
-            outline: none;
-        }
-
-    .close:active {
-        border-color: black;
-    }
-</style>
-
 <h1 class="text-center">Tambah Foto Di Kegiatan</h1>
 <form class="container" enctype="multipart/form-data" method="post" asp-action="TambahFoto" asp-area="Dashboard" asp-controller="Kegiatan">
     <input type="text" asp-for="@Model.NextUrl" hidden>
