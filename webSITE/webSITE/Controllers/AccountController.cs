@@ -16,6 +16,8 @@ using webSITE.Services.Contracts;
 using webSITE.Models;
 using NuGet.Common;
 using System.ComponentModel.DataAnnotations;
+using webSITE.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace webSITE.Controllers
 {
@@ -31,19 +33,18 @@ namespace webSITE.Controllers
         private readonly IMailService _mailService;
         private readonly INotificationService _notificationService;
 
-        private readonly long _sizeLimit;
-        private readonly string[] _permittedExtension = new string[] { ".png", ".jpg", ".jpeg" };
+        private readonly PhotoFileSettings _photoFileSettings;
 
         public AccountController(
             UserManager<Mahasiswa> userManager,
             IRepositoriMahasiswa repositoriMahasiswa,
-            IConfiguration config,
             IMapper mapper,
             IUserStore<Mahasiswa> userStore,
             SignInManager<Mahasiswa> signInManager,
             ILogger<AccountController> logger,
             IMailService mailService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IOptions<PhotoFileSettings> options)
         {
             _userManager = userManager;
             _repositoriMahasiswa = repositoriMahasiswa;
@@ -52,8 +53,8 @@ namespace webSITE.Controllers
             _signInManager = signInManager;
             _logger = logger;
             _mailService = mailService;
-            _sizeLimit = config.GetValue<long>("FileSizeLimit");
             _notificationService = notificationService;
+            _photoFileSettings = options.Value;
         }
 
         public async Task<IActionResult> Index()
@@ -107,7 +108,7 @@ namespace webSITE.Controllers
             var mahasiswa = await _repositoriMahasiswa.Get(id);
 
             var photoData = await FileHelpers.ProcessFormFile<AccountFotoVM>(accountFotoVM.FotoFormFile
-                , ModelState, _permittedExtension, _sizeLimit);
+                , ModelState, _photoFileSettings.PermittedExtension, _photoFileSettings.FileSizeLimit);
 
             if (!ModelState.IsValid)
             {

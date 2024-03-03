@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
 using webSITE.Areas.Dashboard.Models.KegiatanController;
 using webSITE.Areas.Dashboard.Models.Shared;
+using webSITE.Configuration;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Domain;
 using webSITE.Utilities;
@@ -23,9 +25,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<KegiatanController> _logger;
 
-        private readonly string[] _permittedExtensions = { ".png", ".jpeg", ".jpg" };
-        private readonly string _targetFilePath;
-        private readonly long _fileSizeLimit;
+        private readonly PhotoFileSettings _photoFileSettings;
 
         public KegiatanController(
             IRepositoriKegiatan repositoriKegiatan,
@@ -34,9 +34,9 @@ namespace webSITE.Areas.Dashboard.Controllers
             IRepositoriFoto repositoriFoto,
             IRepositoriMahasiswaFoto repositoriMahasiswaFoto,
             IMapper mapper,
-            IConfiguration config,
             IWebHostEnvironment webHostEnvironment,
-            ILogger<KegiatanController> logger
+            ILogger<KegiatanController> logger,
+            IOptions<PhotoFileSettings> options
             )
         {
             _repositoriKegiatan = repositoriKegiatan;
@@ -47,8 +47,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
             _logger = logger;
-            _targetFilePath = config.GetValue<string>("StoredFilesPath");
-            _fileSizeLimit = config.GetValue<long>("FileSizeLimit");
+            _photoFileSettings = options.Value;
         }
 
         public async Task<IActionResult> Index()
@@ -168,7 +167,10 @@ namespace webSITE.Areas.Dashboard.Controllers
                     }
 
                     var formFileContent = await FileHelpers.ProcessFormFile<TambahFotoDiKegiatanVM>(
-                        tambahFotoVM.FotoBaru.FotoFormFile, ModelState, _permittedExtensions, _fileSizeLimit);
+                        tambahFotoVM.FotoBaru.FotoFormFile,
+                        ModelState,
+                        _photoFileSettings.PermittedExtension,
+                        _photoFileSettings.FileSizeLimit);
 
                     if (!ModelState.IsValid)
                     {
@@ -177,7 +179,7 @@ namespace webSITE.Areas.Dashboard.Controllers
 
                     var trustedFileNameForFileStorage = $"{Path.GetRandomFileName()}{Guid.NewGuid()}{Path.GetExtension(tambahFotoVM.FotoBaru.FotoFormFile.FileName)}";
                     var filePath = Path.Combine(
-                        _targetFilePath, trustedFileNameForFileStorage);
+                        _photoFileSettings.StoredFilesPath, trustedFileNameForFileStorage);
 
                     Foto newFoto = new Foto
                     {

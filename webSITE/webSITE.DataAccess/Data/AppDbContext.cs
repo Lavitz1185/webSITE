@@ -2,17 +2,20 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using webSITE.Configuration;
 using webSITE.Domain;
 
 namespace webSITE.DataAccess.Data
 {
     public class AppDbContext : IdentityDbContext<Mahasiswa>
     {
-        private readonly IConfiguration config;
+        private readonly PhotoFileSettings _photoFileSettings;
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration config) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IOptions<PhotoFileSettings> photoFileOptions) 
+            : base(options)
         {
-            this.config = config;
+            _photoFileSettings = photoFileOptions.Value;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -197,7 +200,7 @@ namespace webSITE.DataAccess.Data
                 }
             );
 
-            string root = config["StoredFilesPath"];
+            string root = _photoFileSettings.StoredFilesPath;
 
             builder.Entity<Foto>().HasData(
                 new Foto

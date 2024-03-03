@@ -20,9 +20,12 @@ else
     connectionString = builder.Configuration.GetConnectionString("PublishedConnection");
 
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.Configure<PhotoFileSettings>(builder.Configuration.GetSection("PhotoFileSettings"));
 
 builder.Services.AddRazorPages().AddSessionStateTempDataProvider();
 builder.Services.AddControllersWithViews().AddSessionStateTempDataProvider();
+builder.Services.AddSession();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
@@ -51,7 +54,6 @@ builder.Services.ConfigureApplicationCookie(option =>
 });
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
-builder.Services.AddSession();
 
 builder.Services.AddScoped<IRepositoriMahasiswa, RepositoriMahasiswa>();
 builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();
@@ -76,14 +78,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseAuthentication();
-
 app.UseAuthorization();
-
 app.UseSession();
-
 app.MapRazorPages();
 
 app.MapAreaControllerRoute(

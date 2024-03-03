@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\webSITE.Configuration\webSITE.Configuration.csproj" />
     <ProjectReference Include="..\webSITE.Models\webSITE.Domain.csproj" />
   </ItemGroup>
 

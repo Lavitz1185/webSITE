@@ -7,43 +7,40 @@ using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Utilities;
 using webSITE.Services.Contracts;
 using webSITE.Models;
+using webSITE.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace webSITE.Controllers
 {
     public class FotoController : Controller
     {
-        private readonly string[] _permittedExtensions = { ".png", ".jpeg", ".jpg" };
-        private readonly string _targetFilePath;
-        private readonly long _fileSizeLimit;
+        private readonly PhotoFileSettings _photoFileSettings;
 
         private readonly IRepositoriFoto _repositoriFoto;
         private readonly IRepositoriKegiatan _repositoriKegiatan;
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly IRepositoriMahasiswaFoto _repositoriMahasiswaFoto;
-        private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly INotificationService _notificationService;
 
         public FotoController(IRepositoriFoto repositoriFoto,
             IRepositoriKegiatan repositoriKegiatan,
-            IConfiguration config, IMapper mapper,
+            IMapper mapper,
             IRepositoriMahasiswa repositoriMahasiswa,
             IWebHostEnvironment webHostEnvironment,
             IRepositoriMahasiswaFoto repositoriMahasiswaFoto,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IOptions<PhotoFileSettings> options)
         {
+            _photoFileSettings = options.Value;
             _repositoriFoto = repositoriFoto;
             _repositoriKegiatan = repositoriKegiatan;
-            _config = config;
             _mapper = mapper;
             _repositoriMahasiswa = repositoriMahasiswa;
             _webHostEnvironment = webHostEnvironment;
             _repositoriMahasiswaFoto = repositoriMahasiswaFoto;
             _notificationService = notificationService;
-
-            _targetFilePath = _config.GetValue<string>("StoredFilesPath");
-            _fileSizeLimit = _config.GetValue<long>("FileSizeLimit");
         }
 
         public async Task<IActionResult> DetailFoto(int? id, int? idKegiatan)
@@ -225,7 +222,10 @@ namespace webSITE.Controllers
             }
 
             var formFileContent = await FileHelpers.ProcessFormFile<TambahFotoVM>(
-                    tambahFotoVM.FotoFormFile, ModelState, _permittedExtensions, _fileSizeLimit);
+                tambahFotoVM.FotoFormFile,
+                ModelState,
+                _photoFileSettings.PermittedExtension,
+                _photoFileSettings.FileSizeLimit);
 
             if (!ModelState.IsValid)
             {
@@ -234,7 +234,7 @@ namespace webSITE.Controllers
 
             var trustedFileNameForFileStorage = $"{Path.GetRandomFileName()}{Guid.NewGuid()}{Path.GetExtension(tambahFotoVM.FotoFormFile.FileName)}";
             var filePath = Path.Combine(
-                _targetFilePath, trustedFileNameForFileStorage);
+                _photoFileSettings.StoredFilesPath, trustedFileNameForFileStorage);
 
             Foto newFoto = _mapper.Map<Foto>(tambahFotoVM);
             newFoto.PhotoPath = filePath;
