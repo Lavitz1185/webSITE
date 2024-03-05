@@ -22,7 +22,7 @@
         }
 </style>
 
-@if (Model.IdKegiatan != null)
+@if (Model.IdKegiatan != null && daftarIdFotoTanpaKegiatan != null && daftarIdFotoTanpaKegiatan.Count() > 0)
 {
     <form id="formPindahFoto" method="post" asp-action="PindahFoto" asp-route-idKegiatan="@Model.IdKegiatan" class="container pt-5">
         <div class="row">
@@ -175,7 +175,7 @@
         });
     </script>
 
-    @if(Model.IdKegiatan != null)
+    @if (Model.IdKegiatan != null && daftarIdFotoTanpaKegiatan != null && daftarIdFotoTanpaKegiatan.Count() > 0)
     {
         <script type="text/javascript">
 
