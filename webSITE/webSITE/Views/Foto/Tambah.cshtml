@@ -1,8 +1,48 @@
 ﻿@model TambahFotoVM
-
+@inject IRepositoriFoto RepositoriFoto
 @{
     ViewData["Title"] = "Tambah Foto";
     ViewData["Active"] = "Album";
+
+    var daftarIdFotoTanpaKegiatan = (await RepositoriFoto.GetAll())
+        .Where(f => f.IdKegiatan == null)
+        .Select(f => f.Id);
+}
+
+<style>
+    #daftarFoto {
+        width: 100%;
+        height: 250px;
+        overflow: scroll;
+    }
+
+        #daftarFoto img {
+            height: 250px;
+            width: auto;
+        }
+</style>
+
+@if (Model.IdKegiatan != null)
+{
+    <form id="formPindahFoto" method="post" asp-action="PindahFoto" asp-route-idKegiatan="@Model.IdKegiatan" class="container pt-5">
+        <div class="row">
+            <div class="d-flex justify-content-start align-items-center col-12" id="daftarFoto">
+                @foreach (var idFoto in daftarIdFotoTanpaKegiatan)
+                {
+                    <div class="mx-2 px-1" id="@idFoto">
+                        <img src="@Url.Action("Foto", "File", new {Area = "", id = idFoto})" alt="">
+                        <input type="checkbox" hidden value="@idFoto">
+                    </div>
+                }
+            </div>
+
+            <div class="col-12 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">
+                    Simpan
+                </button>
+            </div>
+        </div>
+    </form>
 }
 
 <form enctype="multipart/form-data" method="post" class="container pt-5" asp-action="Tambah">
@@ -111,11 +151,11 @@
 
                         $('#tagContainer').append(
                             `<div class="tag">
-                                                <div id="namaMahasiswa">` + nama + `</div>
-                                                <button type="button" class="close" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>`);
+                                                                                                                                                                                                <div id="namaMahasiswa">` + nama + `</div>
+                                                                                                                                                                                                <button type="button" class="close" aria-label="Close">
+                                                                                                                                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                                                                                                                                </button>
+                                                                                                                                                                                            </div>`);
                         AddRemoveAction();
                     }
                     else {
@@ -134,4 +174,60 @@
             });
         });
     </script>
+
+    @if(Model.IdKegiatan != null)
+    {
+        <script type="text/javascript">
+
+            $(function () {
+                const daftarFoto = $('#daftarFoto > div');
+                let activeIndex = -1;
+
+                const selectedStyle = {
+                    'background': 'blue'
+                };
+
+                const unselectedStyle = {
+                    'background': 'none'
+                };
+
+                $(daftarFoto).each((index, item) => {
+                    const fotoContainer = $(item).find('div')['prevObject'];
+                    const id = $(fotoContainer).attr('id');
+                    const checkBox = $(fotoContainer).find('input')['0'];
+
+                    $(fotoContainer).on('click', () => {
+                        const checked = $(checkBox).prop('checked');
+
+                        if (checked === true) {
+                            activeIndex = -1;
+                            $(checkBox).prop('checked', false);
+                            $(fotoContainer).css(unselectedStyle);
+                        } else {
+                            activeIndex = index;
+                            $(checkBox).prop('checked', true);
+                            $(fotoContainer).css(selectedStyle);
+
+                            $(daftarFoto).each((index, item) => {
+                                if (index != activeIndex) {
+                                    $($($(item).find('div')["prevObject"]).find('input')['0']).prop('checked', false);
+                                    $($(item).find('div')["prevObject"]).css(unselectedStyle);
+                                }
+                            });
+                        }
+                    });
+                });
+
+                $('form#formPindahFoto').on('submit', () => {
+                    let url = $('form#formPindahFoto').attr('action')
+                    const idFoto = $($(daftarFoto[activeIndex]).find('div')["prevObject"]).attr('id');
+
+                    url += ('&idFoto=' + idFoto);
+
+                    $('form#formPindahFoto').attr('action', url);
+                })
+            });
+
+        </script>
+    }
 }

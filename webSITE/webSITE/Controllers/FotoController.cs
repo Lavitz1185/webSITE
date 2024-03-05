@@ -270,6 +270,75 @@ namespace webSITE.Controllers
             return RedirectToAction(nameof(Album), new {idKegiatan = tambahFotoVM.IdKegiatan});
         }
 
+        [HttpPost]
+        public async Task<IActionResult> PindahFoto(int? idKegiatan, int idFoto)
+        {
+            var returnUrl = Url.Action(nameof(Album), new { idKegiatan }) ?? "/";
+            string namaAlbum = "Lain - Lain";
+
+            var foto = await _repositoriFoto.Get(idFoto);
+            if(foto == null)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Pindah Foto Gagal",
+                    Message = $"Foto dengan id {idFoto} tidak ada"
+                });
+
+                return Redirect(returnUrl);
+            }
+
+            if(idKegiatan != null)
+            {
+                var kegiatan = await _repositoriKegiatan.Get(idKegiatan.Value);
+                if(kegiatan == null)
+                {
+                    _notificationService.AddNotification(new ToastrNotification
+                    {
+                        Type = ToastrNotificationType.Error,
+                        Title = "Pindah Foto Gagal",
+                        Message = $"Kegiatan dengan id {idKegiatan} tidak ada"
+                    });
+
+                    return Redirect(returnUrl);
+                }
+                namaAlbum = kegiatan.NamaKegiatan;
+            }
+
+            if(foto.IdKegiatan == idKegiatan)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Pindah Foto Gagal",
+                    Message = $"Foto sudah ada di kegiatan {namaAlbum}"
+                });
+
+                return Redirect(returnUrl);
+            }
+
+            foto.IdKegiatan = idKegiatan;
+            var result = await _repositoriFoto.Update(foto);
+
+            if (result == null)
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Pindah Foto Gagal",
+                    Message = "Terjadi error pada server"
+                });
+            else
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Success,
+                    Title = "Pindah Foto Berhasil",
+                    Message = $"Foto dengan id {idFoto} berhasil dipindah ke kegiatan {namaAlbum}"
+                });
+
+            return Redirect(returnUrl);
+        }
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete(int id, string? returnUrl)
