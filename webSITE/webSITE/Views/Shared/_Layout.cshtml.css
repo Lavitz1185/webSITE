@@ -115,6 +115,10 @@ footer .container-fluid .quicklinks {
         transition: 0.2s ease;
     }
 
+.bapakmu.active {
+    color: orange;
+}
+
 footer .container-fluid .contact .info {
     position: relative;
 }
@@ -126,7 +130,7 @@ footer .container-fluid .contact .info {
     }
 
     footer .container-fluid .contact .info li span {
-        color: #555;
+        color: #ccc;
         font-size: 20px;
     }
 

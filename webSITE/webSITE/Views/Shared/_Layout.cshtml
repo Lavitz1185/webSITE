@@ -34,10 +34,10 @@
             <div class="sec quicklinks">
                 <h2>Link Cepat</h2>
                 <ul>
-                    <li><a class="bapakmu" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a class="bapakmu" asp-area="" asp-controller="Mahasiswa" asp-action="Index">Siters</a></li>
-                    <li><a class="bapakmu" asp-area="" asp-controller="Kegiatan" asp-action="Index">Kegiatan</a></li>
-                    <li><a class="bapakmu" asp-area="" asp-controller="Foto" asp-action="Index">Album</a></li>
+                    <li><a class="bapakmu" asp-area="" asp-controller="Home" asp-action="Index" onclick="setActive(this)">Home</a></li>
+                    <li><a class="bapakmu" asp-area="" asp-controller="Mahasiswa" asp-action="Index" onclick="setActive(this)">Siters</a></li>
+                    <li><a class="bapakmu" asp-area="" asp-controller="Kegiatan" asp-action="Index" onclick="setActive(this)">Kegiatan</a></li>
+                    <li><a class="bapakmu" asp-area="" asp-controller="Foto" asp-action="Index" onclick="setActive(this)">Album</a></li>
                 </ul>
             </div>
             <div class="sec contact">
@@ -101,6 +101,17 @@
 
     <script type="text/javascript">
         AOS.init();
+
+        function setActive(element) {
+            // Menghapus kelas 'active' dari semua elemen di dalam list
+            var links = document.querySelectorAll('.bapakmu');
+            links.forEach(function (link) {
+                link.classList.remove('active');
+            });
+
+            // Menambahkan kelas 'active' pada elemen yang diklik
+            element.classList.add('active');
+        }
 
         const activeLink = "@(ViewData["Active"] ?? "")";
 
