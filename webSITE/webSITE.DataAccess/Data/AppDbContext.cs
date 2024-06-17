@@ -54,7 +54,8 @@ namespace webSITE.DataAccess.Data
             string fotoProfilPath2 = @"wwwroot\img\SIte_Transparant.png";
             string fotoProfilPath3 = @"wwwroot\img\generaluser.png";
 
-            builder.Entity<Mahasiswa>().HasData(
+            var admin = new Mahasiswa[]
+            {
                 new Mahasiswa
                 {
                     Id = "1",
@@ -108,8 +109,31 @@ namespace webSITE.DataAccess.Data
                     NormalizedEmail = "Lavitz1185@gmail.com".ToUpper(),
                     UserName = "Lavitz1185@gmail.com",
                     NormalizedUserName = "Lavitz1185@gmail.com".ToUpper(),
-                }
-           );
+                },
+            };
+
+            var daftarMahasiswa = new Mahasiswa[] 
+            {
+
+            };
+
+            builder.Entity<Mahasiswa>().HasData(admin);
+
+            var defaultEmail = "site@undana.com";
+            builder.Entity<Mahasiswa>().HasData(daftarMahasiswa.Select((m ,i) => new Mahasiswa
+            {
+                Id = (4 + i).ToString(),
+                TanggalLahir = new DateTime(2005, 1, 1),
+                FotoProfil = File.ReadAllBytes(fotoProfilPath1),
+                StatusAkun = StatusAkun.Aktif,
+                Bio = "ILKOM #1",
+                Email = defaultEmail,
+                PasswordHash = new PasswordHasher<Mahasiswa>().HashPassword(null, "site"),
+                EmailConfirmed = true,
+                NormalizedEmail = defaultEmail.ToUpper(),
+                UserName = defaultEmail,
+                NormalizedUserName = defaultEmail.ToUpper(),
+            }));
 
             builder.Entity<IdentityRole>().HasData(
                 new IdentityRole
@@ -123,40 +147,71 @@ namespace webSITE.DataAccess.Data
                     Id = "2",
                     Name = "Admin",
                     NormalizedName = "ADMIN"
+                },
+                new IdentityRole
+                {
+                    Id = "3",
+                    Name = "SuperAdmin",
+                    NormalizedName = "SUPERADMIN"
                 }
             );
 
-            builder.Entity<IdentityUserRole<string>>().HasData(
-                new IdentityUserRole<string>()
+            builder.Entity<IdentityUserRole<string>>().HasData
+            (
+                new IdentityUserRole<string>
                 {
                     UserId = "1",
-                    RoleId = "1"
+                    RoleId = "1",
                 },
-                new IdentityUserRole<string>()
+                new IdentityUserRole<string>
                 {
                     UserId = "1",
                     RoleId = "2",
                 },
-                new IdentityUserRole<string>()
+                new IdentityUserRole<string>
+                {
+                    UserId = "1",
+                    RoleId = "3",
+                },
+                new IdentityUserRole<string>
                 {
                     UserId = "2",
-                    RoleId = "1"
+                    RoleId = "1",
                 },
-                new IdentityUserRole<string>()
+                new IdentityUserRole<string>
                 {
                     UserId = "2",
                     RoleId = "2",
                 },
-                new IdentityUserRole<string>()
+                new IdentityUserRole<string>
+                {
+                    UserId = "2",
+                    RoleId = "3",
+                },
+                new IdentityUserRole<string>
                 {
                     UserId = "3",
-                    RoleId = "1"
+                    RoleId = "1",
                 },
-                new IdentityUserRole<string>()
+                new IdentityUserRole<string>
                 {
                     UserId = "3",
                     RoleId = "2",
+                },
+                new IdentityUserRole<string>
+                {
+                    UserId = "3",
+                    RoleId = "3",
                 }
+            );
+
+            builder.Entity<IdentityUserRole<string>>().HasData
+            (
+                daftarMahasiswa.Select(m => new IdentityUserRole<string>
+                {
+                    UserId = m.Id,
+                    RoleId = "1",
+                }).ToArray()
             );
 
             builder.Entity<Kegiatan>().HasData(

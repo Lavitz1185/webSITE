@@ -29,10 +29,13 @@
         </select>
     </div>
 
-    <div class="col-md-6">
-        <label asp-for="@Model.Admin"></label>
-        <input type="checkbox" asp-for="@Model.Admin" />
-    </div>
+    @if (User.IsInRole("SuperAdmin"))
+    {
+        <div class="col-md-6">
+            <label asp-for="@Model.Admin"></label>
+            <input type="checkbox" asp-for="@Model.Admin" />
+        </div>
+    }
 
     <div class="col-md-4 d-flex justify-content-center">
         <button class="btn btn-primary" type="submit">Edit</button>
