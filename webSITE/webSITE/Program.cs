@@ -15,9 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 string connectionString = "";
 
 if (builder.Environment.IsDevelopment())
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 else
-    connectionString = builder.Configuration.GetConnectionString("PublishedConnection");
+    connectionString = builder.Configuration.GetConnectionString("PublishedConnection")!;
 
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.Configure<PhotoFileSettings>(builder.Configuration.GetSection("PhotoFileSettings"));
@@ -28,7 +28,7 @@ builder.Services.AddSession();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseNpgsql(connectionString);
     options.EnableSensitiveDataLogging(true);
     options.EnableDetailedErrors(true);
 });

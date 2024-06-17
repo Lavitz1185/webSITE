@@ -12,7 +12,7 @@ namespace webSITE.DataAccess.Data
     {
         private readonly PhotoFileSettings _photoFileSettings;
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, IOptions<PhotoFileSettings> photoFileOptions) 
+        public AppDbContext(DbContextOptions<AppDbContext> options, IOptions<PhotoFileSettings> photoFileOptions)
             : base(options)
         {
             _photoFileSettings = photoFileOptions.Value;
@@ -21,11 +21,10 @@ namespace webSITE.DataAccess.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
 
             builder.Entity<Mahasiswa>().HasKey(m => m.Id);
+
+            builder.Entity<Mahasiswa>().Property(m => m.TanggalLahir).HasColumnType("timestamp without time zone");
 
             builder.Entity<Kegiatan>().HasMany(k => k.DaftarMahasiswa)
                 .WithMany(m => m.DaftarKegiatan)
@@ -33,6 +32,8 @@ namespace webSITE.DataAccess.Data
                     l => l.HasOne<Mahasiswa>().WithMany().HasForeignKey(pk => pk.IdMahasiswa),
                     r => r.HasOne<Kegiatan>().WithMany().HasForeignKey(pk => pk.IdKegiatan)
                 );
+
+            builder.Entity<Kegiatan>().Property(m => m.Tanggal).HasColumnType("timestamp without time zone");
 
             builder.Entity<Mahasiswa>().HasMany(m => m.DaftarFoto)
                 .WithMany(f => f.DaftarMahasiswa)
@@ -44,6 +45,8 @@ namespace webSITE.DataAccess.Data
             builder.Entity<Foto>().HasOne(f => f.Kegiatan)
                 .WithMany(k => k.DaftarFoto)
                 .HasForeignKey(f => f.IdKegiatan);
+
+            builder.Entity<Foto>().Property(m => m.Tanggal).HasColumnType("timestamp without time zone");
 
             builder.Entity<Mahasiswa>().ToTable("TblMahasiswa");
 

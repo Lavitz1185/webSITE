@@ -135,8 +135,6 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> Index()
         {
-            TempData[Utility.AlertTempDataKey] = "Halo Exception! Hanya Test";
-
             var daftarFoto = await _repositoriFoto.GetAll();
             var daftarKegiatan = await _repositoriKegiatan.GetAllWithDetail();
 
