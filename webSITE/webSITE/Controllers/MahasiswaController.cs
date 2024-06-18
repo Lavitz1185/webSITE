@@ -5,6 +5,7 @@ using webSITE.Domain;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Services.Contracts;
 using webSITE.Models;
+using webSITE.Utilities;
 
 namespace webSITE.Controllers
 {
@@ -24,10 +25,15 @@ namespace webSITE.Controllers
             _notificationService = notificationService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageIndex)
         {
-            var listMahasiwa = (await _repositoriMahasiswa.GetAll()).Where(m => m.StatusAkun == StatusAkun.Aktif).ToList();
-            return View(listMahasiwa);
+            var listMahasiwa = (await _repositoriMahasiswa.GetAll())
+                .Where(m => m.StatusAkun == StatusAkun.Aktif)
+                .OrderBy(m => long.Parse(m.Nim));
+
+            var items = PaginatedList<Mahasiswa>.CreateAsync(listMahasiwa, pageIndex ?? 1, 12);
+
+            return View(items);
         }
 
         public async Task<IActionResult> Detail(string id)
