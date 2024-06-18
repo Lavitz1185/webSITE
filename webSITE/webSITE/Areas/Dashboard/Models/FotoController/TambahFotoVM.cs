@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace webSITE.Models.FotoController
+namespace webSITE.Areas.Dashboard.Models.FotoController
 {
     public class TambahFotoVM
     {

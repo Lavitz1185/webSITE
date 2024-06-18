@@ -1,0 +1,89 @@
+﻿.row {
+    width: 100%;
+    margin: 0;
+    padding: 1px 0px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.col {
+    flex-basis: calc(20% - 20px); /* 20% for laptop, adjust as needed */
+    margin-bottom: 20px;
+    padding: 1px;
+}
+
+::deep .tambah {
+    display: flex;
+    width: 100%;
+    height: 250px;
+    align-items: center;
+    padding: 1px;
+}
+
+    ::deep .tambah a {
+        display: flex;
+        height: 250px;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background-color: #a1a1a173;
+        font-size: 80px;
+        transition: .3s;
+    }
+
+        ::deep .tambah a:hover {
+            color: whitesmoke;
+            font-size: 90px;
+            background-color: #b0b0b0;
+        }
+
+::deep .top a {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 30px;
+    justify-content: center;
+    transition: .2s;
+    color: white;
+    background-color: rgb(35, 35, 85);
+}
+
+    ::deep .top a:hover {
+        opacity: 90%;
+        color: white;
+    }
+
+::deep .content {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+::deep .img-thumbnail {
+    padding: 0;
+    border-radius: 0;
+    width: 100%; /* lebar 100% dari wadah */
+    height: 100%; /* tinggi gambar terserah anda */
+    object-fit: cover; /* gambar dalam kotak cuy */
+    transition: .3s;
+    background-size: cover;
+}
+
+::deep .content:hover .img-thumbnail {
+    transform: scale(1.05);
+}
+
+::deep .top h2 {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-size: 30px;
+}

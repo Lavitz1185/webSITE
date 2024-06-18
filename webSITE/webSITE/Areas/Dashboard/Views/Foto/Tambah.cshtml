@@ -1,5 +1,6 @@
 ﻿@model TambahFotoVM
 @inject IRepositoriFoto RepositoriFoto
+@inject IRepositoriKegiatan RepositoriKegiatan
 @{
     ViewData["Title"] = "Tambah Foto";
     ViewData["Active"] = "Album";
@@ -56,7 +57,26 @@
         </div>
     </div>
 
-    <input type="text" asp-for="@Model.IdKegiatan" hidden="hidden">
+    @{
+        var showIdKegiatan = ViewData["showIdKegiatan"] as bool? ?? true;
+    }
+
+    @if(showIdKegiatan)
+    {
+        var daftarKegiatan = await RepositoriKegiatan.GetAll();
+        <label asp-for="@Model.IdKegiatan"></label>
+        <select asp-for="@Model.IdKegiatan">
+            @foreach(var kegiatan in daftarKegiatan)
+            {
+                <option value="@kegiatan.Id">@kegiatan.NamaKegiatan</option>
+            }
+            <option value="@null">Lain - Lain</option>
+        </select>
+    } 
+    else
+    {
+        <input type="text" asp-for="@Model.IdKegiatan" hidden="hidden">
+    }
 
     <div class="row mb-2">
         <div class="col">
@@ -110,7 +130,6 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <partial name="_DataTable" />
 
     <script>
         $(function () {
@@ -151,11 +170,11 @@
 
                         $('#tagContainer').append(
                             `<div class="tag">
-                                                                                                                                                                                                <div id="namaMahasiswa">` + nama + `</div>
-                                                                                                                                                                                                <button type="button" class="close" aria-label="Close">
-                                                                                                                                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                                                                                                                                </button>
-                                                                                                                                                                                            </div>`);
+                                <div id="namaMahasiswa">` + nama + `</div>
+                                <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>`);
                         AddRemoveAction();
                     }
                     else {

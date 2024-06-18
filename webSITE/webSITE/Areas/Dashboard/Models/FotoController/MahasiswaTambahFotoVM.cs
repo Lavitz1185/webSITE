@@ -1,4 +1,4 @@
-﻿namespace webSITE.Models.FotoController
+﻿namespace webSITE.Areas.Dashboard.Models.FotoController
 {
     public class MahasiswaTambahFotoVM
     {

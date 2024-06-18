@@ -1,0 +1,137 @@
+﻿@model List<AlbumVM>
+@{
+    ViewData["Title"] = "Album";
+    ViewData["Active"] = "Album";
+}
+
+<style>
+
+    .parent {
+        height: 320px;
+        overflow: hidden;
+        border-radius: 5px;
+        padding: 0px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+    }
+
+    .child {
+        width: 100%; /* lebar 100% dari wadah */
+        height: 100%; /* tinggi gambar terserah anda */
+        object-fit: cover; /* gambar dalam kotak cuy */
+        transition: .5s;
+        background-size: cover;
+    }
+
+    .parent:hover .child {
+        transform: scale(1.1);
+        cursor: pointer;
+        filter: brightness(70%);
+    }
+
+    .parent:hover .content {
+        opacity: 0.8;
+        color: white;
+    }
+
+    .card {
+        border-radius: 15px;
+        box-shadow: 0px 2px 8px 0px #b0bec5;
+        transition: 1s;
+    }
+
+    .card-body {
+        padding: 14px;
+        margin-top: 0px;
+    }
+
+    .content {
+        position: absolute;
+        top: 0;  
+        left: 0;
+        color: white;
+        opacity: 0;
+        transition: 0.2s ease-in-out;
+        height: 320px;
+        width: 100%;
+    }
+
+        .content h3 {
+            font-size: 45px;
+        }
+
+        .content a {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+    .btn-primary {
+        border-radius: 50px;
+        width: 170px;
+    }
+
+        .btn-primary:hover {
+            background-color: black;
+        }
+
+    h5 {
+        font-weight: 700;
+        color: rgb(35, 35, 85);
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+</style>
+
+
+
+<div class="container-fluid py-5">
+    <h2 class="text-center animate__animated animate__fadeInDown">Album Mahasiswa</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 py-5 animate__animated animate__fadeInLeftBig">
+
+        @foreach (var fotoViewModel in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="parent">
+
+                        @if(fotoViewModel.IdThumbnail == null)
+                        {
+                            <img src=""
+                                 class="child"
+                                 alt="...">
+                        }
+                        else
+                        {
+                            <img src="@Url.Action("Foto", "File", new {Area = "", Id = fotoViewModel.IdThumbnail})"
+                                 class="child"
+                                 alt="...">
+                        }
+
+                        <div class="content">
+                            <a asp-action="Album" asp-controller="Foto" asp-route-idKegiatan="@fotoViewModel.IdKegiatan">
+                                <h3>Select</h3>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title">@fotoViewModel.NamaKegiatan</h1>
+                        <h4 class="card-text">@fotoViewModel.JumlahFoto</h4>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
