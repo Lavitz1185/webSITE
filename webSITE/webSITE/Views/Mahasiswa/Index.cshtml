@@ -3,9 +3,7 @@
     ViewData["title"] = "Siters";
     ViewData["Active"] = "Siters";
 }
-
 <style>
-
     :root {
         --clr-primary: #651fff;
         --clr-primary2: #651fff;
@@ -25,13 +23,11 @@
 
     .wrapper-grid {
         display: grid;
-        grid-template-columns: minmax(300px, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* Default to 2 columns */
         justify-content: center;
         grid-gap: 2rem;
         margin: 1rem;
     }
-
-
 
     .container-siters {
         box-shadow: 0px 2px 8px 0px var(--clr-gray-light);
@@ -42,10 +38,8 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        padding-top: 20px;
+        padding: 20px;
     }
-
-
 
     .profile-img {
         width: 8rem;
@@ -55,24 +49,25 @@
     }
 
     .name-profile {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        margin-top: 0.5rem;
     }
 
     .name2-profile {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        margin-top: 0.2rem;
     }
 
     .bio {
         margin: 1rem auto;
         font-size: 0.9rem;
-        width: 50%;
+        width: 80%;
         text-align: center;
     }
 
-
     .btn-profile {
         box-sizing: border-box;
-        width: calc(100% + 40px);
+        width: 100%;
         border: none;
         font-size: 1rem;
         font-weight: bold;
@@ -80,30 +75,42 @@
         background: #6b43ff;
         padding: 1rem;
         margin-top: auto;
-        margin-left: -20px;
         text-decoration: none;
     }
 
-        .btn-profile:hover {
-            text-decoration: none;
-            background: #5222fd;
-            color: white;
-        }
+    .btn-profile:hover {
+        text-decoration: none;
+        background: #5222fd;
+        color: white;
+    }
 
+    .text-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .name-profile,
+    .name2-profile {
+        width: 100%;
+    }
 </style>
 
 <h2 class="text-center pt-5 animate__animated animate__fadeInDown">Mahasiswa SITE22</h2>
+
 <div class="wrapper-grid pt-5 animate__animated animate__fadeInLeftBig mb-5 pb-5">
     @foreach (var mahasiswa in Model)
-    {
+    {  
         <div class="container-siters">
-            <div class="banner-img"></div>
+            <div class="banner-img"></div>       
             <img src="@Url.ActionLink("FotoProfil", "File", new {Id = mahasiswa.Id, Area = ""})" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
-            <h1 class="name-profile">@mahasiswa.NamaLengkap</h1>
-            <h1 class="name2-profile">@mahasiswa.Nim</h1>
+            <div class="text-container">          
+                <h1 class="name-profile">@mahasiswa.NamaLengkap</h1>           
+                <h1 class="name2-profile">@mahasiswa.Nim</h1>
+            </div>         
             <p class="bio">
                 @mahasiswa.Bio
-            </p>
+            </p>          
             <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-id="@mahasiswa.Id" class="btn-profile">Cek Profile</a>
         </div>
     }

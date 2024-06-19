@@ -1,8 +1,4 @@
-﻿/* Form Siters */
-/* Diatur Sesuai keperluan */
-
-
-@media screen and (min-width: 500px) {
+﻿@media screen and (min-width: 500px) {
     .wrapper-grid {
         grid-template-columns: repeat(2, 1fr);
     }
