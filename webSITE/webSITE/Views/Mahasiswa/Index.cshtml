@@ -3,10 +3,11 @@
     ViewData["title"] = "Siters";
     ViewData["Active"] = "Siters";
 }
+
 <style>
     :root {
-        --clr-primary: #651fff;
-        --clr-primary2: #651fff;
+        --clr-primary: #6b43ff;
+        --clr-primary2: #5222fd;
         --clr-gray: #37474f;
         --clr-gray-light: #b0bec5;
     }
@@ -23,7 +24,7 @@
 
     .wrapper-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Default to 2 columns */
+        grid-template-columns: repeat(2, 1fr);
         justify-content: center;
         grid-gap: 2rem;
         margin: 1rem;
@@ -66,7 +67,8 @@
     }
 
     .btn-profile {
-        box-sizing: border-box;
+        box-sizing: border-box; 
+        border-radius: 10px;
         width: 100%;
         border: none;
         font-size: 1rem;
@@ -76,13 +78,14 @@
         padding: 1rem;
         margin-top: auto;
         text-decoration: none;
+        display: inline-block;
     }
 
-    .btn-profile:hover {
-        text-decoration: none;
-        background: #5222fd;
-        color: white;
-    }
+        .btn-profile:hover {
+            text-decoration: none;
+            background: #5222fd;
+            color: white;
+        }
 
     .text-container {
         display: flex;
@@ -94,23 +97,94 @@
     .name2-profile {
         width: 100%;
     }
+
+    /* Pencarian */
+    .search-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+        border-radius: 1rem;
+    }
+
+    .search-input {
+        width: 43%; /* Disini Atur Panjang Container Pencariannya bang Albert */
+        padding: 10px;
+        border: 1.5px solid var(--clr-gray-light);
+        border-radius: 5px 0 0 5px;
+        font-size: 1rem;
+        margin-right: 0;
+    }
+
+    .search-button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: var(--clr-primary);
+        border: none;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+    }
+
+        .search-button:hover {
+            background-color: var(--clr-primary2);
+        }
+    /* Akhir Pencarian */
+
+    /* Tombol Sebelumnya dan Selanjutnya */
+    .pagination-container {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .pagination-button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: var(--clr-primary);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 5px;
+        text-decoration: none;
+    }
+
+        .pagination-button.disabled {
+            background-color: var(--clr-gray-light);
+            cursor: not-allowed;
+            color: white;
+        }
+
+        .pagination-button:hover:not(.disabled) {
+            background-color: var(--clr-primary2);
+            color: white;
+        }
+    /* Akhir Tombol Sebelumnya dan Selanjutnya */
 </style>
 
 <h2 class="text-center pt-5 animate__animated animate__fadeInDown">Mahasiswa SITE22</h2>
 
-<div class="wrapper-grid pt-5 animate__animated animate__fadeInLeftBig mb-5 pb-5">
+<div class="search-container">
+    <input type="text" class="search-input" placeholder="Cari mahasiswa...">
+    <button class="search-button">Cari</button>
+</div>
+
+<div class="wrapper-grid pt-5 animate__animated animate__fadeInLeftBig pb-4">
     @foreach (var mahasiswa in Model)
-    {  
+    {
         <div class="container-siters">
-            <div class="banner-img"></div>       
             <img src="@Url.ActionLink("FotoProfil", "File", new {Id = mahasiswa.Id, Area = ""})" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
-            <div class="text-container">          
-                <h1 class="name-profile">@mahasiswa.NamaLengkap</h1>           
+            <div class="text-container">
+                <h1 class="name-profile">@mahasiswa.NamaPanggilan</h1>
                 <h1 class="name2-profile">@mahasiswa.Nim</h1>
-            </div>         
+            </div>
             <p class="bio">
                 @mahasiswa.Bio
-            </p>          
+            </p>
             <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-id="@mahasiswa.Id" class="btn-profile">Cek Profile</a>
         </div>
     }
@@ -121,13 +195,15 @@
     var nextDisabled = Model.HasNextPage ? "" : "disabled";
 }
 
-<a class="btn btn-default @prevDisabled"
-   asp-action="Index"
-   asp-route-pageIndex="@(Model.PageIndex - 1)">
-    Sebelumnya
-</a>
-<a class="btn btn-default @nextDisabled"
-   asp-action="Index"
-   asp-route-pageIndex="@(Model.PageIndex + 1)">
-    Selanjutnya
-</a>
+<div class="pagination-container mb-4">
+    <a class="pagination-button btn @prevDisabled"
+       asp-action="Index"
+       asp-route-pageIndex="@(Model.PageIndex - 1)">
+        Sebelumnya
+    </a>
+    <a class="pagination-button btn @nextDisabled"
+       asp-action="Index"
+       asp-route-pageIndex="@(Model.PageIndex + 1)">
+        Selanjutnya
+    </a>
+</div>

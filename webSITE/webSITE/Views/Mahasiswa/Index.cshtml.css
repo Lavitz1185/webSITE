@@ -1,6 +1,11 @@
-﻿@media screen and (min-width: 500px) {
+﻿/* Responsive */
+@media screen and (max-width: 600px) {
     .wrapper-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .search-input {
+        width: 75%;
     }
 }
 
@@ -14,4 +19,9 @@
     .wrapper-grid {
         grid-template-columns: repeat(4, 1fr);
     }
+
+    .search-container {
+        padding: 0;    
+    }   
 }
+/* Akhir Responsive */

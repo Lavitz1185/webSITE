@@ -18,9 +18,9 @@
 }
 
 #home .list {
-    position: relative; /* Tambahkan ini untuk memastikan posisi relatif */
-    height: 100vh; /* Sesuaikan ketinggian */
-    width: 100%; /* Sesuaikan lebar */
+    position: relative; 
+    height: 100vh; 
+    width: 100%;
 }
 
 #home .item {
@@ -161,11 +161,10 @@
             width: 30px;
             opacity: 80%;
         }
-
+/* Home */
 
 
 /* About Us */
-
 #about-container {
     display: flex;
     align-items: center;
@@ -217,9 +216,10 @@
                     font-size: 16px;
                     color: #29303B;
                 }
+/* Akhir About Us */
+
 
 /*Profile*/
-
 #experts {
     padding: 0 8vw 0 8vw;
     text-align: center;
@@ -240,9 +240,9 @@
             #experts ::deep .expert-box .profile h6 {
                 padding-top: 10px;
             }
+/*Akhir Profile*/
 
-
-/*Kontak dan Laporkan Error*/
+/* Kontak */
 #contact {
     padding: 5vw 8vw 5vw 8vw;
     display: flex;
@@ -270,7 +270,6 @@
     padding-bottom: 20px;
     border-bottom: 1px solid #e5e4ed
 } 
-
 
 #contact .kontak h3{
     color: #2c234d;
@@ -350,7 +349,6 @@
     margin-bottom: 20px;
 }
 
-
 #contact .laporkan button {
     font-size: .9rem;
     padding: 13px 25px;
@@ -381,8 +379,9 @@
     border: 1px solid rgb(21, 21, 100);
     cursor: pointer;
 }
+/* Akhir Kontak */
 
-
+/* Map */
 #map {
     width: 100%;
     height: 60vh;
@@ -392,43 +391,30 @@
     width : 100%;
     height : 100%;
 }
+/* Akhir Map */
 
 
-
-
-
+/* Responsive */
 @media (max-width: 769px) {
     #home ::deep p {
         width: 75%;
     }
-
     #about-container {
         padding: 2vw 4vw 2vw 4vw;
     }
-
         #about-container ::deep .about-img {
             padding-right: 30px;
         }
-
-    /*#contact {
-        padding: 8vw 4vw;
-    }
-
-    #contact .kontak {
-        width: 250px;
-    }*/
 }
 
 @media (max-width:670px) {
     #about-container {
         flex-direction: column-reverse;
     }
-
         #about-container ::deep .about-img {
             width: 100%;
             padding-right: 0px;
         }
-
         #about-container ::deep .about-text {
             width: 100%;
             padding-bottom: 20px;
@@ -464,5 +450,6 @@
         width : 100%;
     }
 }
+/* Akhir Responsive */
 
 

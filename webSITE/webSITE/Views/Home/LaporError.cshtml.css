@@ -1,57 +1,10 @@
-﻿/*Kontak dan Laporkan Error*/
+﻿/* Kontak dan Laporkan Error */
 #contact {
-    padding: 2vw 8vw 2vw 8vw;
+    padding: 2vw 8vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-    /*#contact .kontak {
-            width: 330px;
-        }
-
-            #contact .kontak h2 {
-                color: #2c234d;
-                font-size: 30px;
-                font-weight: 800;
-                line-height: .8;
-                margin-bottom: 16px;
-            }
-
-
-            #contact .kontak p {
-                color: #686875;
-                line-height: 24px;
-                margin-bottom: 20px;
-                padding-bottom: 20px;
-                border-bottom: 1px solid #e5e4ed
-            }
-
-
-            #contact .kontak h3 {
-                color: #2c234d;
-                font-size: 16px;
-                font-weight: 600;
-                line-height: 26px;
-                margin-bottom: 15px;
-            }
-
-            #contact .kontak .kontak-details div {
-                display: flex;
-            }
-
-                #contact .kontak .kontak-details div .get {
-                    font-size: 16px;
-                    line-height: 22px;
-                    color: #5838fc;
-                    margin-right: 20px;
-                }
-
-                #contact .kontak .kontak-details div p {
-                    border-bottom: none;
-                    line-height: 22px;
-                    margin-bottom: 30px;
-                }*/
 
     #contact .laporkan {
         width: 80%;
@@ -106,21 +59,16 @@
             margin-bottom: 20px;
         }
 
-
-        #contact .laporkan button {
-            font-size: .9rem;
-            padding: 13px 25px;
-            background: rgb(21, 21, 100);
-            border-radius: 5px;
-            outline: none;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            color: #ffffff;
+        #contact .laporkan .laporkan-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
         }
 
-        #contact ::deep .laporkan a {
-            font-size: .9rem;
+        #contact .laporkan button,
+        #contact .laporkan a {
+            font-size: 0.9rem;
             padding: 13px 25px;
             background: rgb(21, 21, 100);
             border-radius: 5px;
@@ -129,7 +77,10 @@
             font-weight: 600;
             cursor: pointer;
             color: #ffffff;
+            text-align: center;
             text-decoration: none;
+            width: 100%;
+            margin-bottom: 10px;
         }
 
 #pro-links {
@@ -150,3 +101,56 @@
         border: 1px solid rgb(21, 21, 100);
         cursor: pointer;
     }
+
+/* Responsive */
+@media (max-width: 1300px) {
+    #contact {
+        padding: 4vw 1vw 2vw 4vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 600px) {
+    #contact {
+        padding: 10vw 10vw;
+    }
+
+        #contact .laporkan {
+            width: 100%;
+            padding: 20px;
+        }
+
+            #contact .laporkan .laporkan-row {
+                flex-direction: column;
+            }
+
+                #contact .laporkan .laporkan-row input {
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+
+            #contact .laporkan .laporkan-col {
+                width: 100%;
+            }
+
+                #contact .laporkan .laporkan-col input,
+                #contact .laporkan .laporkan-col textarea {
+                    width: 100%;
+                }
+
+            #contact .laporkan .laporkan-col {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+                #contact .laporkan .laporkan-col button,
+                #contact .laporkan .laporkan-col a {
+                    width: 100%;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+}
+/* Akhir Responsive */
