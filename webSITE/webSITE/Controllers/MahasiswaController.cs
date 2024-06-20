@@ -6,6 +6,7 @@ using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Services.Contracts;
 using webSITE.Models;
 using webSITE.Utilities;
+using Microsoft.IdentityModel.Tokens;
 
 namespace webSITE.Controllers
 {
@@ -25,11 +26,19 @@ namespace webSITE.Controllers
             _notificationService = notificationService;
         }
 
-        public async Task<IActionResult> Index(int? pageIndex)
+        public async Task<IActionResult> Index(int? pageIndex, string? searchString)
         {
-            var listMahasiwa = (await _repositoriMahasiswa.GetAll())
+            IEnumerable<Mahasiswa> listMahasiwa = (await _repositoriMahasiswa.GetAll())
                 .Where(m => m.StatusAkun == StatusAkun.Aktif)
                 .OrderBy(m => long.Parse(m.Nim));
+
+            if (searchString != null && !searchString.IsNullOrEmpty()) 
+            { 
+                listMahasiwa = listMahasiwa
+                    .Where(m => m.NamaLengkap.ToLower().Contains(searchString.ToLower()) || m.NamaPanggilan.ToLower().Contains(searchString.ToLower()));
+            }
+
+            ViewData["searchString"] = searchString;
 
             var items = PaginatedList<Mahasiswa>.CreateAsync(listMahasiwa, pageIndex ?? 1, 12);
 

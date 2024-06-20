@@ -67,7 +67,7 @@
     }
 
     .btn-profile {
-        box-sizing: border-box; 
+        box-sizing: border-box;
         border-radius: 10px;
         width: 100%;
         border: none;
@@ -168,10 +168,12 @@
 
 <h2 class="text-center pt-5 animate__animated animate__fadeInDown">Mahasiswa SITE22</h2>
 
-<div class="search-container animate__animated animate__fadeIn">
-    <input type="text" class="search-input" placeholder="Cari mahasiswa...">
-    <button class="search-button">Cari</button>
-</div>
+<form asp-action="Index" method="get">
+    <div class="search-container animate__animated animate__fadeIn">
+        <input type="text" name="searchString" class="search-input" placeholder="Cari mahasiswa..." value="@ViewData["searchString"]">
+        <button type="submit" class="search-button">Cari</button>
+    </div>
+</form>
 
 <div class="wrapper-grid pt-5 animate__animated animate__fadeInLeftBig pb-4">
     @foreach (var mahasiswa in Model)
