@@ -26,16 +26,38 @@
         transition: .2s ease-in-out;
     }
 
+/* tombol info */
+#detail {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 20px;
+    border: 2px solid white;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    background-color: transparent; 
+    cursor: pointer
+}
+
+#detail:hover {
+    background-color: white;
+    color: black;
+}
+
 .details {
     position: absolute;
     top: 0;
     right: 0;
     height: 100%;
-    width: 50%;
+    width: 30%;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8);
     color: azure;
-    transition: .2s ease;
+    transition: right .2s ease-in-out;
+    overflow-y: auto;
     display: none;
 }
 
@@ -48,6 +70,10 @@
         font-family: monospace;
         font-size: 50px;
         transition: .2s ease-in-out;
+    }
+
+    .details .info-image {
+        filter: brightness(0) invert(1);
     }
 
 .list {

@@ -10,12 +10,17 @@
         <a asp-action="Album" asp-route-idKegiatan="@ViewData["IdKegiatan"]"
            class="close">&times;</a>
         <h3 class="text-center">@ViewData["NamaKegiatan"]</h3>
-        <button id="detail" class="btn btn-primary">
+        <a id="detail">&iexcl;</a>
+        @* <span id="detail">
+            <img src="/img/information.png" width="30" height="30" class="info-image"/>
+        </span> *@
+        @* <img src="~/img/info.png" alt="" id="detail" /> *@
+        @* <button id="detail" class="btn btn-primary">
             ...
-        </button>
+        </button> *@
     </div>
 
-    <div class="details animate__animated animate__fadeInRight">
+    <div class="details ">
         <div class="d-flex justify-content-between align-items-center px-4">
             <button class="close me-4">&times;</button>
             <h5>Detail Foto</h5>
@@ -28,13 +33,14 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <label for="tanggalFoto">Tanggal</label>
+                    <label for="tanggalFoto">Tanggal Upload</label>
                     <div id="tanggalFoto"></div>
                 </div>
             </div>
+            <br />
             <div class="row">
                 <div class="col-12">
-                    <label for="daftarMahasiswa">Dalam Foto</label>
+                    <label for="daftarMahasiswa">Dalam Foto:</label>
                     <div id="daftarMahasiswa"></div>
                 </div>
             </div>
