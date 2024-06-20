@@ -5,7 +5,6 @@
 }
 
 <style>
-
     .parent {
         height: 320px;
         overflow: hidden;
@@ -139,6 +138,48 @@
     {
         var daftarFoto = Model.SelectMany(a => a.DaftarFoto ?? new List<Foto>()).OrderBy(f => f.Id).ToList();
 
+        @foreach (var foto in daftarFoto)
+        {
+            <!-- Modal -->
+            <div class="modal fade" id="modal@(foto.Id)" tabindex="-1" aria-labelledby="modal@(foto.Id)" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered custom-modal">
+                    <div class="modal-content">
+                        <div class="kepala-modal">
+                            <h2 class="aku-h2" id="exampleModalLabel">Daftar Peserta</h2>
+                            @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="container">
+                                @*<h2 class="aku-h2">Anggota Peserta</h2>*@
+                                <ul class="responsive-table">
+                                    <li class="table-header">
+                                        <div class="col col-1 text-center">Foto</div>
+                                        <div class="col col-2 text-center">NIM</div>
+                                        <div class="col col-4 text-center">Nama</div>
+                                    </li>
+                                    @foreach (var mahasiswa in foto.DaftarMahasiswa)
+                                    {
+                                        <li class="table-row">
+                                            <div class="col col-1 text-center" @*data-label="Foto"*@>
+                                                <img src="@Url.Action("FotoProfil", "File", new { Area = "", id = mahasiswa.Id })" alt="" class="img-thumbnail">
+                                            </div>
+                                            <div class="col col-2 text-center" @*data-label="NIM"*@>@mahasiswa.Nim</div>
+                                            <div class="col col-4 text-center" @*data-label="Nama"*@>@mahasiswa.NamaLengkap</div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -164,8 +205,16 @@
                                 <a class="btn btn-primary">
                                     <i class="fas fa-pen-square fa-lg"></i>
                                 </a>
-                                <a class="btn btn-warning"><i class="fa fa-regular fa-eye"></i></a>
-                                <a class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></a>
+
+                                <button class="btn btn-warning" type="button"
+                                        data-bs-toggle="modal" data-bs-target="#modal@(foto.Id)">
+                                    <i class="fa fa-regular fa-eye"></i>
+                                </button>
+
+                                <form asp-action="Delete" asp-route-id="@foto.Id"
+                                      asp-route-returnUrl="@Url.Action("Index", "Foto", new {Area = "Dashboard", view="list"})">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
+                                </form>
                             </div>
                         </td>
                     </tr>

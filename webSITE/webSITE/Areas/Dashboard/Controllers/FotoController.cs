@@ -141,7 +141,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             view ??= "album";
             ViewData["view"] = view;
 
-            var daftarFoto = await _repositoriFoto.GetAll();
+            var daftarFoto = await _repositoriFoto.GetAllWithDetail();
             var daftarKegiatan = await _repositoriKegiatan.GetAllWithDetail();
 
             List<AlbumVM> viewModel = new List<AlbumVM>();
@@ -158,7 +158,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                         IdThumbnail = fotoThumbnail.Id,
                         JumlahFoto = kegiatan.DaftarFoto.Count(),
                         Tanggal = fotoThumbnail.Tanggal,
-                        DaftarFoto = kegiatan.DaftarFoto.ToList(),
+                        DaftarFoto = daftarFoto.Where(f => f.IdKegiatan == kegiatan.Id).ToList(),
                     });
                 }
                 else
