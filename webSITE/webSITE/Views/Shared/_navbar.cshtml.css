@@ -1,5 +1,4 @@
-﻿/* Navigation */
-
+﻿/* navigation */
 nav {
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
     background: rgb(255, 255, 255, 1);
@@ -7,8 +6,8 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1002;
-    transition: background .4s ease-in;    
+    z-index: 1001;
+    transition: background .4s ease-in;
     min-height: 5rem;
 }
 
@@ -29,7 +28,6 @@ nav {
     font-size: 16px;
     font-weight: 500;
     transition: 0.3s ease;
-    display: inline-block;
 }
 
     ::deep .nav-link.active {
@@ -38,6 +36,107 @@ nav {
         transition: .6s;
     }
 
-::deep .nav-link:hover {
-    color: #FDC93B;
+    ::deep .nav-link:hover {
+        color: #FDC93B;
+    }
+
+.menu-img, .close-img {
+    transition: transform 0.4s ease;
+}
+
+    .menu-img:active, .close-img:active {
+        transform: scale(0.7);
+    }
+
+/* Side Menu */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background-color: white;
+    box-shadow: 4px 0 4px rgba(0, 0, 0, 0.3);
+    z-index: 1003;
+    transition: left 0.3s ease-in-out;
+    overflow-y: auto;
+    display: none;
+    padding: 20px;
+}
+
+    .side-menu .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .side-menu .navbar-toggler-icon {
+        cursor: pointer;
+        align-self: flex-end;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        /*background-color: rgba(211, 211, 211, 0.8);
+        border-radius: 50%;
+        backdrop-filter: blur(5px);*/
+    }
+
+        .side-menu .navbar-toggler-icon img {
+            width: 23px;
+            height: 23px;
+        }
+
+    .side-menu .nav-link {
+        color: #333;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+        .side-menu .nav-link:hover {
+            color: #FDC93B;
+        }
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1002;
+    display: none;
+    backdrop-filter: blur(5px);
+}
+
+.side-menu.open {
+    left: 0;
+    display: block;
+}
+
+.overlay.show {
+    display: block;
+}
+
+@media (max-width: 992px) {
+    .collapse.navbar-collapse {
+        display: none;
+    }
+
+    .side-menu {
+        display: block;
+    }
+
+    .navbar-toggler {
+        display: block;
+    }
+}
+
+@media (min-width: 993px) {
+    .navbar-toggler {
+        display: none;
+    }
 }

@@ -4,7 +4,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     var user = await UserManager.GetUserAsync(User);
-    <li class="nav-item align-items-center">
+    <li class="nav-item align-items-center" style="padding: 0px 20px">
         <img src="@Url.Action("FotoProfil", "File", new {Area = "", id = user.Id})"
              class="user-pic" />
         <div class="sub-menu-wrap" id="subMenu">
@@ -56,14 +56,22 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script>
-        $('document').ready(function () {
+        $(document).ready(function () {
             const subMenu = $("#subMenu");
 
-            const toggleMenu = () => {
+            const toggleMenu = (e) => {
+                e.stopPropagation();
                 $(subMenu).toggleClass('open-menu');
             }
 
+            const closeMenu = (e) => {
+                if (!$(e.target).closest('#subMenu').length && !$(e.target).closest('.user-pic').length) {
+                    $(subMenu).removeClass('open-menu');
+                }
+            }
+
             $('.user-pic').on('click', toggleMenu);
+            $(document).on('click', closeMenu);
         });
     </script>
 }
