@@ -65,7 +65,7 @@
     {
         var daftarKegiatan = await RepositoriKegiatan.GetAll();
         <label asp-for="@Model.IdKegiatan"></label>
-        <select asp-for="@Model.IdKegiatan">
+        <select asp-for="@Model.IdKegiatan" class="form-control">
             @foreach(var kegiatan in daftarKegiatan)
             {
                 <option value="@kegiatan.Id">@kegiatan.NamaKegiatan</option>
@@ -86,22 +86,22 @@
             <table class="table table-bordered" id="tbmahasiswa">
                 <thead>
                     <tr>
-                        <th>Nama</th>
+                        <th>Nama Mahasiswa</th>
                     </tr>
                 </thead>
                 <tbody id="tbbody">
-                    @for (int i = 0; i < Model.DaftarMahasiswaTambahFotoVM.Length; i++)
+                    @for (int i = 0; i < Model.DaftarMahasiswaTambahFotoVM.Count; i++)
                     {
                         <tr>
                             <td>
                                 <input class="form-control" value="@Model.DaftarMahasiswaTambahFotoVM[@i].Id"
-                                       id="idMahasiswa" hidden="hidden"
+                                       id="idMahasiswa" hidden
                                        asp-for="@Model.DaftarMahasiswaTambahFotoVM[@i].Id">
                                 <input id="namaMahasiswa"
                                        value="@Model.DaftarMahasiswaTambahFotoVM[@i].NamaLengkap"
                                        readonly="true"
                                        asp-for="@Model.DaftarMahasiswaTambahFotoVM[@i].NamaLengkap" />
-                                <input type="checkbox" id="checkBoxMahasiswa" hidden="hidden"
+                                <input type="checkbox" id="checkBoxMahasiswa" hidden
                                        asp-for="@Model.DaftarMahasiswaTambahFotoVM[@i].DalamFoto">
                             </td>
                         </tr>
@@ -124,38 +124,39 @@
             <button class="btn btn-primary" id="btnAjaxSubmit" type="submit">Tambah Foto</button>
         </div>
     </div>
-    <a asp-action="Album" asp-route-idKegiatan="@Model.IdKegiatan">Kembali</a>
+    <a asp-action="Index">Kembali</a>
 </form>
 
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <partial name="_DataTableScroll" />
 
     <script>
-        $(function () {
-            const AddRemoveAction = function () {
-                $('button.close').each(function (index, item) {
-                    $(item).click(function () {
-                        let nama = $(this).siblings('#namaMahasiswa').text();
+        const addRemoveAction = function () {
+            $('button.close').each(function (index, item) {
+                $(item).click(function () {
+                    let nama = $(this).siblings('#namaMahasiswa').text();
 
-                        $('#tbbody').find('tr').each(function (index, item) {
-                            let found = $(item).find('#namaMahasiswa').val() == nama;
+                    $('#tbbody').find('tr').each(function (index, item) {
+                        let found = $(item).find('#namaMahasiswa').val() == nama;
 
-                            if (found) {
-                                $(item).find('#checkBoxMahasiswa').attr('checked', false);
-                                $(item).css({
-                                    'background': 'white',
-                                    'color': 'black'
-                                });
-                            }
-                        });
-
-                        $(this).parent().remove();
+                        if (found) {
+                            $(item).find('#checkBoxMahasiswa').attr('checked', false);
+                            $(item).css({
+                                'background': 'white',
+                                'color': 'black'
+                            });
+                        }
                     });
-                });
-            };
 
-            $('#tbbody > tr').click(function () {
+                    $(this).parent().remove();
+                });
+            });
+        };
+
+        $('#tbbody > tr').each(function (index, item) {
+            $(item).on('click', function () {
                 $(this).find('#checkBoxMahasiswa').attr('checked', function (i, org) {
 
                     let newOrg = !org;
@@ -170,12 +171,12 @@
 
                         $('#tagContainer').append(
                             `<div class="tag">
-                                <div id="namaMahasiswa">` + nama + `</div>
-                                <button type="button" class="close" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>`);
-                        AddRemoveAction();
+                            <div id="namaMahasiswa">` + nama + `</div>
+                            <button type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>`);
+                        addRemoveAction();
                     }
                     else {
                         $(this).parents('tr').css({

@@ -201,7 +201,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                     Id = m.Id,
                     NamaLengkap = m.NamaLengkap,
                     DalamFoto = false
-                }).ToArray();
+                }).ToList();
 
             ViewData["showIdKegiatan"] = showIdKegiatan;
 

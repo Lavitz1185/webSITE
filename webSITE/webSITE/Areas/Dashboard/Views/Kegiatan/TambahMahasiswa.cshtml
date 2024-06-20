@@ -72,7 +72,7 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <partial name="_DataTable" />
+    <partial name="_DataTableScroll" />
 
     <script type="text/javascript">
 
@@ -82,13 +82,13 @@
 
         const addTag = (idMahasiswa, namaMahasiswa) => {
             $('#tagContainer').append(`
-                             <div id="` + idMahasiswa + `" class="tag">
-                                 <div id="namaMahasiswa">`+ namaMahasiswa + `</div>
-                                 <button type="button" class="close" aria-label="Close">
-                                     <span aria-hidden="true">&times;</span>
-                                 </button>
-                             </div>
-                             `);
+            <div id="` + idMahasiswa + `" class="tag">
+                <div id="namaMahasiswa">`+ namaMahasiswa + `</div>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            `);
 
             $('#tagContainer #' + idMahasiswa + ' .close').on('click', function () {
                 removeTag(idMahasiswa);
