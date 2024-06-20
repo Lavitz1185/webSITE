@@ -135,8 +135,12 @@ namespace webSITE.Areas.Dashboard.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? view)
+        //view = "album"/"list"
         {
+            view ??= "album";
+            ViewData["view"] = view;
+
             var daftarFoto = await _repositoriFoto.GetAll();
             var daftarKegiatan = await _repositoriKegiatan.GetAllWithDetail();
 
@@ -154,6 +158,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                         IdThumbnail = fotoThumbnail.Id,
                         JumlahFoto = kegiatan.DaftarFoto.Count(),
                         Tanggal = fotoThumbnail.Tanggal,
+                        DaftarFoto = kegiatan.DaftarFoto.ToList(),
                     });
                 }
                 else
@@ -177,7 +182,8 @@ namespace webSITE.Areas.Dashboard.Controllers
                     NamaKegiatan = "Lain - Lain",
                     IdThumbnail = fotoTanpaKegiatan.First().Id,
                     JumlahFoto = fotoTanpaKegiatan.Count,
-                    Tanggal = fotoTanpaKegiatan.First().Tanggal
+                    Tanggal = fotoTanpaKegiatan.First().Tanggal,
+                    DaftarFoto = fotoTanpaKegiatan,
                 });
             }
             else
