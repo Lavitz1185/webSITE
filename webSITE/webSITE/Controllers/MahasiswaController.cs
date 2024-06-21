@@ -35,7 +35,7 @@ namespace webSITE.Controllers
             if (searchString != null && !searchString.IsNullOrEmpty()) 
             { 
                 listMahasiwa = listMahasiwa
-                    .Where(m => m.NamaLengkap.ToLower().Contains(searchString.ToLower()) || m.NamaPanggilan.ToLower().Contains(searchString.ToLower()));
+                    .Where(m => m.NamaLengkap.ToLower().Contains(searchString.ToLower()) || m.NamaPanggilan.ToLower().Contains(searchString.ToLower()) || m.Nim.ToLower().Contains(searchString.ToLower()));
             }
 
             ViewData["searchString"] = searchString;

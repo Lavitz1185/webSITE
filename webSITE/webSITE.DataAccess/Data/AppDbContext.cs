@@ -34,6 +34,7 @@ namespace webSITE.DataAccess.Data
                 );
 
             builder.Entity<Kegiatan>().Property(m => m.Tanggal).HasColumnType("timestamp without time zone");
+            builder.Entity<Kegiatan>().Property(m => m.Keterangan).HasMaxLength(500);
 
             builder.Entity<Mahasiswa>().HasMany(m => m.DaftarFoto)
                 .WithMany(f => f.DaftarMahasiswa)
