@@ -54,6 +54,7 @@ footer .container-fluid {
     }
 
         footer .container-fluid .sci li a {
+            position: relative; 
             display: inline-block;
             width: 36px;
             height: 36px;
@@ -62,22 +63,39 @@ footer .container-fluid {
             align-content: center;
             justify-content: center;
             text-decoration: none;
-            transition: 0.3s ease;
+            font-size: 20px;
+            overflow: hidden; 
+            transition: all 0.3s ease-in-out;
             /*border: 1px solid rgb(100, 100, 100);*/
         }
 
-        footer .container-fluid .sci li a i {
-            color: #fff;
-            font-size: 20px;
+            footer .container-fluid .sci li a i {
+                color: #fff;
+            }
 
-        }
+            footer .container-fluid .sci li a::before {
+                content: "";
+                position: absolute;
+                bottom: 0; 
+                left: 0;
+                width: 100%;
+                height: 0;
+                background: rgb(21, 21, 100);
+                z-index: -1;
+                transition: all 0.5s ease-in-out;
+                border-radius: 30% 30% 0 0;
+            }
+
+            footer .container-fluid .sci li a:hover::before {
+                height: 180%; 
+            }
 
             footer .container-fluid .sci li a:hover {
-                background: rgb(21, 21, 100);
                 color: #ffffff;
-                /*border: 1px solid rgb(21, 21, 100);*/
                 cursor: pointer;
+                transform: scale(1.1);
             }
+
 
 footer .container-fluid .quicklinks {
     position: relative;
@@ -85,6 +103,7 @@ footer .container-fluid .quicklinks {
 
     footer .container-fluid .quicklinks ul li {
         list-style: none;
+        width: 120px;
     }
 
 
@@ -300,16 +319,22 @@ footer .row {
     right: 50px;
     z-index: 999;
     border-radius: 50%;
-    opacity: 0%;
+    opacity: 0;
     text-decoration: none;
     text-align: center;
     line-height: 50px;
     color: white;
     font-size: 30px;
-    transition: .3s ease;
+    transition: opacity 300ms ease, bottom 300ms ease, transform 450ms ease;
+    will-change: opacity, bottom, transform;
 }
 
-.gotopbtn:hover {
-    opacity: 100%;
-    bottom: 45px;
-}
+    .gotopbtn.visible {
+        opacity: 0.6;
+    }
+
+    .gotopbtn:hover {
+        opacity: 1; /* opacity 100% */
+        transform: translateY(-5px);
+        transition: opacity 300ms ease, transform 600ms ease-in-out;
+    }

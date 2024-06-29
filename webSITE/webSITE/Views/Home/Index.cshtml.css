@@ -242,6 +242,37 @@
             }
 /*Akhir Profile*/
 
+/* Preview Kegiatan */
+#preKeg {
+    position: relative; 
+    width: 100%;
+    height: 100vh; 
+    background-color: rgb(35, 35, 85);
+    overflow: hidden; 
+    margin: 0;
+    padding: 0;
+}
+
+    #preKeg .preimg {
+        width: 100%;
+        height: 100vh; 
+        object-fit: cover; 
+        position: absolute; 
+        left: 0;
+        right: 0;
+        display: block; 
+    }
+
+    #preKeg .container {
+        position: absolute;
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%); 
+    }
+/* Akhir Preview Kegiatan */
+
+
+
 /* Kontak */
 #contact {
     padding: 5vw 8vw 5vw 8vw;

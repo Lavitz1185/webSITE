@@ -120,14 +120,15 @@
 
             const toggleButtonVisibility = () => {
                 if ($(document).scrollTop() >= 650) {
-                    $(gotopbtn).css('opacity', '1'); //  opacity 1 ketika scroll down 650px
+                    gotopbtn.addClass('visible');
                 } else {
-                    $(gotopbtn).css('opacity', '0'); //  opacity 0
+                    gotopbtn.removeClass('visible');
                 }
             };
 
             $(gotopbtn).on('click', () => $(document).scrollTo(0));
             $(document).on('scroll', toggleButtonVisibility);
+            toggleButtonVisibility();
         });
 
         const alertBs = $('.alert');
