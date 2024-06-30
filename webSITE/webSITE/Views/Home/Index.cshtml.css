@@ -253,21 +253,77 @@
     padding: 0;
 }
 
-    #preKeg .preimg {
-        width: 100%;
-        height: 100vh; 
-        object-fit: cover; 
-        position: absolute; 
-        left: 0;
-        right: 0;
-        display: block; 
+
+    #preKeg  .row .col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    #preKeg .container {
-        position: absolute;
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
+        #preKeg  .row .col .card {
+            width: 500px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0px 2px 8px 0px ;
+        }
+
+            #preKeg  .row .col .card .card-img-top {
+                width: 100%;
+                height: 230px;
+                overflow: hidden;
+                padding: 0;
+            }
+                /*#preKeg .container .row .col .card .card-img-top img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    background-size: cover;
+                }*/
+
+            #preKeg  .row .col .card .card-body {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+    #preKeg  .row .col .card .card-title {
+        text-align: center;
+    }
+
+    #preKeg .row1 {
+        height: 80%;
+        margin: 0 0;
+    }
+
+    #preKeg .row1 .card1 {
+        margin:  300px 0 0;
+    }
+
+        #preKeg .row1 .card3 {
+            margin: 150px 0 0;
+        }
+
+    #preKeg .row2 {
+        z-index: 999;
+    }
+
+        #preKeg .row2 .col .selengkapnya {
+            z-index: 999;
+            cursor: pointer;
+        }
+    #preKeg .row2 .col .selengkapnya h5 {
+        color: white;
+        font-size: 1.6rem;
+        padding: 0 0 0 20px;
     }
 /* Akhir Preview Kegiatan */
 
