@@ -253,7 +253,6 @@
     padding: 0;
 }
 
-
     #preKeg  .row .col {
         display: flex;
         justify-content: center;
@@ -300,27 +299,39 @@
     }
 
     #preKeg .row1 {
-        height: 80%;
+        margin: 180px 0 0 0;
+    }
+
+        #preKeg .row1 h1 {
+            color: white;
+        }
+
+
+    #preKeg .row2 {
+        height: 55%;
         margin: 0 0;
     }
 
-    #preKeg .row1 .card1 {
-        margin:  300px 0 0;
+    #preKeg .row2 .card1 {
+        margin:  50px 0 0;
     }
 
-        #preKeg .row1 .card3 {
-            margin: 150px 0 0;
+        #preKeg .row2 .card2 {
+            margin: 0 0 50px 0;
         }
 
-    #preKeg .row2 {
+        #preKeg .row2 .card3 {
+            margin: 0 0 75px 0;
+        }
+
+    #preKeg .row3 {
         z-index: 999;
     }
 
-        #preKeg .row2 .col .selengkapnya {
-            z-index: 999;
+        #preKeg .row3 .col .selengkapnya {
             cursor: pointer;
         }
-    #preKeg .row2 .col .selengkapnya h5 {
+    #preKeg .row3 .col .selengkapnya h5 {
         color: white;
         font-size: 1.6rem;
         padding: 0 0 0 20px;
