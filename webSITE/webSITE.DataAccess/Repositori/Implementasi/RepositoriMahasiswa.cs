@@ -2,6 +2,7 @@
 using webSITE.Domain;
 using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
+using webSITE.Domain.Exceptions;
 
 namespace webSITE.Repositori.Implementasi
 {
@@ -14,106 +15,86 @@ namespace webSITE.Repositori.Implementasi
             this.dbContext = dbContext;
         }
 
-        public async Task<Mahasiswa> Create(Mahasiswa entity)
+        public async Task Add(Mahasiswa entity)
         {
             var mahasiswa = await Get(entity.Nim);
 
-            if (mahasiswa != null)
-                return null;
+            if (mahasiswa is not null) throw new MahasiswaDuplicateNimException(entity.Nim);
 
-            var tracker = dbContext.TblMahasiswa.Add(entity);
-
-            var result = await dbContext.SaveChangesAsync();
-            if (result == 0)
-                return null;
-
-            return await Get(tracker.Entity.Id);
+            dbContext.TblMahasiswa.Add(entity);
         }
 
-        public async Task<Mahasiswa> Delete(string id)
+        public async Task Delete(string id)
         {
             var mahasiswa = await Get(id);
 
-            if (mahasiswa == null)
-                return null;
+            if (mahasiswa is null) throw new MahasiswaNotFoundException(id);
 
             dbContext.TblMahasiswa.Remove(mahasiswa);
-            await dbContext.SaveChangesAsync();
-
-            return mahasiswa;
         }
 
-        public async Task<Mahasiswa> GetByNim(string nim)
+        public async Task<Mahasiswa?> GetByNim(string nim)
         {
             var mahasiswa = await dbContext.TblMahasiswa
                 .Include(m => m.DaftarKegiatan)
                 .Include(m => m.DaftarFoto)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Nim == nim);
+
             return mahasiswa;
         }
 
-        public async Task<Mahasiswa> Get(string id)
+        public async Task<Mahasiswa?> Get(string id)
         {
             return await dbContext.TblMahasiswa
-                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public async Task<IEnumerable<Mahasiswa>> GetAll()
+        public async Task<List<Mahasiswa>?> GetAll()
         {
             var list = await dbContext.TblMahasiswa
                 .AsNoTracking()
                 .ToListAsync();
+
             return list;
         }
 
-        public async Task<Mahasiswa> Update(Mahasiswa entity)
+        public async Task Update(Mahasiswa entity)
         {
             var mahasiswa = await dbContext.TblMahasiswa.FirstOrDefaultAsync(m => m.Id == entity.Id);
 
-            if (mahasiswa == null)
-                return null;
+            var mahasiswaNim = await dbContext.TblMahasiswa
+                .FirstOrDefaultAsync(m => m.Id != entity.Id && m.Nim == entity.Nim);
+
+            if (mahasiswa is null) throw new MahasiswaFotoNotFoundException(entity.Id);
+
+            if (mahasiswaNim is not null) throw new MahasiswaDuplicateNimException(entity.Nim);
 
             dbContext.TblMahasiswa.Update(mahasiswa);
+
             mahasiswa.Nim = entity.Nim;
             mahasiswa.NamaLengkap = entity.NamaLengkap;
             mahasiswa.NamaPanggilan = entity.NamaPanggilan;
             mahasiswa.TanggalLahir = entity.TanggalLahir;
             mahasiswa.JenisKelamin = entity.JenisKelamin;
-
-            var result = await dbContext.SaveChangesAsync();
-            if (result == 0)
-                return null;
-
-            mahasiswa = await Get(mahasiswa.Id);
-
-            return mahasiswa;
         }
 
-        public async Task<Mahasiswa> SetProfilePicture(string id, byte[] photoData)
+        public async Task SetProfilePicture(string id, byte[] photoData)
         {
             var mahasiswa = await Get(id);
 
-            if (mahasiswa == null)
-                return null;
+            if (mahasiswa is null) throw new MahasiswaNotFoundException(id);
 
             dbContext.Update(mahasiswa);
             mahasiswa.FotoProfil = photoData;
-
-            var result = await dbContext.SaveChangesAsync();
-            if (result == 0)
-                return null;
-
-            return mahasiswa;
         }
 
-        public async Task<Mahasiswa> AddToFoto(string idMahasiswa, int idFoto)
+        public async Task AddToFoto(string idMahasiswa, int idFoto)
         {
             var mahasiswaFoto = await dbContext.TblMahasiswaFoto.FindAsync(idMahasiswa, idFoto);
 
-            if (mahasiswaFoto != null)
-                return null;
+            if (mahasiswaFoto is not null)
+                throw new MahasiswaFotoAlreadyExistsException(idFoto, idMahasiswa);
 
             mahasiswaFoto = new MahasiswaFoto
             {
@@ -122,32 +103,24 @@ namespace webSITE.Repositori.Implementasi
             };
 
             dbContext.TblMahasiswaFoto.Add(mahasiswaFoto);
-            var result = await dbContext.SaveChangesAsync();
-            if (result == 0)
-                return null;
-
-            return await Get(idMahasiswa);
         }
 
-        public async Task<Mahasiswa> RemoveFromFoto(string idMahasiswa, int idFoto)
+        public async Task RemoveFromFoto(string idMahasiswa, int idFoto)
         {
             var mahasiswaFoto = await dbContext.TblMahasiswaFoto.FindAsync(idMahasiswa, idFoto);
 
-            if (mahasiswaFoto == null)
-                return null;
+            if (mahasiswaFoto is null)
+                throw new MahasiswaFotoNotFoundException(idFoto, idMahasiswa);
 
             dbContext.TblMahasiswaFoto.Remove(mahasiswaFoto);
-            await dbContext.SaveChangesAsync();
-
-            return await Get(idMahasiswa);
         }
 
-        public async Task<Mahasiswa> AddToKegiatan(string idMahasiswa, int idKegiatan)
+        public async Task AddToKegiatan(string idMahasiswa, int idKegiatan)
         {
             var pesertaKegiatan = await dbContext.TblPesertaKegiatan.FindAsync(idMahasiswa, idKegiatan);
 
-            if (pesertaKegiatan != null)
-                return null;
+            if (pesertaKegiatan is not null)
+                throw new PesertaKegiatanAlreadyExistsException(idKegiatan, idMahasiswa);
 
             pesertaKegiatan = new PesertaKegiatan
             {
@@ -156,28 +129,18 @@ namespace webSITE.Repositori.Implementasi
             };
 
             dbContext.TblPesertaKegiatan.Add(pesertaKegiatan);
-
-            var result = await dbContext.SaveChangesAsync();
-            if (result == 0)
-                return null;
-
-            return await Get(idMahasiswa);
         }
 
-        public async Task<Mahasiswa> RemoveFromKegiatan(string idMahasiswa, int idKegiatan)
+        public async Task RemoveFromKegiatan(string idMahasiswa, int idKegiatan)
         {
             var pesertaKegiatan = await dbContext.TblPesertaKegiatan.FindAsync(idMahasiswa, idKegiatan);
 
-            if (pesertaKegiatan == null)
-                return null;
+            if (pesertaKegiatan is null) throw new PesertaKegiatanNotFoundException(idKegiatan, idMahasiswa);
 
             dbContext.TblPesertaKegiatan.Remove(pesertaKegiatan);
-            await dbContext.SaveChangesAsync();
-
-            return await Get(idMahasiswa);
         }
 
-        public async Task<Mahasiswa> GetWithDetail(string id)
+        public async Task<Mahasiswa?> GetWithDetail(string id)
         {
             return await dbContext.TblMahasiswa
                 .Include(m => m.DaftarFoto)
@@ -186,7 +149,7 @@ namespace webSITE.Repositori.Implementasi
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public async Task<IEnumerable<Mahasiswa>> GetAllWithDetail()
+        public async Task<List<Mahasiswa>?> GetAllWithDetail()
         {
             return await dbContext.TblMahasiswa
                 .Include(m => m.DaftarFoto)

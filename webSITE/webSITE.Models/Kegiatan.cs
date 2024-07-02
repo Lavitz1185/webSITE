@@ -15,7 +15,7 @@ namespace webSITE.Domain
         public string TempatKegiatan { get; set; }
         public string Keterangan { get; set; }
 
-        public IList<Foto>? DaftarFoto { get; set; }
+        public IList<Foto> DaftarFoto { get; set; }
         public IList<Mahasiswa> DaftarMahasiswa { get; set; }
     }
 }

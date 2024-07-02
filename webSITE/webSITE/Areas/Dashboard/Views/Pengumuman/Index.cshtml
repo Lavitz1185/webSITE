@@ -1,0 +1,53 @@
+﻿@using System.Globalization
+@model List<Pengumuman>
+@{
+    ViewData["Title"] = "Pengumuman";
+    var cultureInfo = new CultureInfo("id-ID");
+}
+
+<div class="container">
+    <h1 class="text-center">Daftar Pengumuman</h1>
+    <a href="#" class="btn btn-primary">Tambah</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th width="15%">Foto</th>
+                <th>Judul</th>
+                <th>Isi</th>
+                <th>Tanggal</th>
+                <th>Prioritas</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>
+                        <img class="img-fluid" src="@Url.Action("Foto", "Pengumuman", new {Area = "", id = item.Id})"/>
+                    </td>
+                    <td>@item.Judul</td>
+                    <td>@item.Isi</td>
+                    <td>@item.Tanggal.ToString(cultureInfo.DateTimeFormat.ShortDatePattern, cultureInfo)</td>
+                    <td>@(item.IsPriority ? "&#1003" : "")</td>
+                    <td>
+                        <div class="d-flex gap-1 justify-content-start">
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="fas fa-pen-square fa-lg"></i>
+                            </a>
+                            <form asp-action="Hapus" asp-route-id="@item.Id" method="post">
+                                <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <partial name="_DataTable" />
+}

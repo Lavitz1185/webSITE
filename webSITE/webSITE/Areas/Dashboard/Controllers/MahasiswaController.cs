@@ -5,27 +5,35 @@ using Microsoft.AspNetCore.Mvc;
 using webSITE.Domain;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Areas.Dashboard.Models.MahasiswaController;
+using webSITE.DataAccess.Data;
+using webSITE.Domain.Exceptions;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {
     [Area("Dashboard")]
     [Authorize(Roles = "Admin, ADMIN")]
-    public class MahasiswaController : Controller
+    public class MahasiswaController : Controller 
     {
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly UserManager<Mahasiswa> _userManager;
         private readonly IUserStore<Mahasiswa> _userStore;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<MahasiswaController> _logger;
 
         public MahasiswaController(IRepositoriMahasiswa repositoriMahasiswa,
             UserManager<Mahasiswa> userManagaer,
             IUserStore<Mahasiswa> userStore,
-            IMapper mapper)
+            IMapper mapper,
+            IUnitOfWork unitOfWork,
+            ILogger<MahasiswaController> logger)
         {
             _repositoriMahasiswa = repositoriMahasiswa;
             _userManager = userManagaer;
             _userStore = userStore;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index()
@@ -102,7 +110,21 @@ namespace webSITE.Areas.Dashboard.Controllers
             if (_userManager.GetUserId(User) == id)
                 return BadRequest();
 
-            await _repositoriMahasiswa.Delete(id);
+            try
+            {
+                await _repositoriMahasiswa.Delete(id);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (MahasiswaNotFoundException ex)
+            {
+                _logger.LogError("Delete. Exception : {0}", ex.ToString());
+                return NotFound();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Delete. Exception : {0}", ex.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
 
             return RedirectToAction("Index");
         }

@@ -7,6 +7,7 @@ using webSITE.Domain;
 using webSITE.Configuration;
 using webSITE.Services.Contracts;
 using webSITE.Services;
+using webSITE.DataAccess.Repositori.Implementasi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,7 +61,9 @@ builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();
 builder.Services.AddScoped<IRepositoriKegiatan, RepositoriKegiatan>();
 builder.Services.AddScoped<IRepositoriMahasiswaFoto, RepositoriMahasiswaFoto>();
 builder.Services.AddScoped<IRepositoriPesertaKegiatan, RepositoriPesertaKegiatan>();
+builder.Services.AddScoped<IRepositoriPengumuman, RepositoriPengumuman>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<IMailService, MailService>();
 

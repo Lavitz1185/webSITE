@@ -2,6 +2,7 @@
 using webSITE.Domain;
 using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
+using webSITE.Domain.Exceptions;
 
 namespace webSITE.Repositori.Implementasi
 {
@@ -14,14 +15,14 @@ namespace webSITE.Repositori.Implementasi
             this.dbContext = dbContext;
         }
 
-        public async Task<PesertaKegiatan> Create(string idMahasiswa, int idKegiatan)
+        public async Task Add(string idMahasiswa, int idKegiatan)
         {
             var pesertaKegiatan = await dbContext.TblPesertaKegiatan
                 .AsNoTracking()
                 .FirstOrDefaultAsync(pk => pk.IdMahasiswa == idMahasiswa && pk.IdKegiatan == idKegiatan);
 
-            if (pesertaKegiatan != null)
-                return null;
+            if (pesertaKegiatan is not null)
+                throw new PesertaKegiatanAlreadyExistsException(idKegiatan, idMahasiswa);
 
             pesertaKegiatan = new PesertaKegiatan
             {
@@ -30,27 +31,18 @@ namespace webSITE.Repositori.Implementasi
             };
 
             dbContext.TblPesertaKegiatan.Add(pesertaKegiatan);
-
-            var result = await dbContext.SaveChangesAsync();
-            if (result == 0)
-                return null;
-
-            return pesertaKegiatan;
         }
 
-        public async Task<PesertaKegiatan> Delete(string idMahasiswa, int idKegiatan)
+        public async Task Delete(string idMahasiswa, int idKegiatan)
         {
             var pesertaKegiatan = await dbContext.TblPesertaKegiatan
                 .AsNoTracking()
                 .FirstOrDefaultAsync(pk => pk.IdMahasiswa == idMahasiswa && pk.IdKegiatan == idKegiatan);
 
-            if (pesertaKegiatan == null)
-                return null;
+            if (pesertaKegiatan is null)
+                throw new PesertaKegiatanNotFoundException(idKegiatan, idMahasiswa);
 
             dbContext.TblPesertaKegiatan.Remove(pesertaKegiatan);
-            await dbContext.SaveChangesAsync();
-
-            return pesertaKegiatan;
         }
     }
 }

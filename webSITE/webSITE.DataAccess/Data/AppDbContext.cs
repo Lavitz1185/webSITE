@@ -43,6 +43,8 @@ namespace webSITE.DataAccess.Data
                     r => r.HasOne<Mahasiswa>().WithMany().HasForeignKey(mf => mf.IdMahasiswa)
                 );
 
+            builder.Entity<Mahasiswa>().HasIndex(m => m.Nim);
+
             builder.Entity<Foto>().HasOne(f => f.Kegiatan)
                 .WithMany(k => k.DaftarFoto)
                 .HasForeignKey(f => f.IdKegiatan);
@@ -1108,6 +1110,28 @@ namespace webSITE.DataAccess.Data
                 {
                     IdFoto = 5,
                     IdMahasiswa = "2",
+                }
+            );
+
+            var foto = File.ReadAllBytes("wwwroot/img/backgroundpensi.png");
+            builder.Entity<Pengumuman>().HasData(
+                new Pengumuman
+                {
+                    Id = 1,
+                    Judul = "Pengumuman 1",
+                    Isi = "Isi Pengumuman 1",
+                    Tanggal = new DateTime(2024, 7, 2),
+                    Foto = foto,
+                    IsPriority = true,
+                },
+                new Pengumuman
+                {
+                    Id = 2,
+                    Judul = "Pengumuman 2",
+                    Isi = "Isi Pengumuman 2",
+                    Tanggal = new DateTime(2024, 7, 2),
+                    Foto = foto,
+                    IsPriority = false,
                 }
             );
         }

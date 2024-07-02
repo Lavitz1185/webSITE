@@ -8,7 +8,9 @@
 
     <div class="menu px-4 d-flex justify-content-between align-items-center animate__animated animate__fadeInDown">
         <a asp-action="Album" asp-route-idKegiatan="@ViewData["IdKegiatan"]"
-           class="close">&times;</a>
+           class="close">
+            &times;
+        </a>
         <h3 class="text-center">@ViewData["NamaKegiatan"]</h3>
         <button id="detail" class="btn btn-primary">
             ...
@@ -19,11 +21,11 @@
         <div class="d-flex justify-content-between align-items-center px-4">
             <button class="close me-4">&times;</button>
             <h5>Detail Foto</h5>
-            @* <form id="formHapus" asp-action="Delete" method="post">
+            <form id="formHapus" asp-action="Delete" method="post">
                 <button type="submit" class="btn btn-danger">
                     <i class="fa fa-regular fa-trash"></i>
                 </button>
-            </form> *@
+            </form>
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -80,7 +82,7 @@
     }
 </style>
 
-@section Scripts{
+@section Scripts {
 
     <script type="text/javascript">
         $('document').ready(function () {
@@ -94,7 +96,6 @@
             const detailBtn = $('#detail');
             const closeDetailBtn = $('.details .close');
 
-
             const activeIndex = @ViewData["SelectedIndex"];
             const idKegiatan = @(ViewData["IdKegiatan"] ?? "null");
 
@@ -105,7 +106,7 @@
                 const tanggalFoto = $(items[index]).find('#tanggalFoto').val();
                 const daftarMahasiswa = $(items[index]).find('#daftarMahasiswa').val();
 
-                $(details).find('#formHapus').attr('action', '/Foto/Delete/' + idFoto + '?returnUrl=%2FFoto%2FDetailFoto%3FidKegiatan%3D' + idKegiatan);
+                $(details).find('#formHapus').attr('action', '/Dashboard/Foto/Delete/' + idFoto + '?returnUrl=%2FFoto%2FDetailFoto%3FidKegiatan%3D' + idKegiatan);
 
                 $(details).find('#tanggalFoto').text(tanggalFoto);
                 $(details).find('#daftarMahasiswa').text(daftarMahasiswa);

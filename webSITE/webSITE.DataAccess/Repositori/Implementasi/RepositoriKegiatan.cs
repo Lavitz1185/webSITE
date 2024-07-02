@@ -2,6 +2,7 @@
 using webSITE.Domain;
 using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
+using webSITE.Domain.Exceptions;
 
 namespace webSITE.Repositori.Implementasi
 {
@@ -14,41 +15,45 @@ namespace webSITE.Repositori.Implementasi
             _dbContext = dbContext;
         }
 
-        public async Task<Kegiatan> AddFoto(int idFoto, int idKegiatan)
+        public async Task AddFoto(int idFoto, int idKegiatan)
         {
-            var foto = await _dbContext.TblFoto.AsNoTracking()
+            var foto = await _dbContext.TblFoto
                 .FirstOrDefaultAsync(f => f.Id == idFoto);
+
             var kegiatan = await _dbContext.TblKegiatan
                 .Include(k => k.DaftarFoto)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(k => k.Id == idKegiatan);
 
-            if (foto is null || kegiatan is null || kegiatan.DaftarFoto.FirstOrDefault(f => f.Id == foto.Id) is not null)
-                return null;
+            if (foto is null) throw new FotoNotFoundException(idFoto);
 
-            var tracker = _dbContext.TblKegiatan.Update(kegiatan);
+            if (kegiatan is null) throw new KegiatanNotFoundException(idKegiatan);
+
+            if (kegiatan.DaftarFoto.FirstOrDefault(f => f.Id == idFoto) is not null)
+                throw new KegiatanAlreadyHaveFotoException(idFoto);
+
+            _dbContext.TblKegiatan.Update(kegiatan);
+
             kegiatan.DaftarFoto.Add(foto);
-
-            await _dbContext.SaveChangesAsync();
-
-            tracker.State = EntityState.Detached;
-            _dbContext.ChangeTracker.Clear();
-
-            return await Get(idKegiatan);
         }
 
-        public async Task<Kegiatan> AddMahasiswa(string idMahasiswa, int idKegiatan)
+        public async Task AddMahasiswa(string idMahasiswa, int idKegiatan)
         {
             var mahasiswa = await _dbContext.TblMahasiswa
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == idMahasiswa);
+
             var kegiatan = await Get(idKegiatan);
+
             var pesertaKegiatan = await _dbContext.TblPesertaKegiatan
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.IdMahasiswa == idMahasiswa && x.IdKegiatan == idKegiatan);
 
-            if (mahasiswa is null || kegiatan is null || pesertaKegiatan is not null)
-                return null;
+            if (mahasiswa is null) throw new MahasiswaNotFoundException(idMahasiswa);
+
+            if (kegiatan is null) throw new KegiatanNotFoundException(idKegiatan);
+
+            if (pesertaKegiatan is not null)
+                throw new PesertaKegiatanAlreadyExistsException(idKegiatan, idMahasiswa);
 
             pesertaKegiatan = new PesertaKegiatan
             {
@@ -57,36 +62,30 @@ namespace webSITE.Repositori.Implementasi
             };
 
             _dbContext.TblPesertaKegiatan.Add(pesertaKegiatan);
-            var result = await _dbContext.SaveChangesAsync();
-            if (result == 0)
-                return null;
-
-            return await Get(idKegiatan);
         }
 
-        public async Task<Kegiatan> Create(Kegiatan entity)
+        public async Task Add(Kegiatan entity)
         {
-            var tracker = _dbContext.TblKegiatan.Add(entity);
-            var result = await _dbContext.SaveChangesAsync();
+            var kegiatan = await _dbContext.TblKegiatan
+                .Where(k => k.NamaKegiatan == entity.NamaKegiatan && k.Tanggal == entity.Tanggal)
+                .FirstOrDefaultAsync();
 
-            if (result == 0)
-                return null;
+            if (kegiatan is not null)
+                throw new KegiatanAlreadyExistsException(entity.NamaKegiatan, entity.Tanggal);
 
-            return await Get(entity.Id);
+            _dbContext.TblKegiatan.Add(entity);
         }
 
-        public async Task<Kegiatan> Delete(int id)
+        public async Task Delete(int id)
         {
             var entityDb = await GetWithDetail(id);
-            if (entityDb == null)
-                return null;
+
+            if (entityDb == null) throw new KegiatanNotFoundException(id);
 
             _dbContext.TblKegiatan.Remove(entityDb);
-            await _dbContext.SaveChangesAsync();
-            return entityDb;
         }
 
-        public async Task<Kegiatan> Get(int id)
+        public async Task<Kegiatan?> Get(int id)
         {
             var kegiatan = await _dbContext.TblKegiatan
                 .AsNoTracking()
@@ -95,7 +94,7 @@ namespace webSITE.Repositori.Implementasi
             return kegiatan;
         }
 
-        public async Task<IEnumerable<Kegiatan>> GetAll()
+        public async Task<List<Kegiatan>?> GetAll()
         {
             var daftarKegiatan = await _dbContext.TblKegiatan
                 .AsNoTracking()
@@ -104,7 +103,7 @@ namespace webSITE.Repositori.Implementasi
             return daftarKegiatan;
         }
 
-        public async Task<IEnumerable<Kegiatan>> GetAllWithDetail()
+        public async Task<List<Kegiatan>?> GetAllWithDetail()
         {
             var daftarKegiatan = await _dbContext.TblKegiatan
                 .Include(k => k.DaftarFoto)
@@ -115,17 +114,17 @@ namespace webSITE.Repositori.Implementasi
             return daftarKegiatan;
         }
 
-        public async Task<List<Kegiatan>> GetAllByNamaKegiatan(string namaKegiatan)
+        public async Task<List<Kegiatan>?> GetAllByNamaKegiatan(string namaKegiatan)
         {
             var kegiatan = await _dbContext.TblKegiatan
-                .AsNoTracking()
                 .Where(k => k.NamaKegiatan.ToLower() == namaKegiatan.ToLower())
+                .AsNoTracking()
                 .ToListAsync();
 
             return kegiatan;
         }
 
-        public async Task<Kegiatan> GetWithDetail(int id)
+        public async Task<Kegiatan?> GetWithDetail(int id)
         {
             var kegiatan = await _dbContext.TblKegiatan
                 .Include(k => k.DaftarFoto)
@@ -136,51 +135,58 @@ namespace webSITE.Repositori.Implementasi
             return kegiatan;
         }
 
-        public async Task<Kegiatan> RemoveFoto(int idFoto, int idKegiatan)
+        public async Task RemoveFoto(int idFoto, int idKegiatan)
         {
-            var foto = await _dbContext.TblFoto.AsNoTracking()
+            var foto = await _dbContext.TblFoto
                 .FirstOrDefaultAsync(f => f.Id == idFoto);
 
             var kegiatan = await _dbContext.TblKegiatan
                 .Include(k => k.DaftarFoto)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == idKegiatan);
 
-            if (foto is null || kegiatan is null || kegiatan.DaftarFoto.FirstOrDefault(f => f.Id == foto.Id) is null)
-                return null;
+            if (foto is null) throw new FotoNotFoundException(idFoto);
+
+            if (kegiatan is null) throw new KegiatanNotFoundException(idKegiatan);
+
+            if (kegiatan.DaftarFoto.FirstOrDefault(f => f.Id == idFoto) is null)
+                throw new KegiatanDontHaveFotoException(idKegiatan, idFoto);
 
             _dbContext.TblKegiatan.Update(kegiatan);
-            kegiatan.DaftarFoto = kegiatan.DaftarFoto.Where(f => f.Id != foto.Id).ToList();
-
-            await _dbContext.SaveChangesAsync();
-
-            return await Get(idKegiatan);
+            kegiatan.DaftarFoto.Remove(foto);
         }
 
-        public async Task<Kegiatan> RemoveMahasiswa(string idMahasiswa, int idKegiatan)
+        public async Task RemoveMahasiswa(string idMahasiswa, int idKegiatan)
         {
             var mahasiswa = await _dbContext.TblMahasiswa
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == idMahasiswa);
+
             var kegiatan = await Get(idKegiatan);
+
             var pesertaKegiatan = await _dbContext.TblPesertaKegiatan
-                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.IdMahasiswa == idMahasiswa && x.IdKegiatan == idKegiatan);
 
-            if (mahasiswa is null || kegiatan is null || pesertaKegiatan is null)
-                return null;
+            if (mahasiswa is null) throw new MahasiswaFotoNotFoundException(idMahasiswa);
+
+            if (kegiatan is null) throw new KegiatanNotFoundException(idKegiatan);
+
+            if (pesertaKegiatan is null) throw new PesertaKegiatanNotFoundException(idKegiatan, idMahasiswa);
 
             _dbContext.TblPesertaKegiatan.Remove(pesertaKegiatan);
-            await _dbContext.SaveChangesAsync();
-
-            return await Get(idKegiatan);
         }
 
-        public async Task<Kegiatan> Update(Kegiatan entity)
+        public async Task Update(Kegiatan entity)
         {
             var entityDb = await Get(entity.Id);
-            if (entityDb == null)
-                return null;
+
+            if (entityDb == null) throw new KegiatanNotFoundException(entity.Id);
+
+            var kegiatan = await _dbContext.TblKegiatan
+                .Where(k => k.NamaKegiatan == entity.NamaKegiatan && k.Tanggal == entity.Tanggal)
+                .FirstOrDefaultAsync();
+
+            if (kegiatan is not null)
+                throw new KegiatanAlreadyExistsException(entity.NamaKegiatan, entity.Tanggal);
 
             _dbContext.TblKegiatan.Update(entityDb);
 
@@ -189,13 +195,6 @@ namespace webSITE.Repositori.Implementasi
             entityDb.JumlahHari = entity.JumlahHari;
             entityDb.TempatKegiatan = entity.TempatKegiatan;
             entityDb.Keterangan = entity.Keterangan;
-
-            var result = await _dbContext.SaveChangesAsync();
-
-            if (result == 0)
-                return null;
-
-            return await Get(entity.Id);
         }
     }
 }

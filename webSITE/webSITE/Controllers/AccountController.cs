@@ -18,6 +18,8 @@ using NuGet.Common;
 using System.ComponentModel.DataAnnotations;
 using webSITE.Configuration;
 using Microsoft.Extensions.Options;
+using webSITE.DataAccess.Data;
+using webSITE.Domain.Exceptions.Abstraction;
 
 namespace webSITE.Controllers
 {
@@ -32,6 +34,7 @@ namespace webSITE.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly IMailService _mailService;
         private readonly INotificationService _notificationService;
+        private readonly IUnitOfWork _unitOfWork;
 
         private readonly PhotoFileSettings _photoFileSettings;
 
@@ -44,7 +47,8 @@ namespace webSITE.Controllers
             ILogger<AccountController> logger,
             IMailService mailService,
             INotificationService notificationService,
-            IOptions<PhotoFileSettings> options)
+            IOptions<PhotoFileSettings> options,
+            IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _repositoriMahasiswa = repositoriMahasiswa;
@@ -55,6 +59,7 @@ namespace webSITE.Controllers
             _mailService = mailService;
             _notificationService = notificationService;
             _photoFileSettings = options.Value;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IActionResult> Index()
@@ -75,22 +80,38 @@ namespace webSITE.Controllers
 
             mahasiswa.Id = _userManager.GetUserId(User);
 
-            mahasiswa = await _repositoriMahasiswa.Update(mahasiswa);
+            try
+            {
+                await _repositoriMahasiswa.Update(mahasiswa);
+                await _unitOfWork.SaveChangesAsync();
 
-            if (mahasiswa == null)
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Success,
+                    Title = "Ubah Profil Sukses",
+                });
+            }
+            catch (DomainException ex)
             {
                 _notificationService.AddNotification(new ToastrNotification
                 {
                     Type = ToastrNotificationType.Error,
                     Title = "Ubah Profil Gagal",
+                    Message = ex.Message,
                 });
-            }
 
-            _notificationService.AddNotification(new ToastrNotification
+                _logger.LogError("Index. Exception : {0}", ex.ToString());
+            }
+            catch (Exception ex)
             {
-                Type = ToastrNotificationType.Success,
-                Title = "Ubah Profil Sukses",
-            });
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Ubah Profil Gagal"
+                });
+
+                _logger.LogError("Index. Exception : {0}", ex.ToString());
+            }
 
             return RedirectToAction("Index");
         }
@@ -105,8 +126,6 @@ namespace webSITE.Controllers
         {
             var id = _userManager.GetUserId(User);
 
-            var mahasiswa = await _repositoriMahasiswa.Get(id);
-
             var photoData = await FileHelpers.ProcessFormFile<AccountFotoVM>(accountFotoVM.FotoFormFile
                 , ModelState, _photoFileSettings.PermittedExtension, _photoFileSettings.FileSizeLimit);
 
@@ -116,9 +135,25 @@ namespace webSITE.Controllers
                 return View(accountFotoVM);
             }
 
-            mahasiswa = await _repositoriMahasiswa.SetProfilePicture(mahasiswa.Id, photoData);
+            try
+            {
+                await _repositoriMahasiswa.SetProfilePicture(id, photoData);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch (DomainException ex)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Ubah Foto Profil Gagal",
+                    Message = ex.Message
+                });
 
-            if (mahasiswa == null)
+                _logger.LogError("FotoProfil. Exception : {0}", ex.ToString());
+                TempData["status"] = false;
+                return View(accountFotoVM);
+            }      
+            catch (Exception ex)
             {
                 _notificationService.AddNotification(new ToastrNotification
                 {
@@ -126,6 +161,7 @@ namespace webSITE.Controllers
                     Title = "Ubah Foto Profil Gagal"
                 });
 
+                _logger.LogError("FotoProfil. Exception : {0}", ex.ToString());
                 TempData["status"] = false;
                 return View(accountFotoVM);
             }
@@ -135,7 +171,9 @@ namespace webSITE.Controllers
                 Type = ToastrNotificationType.Success,
                 Title = "Ubah Foto Profil Berhasil"
             });
+
             TempData["status"] = true;
+
             return RedirectToAction(nameof(FotoProfil));
         }
 

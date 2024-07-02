@@ -87,7 +87,7 @@ namespace webSITE.Controllers
 
                 daftarFotoTanpaKegiatan = daftarFotoTanpaKegiatan
                     .Where(f => f.IdKegiatan == null)
-                    .OrderBy(f => f.Tanggal);
+                    .OrderBy(f => f.Tanggal).ToList();
 
                 if (daftarFotoTanpaKegiatan == null || daftarFotoTanpaKegiatan.Count() == 0)
                     return View(new AlbumVM

@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using webSITE.Domain;
+﻿using webSITE.Domain;
 using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
+using webSITE.Domain.Exceptions;
 
 namespace webSITE.Repositori.Implementasi
 {
@@ -14,12 +14,12 @@ namespace webSITE.Repositori.Implementasi
             this.dbContext = dbContext;
         }
 
-        public async Task<MahasiswaFoto> Create(string idMahasiswa, int idFoto)
+        public async Task Add(string idMahasiswa, int idFoto)
         {
             var mahasiswaFoto = await dbContext.TblMahasiswaFoto.FindAsync(idFoto, idMahasiswa);
 
-            if (mahasiswaFoto != null)
-                return null;
+            if (mahasiswaFoto is not null)
+                throw new MahasiswaFotoAlreadyExistsException(idFoto, idMahasiswa);
 
             mahasiswaFoto = new MahasiswaFoto
             {
@@ -28,24 +28,16 @@ namespace webSITE.Repositori.Implementasi
             };
 
             dbContext.TblMahasiswaFoto.Add(mahasiswaFoto);
-            var result = await dbContext.SaveChangesAsync();
-            if (result == 0)
-                return null;
-
-            return mahasiswaFoto;
         }
 
-        public async Task<MahasiswaFoto> Delete(string idMahasiswa, int idFoto)
+        public async Task Delete(string idMahasiswa, int idFoto)
         {
             var mahasiswaFoto = await dbContext.TblMahasiswaFoto.FindAsync(idFoto, idMahasiswa);
 
-            if (mahasiswaFoto == null)
-                return null;
+            if (mahasiswaFoto is null)
+                throw new MahasiswaFotoNotFoundException(idFoto, idMahasiswa);
 
             dbContext.TblMahasiswaFoto.Remove(mahasiswaFoto);
-            await dbContext.SaveChangesAsync();
-
-            return mahasiswaFoto;
         }
     }
 }

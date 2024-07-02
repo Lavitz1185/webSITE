@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Authorization;
 using webSITE.Models;
 using webSITE.Areas.Dashboard.Models.FotoController;
 using webSITE.Utilities;
+using webSITE.DataAccess.Data;
+using webSITE.Domain.Exceptions.Abstraction;
+using webSITE.Domain.Exceptions;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {
@@ -25,6 +28,8 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly INotificationService _notificationService;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<FotoController> _logger;
 
         public FotoController(IRepositoriFoto repositoriFoto,
             IRepositoriKegiatan repositoriKegiatan,
@@ -33,7 +38,9 @@ namespace webSITE.Areas.Dashboard.Controllers
             IWebHostEnvironment webHostEnvironment,
             IRepositoriMahasiswaFoto repositoriMahasiswaFoto,
             INotificationService notificationService,
-            IOptions<PhotoFileSettings> options)
+            IOptions<PhotoFileSettings> options,
+            IUnitOfWork unitOfWork,
+            ILogger<FotoController> logger)
         {
             _photoFileSettings = options.Value;
             _repositoriFoto = repositoriFoto;
@@ -43,15 +50,19 @@ namespace webSITE.Areas.Dashboard.Controllers
             _webHostEnvironment = webHostEnvironment;
             _repositoriMahasiswaFoto = repositoriMahasiswaFoto;
             _notificationService = notificationService;
+            _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public async Task<IActionResult> DetailFoto(int? id, int? idKegiatan)
         {
             var daftarSemuaFoto = await _repositoriFoto.GetAllWithDetail();
 
+            daftarSemuaFoto ??= new List<Foto>();
+
             var daftarFotoAlbum = daftarSemuaFoto.Where(f => f.IdKegiatan == idKegiatan).ToList();
 
-            if (daftarFotoAlbum == null || daftarFotoAlbum.Count == 0)
+            if (daftarFotoAlbum.Count == 0)
             {
                 _notificationService.AddNotification(new ToastrNotification
                 {
@@ -70,7 +81,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             ViewData["IdKegiatan"] = idKegiatan;
 
             if (idKegiatan is not null)
-                ViewData["NamaKegiatan"] = (await _repositoriKegiatan.Get(idKegiatan.Value)).NamaKegiatan;
+                ViewData["NamaKegiatan"] = (await _repositoriKegiatan.Get(idKegiatan.Value))?.NamaKegiatan;
             else
                 ViewData["NamaKegiatan"] = "Lain - Lain";
 
@@ -87,15 +98,16 @@ namespace webSITE.Areas.Dashboard.Controllers
             {
                 var daftarFotoTanpaKegiatan = await _repositoriFoto.GetAll();
 
-                daftarFotoTanpaKegiatan = daftarFotoTanpaKegiatan
-                    .Where(f => f.IdKegiatan == null)
-                    .OrderBy(f => f.Tanggal);
-
                 if (daftarFotoTanpaKegiatan == null || daftarFotoTanpaKegiatan.Count() == 0)
                     return View(new AlbumVM
                     {
                         NamaKegiatan = "Lain - Lain"
                     });
+
+                daftarFotoTanpaKegiatan = daftarFotoTanpaKegiatan
+                    .Where(f => f.IdKegiatan == null)
+                    .OrderBy(f => f.Tanggal)
+                    .ToList();
 
                 return View(new AlbumVM
                 {
@@ -201,8 +213,11 @@ namespace webSITE.Areas.Dashboard.Controllers
         [HttpGet]
         public async Task<IActionResult> Tambah(int? idKegiatan, bool showIdKegiatan = true)
         {
-            var listMahasiswa = (await _repositoriMahasiswa.GetAll())
-                .Select(m => new MahasiswaTambahFotoVM
+            var listMahasiswa = await _repositoriMahasiswa.GetAll();
+
+            var daftarMahasiswaTambahFotoVM = new List<MahasiswaTambahFotoVM>();
+            if (listMahasiswa is not null)
+                daftarMahasiswaTambahFotoVM = listMahasiswa.Select(m => new MahasiswaTambahFotoVM
                 {
                     Id = m.Id,
                     NamaLengkap = m.NamaLengkap,
@@ -214,7 +229,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             return View(new TambahFotoVM
             {
                 Tanggal = DateTime.Now,
-                DaftarMahasiswaTambahFotoVM = listMahasiswa,
+                DaftarMahasiswaTambahFotoVM = daftarMahasiswaTambahFotoVM,
                 IdKegiatan = idKegiatan
             });
         }
@@ -250,29 +265,55 @@ namespace webSITE.Areas.Dashboard.Controllers
                 .Where(x => x.DalamFoto == true)
                 .Select(x => x.Id).ToList();
 
-            newFoto = await _repositoriFoto.Create(newFoto);
+            var daftarMahasiswa = idMahasiswaDalamFoto.Select(async id => await _repositoriMahasiswa.Get(id))
+                .Select(t => t.Result);
 
-            if (newFoto == null)
+            newFoto.DaftarMahasiswa = daftarMahasiswa.ToList();
+
+            try
             {
-                ModelState.AddModelError(string.Empty, "Error menambahkan foto");
+                await _repositoriFoto.Add(newFoto);
+
+                using (var fileStream = System.IO.File.Create(_webHostEnvironment.WebRootPath + filePath))
+                {
+                    await fileStream.WriteAsync(formFileContent);
+                }
+
+                await _unitOfWork.SaveChangesAsync();
+
+                _notificationService.AddNotification(
+                    new ToastrNotification
+                    {
+                        Type = ToastrNotificationType.Success,
+                        Title = "Tambah Foto Sukses",
+                        Message = "Foto berhasil ditambahkan"
+                    });
+            }
+            catch (DomainException ex)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Tambah Foto Gagal",
+                    Message = ex.Message,
+                });
+
+                _logger.LogError("Tambah Foto. Domain Exception {0}", ex.ToString());
+                ModelState.AddModelError(string.Empty, ex.Message);
                 return View(tambahFotoVM);
             }
-
-            using (var fileStream = System.IO.File.Create(_webHostEnvironment.WebRootPath + filePath))
+            catch (Exception ex) 
             {
-                await fileStream.WriteAsync(formFileContent);
-            }
-
-            foreach (var id in idMahasiswaDalamFoto)
-                await _repositoriMahasiswaFoto.Create(id, newFoto.Id);
-
-            _notificationService.AddNotification(
-                new ToastrNotification
+                _notificationService.AddNotification(new ToastrNotification
                 {
-                    Type = ToastrNotificationType.Success,
-                    Title = "Tambah Foto Sukses",
-                    Message = "Foto berhasil ditambahkan"
+                    Type = ToastrNotificationType.Error,
+                    Title = "Tambah Foto Gagal"
                 });
+
+                _logger.LogError("Tambah Foto. Exception {0}", ex.ToString());
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(tambahFotoVM);
+            }
 
             return RedirectToAction(nameof(Album), new { idKegiatan = tambahFotoVM.IdKegiatan });
         }
@@ -281,67 +322,63 @@ namespace webSITE.Areas.Dashboard.Controllers
         public async Task<IActionResult> PindahFoto(int? idKegiatan, int idFoto)
         {
             var returnUrl = Url.Action(nameof(Album), new { idKegiatan }) ?? "/";
-            string namaAlbum = "Lain - Lain";
 
-            var foto = await _repositoriFoto.Get(idFoto);
-            if (foto == null)
+            try
             {
-                _notificationService.AddNotification(new ToastrNotification
+                if (idKegiatan is null)
                 {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Pindah Foto Gagal",
-                    Message = $"Foto dengan id {idFoto} tidak ada"
-                });
+                    var foto = await _repositoriFoto.Get(idFoto);
 
-                return Redirect(returnUrl);
-            }
+                    if (foto is null)
+                        throw new FotoNotFoundException(idFoto);
 
-            if (idKegiatan != null)
-            {
-                var kegiatan = await _repositoriKegiatan.Get(idKegiatan.Value);
-                if (kegiatan == null)
-                {
-                    _notificationService.AddNotification(new ToastrNotification
-                    {
-                        Type = ToastrNotificationType.Error,
-                        Title = "Pindah Foto Gagal",
-                        Message = $"Kegiatan dengan id {idKegiatan} tidak ada"
-                    });
-
-                    return Redirect(returnUrl);
+                    foto.IdKegiatan = null;
+                    await _repositoriFoto.Update(foto);
                 }
-                namaAlbum = kegiatan.NamaKegiatan;
-            }
-
-            if (foto.IdKegiatan == idKegiatan)
-            {
-                _notificationService.AddNotification(new ToastrNotification
+                else
                 {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Pindah Foto Gagal",
-                    Message = $"Foto sudah ada di kegiatan {namaAlbum}"
-                });
+                    await _repositoriKegiatan.AddFoto(idFoto, idKegiatan.Value);
+                }
 
-                return Redirect(returnUrl);
-            }
+                await _unitOfWork.SaveChangesAsync();
 
-            foto.IdKegiatan = idKegiatan;
-            var result = await _repositoriFoto.Update(foto);
+                string namaAlbum = "Lain - Lain";
 
-            if (result == null)
-                _notificationService.AddNotification(new ToastrNotification
+                if(idKegiatan is not null)
                 {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Pindah Foto Gagal",
-                    Message = "Terjadi error pada server"
-                });
-            else
+                    var kegiatan = await _repositoriKegiatan.Get(idKegiatan.Value);
+                    namaAlbum = kegiatan!.NamaKegiatan;
+                }
+
                 _notificationService.AddNotification(new ToastrNotification
                 {
                     Type = ToastrNotificationType.Success,
                     Title = "Pindah Foto Berhasil",
                     Message = $"Foto dengan id {idFoto} berhasil dipindah ke kegiatan {namaAlbum}"
                 });
+            }
+            catch (DomainException ex)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Pindah Foto Gagal",
+                    Message = ex.Message,
+                });
+
+                _logger.LogError("Pindah Foto. Domain Exception {0}", ex.ToString());
+            }
+            catch (Exception ex)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Pindah Foto Gagal",
+                    Message = "",
+                });
+
+                _logger.LogError("Pindah Foto. Domain Exception {0}", ex.ToString());
+            }
 
             return Redirect(returnUrl);
         }
@@ -351,29 +388,54 @@ namespace webSITE.Areas.Dashboard.Controllers
         {
             returnUrl = returnUrl ?? Url.Action("Index");
 
-            var result = await _repositoriFoto.Delete(id);
+            try
+            {
+                var foto = await _repositoriFoto.Get(id);
 
-            System.IO.File.Delete(_webHostEnvironment.WebRootPath + result.PhotoPath);
+                if (foto is not null && System.IO.File.Exists(foto.PhotoPath))
+                {
+                    System.IO.File.Delete(_webHostEnvironment.WebRootPath + foto.PhotoPath);
+                }
 
-            if (result == null)
+                await _repositoriFoto.Delete(id);
+                await _unitOfWork.SaveChangesAsync();
+
+                _notificationService.AddNotification(
+                new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Success,
+                    Title = "Hapus Foto Sukses",
+                    Message = $"Foto dengan id {id} berhasil dihapus"
+                });
+
+                _logger.LogInformation("Delete. Foto Id {0} terhapus", id);
+            }
+            catch (DomainException ex)
+            {
                 _notificationService.AddNotification(
                     new ToastrNotification
                     {
                         Type = ToastrNotificationType.Error,
                         Title = "Hapus Foto Gagal",
-                        Message = $"Foto dengan id {id} gagal dihapus"
+                        Message = ex.Message
                     });
-            else
+
+                _logger.LogError("Delete. Domain Exception : {0}", ex.ToString());
+            }
+            catch (Exception ex)
+            {
                 _notificationService.AddNotification(
                     new ToastrNotification
                     {
-                        Type = ToastrNotificationType.Success,
-                        Title = "Hapus Foto Sukses",
-                        Message = $"Foto dengan id {id} berhasil dihapus"
+                        Type = ToastrNotificationType.Error,
+                        Title = "Hapus Foto Gagal",
+                        Message = ""
                     });
 
+                _logger.LogError("Delete. Exception : {0}", ex.ToString());
+            }
 
-            return Redirect(returnUrl);
+            return Redirect(returnUrl!);
         }
     }
 }

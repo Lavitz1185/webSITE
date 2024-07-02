@@ -2,6 +2,7 @@
 using webSITE.Domain;
 using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
+using webSITE.Domain.Exceptions;
 
 namespace webSITE.Repositori.Implementasi
 {
@@ -14,7 +15,7 @@ namespace webSITE.Repositori.Implementasi
             _dbContext = dbContext;
         }
 
-        public async Task<Foto> AddMahasiswa(string idMahasiswa, int idFoto)
+        public async Task AddMahasiswa(string idMahasiswa, int idFoto)
         {
             var mahasiswa = await _dbContext.TblMahasiswa
                 .AsNoTracking()
@@ -23,8 +24,14 @@ namespace webSITE.Repositori.Implementasi
             var foto = await Get(idFoto);
             var mahasiswaFoto = await _dbContext.TblMahasiswaFoto.FindAsync(idFoto, idMahasiswa);
 
-            if (mahasiswa == null || foto == null || mahasiswaFoto != null)
-                return null;
+            if (mahasiswa == null)
+                throw new MahasiswaNotFoundException(idMahasiswa);
+
+            if(foto == null)
+                throw new FotoNotFoundException(idFoto);
+
+            if (mahasiswaFoto != null)
+                throw new MahasiswaFotoAlreadyExistsException(idFoto, idMahasiswa);
 
             var newMahasiswaFoto = new MahasiswaFoto
             {
@@ -32,46 +39,35 @@ namespace webSITE.Repositori.Implementasi
                 IdMahasiswa = idMahasiswa
             };
 
-            _dbContext.TblMahasiswaFoto.Add(newMahasiswaFoto);
-            var result = await _dbContext.SaveChangesAsync();
-            if (result == 0)
-                return null;
-
-            return await GetWithDetail(idFoto);
+            _dbContext.TblMahasiswaFoto.Add(newMahasiswaFoto); 
         }
 
-        public async Task<Foto> Create(Foto entity)
+        public Task Add(Foto entity)
         {
-            var tracker = _dbContext.TblFoto.Add(entity);
-            var result = await _dbContext.SaveChangesAsync();
+            _dbContext.TblFoto.Add(entity);
 
-            if (result == 0)
-                return null;
-
-            return await Get(entity.Id);
+            return Task.CompletedTask;
         }
 
-        public async Task<Foto> Delete(int id)
+        public async Task Delete(int id)
         {
             var foto = await _dbContext.TblFoto.FindAsync(id);
 
-            if (foto == null) return null;
+            if (foto == null) throw new FotoNotFoundException(id);
 
             _dbContext.TblFoto.Remove(foto);
-            await _dbContext.SaveChangesAsync();
-
-            return foto;
         }
 
-        public async Task<Foto> Get(int id)
+        public async Task<Foto?> Get(int id)
         {
             var foto = await _dbContext.TblFoto
                 .AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == id);
+
             return foto;
         }
 
-        public async Task<IEnumerable<Foto>> GetAll()
+        public async Task<List<Foto>?> GetAll()
         {
             var listFoto = await _dbContext.TblFoto
                 .AsNoTracking()
@@ -80,7 +76,7 @@ namespace webSITE.Repositori.Implementasi
             return listFoto;
         }
 
-        public async Task<IEnumerable<Foto>> GetAllByKegiatan(int kegiatanId)
+        public async Task<IEnumerable<Foto>?> GetAllByKegiatan(int kegiatanId)
         {
             var listFoto = await _dbContext.TblFoto.Where(f => f.IdKegiatan == kegiatanId)
                 .Include(f => f.Kegiatan)
@@ -89,7 +85,7 @@ namespace webSITE.Repositori.Implementasi
             return listFoto;
         }
 
-        public async Task<IEnumerable<Foto>> GetAllByTanggal(DateTime tanggal)
+        public async Task<IEnumerable<Foto>?> GetAllByTanggal(DateTime tanggal)
         {
             var listFoto = await _dbContext.TblFoto
                 .Where(f => f.Tanggal == tanggal)
@@ -100,7 +96,7 @@ namespace webSITE.Repositori.Implementasi
             return listFoto;
         }
 
-        public async Task<IEnumerable<Foto>> GetAllWithDetail()
+        public async Task<List<Foto>?> GetAllWithDetail()
         {
             var listFoto = await _dbContext.TblFoto
                 .Include(f => f.DaftarMahasiswa)
@@ -111,7 +107,7 @@ namespace webSITE.Repositori.Implementasi
             return listFoto;
         }
 
-        public async Task<Foto> GetWithDetail(int id)
+        public async Task<Foto?> GetWithDetail(int id)
         {
             var foto = await _dbContext.TblFoto
                 .Include(f => f.DaftarMahasiswa)
@@ -122,35 +118,26 @@ namespace webSITE.Repositori.Implementasi
             return foto;
         }
 
-        public async Task<Foto> RemoveMahasiswa(string idMahasiswa, int idFoto)
+        public async Task RemoveMahasiswa(string idMahasiswa, int idFoto)
         {
             var mahasiswaFoto = await _dbContext.TblMahasiswaFoto.FindAsync(idFoto, idMahasiswa);
 
-            if (mahasiswaFoto == null) return null;
+            if (mahasiswaFoto == null) throw new MahasiswaFotoNotFoundException(idFoto, idMahasiswa);
 
             _dbContext.TblMahasiswaFoto.Remove(mahasiswaFoto);
-            await _dbContext.SaveChangesAsync();
-
-            return await Get(idFoto);
         }
 
-        public async Task<Foto> Update(Foto entity)
+        public async Task Update(Foto entity)
         {
             var entityDb = await _dbContext.TblFoto.FindAsync(entity.Id);
 
-            if (entityDb == null)
-                return null;
+            if (entityDb == null) throw new FotoNotFoundException(entity.Id);
 
             _dbContext.Update(entityDb);
 
             entityDb.Tanggal = entity.Tanggal;
             entityDb.IdKegiatan = entity.IdKegiatan;
             entityDb.PhotoPath = entity.PhotoPath;
-
-            var result = await _dbContext.SaveChangesAsync();
-            if (result == 0) return null;
-
-            return await Get(entityDb.Id);
         }
     }
 }
