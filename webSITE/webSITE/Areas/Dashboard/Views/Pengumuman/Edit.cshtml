@@ -1,0 +1,39 @@
+﻿@using webSITE.Areas.Dashboard.Models.PengumumanController
+@model EditVM
+@{
+    ViewData["Title"] = "Tambah Pengumuman";
+}
+
+<div class="container-fluid">
+    <form class="row" asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input asp-for="@Model.Id" hidden/>
+
+        <div class="col mb-3">
+            <label asp-for="@Model.Judul" class="form-label"></label>
+            <input asp-for="@Model.Judul" type="text" class="form-control" />
+            <span class="form-text text-danger" asp-validation-for="@Model.Judul"></span>
+        </div>
+
+        <div class="col mb-3">
+            <label asp-for="@Model.Isi" class="form-label"></label>
+            <textarea asp-for="@Model.Isi" class="form-control"></textarea>
+            <span class="form-text text-danger" asp-validation-for="@Model.Isi"></span>
+        </div>
+
+        <div class="col mb-3">
+            <label asp-for="@Model.FotoBaru" class="form-label"></label>
+            <input asp-for="@Model.FotoBaru" type="file" class="form-control" />
+            <span class="form-text text-danger" asp-validation-for="@Model.FotoBaru"></span>
+        </div>
+
+        <div class="col mb-3">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
