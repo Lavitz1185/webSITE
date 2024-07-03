@@ -31,7 +31,13 @@
                     <td>@item.Judul</td>
                     <td>@item.Isi</td>
                     <td>@item.Tanggal.ToString(cultureInfo.DateTimeFormat.ShortDatePattern, cultureInfo)</td>
-                    <td>@(item.IsPriority ? "&#1003" : "")</td>
+                    <td>
+                        <form asp-action="SetPriority" asp-route-id="@item.Id" asp-route-priority="@(!item.IsPriority)">
+                            <button type="submit" class="btn btn-primary">
+                                @(item.IsPriority ? "&#1003" : "X")
+                            </button>
+                        </form>
+                    </td>
                     <td>
                         <div class="d-flex gap-1 justify-content-start">
                             <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">
