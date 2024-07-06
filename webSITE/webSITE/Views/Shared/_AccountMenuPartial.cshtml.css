@@ -4,6 +4,7 @@
     border-radius: 50%;
     cursor: pointer;
     border: solid;
+    box-shadow: 0 2px 15px rgb(25, 25, 25, 0.46);
 }
 
 ::deep .sub-menu-wrap {

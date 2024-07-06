@@ -336,10 +336,49 @@
         font-size: 1.6rem;
         padding: 0 0 0 20px;
     }
+
+
+@media (max-width: 768px) {
+    #preKeg {
+       
+        height: 120vh;
+        
+    }
+    #preKeg .row .col .card {
+        width: 300px;
+        height: 200px;
+    }
+        #preKeg .row .col .card .card-img-top {
+            width: 100%;
+            height: 130px;
+            overflow: hidden;
+            padding: 0;
+        }
+
+    #preKeg .row1 {
+        margin: 85px 0 0 0;        
+    }
+        #preKeg .row1 h1 {
+            font-size: 2.0rem;
+        }
+
+    #preKeg .row2 .card1 {
+        margin: 40px 100px 25px 0;
+    }
+
+    #preKeg .row2 .card2 {
+        margin: 20px 0 25px 100px;
+    }
+
+    #preKeg .row2 .card3 {
+        margin: 20px 100px 25px 0;
+    }
+
+        #preKeg .row3 {
+            margin: 220px 0 0 0;
+        }
+}
 /* Akhir Preview Kegiatan */
-
-
-
 /* Kontak */
 #contact {
     padding: 5vw 8vw 5vw 8vw;
