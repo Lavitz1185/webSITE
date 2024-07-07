@@ -5,6 +5,26 @@
     ViewData["Active"] = "Home";
 }
 
+<style>
+    .transparent {
+        background-color: transparent !important;
+        color: transparent !important;
+    }
+}</style>
+
+
+<!--PopUp Screen-->
+<div class="popup-screen">
+    <div class="popup-box">
+        <i class="ri-close-line cls-btn"></i>
+        <h2>Popup Box</h2>
+        @* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+        <a href="#" >Ente Ente</a> *@
+    </div>
+</div>
+<!--Akhir PopUp Screen-->
+
+
 <!-- Hero Section -->
 <section id="home" class="mb-5">
     <div class="slider">
@@ -241,6 +261,17 @@
                 clearInterval(interval);
             }
 
+            function checkScreenWidth() {
+                if (window.innerWidth < 768) {
+                    prevBtn.addClass('transparent');
+                    nextBtn.addClass('transparent');
+                }
+                else {
+                    prevBtn.removeClass('transparent');
+                    nextBtn.removeClass('transparent');
+                }
+            }
+
             $(nextBtn).on("click", () => {
                 nextSlide();
                 stopAutoSlide();
@@ -262,7 +293,22 @@
             $(slider).on("mouseenter", stopAutoSlide);
             $(slider).on("mouseleave", startAutoSlide);
 
+            checkScreenWidth();
             startAutoSlide();
+        });
+
+        const popupScreen = document.querySelector(".popup-screen");
+        // const popupBox = document.querySelector(".popup-box"); //cookies
+        const closeBtn = document.querySelector(".cls-btn");
+
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                popupScreen.classList.add("active");
+            }, 1000); // waktu popup muncul setelah page diload
+        });
+
+        closeBtn.addEventListener("click", () => {
+            popupScreen.classList.remove("active");
         });
 
     </script>
