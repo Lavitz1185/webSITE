@@ -1,0 +1,36 @@
+﻿.container-pengumuman {
+    padding: 40px 60px 60px;
+}
+
+.one-pengumuman {
+    padding: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 1px 2px 5px 3px rgba(0,0,0,0.17);
+    -webkit-box-shadow: 1px 2px 5px 3px rgba(0,0,0,0.17);
+    -moz-box-shadow: 1px 2px 5px 3px rgba(0,0,0,0.17);
+}
+
+    .one-pengumuman:hover {
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 1px 2px 5px 3px rgba(0,0,0,0.46);
+        -webkit-box-shadow: 1px 2px 5px 3px rgba(0,0,0,0.46);
+        -moz-box-shadow: 1px 2px 5px 3px rgba(0,0,0,0.46);
+    }
+
+.gambar {
+    display: flex;
+    justify-content: center;
+}
+
+    .gambar ::deep img {
+        width: 70px;
+        border-radius: 50%;
+        height: 70px;
+    }
+
+.tanggal-pengumuman h5 {
+    font-size: 16px;
+}
