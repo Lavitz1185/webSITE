@@ -188,9 +188,9 @@
             <a class="selengkapnya" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" asp-area=" " asp-controller="Kegiatan" asp-action="Index" style="z-index: 999"><h5>Selengkapnya -></h5></a>
             </div>
         </div>
-    <img class="preimg preimgtop" style="width: 100%; position: absolute; top: 0;" src="~/img/preKegtop.png" alt="Top Image" />
+    <img class="preimg preimgtop" style="width: 100%; position: absolute; top: 0; left: 0; right: 0;" src="~/img/preKegtop.png" alt="Top Image" />
 
-    <img class="preimg preimgbot" style=" width: 100%; position: absolute; bottom: 0; z-index: 0" src="~/img/preKegbot.png" alt="Bottom Image" />
+    <img class="preimg preimgbot" style=" width: 100%; position: absolute; bottom: 0; left: 0; right: 0; z-index: 0; " src="~/img/preKegbot.png" alt="Bottom Image" />
 </section>
 <!-- Akhir Preview Kegiatan -->
 
@@ -304,7 +304,7 @@
         window.addEventListener("load", () => {
             setTimeout(() => {
                 popupScreen.classList.add("active");
-            }, 1000); // waktu popup muncul setelah page diload
+            }, 500); // waktu popup muncul setelah page diload
         });
 
         closeBtn.addEventListener("click", () => {
