@@ -6,149 +6,45 @@
     var user = _repositoriMahasiswa.Get(userId).Result;
 }
 
-<style>
+<!-- Sidebar -->
+<section id="sidebar">
+    <a href="" class="brand"><i class="ri-admin-fill icon"></i>Admin</a>
+    <ul class="side-menu">
+        <li><a href="" class="active"><i class="ri-dashboard-fill icon"></i>Dashboard</a></li>
 
-    :root {
-        --header-height: 3.5rem;
-        --nav-width: 219px;
-        --first-color: #6923D0;
-        --first-color-light: #F4F0FA;
-        --title-color: #19181B;
-        --text-color: #58555E;
-        --text-color-light: #A5A1AA;
-        --body-color: #F9F6FD;
-        --container-color: #ffffff;
-        --normal-font-size: 20px;
-        --small-font-size: 16px;
-        --smaller-font-size: .75rem;
-        --font-medium: 500;
-        --font-semi-bold: 600;
-        --z-fixed: 100;
-    }
-
-
-    *, ::before, ::after {
-        box-sizing: border-box;
-    }
-
-</style>
-
-@*HEADER*@
-<div class="header">
-    <div class="header_container">
-
-
-        <img src="@Url.ActionLink("FotoProfil", "File", new {Id = user.Id, Area = ""})" class="header_img" alt="" style="width:35px; height:35px; border-radius:50%;" />
-
-        <span href="" class="header_logo">SITE22</span>
-
-        <div class="header_search">
-            <input type="search" placeholder="Search" class="header_input" />
-            <i class="ri-search-line header_icon"></i>
-        </div>
-
-        <div class="header_toggle">
-            <i class="ri-menu-line" id="header-toggle"></i>
-        </div>
-
-    </div>
-</div>
-
-<div class="nav" id="navbar">
-    <nav class="nav_container">
-        <div>
-            <a href="#" class="nav_link nav_logo">
-                <i class="ri-honor-of-kings-line nav_icon"></i>
-                <span class="nav_logo-name">SITE22</span>
-            </a>
-
-            <div class="nav_list">
-                <div class="nav_items">
-                    <h3 class="nav_subtitle">Menu</h3>
-
-                    <a asp-area="Dashboard" asp-controller="Home" asp-action="Index" class="nav_link">
-                        <i class="ri-home-8-line nav_icon"></i>
-                        <span class="nav_name">Home</span>
-                    </a>
-
-                    <a asp-area="Dashboard" asp-controller="Mahasiswa" asp-action="Index" class="nav_link">
-                        <i class="ri-user-line nav_icon"></i>
-                        <span class="nav_name">Mahasiswa</span>
-                    </a>
-
-                    @*<a href="" class="nav_link">
-                        <i class="ri-chat-3-line nav_icon"></i>
-                        <span class="nav_name">Messages</span>
-                    </a>*@
-                </div>
-
-                <div class="nav_items">
-                    <h3 class="nav_subtitle">Kegiatan</h3>
-
-                    <a asp-area="Dashboard" asp-controller="Kegiatan" asp-action="Index" class="nav_link">
-                        <i class="ri-calendar-line nav_icon"></i>
-                        <span class="nav_name">Kegiatan</span>
-                    </a>
-
-                    <a asp-area="Dashboard" asp-action="TambahKegiatan" asp-controller="Kegiatan" class="nav_link">
-                        <i class="ri-add-line nav_icon"></i>
-                        <span class="nav_name">Tambah</span>
-                    </a>
-                </div>
-
-                <div class="nav_items">
-                    <h3 class="nav_subtitle">Album</h3>
-
-                    <a asp-area="Dashboard" asp-controller="Foto" asp-action="Index" class="nav_link">
-                        <i class="ri-camera-3-line nav_icon"></i>
-                        <span class="nav_name">Foto</span>
-                    </a>
-
-                    <a asp-area="Dashboard" asp-controller="Foto" asp-action="Tambah" asp-route-showIdKegiatan="true" class="nav_link">
-                        <i class="ri-add-line nav_icon"></i>
-                        <span class="nav_name">Tambah</span>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-
-        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav_link nav_logout">
-            <i class="ri-logout-box-line nav_icon"></i>
-            <span class="nav_name">Keluar</span>
-        </a>
-    </nav>
-</div>
-
-<link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
-
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-<script type="text/javascript">
-    const showMenu = (headerToggle, navbarId) => {
-        const toggle = document.getElementById(headerToggle),
-            nav = document.getElementById(navbarId);
-
-        // Validate that variables exist
-        if (toggle && nav) {
-            toggle.addEventListener('click', () => {
-                // Toggle the 'show-menu' class on the navbar
-                nav.classList.toggle('show-menu');
-
-            });
-        }
-    }
-
-    showMenu('header-toggle', 'navbar');
-
-    const linkcolor = document.querySelectorAll('.nav_link');
-
-    function colorLink() {
-        linkcolor.forEach(link => link.classList.remove('active'));
-        this.classList.add('active');
-    }
-
-    linkcolor.forEach(link => link.addEventListener('click', colorLink));
-
-</script>
+        <!-- Sesi 1 -->
+        <li class="divider" data-text="utama">Utama</li>
+        <li><a asp-area="Dashboard" asp-controller="Home" asp-action="Index"><i class="ri-table-fill icon"></i>Beranda</a></li>
+        <li>
+            <a href=""><i class="ri-booklet-fill icon"></i>Contoh<i class="ri-arrow-right-s-line icon-right"></i></a>
+            <ul class="side-dropdown">
+                <li><a href="">Pertama</a></li>
+                <li><a href="">Kedua</a></li>
+                <li><a href="">Ketiga</a></li>
+                <li><a href="">Keempat</a></li>
+            </ul>
+        </li>
+        <!-- Akhir Sesi 1 -->
+        <!-- Sesi 2 -->
+        <li class="divider" data-text="informasi">Informasi</li>
+        <!-- Mahasiswa -->
+        <li><a asp-area="Dashboard" asp-controller="Mahasiswa" asp-action="Index"><i class="ri-team-fill icon"></i>Mahasiswa</a></li>
+        <!-- Akhir Mahasiswa -->
+        <!-- Kegiatan -->
+        <li><a asp-area="Dashboard" asp-controller="Kegiatan" asp-action="Index"><i class="ri-sticky-note-fill icon"></i>Kegiatan</a></li>
+        <!-- Akhir Kegiatan -->
+        <!-- Tambah Kegiatan -->
+        <li><a asp-area="Dashboard" asp-controller="Kegiatan" asp-action="TambahKegiatan"><i class="ri-sticky-note-add-fill icon"></i>Tambah Kegiatan</a></li>
+        <!-- Akhir Tambah Kegiatan -->
+        <!-- Album -->
+        <li><a asp-area="Dashboard" asp-controller="Foto" asp-action="Index"><i class="ri-image-fill icon"></i>Album</a></li>
+        <!-- Akhir Album -->
+        <!-- Tambah Album -->
+        <li><a asp-area="Dashboard" asp-controller="Foto" asp-action="Tambah"><i class="ri-image-add-fill icon"></i>Tambah Album</a></li>
+        <!-- Akhir Tambah Album -->
+        <!-- Pengumuman -->
+        <li><a asp-area="Dashboard" asp-controller="Pengumuman" asp-action="Index"><i class="ri-megaphone-fill icon"></i>Pengumuman</a></li>
+        <!-- Akhir Pengumuman -->             
+        <!-- Akhir Sesi 2 -->
+    </ul>
+</section>

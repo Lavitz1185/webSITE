@@ -7,6 +7,17 @@
     scroll-behavior: smooth;
 }
 
+html {
+    --primary-clr: #10316B;
+    --primary-medium-clr: #d8e9df;
+    --primary-light-clr: #edfaf1;
+    --bg-clr-1: #ffffff;
+    --dark-heading-clr: #232d39;
+    --dark-text-clr: #6c757d;
+    --light-heading-clr: #efefef;
+    --light-text-clr: #cecece;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
 }

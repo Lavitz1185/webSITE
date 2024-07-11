@@ -7,23 +7,54 @@
     <link rel="shortcut icon" type="image/x-icon" href="~/img/Logo Site Bulat.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/webSITE.styles.css" asp-append-version="true" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
     
 </head>
 <body>
 
     <partial name="_Sidebar" />
 
-    <main role="main" class="pb-3">
-        <div class="container-fluid">
-            @RenderBody()
-        </div>
-    </main>
+    <section id="content">
+        <nav>
+            <i class="ri-menu-fill toggle-sidebar"></i>
+            <form action="#">
+                <div class="form-group">
+                    <input type="text" placeholder="Search...">
+                    <i class="ri-search-2-line icon"></i>
+                </div>
+            </form>
+            <span class="divider"></span>
+            <div class="profile">
+                <img src="~/img/LOGO_SITE-removebg-preview.png" alt="">
+                <ul class="profile-link">
+                    <li>
+                        <a asp-action="Edit" asp-controller="Account" asp-area="">
+                            <i class="ri-settings-3-line"></i>Manajemen Akun
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="Index" asp-controller="Home" asp-area="">
+                            <i class="ri-arrow-go-back-fill"></i>Kembali
+                        </a>
+                    </li>                   
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="pb-3">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </main>
+    </section>
 
     <partial name="_ToastrPartial" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/dashboard.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
