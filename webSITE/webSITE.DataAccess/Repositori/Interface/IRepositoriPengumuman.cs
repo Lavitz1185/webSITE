@@ -10,5 +10,6 @@ namespace webSITE.DataAccess.Repositori.Interface
 {
     public interface IRepositoriPengumuman : IBaseRepositori<Pengumuman>
     {
+        Task<Pengumuman?> GetPriority();
     }
 }

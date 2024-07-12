@@ -21,8 +21,6 @@ namespace webSITE.DataAccess.Repositori.Implementasi
             return Task.CompletedTask;
         }
 
-        // Exceptions:
-        //   T:webSITE.Domain.Exceptions.PengumumanNotFoundException
         public async Task Delete(int id)
         {
             var pengumuman = await _appDbContext.TblPengumuman
@@ -42,6 +40,13 @@ namespace webSITE.DataAccess.Repositori.Implementasi
             return await _appDbContext.TblPengumuman
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<Pengumuman?> GetPriority()
+        {
+            return await _appDbContext.TblPengumuman
+                .Where(p => p.IsPriority)
+                .AsNoTracking().FirstOrDefaultAsync();
         }
 
         public async Task<List<Pengumuman>?> GetAll()
