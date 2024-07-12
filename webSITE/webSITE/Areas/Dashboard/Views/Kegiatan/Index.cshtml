@@ -3,54 +3,58 @@
     ViewData["Title"] = "Kegiatan - Index";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col">
-            <h1 class="text-center">Daftar Kegiatan</h1>
-        </div>
+
+
+<div class="kegiaatan">
+    <h1 class="title">Kegiatan SITE22</h1>
+    <ul class="breadcrumbs mb-4">
+        <li><a href="#">Informasi</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Kegiatan SITE22</a></li>
+    </ul>
+    <div class="mb-4 mt-4">
+        <a style="" class="btn w-100" asp-area="Dashboard" asp-controller="Kegiatan" asp-action="TambahKegiatan"> + Tambah Kegiatan</a>
     </div>
-    <div class="row">
-        <div class="col">
-            <table class="table table-bordered table-stripped">
-                <thead>
+    <div class="container">
+        <table class="table table-bordered table-stripped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Tanggal</th>
+                    <th>Jumlah Hari</th>
+                    <th>Tempat Kegiatan</th>
+                    <th>Keterangan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var kegiatan in Model)
+                {
                     <tr>
-                        <th>ID</th>
-                        <th>Nama</th>
-                        <th>Tanggal</th>
-                        <th>Jumlah Hari</th>
-                        <th>Tempat Kegiatan</th>
-                        <th>Keterangan</th>
-                        <th>Aksi</th>
+                        <td>@kegiatan.Id</td>
+                        <td>@kegiatan.NamaKegiatan</td>
+                        <td>@kegiatan.Tanggal.ToShortDateString()</td>
+                        <td>@kegiatan.JumlahHari</td>
+                        <td>@kegiatan.TempatKegiatan</td>
+                        <td>@kegiatan.Keterangan</td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-start">
+                                <a class="btn btn-warning" asp-action="Detail" asp-route-id="@kegiatan.Id">
+                                    <i class='fas fa-eye' style='color:#ffffff'></i>
+                                </a>
+                                <a class="btn btn-primary" asp-action="EditKegiatan" asp-route-id="@kegiatan.Id">
+                                    <i class="fas fa-pen-square fa-lg"></i>
+                                </a>
+                                <form asp-action="Delete" asp-route-id="@kegiatan.Id" method="post">
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var kegiatan in Model)
-                    {
-                        <tr>
-                            <td>@kegiatan.Id</td>
-                            <td>@kegiatan.NamaKegiatan</td>
-                            <td>@kegiatan.Tanggal.ToShortDateString()</td>
-                            <td>@kegiatan.JumlahHari</td>
-                            <td>@kegiatan.TempatKegiatan</td>
-                            <td>@kegiatan.Keterangan</td>
-                            <td>
-                                <div class="d-flex gap-1 justify-content-start">
-                                    <a class="btn btn-warning" asp-action="Detail" asp-route-id="@kegiatan.Id">
-                                        <i class='fas fa-eye' style='color:#ffffff'></i>
-                                    </a>
-                                    <a class="btn btn-primary" asp-action="EditKegiatan" asp-route-id="@kegiatan.Id">
-                                        <i class="fas fa-pen-square fa-lg"></i>
-                                    </a>
-                                    <form asp-action="Delete" asp-route-id="@kegiatan.Id" method="post">
-                                        <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 

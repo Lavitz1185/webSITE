@@ -5,53 +5,64 @@
     var cultureInfo = new CultureInfo("id-ID");
 }
 
-<div class="container">
-    <h1 class="text-center">Daftar Pengumuman</h1>
-    <a href="#" class="btn btn-primary">Tambah</a>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th width="15%">Foto</th>
-                <th>Judul</th>
-                <th>Isi</th>
-                <th>Tanggal</th>
-                <th>Prioritas</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var item in Model)
-            {
+<div class="pengumumann">
+    <h1 class="title">Pengumuman SITE22</h1>
+    <ul class="breadcrumbs mb-4">
+        <li><a href="#">Informasi</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Pengumuman SITE22</a></li>
+    </ul>
+    <div class="mb-4 mt-4">
+        <a style="" class="btn w-100" asp-area="Dashboard" asp-controller="Pengumuman" asp-action="Tambah"> + Tambah Pengumuman</a>
+    </div>
+    <div class="container">
+        <table class="table table-bordered table-striped">
+            <thead>
                 <tr>
-                    <td>@item.Id</td>
-                    <td>
-                        <img class="img-fluid" src="@Url.Action("Foto", "Pengumuman", new {Area = "", id = item.Id})"/>
-                    </td>
-                    <td>@item.Judul</td>
-                    <td>@item.Isi</td>
-                    <td>@item.Tanggal.ToString(cultureInfo.DateTimeFormat.ShortDatePattern, cultureInfo)</td>
-                    <td>
-                        <form asp-action="SetPriority" asp-route-id="@item.Id" asp-route-priority="@(!item.IsPriority)">
-                            <button type="submit" class="btn btn-primary">
-                                @(item.IsPriority ? "&#1003" : "X")
-                            </button>
-                        </form>
-                    </td>
-                    <td>
-                        <div class="d-flex gap-1 justify-content-start">
-                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">
-                                <i class="fas fa-pen-square fa-lg"></i>
-                            </a>
-                            <form asp-action="Hapus" asp-route-id="@item.Id" method="post">
-                                <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
-                            </form>
-                        </div>
-                    </td>
+                    <th>ID</th>
+                    <th width="15%">Foto</th>
+                    <th>Judul</th>
+                    <th>Isi</th>
+                    <th>Tanggal</th>
+                    <th>Prioritas</th>
+                    <th>Aksi</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>
+                            <img class="img-fluid" src="@Url.Action("Foto", "Pengumuman", new {Area = "", id = item.Id})" />
+                        </td>
+                        <td>@item.Judul</td>
+                        <td>@item.Isi</td>
+                        <td>@item.Tanggal.ToString(cultureInfo.DateTimeFormat.ShortDatePattern, cultureInfo)</td>
+                        <td>
+                            <form asp-action="SetPriority" asp-route-id="@item.Id" asp-route-priority="@(!item.IsPriority)">
+                                <button type="submit" class="btn btn-primary">
+                                    @(item.IsPriority ? "&#1003" : "X")
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-start">
+                                <a class="btn" asp-action="Edit" asp-route-id="@item.Id">
+                                    <i class="fas fa-pen-square fa-lg"></i>
+                                </a>
+                                <form asp-action="Hapus" asp-route-id="@item.Id" method="post">
+                                    <button type="submit" class="btn"><i class="fa fa-regular fa-trash"></i></button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
 </div>
 
 @section Scripts {
