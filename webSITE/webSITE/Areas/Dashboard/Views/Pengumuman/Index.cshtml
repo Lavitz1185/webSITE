@@ -40,9 +40,9 @@
                         <td>@item.Isi</td>
                         <td>@item.Tanggal.ToString(cultureInfo.DateTimeFormat.ShortDatePattern, cultureInfo)</td>
                         <td>
-                            <form asp-action="SetPriority" asp-route-id="@item.Id" asp-route-priority="@(!item.IsPriority)">
+                            <form method="post" asp-action="Prioritas" asp-route-id="@item.Id" asp-route-priority="@((!item.IsPriority).ToString().ToLower())">
                                 <button type="submit" class="btn btn-primary">
-                                    @(item.IsPriority ? "&#1003" : "X")
+                                    @(item.IsPriority ? "&1003" : "X")
                                 </button>
                             </form>
                         </td>
