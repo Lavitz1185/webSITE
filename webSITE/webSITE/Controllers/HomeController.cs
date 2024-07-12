@@ -3,23 +3,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Diagnostics;
+using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Models;
+using webSITE.Models.Home;
 using webSITE.Utilities;
 
 namespace webSITE.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IRepositoriKegiatan _repositoriKegiatan;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, 
+            IRepositoriKegiatan repositoriKegiatan)
         {
             _logger = logger;
+            _repositoriKegiatan = repositoriKegiatan;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var daftarKegiatan = await _repositoriKegiatan.GetAllWithDetail();
+
+            daftarKegiatan = daftarKegiatan?
+                .OrderByDescending(k => k.Tanggal.Date)
+                .Take(3).ToList();
+
+            return View(new IndexVM
+            {
+                DaftarKegiatan = daftarKegiatan ?? new(),
+            });
         }
 
         public IActionResult LaporError()

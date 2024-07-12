@@ -28,7 +28,7 @@
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6" style="padding: 1px">
                     <div class="content">
                     <a asp-action="DetailFoto" asp-route-id="@foto.Id" asp-route-idKegiatan="@Model.IdKegiatan">
-                        <img src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
+                        <img src="@Url.Action("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
                     </a>
                     </div>
                 </div>
