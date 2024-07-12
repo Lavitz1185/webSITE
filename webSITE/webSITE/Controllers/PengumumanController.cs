@@ -12,9 +12,9 @@ namespace webSITE.Controllers
             _repositoriPengumuman = repositoriPengumuman;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _repositoriPengumuman.GetAll());
         }
 
         public async Task<IActionResult> Foto(int id)

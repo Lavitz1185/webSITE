@@ -1,8 +1,9 @@
-﻿@model Views_Pengumuman_Index
-
+﻿@using System.Globalization
+@model List<Pengumuman>
 @{
     ViewData["title"] = "Pengumuman";
     ViewData["Active"] = "Pengumuman";
+    var cultureInfo = new CultureInfo("id-ID");
 }
 
 <div class="container-fluid pb-3 pt-5">
@@ -10,56 +11,34 @@
 </div>
 
 <div class="container-pengumuman">
-    <div class="one-pengumuman mb-3">
-        <div class="row">
-            <div class="col-1 gambar">
-                <img src="img/LOGO_PENSI.jpg" />
-            </div>
-            <div class="col-9">
-                <div class="row">
-                    <h4 style="font-weight:bold;">
-                        Pentas Seni Ilmu Komputer 2024
-                    </h4>
+    @foreach(var pengumuman in Model)
+    {
+        <div class="one-pengumuman mb-3">
+            <div class="row">
+                <div class="col-1 gambar">
+                    <img src="@Url.Action("Foto", "Pengumuman", new {Area = "", id = pengumuman.Id})" />
                 </div>
-                <div class="row">
-                    <p>
-                        Dengan bangga kami mengundang seluruh civitas akademika untuk menghadiri Pentas Seni Ilmu Komputer 2024
-                        yang akan diselenggarakan pada tanggal 15 Agustus 2024 di Aula Utama Kampus. Acara ini akan menampilkan
-                        berbagai pertunjukan seni kreatif dari mahasiswa, termasuk tarian, drama, musik, dan pameran karya digital.
-                    </p>
-                    <a href=""></a>
+                <div class="col-9">
+                    <div class="row">
+                        <h4 style="font-weight:bold;">
+                            @pengumuman.Judul
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <p>
+                            @pengumuman.Isi
+                        </p>
+                        <a href=""></a>
+                    </div>
                 </div>
-            </div>
-            <div class="tanggal-pengumuman col-2 d-flex justify-content-end">
-                <h5>
-                    Kamis, 11 Juli 2024 <br /> 07.00
-                </h5>
+                <div class="tanggal-pengumuman col-2 d-flex justify-content-end">
+                    <h5>
+                        @pengumuman.Tanggal.ToString(cultureInfo.DateTimeFormat.LongDatePattern, cultureInfo) 
+                        <br /> 
+                        @pengumuman.Tanggal.ToString("hh.mm tt")
+                    </h5>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="one-pengumuman mb-3">
-        <div class="row">
-            <div class="col-1 gambar">
-                <img src="img/LOGO_PENSI.jpg" />
-            </div>
-            <div class="col-9">
-                <div class="row">
-                    <h4 style="font-weight:bold;">
-                        Dies Natalies Ilmu Komputer 2025
-                    </h4>
-                </div>
-                <div class="row">
-                    <p>
-                        Coming Soon !!!!.
-                    </p>
-                    <a href=""></a>
-                </div>
-            </div>
-            <div class="tanggal-pengumuman col-2 d-flex justify-content-end">
-                <h5>
-                    Kamis, 11 Juli 2024 <br /> 07.00
-                </h5>
-            </div>
-        </div>
-    </div>
+    }
 </div>
