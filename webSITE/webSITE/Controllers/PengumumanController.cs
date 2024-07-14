@@ -17,6 +17,11 @@ namespace webSITE.Controllers
             return View(await _repositoriPengumuman.GetAll());
         }
 
+        public IActionResult Pensi()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Foto(int id)
         {
             var pengumuman = await _repositoriPengumuman.Get(id);
