@@ -242,24 +242,251 @@
             }
 /*Akhir Profile*/
 
+/* Preview Siters */
+#preSite {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sitewrap {
+    max-width: 1550px; /* width wrap */
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+    .sitewrap i {
+        top: 50%;
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+        font-size: 1.25rem;
+        position: absolute;
+        text-align: center;
+        line-height: 50px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+        transform: translateY(-50%);
+        transition: transform 0.1s linear;
+        z-index: 1;
+    }
+
+        .sitewrap i:active {
+            transform: translateY(-50%) scale(0.85);
+        }
+
+        .sitewrap i#left {
+            left: 3px;
+        }
+
+        .sitewrap i#right {
+            right: 3px;
+        }
+
+    .sitewrap .carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        gap: 6px;
+        padding: 0 20px; /* padding visibility */
+    }
+
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel.no-transition {
+    scroll-behavior: auto;
+}
+
+.carousel.dragging {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+}
+
+    .carousel.dragging .card {
+        cursor: grab;
+        user-select: none;
+    }
+
+.carousel .card {
+    flex: 0 0 calc((100% - 84px) / 5); /* 5 cards fit */
+    scroll-snap-align: start;
+    list-style: none;
+    background: #fff;
+    padding-bottom: 15px;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+    margin: 7px;
+}
+
+.profile-img {
+    width: 8rem;
+    clip-path: circle(60px at center);
+    margin-top: 1rem;
+    margin: 0 auto;
+}
+
+.name-profile {
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+}
+
+.name2-profile {
+    font-size: 1.1rem;
+    margin-top: 0.2rem;
+}
+
+.bio {
+    margin: 1rem auto;
+    font-size: 0.9rem;
+    width: 80%;
+    text-align: center;
+}
+
+.btn-profile {
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background: #6b43ff;
+    padding: 1rem;
+    margin-top: auto;
+    text-decoration: none;
+    display: inline-block;
+}
+
+    .btn-profile:hover {
+        text-decoration: none;
+        background: #5222fd;
+        color: white;
+    }
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name-profile,
+.name2-profile {
+    width: 100%;
+}
+
+/* Custom last-card */
+.last-card {
+    position: relative;
+    padding: 0; 
+    height: 100%; 
+}
+
+.card-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 278.56px;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+/*.content-link a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}*/
+
+.content-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 320.56px;
+    width: 100%;
+    z-index: 1;
+}
+
+/* Responsive */
+@media screen and (max-width: 1200px) {
+    .carousel .card {
+        flex: 0 0 calc((100% - 48px) / 4); /* Show 4 cards */
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .carousel .card {
+        flex: 0 0 calc((100% - 24px) / 3); /* Show 3 cards */
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .carousel .card {
+        flex: 0 0 calc((100%) / 2); /*Show 2 cards */
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .carousel .card {
+        flex: 0 0 100%; /* Show 1 card */
+    }
+}
+
+/* Akhir Preview Siters */
+
 /* Preview Kegiatan */
 #preKeg {
     position: relative;
+    overflow: hidden;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(to right, #000, #4D4CC4);
-    overflow: hidden;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-    #preKeg  .row .col {
+.contentPreKeg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #000, #4D4CC4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+#preKeg .row {
+    width: 100%;
+}
+
+    #preKeg .row .col {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-        #preKeg  .row .col .card {
+        #preKeg .row .col .card {
             width: 500px;
             height: 300px;
             display: flex;
@@ -269,23 +496,17 @@
             overflow: hidden;
             position: relative;
             border-radius: 15px;
-            box-shadow: 0px 2px 8px 0px ;
+            box-shadow: 0px 2px 8px 0px;
         }
 
-            #preKeg  .row .col .card .card-img-top {
+            #preKeg .row .col .card .card-img-top {
                 width: 100%;
                 height: 230px;
                 overflow: hidden;
                 padding: 0;
             }
-                /*#preKeg .container .row .col .card .card-img-top img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    background-size: cover;
-                }*/
 
-            #preKeg  .row .col .card .card-body {
+            #preKeg .row .col .card .card-body {
                 position: absolute;
                 bottom: 0;
                 width: 100%;
@@ -294,104 +515,83 @@
                 align-items: center;
             }
 
-    #preKeg  .row .col .card .card-title {
-        text-align: center;
+            #preKeg .row .col .card .card-title {
+                text-align: center;
+            }
+
+#preKeg .row1 {
+    margin-top: 8rem;
+}
+
+    #preKeg .row1 h1 {
+        color: white;
     }
 
-    #preKeg .row1 {
-        margin: 180px 0 0 0;
-    }
-
-        #preKeg .row1 h1 {
-            color: white;
-        }
-
-
-    #preKeg .row2 {
-        height: 55%;
-        margin: 0 0;
-    }
+#preKeg .row2 {
+    height: 60%;
+    margin-bottom: 0;
+}
 
     #preKeg .row2 .card1 {
-        margin:  50px 0 0;
+        margin-bottom: 0;
     }
 
-        #preKeg .row2 .card2 {
-            margin: 0 0 50px 0;
-        }
+#preKeg .row3 {
+    z-index: 999;
+    margin-bottom: 7rem;
+}
 
-        #preKeg .row2 .card3 {
-            margin: 0 0 75px 0;
-        }
-
-    #preKeg .row3 {
-        z-index: 999;
+    #preKeg .row3 .col .selengkapnya {
+        cursor: pointer;
     }
 
-        #preKeg .row3 .col .selengkapnya {
-            cursor: pointer;
+        #preKeg .row3 .col .selengkapnya h5 {
+            color: white;
+            font-size: 1.6rem;
+            padding: 0 0 0 20px;
+            opacity: 0.7;
+            transition: .3s ease;
+            transition-property: opacity;
         }
-    #preKeg .row3 .col .selengkapnya h5 {
-        color: white;
-        font-size: 1.6rem;
-        padding: 0 0 0 20px;
-        opacity: 0.7;
-        transition: .3s ease;
-        transition-property: opacity;
-    }
 
             #preKeg .row3 .col .selengkapnya h5:hover {
                 opacity: 1
             }
 
 @media (max-width: 1545px) {
+    #preKeg .row .col .card {
+        width: 400px;
+        height: 250px;
+    }
 
-
-        #preKeg .row .col .card {
-            width: 400px;
-            height: 250px;
+        #preKeg .row .col .card .card-img-top {
+            width: 100%;
+            height: 170px;
         }
 
-            #preKeg .row .col .card .card-img-top {
-                width: 100%;
-                height: 170px;
-            }
+    #preKeg .row1 {
+        margin-top: 7rem;
+    }
 
-        #preKeg .row1 {
-            margin: 125px 0 0 0;
-        }
-
-            /*#preKeg .row1 h1 {
-                font-size: 2.0rem;
-            }
-
-        #preKeg .row2 .card1 {
-            margin: 40px 100px 25px 0;
-        }
-
-        #preKeg .row2 .card2 {
-            margin: 20px 0 25px 100px;
-        }
-
-        #preKeg .row2 .card3 {
-            margin: 20px 100px 25px 0;
-        }
-
-        #preKeg .row3 {
-            margin: 220px 0 0 0;
-        }*/
+    #preKeg .row3 {
+        margin-bottom: 5rem;
+    }
 }
 
 @media (max-width: 768px) {
     #preKeg {
-       
         height: 120vh;
-        
     }
+
+    .contentPreKeg {
+        height: 99.5%;
+    }
+
     #preKeg .row .col .card {
         width: 300px;
         height: 200px;
     }
+
         #preKeg .row .col .card .card-img-top {
             width: 100%;
             height: 130px;
@@ -400,29 +600,24 @@
         }
 
     #preKeg .row1 {
-        margin: 85px 0 0 0;        
+        margin-top: 85px;
     }
+
         #preKeg .row1 h1 {
-            font-size: 2.0rem;
+            font-size: 2rem;
         }
 
     #preKeg .row2 .card1 {
-        margin: 40px 100px 25px 0;
+        margin: 2rem 0;
     }
 
-    #preKeg .row2 .card2 {
-        margin: 20px 0 25px 100px;
+    #preKeg .row3 {
+        margin-top: 220px;
     }
-
-    #preKeg .row2 .card3 {
-        margin: 20px 100px 25px 0;
-    }
-
-        #preKeg .row3 {
-            margin: 220px 0 0 0;
-        }
 }
+
 /* Akhir Preview Kegiatan */
+
 /* Kontak */
 #contact {
     padding: 5vw 8vw 5vw 8vw;

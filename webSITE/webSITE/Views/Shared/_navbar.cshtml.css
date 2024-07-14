@@ -12,9 +12,15 @@ nav {
 }
 
 ::deep .navbar-brand img {
-    width: 120px;
+    width: 100%;
     height: 50px;
     cursor: pointer;
+    padding-left: 20px;
+}
+
+.navbar-nav {
+    gap: 10px;
+    padding-right: 20px;
 }
 
 ::deep .nav-item {
@@ -45,7 +51,7 @@ nav {
 }
 
     .menu-img:active, .close-img:active {
-        transform: scale(0.7);
+        transform: scale(0.85);
     }
 
 /* Side Menu */
@@ -68,6 +74,7 @@ nav {
         display: flex;
         flex-direction: column;
         gap: 15px;
+        padding: 0;
     }
 
     .side-menu .navbar-toggler-icon {
@@ -82,12 +89,18 @@ nav {
         border-radius: 50%;
         backdrop-filter: blur(5px);
         box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-        transition: 0.3s ease;
+        transition: 0.3s linear;
     }
 
-    .side-menu .navbar-toggler-icon:hover {
-        background-color: rgb(230, 230, 230);
-    }
+        .side-menu .navbar-toggler-icon:hover {
+            /*background-color: rgb(230, 230, 230);*/
+            /*transform: scale(0.85);*/
+        }
+
+        .side-menu .navbar-toggler-icon:active {
+            /*background-color: rgb(230, 230, 230);*/
+            transform: scale(0.85);
+        }
 
         .side-menu .navbar-toggler-icon img {
             width: 20px;

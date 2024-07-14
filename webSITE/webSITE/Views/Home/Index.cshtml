@@ -133,23 +133,134 @@
 </section>
 <!-- Akhir Profile -->
 
+<!-- Preview Siters -->
+<section id="preSite" class="mb-5">
+    <h2 data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Preview Siters</h2>
+    <div class="sitewrap" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
+        <i id="left">&#60;</i>
+        <ul class="carousel">
+            <li class="card container-siters">
+                <div class="img">
+                    <img src="~/img/student.png" alt="Blanche Pearson" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
+                </div>
+                <div class="text-container">
+                    <h1 class="name-profile">Blanche Pearson</h1>
+                </div>
+                <p class="bio">
+                    Ayu Tapatab #1
+                </p>
+                <a href="#" class="btn-profile">Cek Profile</a>
+            </li>
+            <li class="card container-siters">
+                <div class="img">
+                    <img src="~/img/student.png" alt="Joenas Brauers" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
+                </div>
+                <div class="text-container">
+                    <h1 class="name-profile">Joenas Brauers</h1>
+                </div>
+                <p class="bio">
+                    Albert Tapatab #1
+                </p>
+                <a href="#" class="btn-profile">Cek Profile</a>
+            </li>
+            <li class="card container-siters">
+                <div class="img">
+                    <img src="~/img/student.png" alt="Lariach French" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
+                </div>
+                <div class="text-container">
+                    <h1 class="name-profile">Lariach French</h1>
+                </div>
+                <p class="bio">
+                    Umbu Tapatab #1
+                </p>
+                <a href="#" class="btn-profile">Cek Profile</a>
+            </li>
+            <li class="card container-siters">
+                <div class="img">
+                    <img src="~/img/student.png" alt="Lariach French" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
+                </div>
+                <div class="text-container">
+                    <h1 class="name-profile">Lariach French</h1>
+                </div>
+                <p class="bio">
+                    Gege Tapatab #1
+                </p>
+                <a href="#" class="btn-profile">Cek Profile</a>
+            </li>
+            <li class="card container-siters">
+                <div class="img">
+                    <img src="~/img/student.png" alt="Lariach French" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
+                </div>
+                <div class="text-container">
+                    <h1 class="name-profile">Lariach French</h1>
+                </div>
+                <p class="bio">
+                    Gege Tapatab #1
+                </p>
+                <a href="#" class="btn-profile">Cek Profile</a>
+            </li>
+            <li class="card container-siters">
+                <div class="img">
+                    <img src="~/img/student.png" alt="Lariach French" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
+                </div>
+                <div class="text-container">
+                    <h1 class="name-profile">Lariach French</h1>
+                </div>
+                <p class="bio">
+                    Gege Tapatab #1
+                </p>
+                <a href="#" class="btn-profile">Cek Profile</a>
+            </li>
+            <li class="card container-siters">
+                <div class="img">
+                    <img src="~/img/student.png" alt="Lariach French" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
+                </div>
+                <div class="text-container">
+                    <h1 class="name-profile">Lariach French</h1>
+                </div>
+                <p class="bio">
+                    Gege Tapatab #1
+                </p>
+                <a href="#" class="btn-profile">Cek Profile</a>
+            </li>
+            <li class="card container-siters last-card">
+                <div class="card-parent">
+                    <div class="img">
+                        <img src="~/img/button.png" alt="More" class="profile-img" style="width: 4rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
+                    </div>
+                    <div class="text-container">
+@*                     <h1 class="name-profile">Click to</h1> *@
+                        <h1 class="name-profile">View More</h1>
+                    </div>
+                </div>
+                <div class="content-link">
+                    <a asp-area="" asp-controller="Mahasiswa" asp-action="Index" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; z-index: 1;"></a>
+                </div>
+            </li>
+        </ul>
+        <i id="right">&#62;</i>
+    </div>
+</section>
+<!-- Akhir Preview Siters -->
+
 <!-- Preview Kegiatan -->
 <section id="preKeg" class="mb-5">
-    <div class="row row1">
-        <div class="col col-md-12">
-            <h1 data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Preview Kegiatan</h1>
+    <div class="contentPreKeg">
+        <div class="row row1">
+            <div class="col col-md-12">
+                <h1 data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Preview Kegiatan</h1>
+            </div>
         </div>
-    </div>
         <div class="row mb-4 row2">
 
-            @for(int i = 0; i < Model.DaftarKegiatan.Count; i++)
+            @for (int i = 0; i < Model.DaftarKegiatan.Count; i++)
             {
                 var kegiatan = Model.DaftarKegiatan[i];
                 var thumbnail = kegiatan.DaftarFoto.Count > 0 ? kegiatan.DaftarFoto[0] : null;
                 <div class="col col-md-4 card1">
                     <div class="card" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                         <div class="card-img-top">
-                            @if(thumbnail is not null)
+                            @if (thumbnail is not null)
                             {
                                 <img src="@Url.ActionLink("Foto", "File", new {Id = thumbnail.Id, Area=""})" style="width: 100%; height: 100%; object-fit:cover; background-size: cover" alt="Card Image 1">
                             }
@@ -168,11 +279,13 @@
         </div>
         <div class="row row3">
             <div class="col col-md-12">
-            <a class="selengkapnya" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" asp-area=" " asp-controller="Kegiatan" asp-action="Index" style="z-index: 999"><h5>Selengkapnya -></h5></a>
+                <a class="selengkapnya" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" asp-area=" " asp-controller="Kegiatan" asp-action="Index" style="z-index: 999"><h5>Selengkapnya -></h5></a>
             </div>
         </div>
+    </div>
+    
     <img class="preimg preimgtop" style="width: 100%; position: absolute; top: 0; left: 0; right: 0;" src="~/img/preKegtop.png" alt="Top Image" />
-
+@*     <svg xmlns="http://www.w3.org/2000/svg" style="position: absolute; bottom: 0; z-index:1" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,160L40,186.7C80,213,160,267,240,277.3C320,288,400,256,480,213.3C560,171,640,117,720,96C800,75,880,85,960,112C1040,139,1120,181,1200,197.3C1280,213,1360,203,1400,197.3L1440,192L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg> *@
     <img class="preimg preimgbot" style=" width: 100%; position: absolute; bottom: 0; left: 0; right: 0; z-index: 0; " src="~/img/preKegbot.png" alt="Bottom Image" />
 </section>
 <!-- Akhir Preview Kegiatan -->
@@ -279,5 +392,66 @@
             checkScreenWidth();
             startAutoSlide();
         });
+
+
+
+        //js preview siters
+        document.addEventListener('DOMContentLoaded', () => {
+            const leftArrow = document.getElementById('left');
+            const rightArrow = document.getElementById('right');
+            const carousel = document.querySelector('.carousel');
+            const cards = document.querySelectorAll('.carousel .card');
+
+            const cardWidth = cards[0].offsetWidth + 16;
+            const visibleCards = 5; // jumlah card yang akan muncul
+            const totalCards = cards.length;
+            let currentPosition = 0;
+
+            function updateArrows() {
+                const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+
+                if (currentPosition === 0) {
+                    leftArrow.style.opacity = '0';
+                    leftArrow.style.pointerEvents = 'none';
+                } else {
+                    leftArrow.style.opacity = '1';
+                    leftArrow.style.pointerEvents = 'auto';
+                }
+
+                if (currentPosition >= totalCards - visibleCards) {
+                    rightArrow.style.opacity = '0';
+                    rightArrow.style.pointerEvents = 'none';
+                } else {
+                    rightArrow.style.opacity = '1';
+                    rightArrow.style.pointerEvents = 'auto';
+                }
+            }
+
+            function scrollLeft() {
+                currentPosition = 0;
+                carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                updateArrows();
+            }
+
+            function scrollRight() {
+                currentPosition = totalCards - visibleCards;
+                carousel.scrollTo({ left: carousel.scrollWidth, behavior: 'smooth' });
+                updateArrows();
+            }
+
+            function onScroll() {
+                const scrollLeft = carousel.scrollLeft;
+                currentPosition = Math.round(scrollLeft / cardWidth);
+                updateArrows();
+            }
+
+            leftArrow.addEventListener('click', scrollLeft);
+            rightArrow.addEventListener('click', scrollRight);
+            carousel.addEventListener('scroll', onScroll);
+
+            updateArrows();
+        });
+        //akhir
+
     </script>
 }
