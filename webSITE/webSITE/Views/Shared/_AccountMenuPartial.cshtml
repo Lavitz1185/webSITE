@@ -4,7 +4,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     var user = await UserManager.GetUserAsync(User);
-    <li class="nav-item align-items-center" style="padding: 0px 20px">
+    <li class="nav-item align-items-center" style="padding-right: 20px">
         <img src="@Url.Action("FotoProfil", "File", new {Area = "", id = user.Id})"
              class="user-pic" />
         <div class="sub-menu-wrap" id="subMenu">
