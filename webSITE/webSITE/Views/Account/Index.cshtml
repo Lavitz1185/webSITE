@@ -4,70 +4,84 @@
     ViewData["ActiveMenuId"] = "profil";
 }
 
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-5 mb-5">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2 mb-5">
             <partial name="_MenuPartial" />
         </div>
-        <div id="profil" class="col-md-9 me-auto">
-            <div class="row">
-                <div class="col">
-                    <h1>Profil @Model.NamaLengkap</h1>
-                </div>
-            </div>
-            <div class="row">
-                <form id="formProfil" asp-controller="Account" asp-area="" asp-action="Index" class="col-md-9 d-flex flex-column gap-1" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-center"></div>
-                    <div class="row">
-                        <div class="col-3 my-auto"><label asp-for="@Model.Nim"></label></div>
-                        <div class="col-9">
-                            <input type="text" class="form-control" asp-for="@Model.Nim" readonly="true">
-                        </div>
-                        <span asp-validation-for="@Model.Nim" class="text-danger"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-3 my-auto"><label asp-for="@Model.NamaLengkap"></label></div>
-                        <div class="col-9">
-                            <input type="text" class="form-control" asp-for="@Model.NamaLengkap" readonly="true">
-                        </div>
-                        <span asp-validation-for="@Model.NamaLengkap" class="text-danger"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-3 my-auto"><label asp-for="@Model.NamaPanggilan"></label></div>
-                        <div class="col-9">
-                            <input type="text" class="form-control" asp-for="@Model.NamaPanggilan" readonly="true">
-                        </div>
-                        <span asp-validation-for="@Model.NamaPanggilan" class="text-danger"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-3 my-auto"><label asp-for="@Model.TanggalLahir"></label></div>
-                        <div class="col-9">
-                            <input type="date" class="form-control" asp-for="@Model.TanggalLahir" readonly="true">
-                        </div>
-                        <span asp-validation-for="@Model.TanggalLahir" class="text-danger"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-3 my-auto"><label asp-for="@Model.JenisKelamin"></label></div>
-                        <div class="col-9">
-                            <select class="form-control" asp-for="@Model.JenisKelamin" disabled>
-                                @foreach (JenisKelamin jenisKelamin in Enum.GetValues(typeof(JenisKelamin)))
-                                {
-                                    <option value="@jenisKelamin">@JenisKelaminExtension.ToString(jenisKelamin)</option>
-                                }
-                            </select>
+        <div id="profil" class="col-md-9 d-flex">
+            <div class="card w-100 shadow-sm">
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col">
+                            <h1>Profil @Model.NamaLengkap</h1>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col d-flex">
-                            <button id="btnSubmit" class="btn btn-primary" hidden="hidden" type="submit">Simpan</button>
-                            <a id="btnBatal" class="ms-md-auto btn btn-secondary" asp-action="Index" hidden="hidden">Batal</a>
+                        <form id="formProfil" asp-controller="Account" asp-area="" asp-action="Index" class="col-md-12 d-flex flex-column gap-3" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-center"></div>
+                            <div class="row mb-2">
+                                <div class="col-md-2 my-auto text-md-end">
+                                    <label asp-for="@Model.Nim"></label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="@Model.Nim" readonly="true">
+                                    <span asp-validation-for="@Model.Nim" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-2 my-auto text-md-end">
+                                    <label asp-for="@Model.NamaLengkap"></label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="@Model.NamaLengkap" readonly="true">
+                                    <span asp-validation-for="@Model.NamaLengkap" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-2 my-auto text-md-end">
+                                    <label asp-for="@Model.NamaPanggilan"></label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" asp-for="@Model.NamaPanggilan" readonly="true">
+                                    <span asp-validation-for="@Model.NamaPanggilan" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-2 my-auto text-md-end">
+                                    <label asp-for="@Model.TanggalLahir"></label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="date" class="form-control" asp-for="@Model.TanggalLahir" readonly="true">
+                                    <span asp-validation-for="@Model.TanggalLahir" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-2 my-auto text-md-end">
+                                    <label asp-for="@Model.JenisKelamin"></label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="form-control" asp-for="@Model.JenisKelamin" disabled>
+                                        @foreach (JenisKelamin jenisKelamin in Enum.GetValues(typeof(JenisKelamin)))
+                                        {
+                                            <option value="@jenisKelamin">@JenisKelaminExtension.ToString(jenisKelamin)</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col d-flex justify-content-center">
+                                    <button id="btnSubmit" class="btn btn-primary" hidden="hidden" type="submit">Simpan</button>
+                                    <a id="btnBatal" class="btn btn-secondary ms-2" asp-action="Index" hidden="hidden">Batal</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col d-flex justify-content-center">
+                            <button id="btnEdit" class="btn btn-primary">Edit</button>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="row mt-1">
-                <div class="col-md-9 d-flex">
-                    <button id="btnEdit" class="ms-md-auto btn btn-primary">Edit</button>
                 </div>
             </div>
         </div>

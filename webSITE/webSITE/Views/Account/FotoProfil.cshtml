@@ -10,40 +10,44 @@
     ViewData["ActiveMenuId"] = "fotoProfil";
 }
 
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-5 mb-5">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2 mb-5">
             <partial name="_MenuPartial" />
         </div>
-        <div class="col-md-9 d-flex flex-column me-auto gap-1">
-            <div class="row" id="fotoProfilFoto">
-                <div class="col-md-9 d-flex justify-content-center">
-                    <img src="@Url.ActionLink("FotoProfil", "File", new {Id = id, Area = ""})" class="img-thumbnail" width="400">
-                </div>
-            </div>
-            <div class="row">
-                <form id="formFotoProfil" style="display:none" enctype="multipart/form-data" method="post" class="col-md-9" asp-action="FotoProfil">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                    <div class="row mb-2">
-                        <div class="col">
-                            <label asp-for="@Model.FotoFormFile"></label>
-                            <input class="form-control" asp-for="@Model.FotoFormFile" type="file" />
-                            <span asp-validation-for="@Model.FotoFormFile" class="text-danger"></span>
+        <div class="col-md-9 d-flex justify-content-center">
+            <div class="card w-100 shadow-sm">
+                <div class="card-body">
+                    <div class="row mb-4" id="fotoProfilFoto">
+                        <div class="col d-flex justify-content-center">
+                            <img id="currentProfilePic" src="@Url.ActionLink("FotoProfil", "File", new { Id = id, Area = "" })" class="img-thumbnail" width="400">
                         </div>
                     </div>
+                    <div class="row mb-4">
+                        <form id="formFotoProfil" enctype="multipart/form-data" method="post" class="col d-flex flex-column align-items-center" asp-action="FotoProfil">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    <div class="row mb-2">
-                        <div class="col d-flex flex-md-row flex-column">
-                            <button class="btn btn-primary" id="btnSubmit" type="submit">Simpan</button>
+                            <div class="mb-2" style="display: none;">
+                                <div class="col">
+                                    <label asp-for="@Model.FotoFormFile"></label>
+                                    <input class="form-control" asp-for="@Model.FotoFormFile" type="file" id="fileInput" />
+                                    <span asp-validation-for="@Model.FotoFormFile" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div id="buttonGroup" style="display: none;">
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-primary" id="btnSubmit" type="submit">Simpan</button>
+                                    <button id="btnBatal" class="btn btn-secondary ms-2" type="button">Batal</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <button id="btnEdit" class="btn btn-primary">Ganti Foto Profil</button>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="row">
-                <div class="col-md-9 d-flex justify-content-center">
-                    <button id="btnBatal" class="btn btn-secondary me-auto" hidden="hidden">Batal</button>
-                    <button id="btnEdit" class="btn btn-primary">Edit</button>
                 </div>
             </div>
         </div>
@@ -55,40 +59,47 @@
 
     <script type="text/javascript">
         $(() => {
+            let originalSrc = $('#currentProfilePic').attr('src');
 
             const toggleEdit = (toggle) => {
                 if (toggle) {
-                    $('#formFotoProfil').css({ 'display': 'block' });
+                    $('#btnSubmit').show();
+                    $('#btnBatal').show();
+                    $('#btnEdit').hide();
+                    $('#buttonGroup').show();
+                } else {
+                    $('#btnSubmit').hide();
+                    $('#btnBatal').hide();
+                    $('#btnEdit').show();
+                    $('#buttonGroup').hide();
+                    $('#fileInput').val('');
+                    $('#currentProfilePic').attr('src', originalSrc);
                 }
-                else {
-                    $('#formFotoProfil').css({ 'display': 'none' });
-                }
-
-                $('#btnEdit').prop('hidden', toggle);
-
-                $('#btnBatal').prop('hidden', !toggle);
-
-                $('#fotoProfilFoto').prop('hidden', toggle);
             };
 
-            let a = !!@(TempData["status"] == null ? "true" : TempData["status"]?.ToString()?.ToLower());
-
-            if (!a) {
-
-                toggleEdit(true);
-            }
-
             $('#btnEdit').click(() => {
+                $('#fileInput').click();
+            });
 
-                toggleEdit(true);
-
+            $('#fileInput').change((event) => {
+                const input = event.target;
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        $('#currentProfilePic').attr('src', e.target.result);
+                        toggleEdit(true);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
             });
 
             $('#btnBatal').click(() => {
-
                 toggleEdit(false);
-
             });
-        })
+
+            $('#formFotoProfil').on('submit', (event) => {
+                originalSrc = $('#currentProfilePic').attr('src');
+            });
+        });
     </script>
 }
