@@ -6,7 +6,7 @@
 
 <div class="container-fluid pt-5 mb-5">
     <div class="row">
-        <div class="col-md-2 mb-5">
+        <div class="col-md-3 mb-5">
             <partial name="_MenuPartial" />
         </div>
         <div id="profil" class="col-md-9 d-flex">
@@ -70,6 +70,14 @@
                                 </div>
                             </div>
                             <div class="row mb-2">
+                                <div class="col-md-2 my-auto text-md-end">
+                                    <label>Bio</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" readonly="true">Asu Kayang</textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
                                 <div class="col d-flex justify-content-center">
                                     <button id="btnSubmit" class="btn btn-primary" hidden="hidden" type="submit">Simpan</button>
                                     <a id="btnBatal" class="btn btn-secondary ms-2" asp-action="Index" hidden="hidden">Batal</a>
@@ -94,7 +102,7 @@
     <script type="text/javascript">
         $(function () {
             $('#btnEdit').click(() => {
-                $('#formProfil input').each((index, item) => {
+                $('#formProfil input, #formProfil textarea').each((index, item) => {
                     $(item).attr('readonly', false);
                 });
 

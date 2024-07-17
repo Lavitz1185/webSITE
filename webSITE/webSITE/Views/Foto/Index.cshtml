@@ -91,6 +91,22 @@
     h1 {
         font-size: 30px;
     }
+
+    .card-title {
+        white-space: nowrap; /* Hindari pemisahan kata */
+        overflow-x: auto; /* Aktifkan scroll horizontal */
+        -webkit-overflow-scrolling: touch; /* Efek sentuhan */
+        scrollbar-width: thin; /* Lebar scrollbar */
+        scrollbar-color: rgba(0, 0, 0, 0.5) rgba(255, 255, 255, 0.1); /* Warna scrollbar */
+        display: flex; 
+        flex-wrap: nowrap; /* Hindari pemisahan baris pada flex item */
+        max-width: 100%; /* Batas lebar maksimum */
+        margin-bottom: 0; 
+        padding-bottom: 0; 
+        margin-right: 0; 
+        padding-right: 0; 
+        overflow-y: hidden; /* Hilangkan scroll vertikal */
+    }
 </style>
 
 

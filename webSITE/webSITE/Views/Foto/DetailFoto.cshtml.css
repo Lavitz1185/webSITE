@@ -23,7 +23,11 @@
         color: azure;
         font-family: monospace;
         font-size: 50px;
-        transition: .2s ease-in-out;
+        transition: .3s ease-in-out;
+    }
+
+    .menu ::deep .close:active {
+        transform: scale(.85) 
     }
 
 /* tombol info */
@@ -50,16 +54,20 @@
 .details {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -100%; /* Mulai dari luar layar di sebelah kanan */
     height: 100%;
     width: 30%;
     z-index: 1000;
     background: rgba(0, 0, 0, 0.8);
     color: azure;
-    transition: right .2s ease-in-out;
+    transition: right .5s ease-in-out; /* Transisi halus */
     overflow-y: auto;
-    display: none;
 }
+
+    .details.open {
+        right: 0; /* Posisi akhir saat terbuka */
+    }
+
 
     .details ::deep .close {
         text-decoration: none;
@@ -69,12 +77,16 @@
         color: azure;
         font-family: monospace;
         font-size: 50px;
-        transition: .2s ease-in-out;
+        transition: .3s ease-in-out;
     }
 
-    .details .info-image {
-        filter: brightness(0) invert(1);
-    }
+        .details ::deep .close:active {
+            transform: scale(.85);
+        }
+
+        .details .info-image {
+            filter: brightness(0) invert(1);
+        }
 
 .list {
     position: relative; /* Tambahkan ini untuk memastikan posisi relatif */

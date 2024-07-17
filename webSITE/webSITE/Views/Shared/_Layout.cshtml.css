@@ -16,6 +16,16 @@ div#main {
     height: 4rem;
 }
 
+::deep .btn:focus,
+.btn:active,
+.btn:focus:active,
+.btn.collis:focus,
+.btn.collis:active,
+.btn.collis:focus:active {
+    outline: none;
+    box-shadow: none;
+}
+
 footer {
     position: relative;
     width: 100%;

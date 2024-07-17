@@ -20,7 +20,7 @@
         </button> *@
     </div>
 
-    <div class="details ">
+    <div class="details">
         <div class="d-flex justify-content-between align-items-center px-4">
             <button class="close me-4">&times;</button>
             <h5>Detail Foto</h5>
@@ -86,7 +86,7 @@
     }
 </style>
 
-@section Scripts{
+@section Scripts {
 
     <script type="text/javascript">
         $('document').ready(function () {
@@ -161,15 +161,11 @@
             $(nextBtn).on('click', nextSlide);
 
             $(detailBtn).on('click', () => {
-                $('.details').css({
-                    'display': 'block'
-                });
+                details.addClass('open');
             });
 
             $(closeDetailBtn).on('click', () => {
-                $('.details').css({
-                    'display': 'none'
-                });
+                details.removeClass('open');
             });
 
             $(dots).each((i, item) => {

@@ -139,7 +139,11 @@ nav {
     display: block;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 991px) {
+    ::deep .navbar-brand img {
+        padding-left: 0;
+    }
+
     .collapse.navbar-collapse {
         display: none;
     }
@@ -158,3 +162,15 @@ nav {
         display: none;
     }
 }
+
+
+/* Menghilangkan border pada button */
+/*::deep #toggleButton:focus,
+#toggleButton:active,
+#toggleButton:focus:active,
+#toggleButton.collis:focus,
+#toggleButton.collis:active,
+#toggleButton.collis:focus:active {
+    outline: none;
+    box-shadow: none;
+}*/
