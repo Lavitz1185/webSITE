@@ -1,253 +1,27 @@
-﻿@model TambahFotoVM
-@inject IRepositoriFoto RepositoriFoto
-@inject IRepositoriKegiatan RepositoriKegiatan
+﻿@using webSITE.ViewComponents
+@model TambahVM
 @{
     ViewData["Title"] = "Tambah Foto";
-    ViewData["Active"] = "Album";
-
-    var daftarIdFotoTanpaKegiatan = (await RepositoriFoto.GetAll())
-        .Where(f => f.IdKegiatan == null)
-        .Select(f => f.Id);
 }
 
-<style>
-    #daftarFoto {
-        width: 100%;
-        height: 250px;
-        overflow: scroll;
-    }
-
-        #daftarFoto img {
-            height: 250px;
-            width: auto;
-        }
-</style>
-
-@if (Model.IdKegiatan != null && daftarIdFotoTanpaKegiatan != null && daftarIdFotoTanpaKegiatan.Count() > 0)
-{
-    <form id="formPindahFoto" method="post" asp-action="PindahFoto" asp-route-idKegiatan="@Model.IdKegiatan" class="container pt-5">
-        <div class="row">
-            <div class="d-flex justify-content-start align-items-center col-12" id="daftarFoto">
-                @foreach (var idFoto in daftarIdFotoTanpaKegiatan)
-                {
-                    <div class="mx-2 px-1" id="@idFoto">
-                        <img src="@Url.Action("Foto", "File", new {Area = "", id = idFoto})" alt="">
-                        <input type="checkbox" hidden value="@idFoto">
-                    </div>
-                }
-            </div>
-
-            <div class="col-12 d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">
-                    Simpan
-                </button>
-            </div>
-        </div>
-    </form>
-}
-
-<form enctype="multipart/form-data" method="post" class="container pt-5" asp-action="Tambah">
+<form enctype="multipart/form-data" method="post" class="container pt-5" asp-action="Tambah"
+      asp-route-returnUrl="@ViewData["returnUrl"]">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <div class="row mb-2">
-        <div class="col">
-            <label asp-for="@Model.Tanggal"></label>
-            <input type="date" class="form-control" asp-for="@Model.Tanggal">
-            <span class="text-danger" asp-validation-for="@Model.Tanggal"></span>
-        </div>
+    <div class="row">
+        <label asp-for="@Model.FormFile" class="form-label"></label>
+        <input asp-for="@Model.FormFile" class="form-control" />
+        <span asp-validation-for="@Model.FormFile" class="form-text text-danger"></span>
     </div>
 
-    @{
-        var showIdKegiatan = ViewData["showIdKegiatan"] as bool? ?? true;
-    }
-
-    @if(showIdKegiatan)
-    {
-        var daftarKegiatan = await RepositoriKegiatan.GetAll();
-        <label asp-for="@Model.IdKegiatan"></label>
-        <select asp-for="@Model.IdKegiatan" class="form-control">
-            @foreach(var kegiatan in daftarKegiatan)
-            {
-                <option value="@kegiatan.Id">@kegiatan.NamaKegiatan</option>
-            }
-            <option value="@null">Lain - Lain</option>
-        </select>
-    } 
-    else
-    {
-        <input type="text" asp-for="@Model.IdKegiatan" hidden="hidden">
-    }
-
-    <div class="row mb-2">
-        <div class="col">
-            <label>Dalam Foto</label>
-            <div class="d-flex justify-content-start gap-1" id="tagContainer">
-            </div>
-            <table class="table table-bordered" id="tbmahasiswa">
-                <thead>
-                    <tr>
-                        <th>Nama Mahasiswa</th>
-                    </tr>
-                </thead>
-                <tbody id="tbbody">
-                    @for (int i = 0; i < Model.DaftarMahasiswaTambahFotoVM.Count; i++)
-                    {
-                        <tr>
-                            <td>
-                                <input class="form-control" value="@Model.DaftarMahasiswaTambahFotoVM[@i].Id"
-                                       id="idMahasiswa" hidden
-                                       asp-for="@Model.DaftarMahasiswaTambahFotoVM[@i].Id">
-                                <input id="namaMahasiswa"
-                                       value="@Model.DaftarMahasiswaTambahFotoVM[@i].NamaLengkap"
-                                       readonly="true"
-                                       asp-for="@Model.DaftarMahasiswaTambahFotoVM[@i].NamaLengkap" />
-                                <input type="checkbox" id="checkBoxMahasiswa" hidden
-                                       asp-for="@Model.DaftarMahasiswaTambahFotoVM[@i].DalamFoto">
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <div class="row">
+        <span asp-validation-for="@Model.DaftarIdMahasiswa" class="form-text text-danger"></span>
+        <vc:mahasiswa-picker input-name=@nameof(TambahVM.DaftarIdMahasiswa) multi=true></vc:mahasiswa-picker>
     </div>
 
-    <div class="row mb-2">
-        <div class="col">
-            <label asp-for="@Model.FotoFormFile"></label>
-            <input class="form-control" asp-for="@Model.FotoFormFile" type="file" />
-            <span asp-validation-for="@Model.FotoFormFile" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="row mb-2">
-        <div class="col">
-            <button class="btn btn-primary" id="btnAjaxSubmit" type="submit">Tambah Foto</button>
-        </div>
-    </div>
-    <a asp-action="Index">Kembali</a>
+    <button type="submit" class="btn btn-primary">Simpan</button>
 </form>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <partial name="_DataTableScroll" />
-
-    <script>
-        const addRemoveAction = function () {
-            $('button.close').each(function (index, item) {
-                $(item).click(function () {
-                    let nama = $(this).siblings('#namaMahasiswa').text();
-
-                    $('#tbbody').find('tr').each(function (index, item) {
-                        let found = $(item).find('#namaMahasiswa').val() == nama;
-
-                        if (found) {
-                            $(item).find('#checkBoxMahasiswa').attr('checked', false);
-                            $(item).css({
-                                'background': 'white',
-                                'color': 'black'
-                            });
-                        }
-                    });
-
-                    $(this).parent().remove();
-                });
-            });
-        };
-
-        $('#tbbody > tr').each(function (index, item) {
-            $(item).on('click', function () {
-                $(this).find('#checkBoxMahasiswa').attr('checked', function (i, org) {
-
-                    let newOrg = !org;
-
-                    let nama = $(this).siblings('#namaMahasiswa').val();
-
-                    if (newOrg) {
-                        $(this).parents('tr').css({
-                            'background': 'blue',
-                            'color': 'white'
-                        });
-
-                        $('#tagContainer').append(
-                            `<div class="tag">
-                            <div id="namaMahasiswa">` + nama + `</div>
-                            <button type="button" class="close" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>`);
-                        addRemoveAction();
-                    }
-                    else {
-                        $(this).parents('tr').css({
-                            'background': 'white',
-                            'color': 'black'
-                        });
-
-                        $('#tagContainer').find('.tag').filter(function () {
-                            return $(this).find('#namaMahasiswa').text() == nama;
-                        }).remove();;
-                    }
-
-                    return newOrg;
-                });
-            });
-        });
-    </script>
-
-    @if (Model.IdKegiatan != null && daftarIdFotoTanpaKegiatan != null && daftarIdFotoTanpaKegiatan.Count() > 0)
-    {
-        <script type="text/javascript">
-
-            $(function () {
-                const daftarFoto = $('#daftarFoto > div');
-                let activeIndex = -1;
-
-                const selectedStyle = {
-                    'background': 'blue'
-                };
-
-                const unselectedStyle = {
-                    'background': 'none'
-                };
-
-                $(daftarFoto).each((index, item) => {
-                    const fotoContainer = $(item).find('div')['prevObject'];
-                    const id = $(fotoContainer).attr('id');
-                    const checkBox = $(fotoContainer).find('input')['0'];
-
-                    $(fotoContainer).on('click', () => {
-                        const checked = $(checkBox).prop('checked');
-
-                        if (checked === true) {
-                            activeIndex = -1;
-                            $(checkBox).prop('checked', false);
-                            $(fotoContainer).css(unselectedStyle);
-                        } else {
-                            activeIndex = index;
-                            $(checkBox).prop('checked', true);
-                            $(fotoContainer).css(selectedStyle);
-
-                            $(daftarFoto).each((index, item) => {
-                                if (index != activeIndex) {
-                                    $($($(item).find('div')["prevObject"]).find('input')['0']).prop('checked', false);
-                                    $($(item).find('div')["prevObject"]).css(unselectedStyle);
-                                }
-                            });
-                        }
-                    });
-                });
-
-                $('form#formPindahFoto').on('submit', () => {
-                    let url = $('form#formPindahFoto').attr('action')
-                    const idFoto = $($(daftarFoto[activeIndex]).find('div')["prevObject"]).attr('id');
-
-                    url += ('&idFoto=' + idFoto);
-
-                    $('form#formPindahFoto').attr('action', url);
-                })
-            });
-
-        </script>
-    }
 }

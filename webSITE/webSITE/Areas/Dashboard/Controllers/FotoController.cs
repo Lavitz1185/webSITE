@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using webSITE.Areas.Dashboard.Models.FotoController;
 using webSITE.Configuration;
+using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Domain;
-using webSITE.Services.Contracts;
-using Microsoft.AspNetCore.Authorization;
-using webSITE.Models;
-using webSITE.Areas.Dashboard.Models.FotoController;
-using webSITE.Utilities;
-using webSITE.DataAccess.Data;
-using webSITE.Domain.Exceptions.Abstraction;
+using webSITE.Domain.Abstractions;
 using webSITE.Domain.Exceptions;
+using webSITE.Models;
+using webSITE.Services.Contracts;
+using webSITE.Utilities;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {
@@ -19,73 +19,33 @@ namespace webSITE.Areas.Dashboard.Controllers
     [Authorize(Roles = "Admin, ADMIN, SuperAdmin, SUPERADMIN")]
     public class FotoController : Controller
     {
-        private readonly PhotoFileSettings _photoFileSettings;
-
+        private readonly PhotoFileSettingsOptions _photoFileSettings;
         private readonly IRepositoriFoto _repositoriFoto;
         private readonly IRepositoriKegiatan _repositoriKegiatan;
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
-        private readonly IRepositoriMahasiswaFoto _repositoriMahasiswaFoto;
-        private readonly IMapper _mapper;
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly INotificationService _notificationService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<FotoController> _logger;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public FotoController(IRepositoriFoto repositoriFoto,
             IRepositoriKegiatan repositoriKegiatan,
             IMapper mapper,
             IRepositoriMahasiswa repositoriMahasiswa,
             IWebHostEnvironment webHostEnvironment,
-            IRepositoriMahasiswaFoto repositoriMahasiswaFoto,
             INotificationService notificationService,
-            IOptions<PhotoFileSettings> options,
+            IOptions<PhotoFileSettingsOptions> options,
             IUnitOfWork unitOfWork,
             ILogger<FotoController> logger)
         {
             _photoFileSettings = options.Value;
             _repositoriFoto = repositoriFoto;
             _repositoriKegiatan = repositoriKegiatan;
-            _mapper = mapper;
             _repositoriMahasiswa = repositoriMahasiswa;
-            _webHostEnvironment = webHostEnvironment;
-            _repositoriMahasiswaFoto = repositoriMahasiswaFoto;
             _notificationService = notificationService;
             _unitOfWork = unitOfWork;
             _logger = logger;
-        }
-
-        public async Task<IActionResult> DetailFoto(int? id, int? idKegiatan)
-        {
-            var daftarSemuaFoto = await _repositoriFoto.GetAllWithDetail();
-
-            daftarSemuaFoto ??= new List<Foto>();
-
-            var daftarFotoAlbum = daftarSemuaFoto.Where(f => f.IdKegiatan == idKegiatan).ToList();
-
-            if (daftarFotoAlbum.Count == 0)
-            {
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Info,
-                    Title = "Detail Foto",
-                    Message = $"Album tidak memiliki foto"
-                });
-                return RedirectToAction(nameof(Album), new { idKegiatan });
-            }
-
-            id = id ?? daftarFotoAlbum[0].Id;
-
-            var fotoAktif = daftarFotoAlbum.Find(f => f.Id == id);
-
-            ViewData["SelectedIndex"] = daftarFotoAlbum.IndexOf(fotoAktif);
-            ViewData["IdKegiatan"] = idKegiatan;
-
-            if (idKegiatan is not null)
-                ViewData["NamaKegiatan"] = (await _repositoriKegiatan.Get(idKegiatan.Value))?.NamaKegiatan;
-            else
-                ViewData["NamaKegiatan"] = "Lain - Lain";
-
-            return View(daftarFotoAlbum);
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Album(int? idKegiatan, string? returnUrl)
@@ -94,53 +54,40 @@ namespace webSITE.Areas.Dashboard.Controllers
 
             ViewData["ReturnUrl"] = returnUrl;
 
-            if (idKegiatan == null)
+            if (idKegiatan is null)
             {
-                var daftarFotoTanpaKegiatan = await _repositoriFoto.GetAll();
+                var daftarFotoTanpaKegiatan = await _repositoriFoto.GetAllWithKegiatan();
 
-                if (daftarFotoTanpaKegiatan == null || daftarFotoTanpaKegiatan.Count() == 0)
+                if (daftarFotoTanpaKegiatan is null || daftarFotoTanpaKegiatan.Count == 0)
                     return View(new AlbumVM
                     {
                         NamaKegiatan = "Lain - Lain"
                     });
 
                 daftarFotoTanpaKegiatan = daftarFotoTanpaKegiatan
-                    .Where(f => f.IdKegiatan == null)
-                    .OrderBy(f => f.Tanggal)
+                    .Where(f => f.DaftarKegiatan.Count == 0)
+                    .OrderBy(f => f.AddedAt)
                     .ToList();
 
                 return View(new AlbumVM
                 {
                     NamaKegiatan = "Lain - Lain",
-                    Tanggal = daftarFotoTanpaKegiatan.First().Tanggal,
+                    Tanggal = daftarFotoTanpaKegiatan.First().AddedAt,
                     DaftarFoto = daftarFotoTanpaKegiatan.ToList()
                 });
             }
 
-            var kegiatan = await _repositoriKegiatan.Get(idKegiatan ?? 0);
+            var kegiatan = await _repositoriKegiatan.GetWithDetail(idKegiatan.Value);
 
-            if (kegiatan == null)
-            {
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Album Foto",
-                    Message = $"Kegiatan dengan Id = {idKegiatan} tidak ada"
-                });
-                return Redirect(returnUrl);
-            }
-
-            var daftarFoto = await _repositoriFoto.GetAllByKegiatan(kegiatan.Id);
-
-            daftarFoto ??= new List<Foto>();
+            if (kegiatan is null) return NotFound();
 
             var model = new AlbumVM
             {
                 IdKegiatan = idKegiatan,
                 NamaKegiatan = kegiatan.NamaKegiatan,
                 Tanggal = kegiatan.Tanggal,
-                DaftarFoto = daftarFoto
-                    .OrderBy(f => f.Tanggal)
+                DaftarFoto = kegiatan.DaftarFoto
+                    .OrderBy(f => f.AddedAt)
                     .ToList()
             };
 
@@ -153,24 +100,24 @@ namespace webSITE.Areas.Dashboard.Controllers
             view ??= "album";
             ViewData["view"] = view;
 
-            var daftarFoto = await _repositoriFoto.GetAllWithDetail();
-            var daftarKegiatan = await _repositoriKegiatan.GetAllWithDetail();
+            var daftarFoto = (await _repositoriFoto.GetAllWithKegiatan()) ?? new();
+            var daftarKegiatan = (await _repositoriKegiatan.GetAllWithDetail()) ?? new();
 
             List<AlbumVM> viewModel = new List<AlbumVM>();
 
             foreach (var kegiatan in daftarKegiatan)
             {
-                if (kegiatan.DaftarFoto != null && kegiatan.DaftarFoto.Count > 0)
+                if (kegiatan.DaftarFoto.Count > 0)
                 {
-                    var fotoThumbnail = kegiatan.DaftarFoto.OrderBy(f => f.Tanggal).First();
+                    var fotoThumbnail = kegiatan.DaftarFoto.OrderBy(f => f.AddedAt).First();
                     viewModel.Add(new AlbumVM
                     {
                         NamaKegiatan = kegiatan.NamaKegiatan,
                         IdKegiatan = kegiatan.Id,
                         IdThumbnail = fotoThumbnail.Id,
                         JumlahFoto = kegiatan.DaftarFoto.Count(),
-                        Tanggal = fotoThumbnail.Tanggal,
-                        DaftarFoto = daftarFoto.Where(f => f.IdKegiatan == kegiatan.Id).ToList(),
+                        Tanggal = fotoThumbnail.AddedAt,
+                        DaftarFoto = kegiatan.DaftarFoto.ToList(),
                     });
                 }
                 else
@@ -183,18 +130,18 @@ namespace webSITE.Areas.Dashboard.Controllers
             }
 
             var fotoTanpaKegiatan = daftarFoto
-                .Where(f => f.IdKegiatan == null)
-                .OrderBy(f => f.Tanggal)
+                .Where(f => f.DaftarKegiatan.Count == 0)
+                .OrderBy(f => f.AddedAt)
                 .ToList();
 
-            if (fotoTanpaKegiatan != null && fotoTanpaKegiatan.Count > 0)
+            if (fotoTanpaKegiatan.Count > 0)
             {
                 viewModel.Add(new AlbumVM
                 {
                     NamaKegiatan = "Lain - Lain",
                     IdThumbnail = fotoTanpaKegiatan.First().Id,
                     JumlahFoto = fotoTanpaKegiatan.Count,
-                    Tanggal = fotoTanpaKegiatan.First().Tanggal,
+                    Tanggal = fotoTanpaKegiatan.First().AddedAt,
                     DaftarFoto = fotoTanpaKegiatan,
                 });
             }
@@ -211,202 +158,120 @@ namespace webSITE.Areas.Dashboard.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Tambah(int? idKegiatan, bool showIdKegiatan = true)
+        public IActionResult Tambah(string? returnUrl = null)
         {
-            var listMahasiswa = await _repositoriMahasiswa.GetAll();
-
-            var daftarMahasiswaTambahFotoVM = new List<MahasiswaTambahFotoVM>();
-            if (listMahasiswa is not null)
-                daftarMahasiswaTambahFotoVM = listMahasiswa.Select(m => new MahasiswaTambahFotoVM
-                {
-                    Id = m.Id,
-                    NamaLengkap = m.NamaLengkap,
-                    DalamFoto = false
-                }).ToList();
-
-            ViewData["showIdKegiatan"] = showIdKegiatan;
-
-            return View(new TambahFotoVM
-            {
-                Tanggal = DateTime.Now,
-                DaftarMahasiswaTambahFotoVM = daftarMahasiswaTambahFotoVM,
-                IdKegiatan = idKegiatan
-            });
+            ViewData["returnUrl"] = returnUrl ?? Url.Action(nameof(Index));
+            return View(new TambahVM());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Tambah(TambahFotoVM tambahFotoVM)
+        public async Task<IActionResult> Tambah(TambahVM tambahVM, string? returnUrl = null, bool isJson = false)
         {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError(string.Empty, "Perbaiki form!");
-                return View(tambahFotoVM);
-            }
+            returnUrl ??= Url.Action(nameof(Index));
 
-            var formFileContent = await FileHelpers.ProcessFormFile<TambahFotoVM>(
-                tambahFotoVM.FotoFormFile,
+            //Validasi
+            if (!ModelState.IsValid)
+                if (isJson) return BadRequest(ModelState);
+                else return View(tambahVM);
+
+            var fileFormContent = await FileHelpers.ProcessFormFile<TambahVM>(
+                tambahVM.FormFile,
                 ModelState,
                 _photoFileSettings.PermittedExtension,
                 _photoFileSettings.FileSizeLimit);
 
             if (!ModelState.IsValid)
-            {
-                return View(tambahFotoVM);
-            }
+                if (isJson) return BadRequest(ModelState);
+                else return View(tambahVM);
 
-            var trustedFileNameForFileStorage = $"{Path.GetRandomFileName()}{Guid.NewGuid()}{Path.GetExtension(tambahFotoVM.FotoFormFile.FileName)}";
-            var filePath = Path.Combine(
-                _photoFileSettings.StoredFilesPath, trustedFileNameForFileStorage);
-
-            Foto newFoto = _mapper.Map<Foto>(tambahFotoVM);
-            newFoto.PhotoPath = filePath;
-
-            var idMahasiswaDalamFoto = tambahFotoVM.DaftarMahasiswaTambahFotoVM
-                .Where(x => x.DalamFoto == true)
-                .Select(x => x.Id).ToList();
-
-            var daftarMahasiswa = idMahasiswaDalamFoto.Select(async id => await _repositoriMahasiswa.Get(id))
-                .Select(t => t.Result);
-
-            newFoto.DaftarMahasiswa = daftarMahasiswa.ToList();
-
+            //Simpan ke database
             try
             {
-                await _repositoriFoto.Add(newFoto);
+                var fileName = $"{Path.GetRandomFileName()}{Path.GetExtension(tambahVM.FormFile.FileName)}";
+                var pathFile = $"{_webHostEnvironment.WebRootPath}/{_photoFileSettings.StoredFilesPath}{fileName}";
 
-                using (var fileStream = System.IO.File.Create(_webHostEnvironment.WebRootPath + filePath))
+                using (var fileStream = System.IO.File.Create(pathFile))
                 {
-                    await fileStream.WriteAsync(formFileContent);
+                    await fileStream.WriteAsync(fileFormContent);
                 }
+
+                var foto = new Foto { Id = 0, Path = pathFile };
+
+                foreach (var id in tambahVM.DaftarIdMahasiswa)
+                {
+                    var mahasiswa = await _repositoriMahasiswa.Get(id);
+
+                    if(mahasiswa is null) throw new MahasiswaNotFoundException(id);
+
+                    foto.AddMahasiswa(mahasiswa);
+                }
+
+                _repositoriFoto.Add(foto);
 
                 await _unitOfWork.SaveChangesAsync();
-
-                _notificationService.AddNotification(
-                    new ToastrNotification
-                    {
-                        Type = ToastrNotificationType.Success,
-                        Title = "Tambah Foto Sukses",
-                        Message = "Foto berhasil ditambahkan"
-                    });
-            }
-            catch (DomainException ex)
-            {
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Tambah Foto Gagal",
-                    Message = ex.Message,
-                });
-
-                _logger.LogError("Tambah Foto. Domain Exception {0}", ex.ToString());
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View(tambahFotoVM);
-            }
-            catch (Exception ex) 
-            {
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Tambah Foto Gagal"
-                });
-
-                _logger.LogError("Tambah Foto. Exception {0}", ex.ToString());
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View(tambahFotoVM);
-            }
-
-            return RedirectToAction(nameof(Album), new { idKegiatan = tambahFotoVM.IdKegiatan });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> PindahFoto(int? idKegiatan, int idFoto)
-        {
-            var returnUrl = Url.Action(nameof(Album), new { idKegiatan }) ?? "/";
-
-            try
-            {
-                if (idKegiatan is null)
-                {
-                    var foto = await _repositoriFoto.Get(idFoto);
-
-                    if (foto is null)
-                        throw new FotoNotFoundException(idFoto);
-
-                    foto.IdKegiatan = null;
-                    await _repositoriFoto.Update(foto);
-                }
-                else
-                {
-                    await _repositoriKegiatan.AddFoto(idFoto, idKegiatan.Value);
-                }
-
-                await _unitOfWork.SaveChangesAsync();
-
-                string namaAlbum = "Lain - Lain";
-
-                if(idKegiatan is not null)
-                {
-                    var kegiatan = await _repositoriKegiatan.Get(idKegiatan.Value);
-                    namaAlbum = kegiatan!.NamaKegiatan;
-                }
 
                 _notificationService.AddNotification(new ToastrNotification
                 {
                     Type = ToastrNotificationType.Success,
-                    Title = "Pindah Foto Berhasil",
-                    Message = $"Foto dengan id {idFoto} berhasil dipindah ke kegiatan {namaAlbum}"
-                });
-            }
-            catch (DomainException ex)
-            {
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Pindah Foto Gagal",
-                    Message = ex.Message,
+                    Title = "Tambah Foto Sukses"
                 });
 
-                _logger.LogError("Pindah Foto. Domain Exception {0}", ex.ToString());
+                if (isJson) return Ok(foto.Id);
+                else return Redirect(returnUrl!);
+            }
+            catch (MahasiswaNotFoundException ex)
+            {
+                ModelState.AddModelError(nameof(TambahVM.DaftarIdMahasiswa), ex.Message);
+
+                if (isJson) return BadRequest(ModelState);
+                else return View(tambahVM);
+            }
+            catch (FotoAlreadyHaveMahasiswaException ex)
+            {
+                ModelState.AddModelError(nameof(TambahVM.DaftarIdMahasiswa), ex.Message);
+
+                if (isJson) return BadRequest(ModelState);
+                else return View(tambahVM);
             }
             catch (Exception ex)
             {
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Pindah Foto Gagal",
-                    Message = "",
-                });
+                _logger.LogError(
+                    ex,
+                    "Simpan file foto gagal. Message : {@message} TimeStamp : {@timeStamp}",
+                    ex.Message, DateTime.Now);
+                ModelState.AddModelError(nameof(TambahVM.FormFile), "Simpan file gagal");
 
-                _logger.LogError("Pindah Foto. Domain Exception {0}", ex.ToString());
+                if (isJson) return BadRequest(ModelState);
+                else return View(tambahVM);
             }
-
-            return Redirect(returnUrl);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int id, string? returnUrl)
         {
-            returnUrl = returnUrl ?? Url.Action("Index");
+            returnUrl = returnUrl ?? Url.Action(nameof(Index));
 
             try
             {
                 var foto = await _repositoriFoto.Get(id);
 
-                if (foto is not null && System.IO.File.Exists(foto.PhotoPath))
+                if (foto is null) return NotFound();
+
+                if (System.IO.File.Exists(foto.Path))
                 {
-                    System.IO.File.Delete(_webHostEnvironment.WebRootPath + foto.PhotoPath);
+                    System.IO.File.Delete(foto.Path);
                 }
 
                 await _repositoriFoto.Delete(id);
                 await _unitOfWork.SaveChangesAsync();
 
-                _notificationService.AddNotification(
-                new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Success,
-                    Title = "Hapus Foto Sukses",
-                    Message = $"Foto dengan id {id} berhasil dihapus"
-                });
+                _notificationService.AddNotification(new ToastrNotification
+                    {
+                        Type = ToastrNotificationType.Success,
+                        Title = "Hapus Foto Sukses",
+                        Message = $"Foto dengan id {id} berhasil dihapus"
+                    }
+                );
 
                 _logger.LogInformation("Delete. Foto Id {0} terhapus", id);
             }

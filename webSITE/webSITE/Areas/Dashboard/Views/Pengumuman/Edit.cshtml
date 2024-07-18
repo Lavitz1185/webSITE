@@ -23,9 +23,9 @@
         </div>
 
         <div class="col mb-3">
-            <label asp-for="@Model.FotoBaru" class="form-label"></label>
-            <input asp-for="@Model.FotoBaru" type="file" class="form-control" />
-            <span class="form-text text-danger" asp-validation-for="@Model.FotoBaru"></span>
+            <vc:foto-picker name=@nameof(EditVM.IdFoto) multi=false 
+                value=@(Model.IdFoto is null ? new() : new List<int> { Model.IdFoto.Value })>
+            </vc:foto-picker>
         </div>
 
         <div class="col mb-3">

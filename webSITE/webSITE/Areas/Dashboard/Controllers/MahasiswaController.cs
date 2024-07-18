@@ -38,8 +38,8 @@ namespace webSITE.Areas.Dashboard.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var listMahasiswa = (await _repositoriMahasiswa.GetAll()).ToList();
-            return View(listMahasiswa);
+            var listMahasiswa = await _repositoriMahasiswa.GetAll();
+            return View(listMahasiswa ?? new());
         }
 
         public async Task<IActionResult> Edit(string id)

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using webSITE.Domain;
+using webSITE.Domain.Enum;
 
 namespace webSITE.Models.AccountController
 {
-	public class RegisterVM
+    public class RegisterVM
 	{
 		[Required(ErrorMessage = "Masukan {0}")]
 		[EmailAddress(ErrorMessage = "Format {0} salah")]

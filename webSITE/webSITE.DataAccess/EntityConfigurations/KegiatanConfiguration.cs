@@ -13,12 +13,8 @@ namespace webSITE.DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Kegiatan> builder)
         {
-            builder.HasMany(k => k.DaftarMahasiswa)
-                .WithMany(m => m.DaftarKegiatan)
-                .UsingEntity<PesertaKegiatan>(
-                    l => l.HasOne<Mahasiswa>().WithMany().HasForeignKey(pk => pk.IdMahasiswa),
-                    r => r.HasOne<Kegiatan>().WithMany().HasForeignKey(pk => pk.IdKegiatan)
-                );
+            builder.HasMany(k => k.DaftarMahasiswa).WithMany(m => m.DaftarKegiatan);
+            builder.HasMany(k => k.DaftarFoto).WithMany(f => f.DaftarKegiatan);
             builder.Property(m => m.Tanggal).HasColumnType("timestamp without time zone");
             builder.Property(m => m.Keterangan).HasMaxLength(500);
         }

@@ -41,6 +41,14 @@
                 <span class="text-danger" asp-validation-for="@Model.Keterangan"></span>
             </div>
 
+            <div class="col-12 mt-2">
+                <vc:foto-picker name=@nameof(TambahKegiatanVM.DaftarIdFoto) multi=true></vc:foto-picker>
+            </div>
+
+            <div class="col-12 mt-2">
+                <vc:mahasiswa-picker input-name=@nameof(TambahKegiatanVM.DaftarIdMahasiswa) multi=true></vc:mahasiswa-picker>
+            </div>
+
             <div class="col pt-5">
                 <button class="btn" type="submit" style="width:100%;">Simpan</button>
             </div>

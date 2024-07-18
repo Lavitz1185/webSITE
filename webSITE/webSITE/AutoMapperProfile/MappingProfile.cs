@@ -12,7 +12,7 @@ namespace webSITE.AutoMapperProfile
         public MappingProfile()
         {
             CreateMap<Mahasiswa, EditMahasiswaVM>().ReverseMap();
-            CreateMap<Foto, TambahFotoVM>().ReverseMap();
+            CreateMap<Foto, TambahVM>().ReverseMap();
             CreateMap<Mahasiswa, AccountIndexVM>().ReverseMap();
             CreateMap<Mahasiswa, AccountFotoVM>().ReverseMap();
 

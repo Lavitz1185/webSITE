@@ -16,7 +16,7 @@
         <div class="one-pengumuman mb-3">
                 <div class="row">
                     <div class="col-1 gambar">
-                        <img src="@Url.Action("Foto", "Pengumuman", new {Area = "", id = pengumuman.Id})" />
+                        <img src="@Url.Action("Foto", "File", new {Area = "", id = pengumuman.Foto?.Id})" />
                     </div>
                     <div class="col-9">
                         <div class="row">
@@ -32,9 +32,9 @@
                     </div>
                     <div class="tanggal-pengumuman col-2 d-flex justify-content-end">
                         <h5>
-                            @pengumuman.Tanggal.ToString(cultureInfo.DateTimeFormat.LongDatePattern, cultureInfo)
+                            @pengumuman.AddedAt.ToString(cultureInfo.DateTimeFormat.LongDatePattern, cultureInfo)
                             <br />
-                            @pengumuman.Tanggal.ToString("hh.mm tt")
+                            @pengumuman.AddedAt.ToString("hh.mm tt")
                         </h5>
                     </div>
                 </div>

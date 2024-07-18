@@ -20,8 +20,8 @@ if (builder.Environment.IsDevelopment())
 else
     connectionString = builder.Configuration.GetConnectionString("PublishedConnection")!;
 
-builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
-builder.Services.Configure<PhotoFileSettings>(builder.Configuration.GetSection("PhotoFileSettings"));
+builder.Services.Configure<MailSettingsOptions>(builder.Configuration.GetSection(MailSettingsOptions.MailSettings));
+builder.Services.Configure<PhotoFileSettingsOptions>(builder.Configuration.GetSection(PhotoFileSettingsOptions.PhotoFileSettings));
 
 builder.Services.AddRazorPages().AddSessionStateTempDataProvider();
 builder.Services.AddControllersWithViews().AddSessionStateTempDataProvider();
@@ -29,9 +29,9 @@ builder.Services.AddSession();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseNpgsql(connectionString);
-    options.EnableSensitiveDataLogging(true);
-    options.EnableDetailedErrors(true);
+    options.UseNpgsql(connectionString)
+        .EnableSensitiveDataLogging()
+        .EnableDetailedErrors();
 });
 
 builder.Services.AddDefaultIdentity<Mahasiswa>
@@ -59,8 +59,6 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IRepositoriMahasiswa, RepositoriMahasiswa>();
 builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();
 builder.Services.AddScoped<IRepositoriKegiatan, RepositoriKegiatan>();
-builder.Services.AddScoped<IRepositoriMahasiswaFoto, RepositoriMahasiswaFoto>();
-builder.Services.AddScoped<IRepositoriPesertaKegiatan, RepositoriPesertaKegiatan>();
 builder.Services.AddScoped<IRepositoriPengumuman, RepositoriPengumuman>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

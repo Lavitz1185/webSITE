@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using webSITE.Domain;
+using webSITE.Domain.Enum;
 
 namespace webSITE.Models.Account
 {

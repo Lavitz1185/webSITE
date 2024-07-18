@@ -1,5 +1,4 @@
-﻿@using webSITE.Areas.Dashboard.Models.PengumumanController
-@model TambahVM
+﻿@model TambahVM
 @{
     ViewData["Title"] = "Tambah Pengumuman";
 }
@@ -21,9 +20,7 @@
         </div>
 
         <div class="col mb-3">
-            <label asp-for="@Model.Foto" class="form-label"></label>
-            <input asp-for="@Model.Foto" type="file" class="form-control" />
-            <span class="form-text text-danger" asp-validation-for="@Model.Foto"></span>
+            <vc:foto-picker name=@nameof(TambahVM.IdFoto) multi=false></vc:foto-picker>
         </div>
 
         <div class="col mb-3">

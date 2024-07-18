@@ -19,7 +19,8 @@ using System.ComponentModel.DataAnnotations;
 using webSITE.Configuration;
 using Microsoft.Extensions.Options;
 using webSITE.DataAccess.Data;
-using webSITE.Domain.Exceptions.Abstraction;
+using webSITE.Domain.Enum;
+using webSITE.Domain.Abstractions;
 
 namespace webSITE.Controllers
 {
@@ -36,7 +37,7 @@ namespace webSITE.Controllers
         private readonly INotificationService _notificationService;
         private readonly IUnitOfWork _unitOfWork;
 
-        private readonly PhotoFileSettings _photoFileSettings;
+        private readonly PhotoFileSettingsOptions _photoFileSettings;
 
         public AccountController(
             UserManager<Mahasiswa> userManager,
@@ -47,7 +48,7 @@ namespace webSITE.Controllers
             ILogger<AccountController> logger,
             IMailService mailService,
             INotificationService notificationService,
-            IOptions<PhotoFileSettings> options,
+            IOptions<PhotoFileSettingsOptions> options,
             IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
@@ -82,7 +83,7 @@ namespace webSITE.Controllers
 
             try
             {
-                await _repositoriMahasiswa.Update(mahasiswa);
+                _repositoriMahasiswa.Update(mahasiswa);
                 await _unitOfWork.SaveChangesAsync();
 
                 _notificationService.AddNotification(new ToastrNotification
@@ -126,6 +127,10 @@ namespace webSITE.Controllers
         {
             var id = _userManager.GetUserId(User);
 
+            var user = await _repositoriMahasiswa.Get(id);
+
+            if (user is null) return NotFound();
+
             var photoData = await FileHelpers.ProcessFormFile<AccountFotoVM>(accountFotoVM.FotoFormFile
                 , ModelState, _photoFileSettings.PermittedExtension, _photoFileSettings.FileSizeLimit);
 
@@ -137,7 +142,8 @@ namespace webSITE.Controllers
 
             try
             {
-                await _repositoriMahasiswa.SetProfilePicture(id, photoData);
+                user.FotoProfil = photoData;
+                _repositoriMahasiswa.Update(user);
                 await _unitOfWork.SaveChangesAsync();
             }
             catch (DomainException ex)

@@ -136,7 +136,10 @@
     }
     else
     {
-        var daftarFoto = Model.SelectMany(a => a.DaftarFoto ?? new List<Foto>()).OrderBy(f => f.Id).ToList();
+        var daftarFoto = Model
+            .SelectMany(a => a.DaftarFoto ?? new List<Foto>())
+            .Distinct()
+            .OrderBy(f => f.Id).ToList();
 
         @foreach (var foto in daftarFoto)
         {
@@ -185,8 +188,9 @@
                 <tr>
                     <th>ID</th>
                     <th width="10%">Foto</th>
-                    <th>Tanggal</th>
-                    <th>Kegiatan</th>
+                    <th>Tanggal Dibuat</th>
+                    <th>Tanggal Diubah</th>
+                    <th>Pembuat</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -198,8 +202,9 @@
                         <td>
                             <img class="img-fluid" src="@Url.Action("Foto", "File", new {Area="", Id = foto.Id})">
                         </td>
-                        <td>@foto.Tanggal.ToShortDateString()</td>
-                        <td>@(foto.Kegiatan?.NamaKegiatan ?? "Tidak Ada")</td>
+                        <td>@foto.AddedAt.ToString("dd/MMM/yyyy hh:mm tt")</td>
+                        <td>@(foto.ModifiedAt.HasValue ? foto.ModifiedAt.Value.ToString("dd/MMM/yyyy hh:mm tt") : "")</td>
+                        <td>@(foto.Creator is not null ? foto.Creator.NamaLengkap : "Tidak Ada")</td>
                         <td>
                             <div class="d-flex gap-1 justify-content-center">
                                 <a class="btn btn-primary">
@@ -211,8 +216,7 @@
                                     <i class="fa fa-regular fa-eye"></i>
                                 </button>
 
-                                <form asp-action="Delete" asp-route-id="@foto.Id"
-                                      asp-route-returnUrl="@Url.Action("Index", "Foto", new {Area = "Dashboard", view="list"})">
+                                <form asp-action="Delete" asp-route-id="@foto.Id">
                                     <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
                                 </form>
                             </div>

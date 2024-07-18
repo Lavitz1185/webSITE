@@ -14,12 +14,11 @@ namespace webSITE.Controllers
 {
     public class FotoController : Controller
     {
-        private readonly PhotoFileSettings _photoFileSettings;
+        private readonly PhotoFileSettingsOptions _photoFileSettings;
 
         private readonly IRepositoriFoto _repositoriFoto;
         private readonly IRepositoriKegiatan _repositoriKegiatan;
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
-        private readonly IRepositoriMahasiswaFoto _repositoriMahasiswaFoto;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly INotificationService _notificationService;
@@ -29,9 +28,8 @@ namespace webSITE.Controllers
             IMapper mapper,
             IRepositoriMahasiswa repositoriMahasiswa,
             IWebHostEnvironment webHostEnvironment,
-            IRepositoriMahasiswaFoto repositoriMahasiswaFoto,
             INotificationService notificationService,
-            IOptions<PhotoFileSettings> options)
+            IOptions<PhotoFileSettingsOptions> options)
         {
             _photoFileSettings = options.Value;
             _repositoriFoto = repositoriFoto;
@@ -39,94 +37,48 @@ namespace webSITE.Controllers
             _mapper = mapper;
             _repositoriMahasiswa = repositoriMahasiswa;
             _webHostEnvironment = webHostEnvironment;
-            _repositoriMahasiswaFoto = repositoriMahasiswaFoto;
             _notificationService = notificationService;
         }
-
-        public async Task<IActionResult> DetailFoto(int? id, int? idKegiatan)
-        {
-            var daftarSemuaFoto = await _repositoriFoto.GetAllWithDetail();
-
-            var daftarFotoAlbum = daftarSemuaFoto.Where(f => f.IdKegiatan == idKegiatan).ToList();
-
-            if (daftarFotoAlbum == null || daftarFotoAlbum.Count == 0)
-            {
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Info,
-                    Title = "Detail Foto",
-                    Message = $"Album tidak memiliki foto"
-                });
-                return RedirectToAction(nameof(Album), new {idKegiatan});
-            }
-
-            id = id ?? daftarFotoAlbum[0].Id;
-
-            var fotoAktif = daftarFotoAlbum.Find(f => f.Id == id);
-
-            ViewData["SelectedIndex"] = daftarFotoAlbum.IndexOf(fotoAktif);
-            ViewData["IdKegiatan"] = idKegiatan;
-
-            if (idKegiatan is not null)
-                ViewData["NamaKegiatan"] = (await _repositoriKegiatan.Get(idKegiatan.Value)).NamaKegiatan;
-            else
-                ViewData["NamaKegiatan"] = "Lain - Lain";
-
-            return View(daftarFotoAlbum);
-        }
-
         public async Task<IActionResult> Album(int? idKegiatan, string? returnUrl)
         {
             returnUrl = returnUrl ?? Url.Action("Index", "Foto", new { Area = "" });
 
             ViewData["ReturnUrl"] = returnUrl;
 
-            if (idKegiatan == null)
+            if (idKegiatan is null)
             {
-                var daftarFotoTanpaKegiatan = await _repositoriFoto.GetAll();
+                var daftarFotoTanpaKegiatan = await _repositoriFoto.GetAllWithKegiatan();
 
-                daftarFotoTanpaKegiatan = daftarFotoTanpaKegiatan
-                    .Where(f => f.IdKegiatan == null)
-                    .OrderBy(f => f.Tanggal).ToList();
-
-                if (daftarFotoTanpaKegiatan == null || daftarFotoTanpaKegiatan.Count() == 0)
+                if (daftarFotoTanpaKegiatan is null || daftarFotoTanpaKegiatan.Count == 0)
                     return View(new AlbumVM
                     {
                         NamaKegiatan = "Lain - Lain"
                     });
-                    
+
+                daftarFotoTanpaKegiatan = daftarFotoTanpaKegiatan
+                    .Where(f => f.DaftarKegiatan.Count == 0)
+                    .OrderBy(f => f.AddedAt)
+                    .ToList();
+
                 return View(new AlbumVM
                 {
                     NamaKegiatan = "Lain - Lain",
-                    Tanggal = daftarFotoTanpaKegiatan.First().Tanggal,
+                    Tanggal = daftarFotoTanpaKegiatan.First().AddedAt,
                     DaftarFoto = daftarFotoTanpaKegiatan.ToList()
                 });
             }
 
-            var kegiatan = await _repositoriKegiatan.Get(idKegiatan ?? 0);
+            var kegiatan = await _repositoriKegiatan.GetWithDetail(idKegiatan.Value);
 
-            if (kegiatan == null)
-            {
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Album Foto",
-                    Message = $"Kegiatan dengan Id = {idKegiatan} tidak ada"
-                });
-                return Redirect(returnUrl);
-            }
-
-            var daftarFoto = await _repositoriFoto.GetAllByKegiatan(kegiatan.Id);
-            
-            daftarFoto ??= new List<Foto>();
+            if (kegiatan is null) return NotFound();
 
             var model = new AlbumVM
             {
                 IdKegiatan = idKegiatan,
                 NamaKegiatan = kegiatan.NamaKegiatan,
                 Tanggal = kegiatan.Tanggal,
-                DaftarFoto = daftarFoto
-                    .OrderBy(f => f.Tanggal)
+                DaftarFoto = kegiatan.DaftarFoto
+                    .OrderBy(f => f.AddedAt)
                     .ToList()
             };
 
@@ -135,23 +87,24 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var daftarFoto = await _repositoriFoto.GetAll();
-            var daftarKegiatan = await _repositoriKegiatan.GetAllWithDetail();
+            var daftarFoto = (await _repositoriFoto.GetAllWithKegiatan()) ?? new();
+            var daftarKegiatan = (await _repositoriKegiatan.GetAllWithDetail()) ?? new();
 
             List<AlbumVM> viewModel = new List<AlbumVM>();
 
             foreach (var kegiatan in daftarKegiatan)
             {
-                if (kegiatan.DaftarFoto != null && kegiatan.DaftarFoto.Count > 0)
+                if (kegiatan.DaftarFoto.Count > 0)
                 {
-                    var fotoThumbnail = kegiatan.DaftarFoto.OrderBy(f => f.Tanggal).First();
+                    var fotoThumbnail = kegiatan.DaftarFoto.OrderBy(f => f.AddedAt).First();
                     viewModel.Add(new AlbumVM
                     {
                         NamaKegiatan = kegiatan.NamaKegiatan,
                         IdKegiatan = kegiatan.Id,
                         IdThumbnail = fotoThumbnail.Id,
                         JumlahFoto = kegiatan.DaftarFoto.Count(),
-                        Tanggal = fotoThumbnail.Tanggal,
+                        Tanggal = fotoThumbnail.AddedAt,
+                        DaftarFoto = kegiatan.DaftarFoto.ToList(),
                     });
                 }
                 else
@@ -164,18 +117,19 @@ namespace webSITE.Controllers
             }
 
             var fotoTanpaKegiatan = daftarFoto
-                .Where(f => f.IdKegiatan == null)
-                .OrderBy(f => f.Tanggal)
+                .Where(f => f.DaftarKegiatan.Count == 0)
+                .OrderBy(f => f.AddedAt)
                 .ToList();
 
-            if (fotoTanpaKegiatan != null && fotoTanpaKegiatan.Count > 0)
+            if (fotoTanpaKegiatan.Count > 0)
             {
                 viewModel.Add(new AlbumVM
                 {
                     NamaKegiatan = "Lain - Lain",
                     IdThumbnail = fotoTanpaKegiatan.First().Id,
                     JumlahFoto = fotoTanpaKegiatan.Count,
-                    Tanggal = fotoTanpaKegiatan.First().Tanggal
+                    Tanggal = fotoTanpaKegiatan.First().AddedAt,
+                    DaftarFoto = fotoTanpaKegiatan,
                 });
             }
             else

@@ -53,7 +53,7 @@
             var daftarMahasiswa = string.Join(", ", foto.DaftarMahasiswa.Select(m => m.NamaLengkap));
             <div class="item d-flex justify-content-center align-items-center">
                 <input id="idFoto" type="text" hidden="hidden" value="@foto.Id">
-                <input id="tanggalFoto" type="text" hidden="hidden" value="@foto.Tanggal.ToShortDateString()">
+                <input id="tanggalFoto" type="text" hidden="hidden" value="@foto.AddedAt    .ToShortDateString()">
                 <input id="daftarMahasiswa" type="text" hidden="hidden" value="@daftarMahasiswa">
                 <img src="@Url.Action("Foto", "File", new {Area = "", Id = foto.Id})" />
             </div>

@@ -6,8 +6,8 @@ using webSITE.Configuration;
 using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Domain;
+using webSITE.Domain.Abstractions;
 using webSITE.Domain.Exceptions;
-using webSITE.Domain.Exceptions.Abstraction;
 using webSITE.Models;
 using webSITE.Services.Contracts;
 using webSITE.Utilities;
@@ -19,22 +19,22 @@ namespace webSITE.Areas.Dashboard.Controllers
     public class PengumumanController : Controller
     {
         private readonly IRepositoriPengumuman _repositoriPengumuman;
+        private readonly IRepositoriFoto _repositoriFoto;
         private readonly IUnitOfWork _unitOfWork;
         private readonly INotificationService _notificationService;
         private readonly ILogger<PengumumanController> _logger;
-        private readonly PhotoFileSettings _photoFileSettings;
 
-        public PengumumanController(IRepositoriPengumuman repositoriPengumuman, 
-            IUnitOfWork unitOfWork, 
-            INotificationService notificationService, 
+        public PengumumanController(IRepositoriPengumuman repositoriPengumuman,
+            IUnitOfWork unitOfWork,
+            INotificationService notificationService,
             ILogger<PengumumanController> logger,
-            IOptionsSnapshot<PhotoFileSettings> photoFileSettingsOptions)
+            IRepositoriFoto repositoriFoto)
         {
             _repositoriPengumuman = repositoriPengumuman;
             _unitOfWork = unitOfWork;
             _notificationService = notificationService;
             _logger = logger;
-            _photoFileSettings = photoFileSettingsOptions.Value;
+            _repositoriFoto = repositoriFoto;
         }
 
         public async Task<IActionResult> Index()
@@ -55,29 +55,25 @@ namespace webSITE.Areas.Dashboard.Controllers
         {
             if(!ModelState.IsValid) return View(tambahVM);
 
-            //Proses file foto
-            var fileFormContent = await FileHelpers.ProcessFormFile<TambahVM>(
-                tambahVM.Foto,
-                ModelState,
-                _photoFileSettings.PermittedExtension,
-                _photoFileSettings.FileSizeLimit);
-
-            if (!ModelState.IsValid) return View(tambahVM);
+            var foto = await _repositoriFoto.Get(tambahVM.IdFoto);
+            if(foto is null)
+            {
+                ModelState.AddModelError(nameof(TambahVM.IdFoto), "Foto tidak ditemukan");
+                return View(tambahVM);
+            }
 
             //Simpan ke database
             var pengumuman = new Pengumuman
             {
-                Id = 0,
                 Judul = tambahVM.Judul,
                 Isi = tambahVM.Isi,
-                Foto = fileFormContent,
-                Tanggal = DateTime.Now,
-                IsPriority = false
+                IsPriority = false,
+                Foto = foto,
             };
 
             try
             {
-                await _repositoriPengumuman.Add(pengumuman);
+                _repositoriPengumuman.Add(pengumuman);
                 await _unitOfWork.SaveChangesAsync();
 
                 _notificationService.AddNotification(new ToastrNotification
@@ -113,7 +109,8 @@ namespace webSITE.Areas.Dashboard.Controllers
             {
                 Id = pengumuman.Id,
                 Judul = pengumuman.Judul,
-                Isi = pengumuman.Isi
+                Isi = pengumuman.Isi,
+                IdFoto = pengumuman.Foto?.Id
             });
         }
 
@@ -123,15 +120,6 @@ namespace webSITE.Areas.Dashboard.Controllers
             //Validasi
             if (!ModelState.IsValid) return View(editVM);
 
-            byte[] fileFormContent = Array.Empty<byte>();
-            if(editVM.FotoBaru is not null)
-            {
-                fileFormContent = await FileHelpers.ProcessFormFile<EditVM>(editVM.FotoBaru,
-                    ModelState, _photoFileSettings.PermittedExtension,
-                    _photoFileSettings.FileSizeLimit);
-
-                if (!ModelState.IsValid) return View(editVM);
-            }
 
             //Simpan ke database
             try
@@ -142,10 +130,16 @@ namespace webSITE.Areas.Dashboard.Controllers
                 pengumuman.Judul = editVM.Judul;
                 pengumuman.Isi = editVM.Isi;
 
-                if (editVM.FotoBaru is not null)
-                    pengumuman.Foto = fileFormContent;
+                if(editVM.IdFoto is not null)
+                {
+                    var foto = await _repositoriFoto.Get(editVM.IdFoto.Value);
 
-                await _repositoriPengumuman.Update(pengumuman);
+                    if (foto is null) throw new FotoNotFoundException(editVM.IdFoto.Value);
+
+                    pengumuman.Foto = foto;
+                }
+
+                _repositoriPengumuman.Update(pengumuman);
                 await _unitOfWork.SaveChangesAsync();
 
                 _notificationService.AddNotification(new ToastrNotification
@@ -244,14 +238,14 @@ namespace webSITE.Areas.Dashboard.Controllers
                         foreach (var item in pengumumanPriority)
                         {
                             item.IsPriority = false;
-                            await _repositoriPengumuman.Update(item);
+                            _repositoriPengumuman.Update(item);
                         }
                     }
                 }
 
                 pengumuman.IsPriority = priority;
 
-                await _repositoriPengumuman.Update(pengumuman);
+                _repositoriPengumuman.Update(pengumuman);
                 await _unitOfWork.SaveChangesAsync();
 
                 _notificationService.AddNotification(new ToastrNotification

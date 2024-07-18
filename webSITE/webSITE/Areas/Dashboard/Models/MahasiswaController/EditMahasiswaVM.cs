@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using webSITE.Domain;
+using webSITE.Domain.Enum;
 
 namespace webSITE.Areas.Dashboard.Models.MahasiswaController
 {

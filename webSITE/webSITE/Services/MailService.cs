@@ -10,10 +10,10 @@ namespace webSITE.Services
 {
     public class MailService : IMailService
     {
-        private readonly MailSettings _mailSettings;
+        private readonly MailSettingsOptions _mailSettings;
         private readonly ILogger<MailService> logger;
 
-        public MailService(IOptions<MailSettings> mailSettingsOptions, ILogger<MailService> logger)
+        public MailService(IOptions<MailSettingsOptions> mailSettingsOptions, ILogger<MailService> logger)
         {
             _mailSettings = mailSettingsOptions.Value;
             this.logger = logger;

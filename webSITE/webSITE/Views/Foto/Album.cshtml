@@ -12,29 +12,20 @@
 </div>
 <div class="galery animate__animated animate__fadeIn animate__slow">
     <div class="row" style="margin-bottom: 20px; padding: 1px 1px">
-        @* <div class="col-lg-2 col-md-3 col-sm-4 col-6" style="padding: 1px;">
-            <div class="tambah">
-                 <a asp-action="Tambah" asp-route-idKegiatan="@Model.IdKegiatan">
-                    <i class="ri-add-circle-line"></i>
-                 </a>
-            </div>        
-        </div> *@
-
-        @if (Model.DaftarFoto != null && Model.DaftarFoto.Count > 0)
+        @if (Model.DaftarFoto is not null && Model.DaftarFoto.Count > 0)
         {
-            
             @foreach (var foto in Model.DaftarFoto)
             {
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6" style="padding: 1px">
                     <div class="content">
-                    <a asp-action="DetailFoto" asp-route-id="@foto.Id" asp-route-idKegiatan="@Model.IdKegiatan">
                         <img src="@Url.Action("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
-                    </a>
                     </div>
                 </div>
-            }   
+            }
         }
-
     </div>
 </div>
 
+@section Scripts {
+    <partial name="_FancyBoxPartial" />
+}

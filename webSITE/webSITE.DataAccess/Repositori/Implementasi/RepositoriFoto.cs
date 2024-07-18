@@ -15,38 +15,72 @@ namespace webSITE.Repositori.Implementasi
             _dbContext = dbContext;
         }
 
-        public async Task AddMahasiswa(string idMahasiswa, int idFoto)
+        public async Task<Foto?> Get(int id)
         {
-            var mahasiswa = await _dbContext.TblMahasiswa
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == idMahasiswa);
+            var foto = await _dbContext.TblFoto
+                .FirstOrDefaultAsync(f => f.Id == id);
 
-            var foto = await Get(idFoto);
-            var mahasiswaFoto = await _dbContext.TblMahasiswaFoto.FindAsync(idFoto, idMahasiswa);
-
-            if (mahasiswa == null)
-                throw new MahasiswaNotFoundException(idMahasiswa);
-
-            if(foto == null)
-                throw new FotoNotFoundException(idFoto);
-
-            if (mahasiswaFoto != null)
-                throw new MahasiswaFotoAlreadyExistsException(idFoto, idMahasiswa);
-
-            var newMahasiswaFoto = new MahasiswaFoto
-            {
-                IdFoto = idFoto,
-                IdMahasiswa = idMahasiswa
-            };
-
-            _dbContext.TblMahasiswaFoto.Add(newMahasiswaFoto); 
+            return foto;
         }
 
-        public Task Add(Foto entity)
+        public async Task<Foto?> GetWithMahasiswa(int id)
         {
-            _dbContext.TblFoto.Add(entity);
+            var foto = await _dbContext.TblFoto
+                .Include(f => f.DaftarMahasiswa)
+                .FirstOrDefaultAsync(f => f.Id == id);
 
-            return Task.CompletedTask;
+            return foto;
+        }
+
+        public async Task<Foto?> GetWithKegiatan(int id)
+        {
+            var listFoto = await _dbContext.TblFoto
+                .Include(f => f.DaftarKegiatan)
+                .Where(f => f.Id == id)
+                .FirstOrDefaultAsync();
+
+            return listFoto;
+        }
+
+        public async Task<List<Foto>?> GetAll()
+        {
+            var listFoto = await _dbContext.TblFoto
+                .ToListAsync();
+
+            return listFoto;
+        }
+
+        public async Task<List<Foto>?> GetAllWithMahasiswa()
+        {
+            var listFoto = await _dbContext.TblFoto
+                .Include(f => f.DaftarMahasiswa)
+                .ToListAsync();
+
+            return listFoto;
+        }
+
+        public async Task<List<Foto>?> GetAllWithKegiatan()
+        {
+            var listFoto = await _dbContext.TblFoto
+                .Include(f => f.DaftarKegiatan)
+                .ToListAsync();
+
+            return listFoto;
+        }
+
+        public async Task<List<Foto>?> GetAllByTanggal(DateTime tanggal)
+        {
+            var listFoto = await _dbContext.TblFoto
+                .Where(f => f.AddedAt == tanggal)
+                .OrderBy(f => f.AddedAt)
+                .ToListAsync();
+
+            return listFoto;
+        }
+
+        public void Add(Foto foto)
+        {
+            _dbContext.TblFoto.Add(foto);
         }
 
         public async Task Delete(int id)
@@ -58,86 +92,9 @@ namespace webSITE.Repositori.Implementasi
             _dbContext.TblFoto.Remove(foto);
         }
 
-        public async Task<Foto?> Get(int id)
+        public void Update(Foto foto)
         {
-            var foto = await _dbContext.TblFoto
-                .AsNoTracking()
-                .FirstOrDefaultAsync(f => f.Id == id);
-
-            return foto;
-        }
-
-        public async Task<List<Foto>?> GetAll()
-        {
-            var listFoto = await _dbContext.TblFoto
-                .AsNoTracking()
-                .ToListAsync();
-
-            return listFoto;
-        }
-
-        public async Task<IEnumerable<Foto>?> GetAllByKegiatan(int kegiatanId)
-        {
-            var listFoto = await _dbContext.TblFoto.Where(f => f.IdKegiatan == kegiatanId)
-                .Include(f => f.Kegiatan)
-                .AsNoTracking()
-                .ToListAsync();
-            return listFoto;
-        }
-
-        public async Task<IEnumerable<Foto>?> GetAllByTanggal(DateTime tanggal)
-        {
-            var listFoto = await _dbContext.TblFoto
-                .Where(f => f.Tanggal == tanggal)
-                .OrderBy(f => f.Tanggal)
-                .AsNoTracking()
-                .ToListAsync();
-
-            return listFoto;
-        }
-
-        public async Task<List<Foto>?> GetAllWithDetail()
-        {
-            var listFoto = await _dbContext.TblFoto
-                .Include(f => f.DaftarMahasiswa)
-                .Include(f => f.Kegiatan)
-                .AsNoTracking()
-                .ToListAsync();
-
-            return listFoto;
-        }
-
-        public async Task<Foto?> GetWithDetail(int id)
-        {
-            var foto = await _dbContext.TblFoto
-                .Include(f => f.DaftarMahasiswa)
-                .Include(f => f.Kegiatan)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(f => f.Id == id);
-
-            return foto;
-        }
-
-        public async Task RemoveMahasiswa(string idMahasiswa, int idFoto)
-        {
-            var mahasiswaFoto = await _dbContext.TblMahasiswaFoto.FindAsync(idFoto, idMahasiswa);
-
-            if (mahasiswaFoto == null) throw new MahasiswaFotoNotFoundException(idFoto, idMahasiswa);
-
-            _dbContext.TblMahasiswaFoto.Remove(mahasiswaFoto);
-        }
-
-        public async Task Update(Foto entity)
-        {
-            var entityDb = await _dbContext.TblFoto.FindAsync(entity.Id);
-
-            if (entityDb == null) throw new FotoNotFoundException(entity.Id);
-
-            _dbContext.Update(entityDb);
-
-            entityDb.Tanggal = entity.Tanggal;
-            entityDb.IdKegiatan = entity.IdKegiatan;
-            entityDb.PhotoPath = entity.PhotoPath;
+            _dbContext.Update(foto);
         }
     }
 }

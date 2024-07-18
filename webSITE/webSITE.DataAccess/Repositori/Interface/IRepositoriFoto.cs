@@ -1,13 +1,19 @@
 ﻿using webSITE.Domain;
-using webSITE.DataAccess.Repositori.Commons;
 
 namespace webSITE.DataAccess.Repositori.Interface
 {
-    public interface IRepositoriFoto : IBaseRepositori<Foto>
+    public interface IRepositoriFoto
     {
-        Task<IEnumerable<Foto>?> GetAllByKegiatan(int kegiatanId);
-        Task<IEnumerable<Foto>?> GetAllByTanggal(DateTime tanggal);
-        Task AddMahasiswa(string idMahasiswa, int idFoto);
-        Task RemoveMahasiswa(string idMahasiswa, int idFoto);
+        Task<Foto?> Get(int id);
+        Task<Foto?> GetWithMahasiswa(int id);
+        Task<Foto?> GetWithKegiatan(int id);
+        Task<List<Foto>?> GetAll();
+        Task<List<Foto>?> GetAllWithMahasiswa();
+        Task<List<Foto>?> GetAllWithKegiatan();
+        Task<List<Foto>?> GetAllByTanggal(DateTime tanggal);
+
+        void Add(Foto foto);
+        Task Delete(int id);
+        void Update(Foto foto);
     }
 }

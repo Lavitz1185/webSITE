@@ -1,16 +1,18 @@
 ﻿using webSITE.Domain;
-using webSITE.DataAccess.Repositori.Commons;
 
 namespace webSITE.DataAccess.Repositori.Interface
 {
-    public interface IRepositoriKegiatan : IBaseRepositori<Kegiatan>
+    public interface IRepositoriKegiatan
     {
+        Task<Kegiatan?> Get(int id);
+        Task<Kegiatan?> GetWithDetail(int id);
+        Task<List<Kegiatan>?> GetAll();
+        Task<List<Kegiatan>?> GetAllWithDetail();
         Task<List<Kegiatan>?> GetAllByNamaKegiatan(string namaKegiatan);
+        Task<bool> IsDuplicateName(int id, string nama, DateTime tanggal);
 
-        Task AddMahasiswa(string idMahasiswa, int idKegiatan);
-        Task RemoveMahasiswa(string idMahasiswa, int idKegiatan);
-
-        Task AddFoto(int idFoto, int idKegiatan);
-        Task RemoveFoto(int idFoto, int idKegiatan);
+        void Add(Kegiatan kegiatan);
+        void Update(Kegiatan kegiatan);
+        Task Delete(int id);
     }
 }

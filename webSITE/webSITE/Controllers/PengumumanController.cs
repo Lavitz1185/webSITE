@@ -21,14 +21,5 @@ namespace webSITE.Controllers
         {
             return View();
         }
-
-        public async Task<IActionResult> Foto(int id)
-        {
-            var pengumuman = await _repositoriPengumuman.Get(id);
-
-            if (pengumuman == null) return NotFound();
-
-            return File(pengumuman.Foto, "image/jpeg");
-        }
     }
 }

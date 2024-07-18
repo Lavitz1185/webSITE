@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using webSITE.Domain;
+using webSITE.Domain.Enum;
 
 namespace webSITE.DataAccess.SeedingData
 {
@@ -13,9 +14,7 @@ namespace webSITE.DataAccess.SeedingData
     {
         public static ModelBuilder SeedingData(this ModelBuilder builder)
         {
-            string fotoProfilPath1 = @"wwwroot\img\student.png";
-            string fotoProfilPath2 = @"wwwroot\img\SIte_Transparant.png";
-            string fotoProfilPath3 = @"wwwroot\img\generaluser.png";
+            var fotoProfil = File.ReadAllBytes(@"wwwroot/img/student.png");
 
             var admin = new Mahasiswa[]
             {
@@ -27,7 +26,7 @@ namespace webSITE.DataAccess.SeedingData
                     NamaPanggilan = "Adi",
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    FotoProfil = File.ReadAllBytes(fotoProfilPath1),
+                    FotoProfil = fotoProfil,
                     StatusAkun = StatusAkun.Aktif,
                     Bio = "Adi Juanito Taklal ILKOM #1",
                     Email = "aditaklal@gmail.com",
@@ -45,7 +44,7 @@ namespace webSITE.DataAccess.SeedingData
                     NamaPanggilan = "Fernand",
                     TanggalLahir = new DateTime(2004, 4, 14),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    FotoProfil = File.ReadAllBytes(fotoProfilPath2),
+                    FotoProfil = fotoProfil,
                     StatusAkun = StatusAkun.Aktif,
                     Bio = "Oswaldus Putra Fernando ILKOM #1",
                     Email = "fernandputra14@gmail.com",
@@ -63,7 +62,7 @@ namespace webSITE.DataAccess.SeedingData
                     NamaPanggilan = "Albert",
                     TanggalLahir = new DateTime(2004, 1, 7),
                     JenisKelamin = JenisKelamin.LakiLaki,
-                    FotoProfil = File.ReadAllBytes(fotoProfilPath3),
+                    FotoProfil = fotoProfil,
                     StatusAkun = StatusAkun.Aktif,
                     Bio = "Albert Berliano Tapatab ILKOM #1",
                     Email = "Lavitz1185@gmail.com",
@@ -74,6 +73,8 @@ namespace webSITE.DataAccess.SeedingData
                     NormalizedUserName = "Lavitz1185@gmail.com".ToUpper(),
                 },
             };
+
+            builder.Entity<Mahasiswa>().HasData(admin);
 
             //var daftarMahasiswa = new Mahasiswa[]
             //{
@@ -846,8 +847,6 @@ namespace webSITE.DataAccess.SeedingData
             //    },
             //};
 
-            builder.Entity<Mahasiswa>().HasData(admin);
-
             //var defaultEmail = "site";
             //daftarMahasiswa = daftarMahasiswa.Select((m, i) => new Mahasiswa
             //{
@@ -1077,8 +1076,7 @@ namespace webSITE.DataAccess.SeedingData
                     Id = 1,
                     Judul = "Pentas Seni Ilmu Komputer 2024",
                     Isi = "Dengan bangga kami mengundang seluruh civitas akademika untuk menghadiri Pentas Seni Ilmu Komputer 2024 yang akan diselenggarakan pada tanggal 15 Agustus 2024 di Aula Utama Kampus. Acara ini akan menampilkan berbagai pertunjukan seni kreatif dari mahasiswa, termasuk tarian, drama, musik, dan pameran karya digital. ",
-                    Tanggal = new DateTime(2024, 7, 11, 7, 0, 0, DateTimeKind.Local),
-                    Foto = foto,
+                    AddedAt = new DateTime(2024, 7, 11, 7, 0, 0, DateTimeKind.Local),
                     IsPriority = true,
                 },
                 new Pengumuman
@@ -1086,8 +1084,7 @@ namespace webSITE.DataAccess.SeedingData
                     Id = 2,
                     Judul = "Dies Natalies Ilmu Komputer 2025 ",
                     Isi = "Coming Soon !!!!. ",
-                    Tanggal = new DateTime(2024, 7, 11, 7, 0, 0, DateTimeKind.Local),
-                    Foto = foto,
+                    AddedAt = new DateTime(2024, 7, 11, 7, 0, 0, DateTimeKind.Local),
                     IsPriority = false,
                 }
             );

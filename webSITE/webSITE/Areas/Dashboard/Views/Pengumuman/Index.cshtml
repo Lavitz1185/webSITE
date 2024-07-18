@@ -34,11 +34,11 @@
                     <tr>
                         <td>@item.Id</td>
                         <td>
-                            <img class="img-fluid" src="@Url.Action("Foto", "Pengumuman", new {Area = "", id = item.Id})" />
+                            <img class="img-fluid" src="@Url.Action("Foto", "File", new {Area = "", id = item.Foto?.Id})" />
                         </td>
                         <td>@item.Judul</td>
                         <td>@item.Isi</td>
-                        <td>@item.Tanggal.ToString(cultureInfo.DateTimeFormat.ShortDatePattern, cultureInfo)</td>
+                        <td>@item.AddedAt.ToString(cultureInfo.DateTimeFormat.ShortDatePattern, cultureInfo)</td>
                         <td>
                             <form method="post" asp-action="Prioritas" asp-route-id="@item.Id" asp-route-priority="@((!item.IsPriority).ToString().ToLower())">
                                 <button type="submit" class="btn btn-primary">

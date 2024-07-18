@@ -11,7 +11,6 @@ namespace webSITE.Areas.Dashboard.Models.PengumumanController
         public string Isi { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "{0} harus diisi")]
-        public IFormFile Foto { get; set; }
-
+        public int IdFoto { get; set; }
     }
 }

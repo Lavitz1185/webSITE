@@ -49,7 +49,7 @@
                             {
                                 <tr>
                                     <td>@foto.Id</td>
-                                    <td>@foto.Tanggal.ToShortDateString()</td>
+                                    <td>@foto.AddedAt.ToShortDateString()</td>
                                     <td>
                                         <img width="120" src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area = ""})" />
                                     </td>

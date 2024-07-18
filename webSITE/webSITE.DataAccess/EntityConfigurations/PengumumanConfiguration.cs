@@ -13,9 +13,7 @@ namespace webSITE.DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Pengumuman> builder)
         {
-            builder.HasKey(p => p.Id);
-            builder.Property(p => p.Tanggal)
-                .HasColumnType("timestamp without time zone");
+            builder.HasOne(p => p.Foto).WithMany().OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

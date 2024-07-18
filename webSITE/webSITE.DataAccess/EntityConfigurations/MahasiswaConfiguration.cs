@@ -13,15 +13,9 @@ namespace webSITE.DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Mahasiswa> builder)
         {
-            builder.HasKey(m => m.Id);
-            builder.Property(m => m.TanggalLahir).HasColumnType("timestamp without time zone");
-            builder.HasMany(m => m.DaftarFoto)
-               .WithMany(f => f.DaftarMahasiswa)
-               .UsingEntity<MahasiswaFoto>(
-                   l => l.HasOne<Foto>().WithMany().HasForeignKey(mf => mf.IdFoto),
-                   r => r.HasOne<Mahasiswa>().WithMany().HasForeignKey(mf => mf.IdMahasiswa)
-               );
             builder.HasIndex(m => m.Nim).IsUnique();
+            builder.Property(m => m.TanggalLahir).HasColumnType("timestamp without time zone");
+            builder.HasMany(m => m.DaftarFoto).WithMany(f => f.DaftarMahasiswa);
             builder.ToTable("TblMahasiswa");
         }
     }

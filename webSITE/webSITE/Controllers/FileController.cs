@@ -33,9 +33,9 @@ namespace webSITE.Controllers
         {
             var foto = await repositoriFoto.Get(id);
 
-            if(foto == null) return NotFound();
+            if(foto is null) return NotFound();
 
-            return PhysicalFile(webHostEnvironment.WebRootPath + foto.PhotoPath, "image/jpeg");
+            return PhysicalFile(foto.Path, $"image/{Path.GetExtension(foto.Path)}");
         }
     }
 }

@@ -13,10 +13,8 @@ namespace webSITE.DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Foto> builder)
         {
-            builder.HasOne(f => f.Kegiatan)
-               .WithMany(k => k.DaftarFoto)
-               .HasForeignKey(f => f.IdKegiatan);
-            builder.Property(m => m.Tanggal).HasColumnType("timestamp without time zone");
+            builder.HasMany(f => f.DaftarKegiatan)
+                .WithMany(k => k.DaftarFoto);
         }
     }
 }

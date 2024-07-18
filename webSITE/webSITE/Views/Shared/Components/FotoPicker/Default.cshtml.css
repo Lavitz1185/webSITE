@@ -1,0 +1,17 @@
+﻿::deep .selected {
+    background: lightblue;
+}
+
+.preview {
+    height: 350px;
+    width: 500px;
+    border-style: solid;
+    border-width: thin;
+    padding: 3px 3px 3px 3px;
+}
+
+.preview.multi {
+    width: 500px;
+    flex-direction: row;
+    overflow-x: auto;
+}
