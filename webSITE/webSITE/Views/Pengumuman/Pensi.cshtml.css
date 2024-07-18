@@ -168,6 +168,11 @@
 /* For large devices */
 @media screen and (min-width: 992px) 
 {
+    .contact__container{
+        padding-left: 20rem;
+        padding-right: 20rem;
+        padding-bottom: 4rem;
+    }
 
     .containerr {
         margin-left: auto;
