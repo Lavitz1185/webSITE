@@ -1,1 +1,956 @@
-﻿
+﻿<style>
+    /*=============== VARIABLES CSS ===============*/
+:root {
+    --header-height: 3.5rem; /*56px*/
+    /*========== Colors ==========*/
+    /*Color mode HSL(hue, saturation, lightness)*/
+    --hue: 312;
+    --first-color: hsl(var(--hue), 24%, 32%);
+    --first-color-alt: hsl(var(--hue), 24%, 28%);
+    --first-color-light: hsl(var(--hue), 24%, 66%);
+    --first-color-lighten: hsl(var(--hue), 24%, 92%);
+    --title-color: hsl(var(--hue), 4%, 15%);
+    --text-color: hsl(var(--hue), 4%, 35%);
+    --text-color-light: hsl(var(--hue), 4%, 55%);
+    --body-color: hsl(var(--hue), 0%, 100%);
+    --container-color: #FFF;
+    /*========== Font and typography ==========*/
+    /*.5rem = 8px | 1rem = 16px ...*/
+    --body-font: 'Poppins', sans-serif;
+    --big-font-size: 2rem;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .813rem;
+    --smaller-font-size: .75rem;
+    /*========== Font weight ==========*/
+    --font-medium: 500;
+    --font-semi-bold: 600;
+    /*========== Margenes Bottom ==========*/
+    /*.5rem = 8px | 1rem = 16px ...*/
+    --mb-0-5: .5rem;
+    --mb-0-75: .75rem;
+    --mb-1: 1rem;
+    --mb-1-5: 1.5rem;
+    --mb-2: 2rem;
+    --mb-2-5: 2.5rem;
+    /*========== z index ==========*/
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+/*=============== BASE ===============*/
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body,
+button,
+input,
+textarea {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+}
+
+body {
+    margin: var(--header-height) 0 0 0;
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+h1, h2, h3 {
+    color: var(--title-color);
+    font-weight: var(--font-semi-bold);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*=============== CSS CLASSES Reusable ===============*/
+.section {
+    padding: 5.5rem 0 1rem;
+}
+
+.section__title,
+.section__title-center {
+    font-size: var(--h2-font-size);
+    margin-bottom: var(--mb-2);
+    line-height: 140%;
+}
+
+.section__title-center {
+    text-align: center;
+}
+
+.containerr {
+    max-width: 968px;
+    margin-left: var(--mb-1-5);
+    margin-right: var(--mb-1-5);
+}
+
+.grid {
+    display: grid;
+}
+
+.main {
+    overflow: hidden;
+}
+
+/*=============== HOME ===============*/
+.home {
+    padding: 3.5rem 0 2rem;
+}
+
+.home__container {
+    position: relative;
+    row-gap: 2rem;
+}
+
+.home__img {
+    width: 200px;
+    justify-self: center;
+}
+
+.home__title {
+    font-size: var(--big-font-size);
+    line-height: 140%;
+    margin-bottom: var(--mb-1);
+}
+
+.home__description {
+    margin-bottom: var(--mb-2-5);
+}
+
+.home__social {
+    position: absolute;
+    top: 2rem;
+    right: -1rem;
+    display: grid;
+    justify-items: center;
+    row-gap: 3.5rem;
+}
+
+.home__social-follow {
+    font-weight: var(--font-medium);
+    font-size: var(--smaller-font-size);
+    color: var(--first-color);
+    position: relative;
+    transform: rotate(90deg);
+}
+
+    .home__social-follow::after {
+        content: '';
+        position: absolute;
+        width: 1rem;
+        height: 2px;
+        background-color: var(--first-color);
+        right: -45%;
+        top: 50%;
+    }
+
+.home__social-links {
+    display: inline-flex;
+    flex-direction: column;
+    row-gap: .25rem;
+}
+
+.home__social-link {
+    font-size: 1rem;
+    color: var(--first-color);
+    transition: .3s;
+}
+
+    .home__social-link:hover {
+        transform: translateX(.25rem);
+    }
+
+/*=============== BUTTONS ===============*/
+.button {
+    display: inline-block;
+    background-color: var(--first-color);
+    color: #FFF;
+    padding: 1rem 1.75rem;
+    border-radius: .5rem;
+    font-weight: var(--font-medium);
+    transition: .3s;
+}
+
+    .button:hover {
+        color: white;
+        background-color: var(--first-color-alt);
+    }
+
+.button__icon {
+    transition: .3s;
+}
+
+.button:hover .button__icon {
+    transform: translateX(.25rem);
+}
+
+.button--flex {
+    display: inline-flex;
+    align-items: center;
+    column-gap: .5rem;
+}
+
+.button--link {
+    color: var(--first-color);
+    font-weight: var(--font-medium);
+}
+
+    .button--link:hover .button__icon {
+        transform: translateX(.25rem);
+    }
+
+/*=============== ABOUT ===============*/
+.about__container {
+    row-gap: 2rem;
+}
+
+.about__img {
+    width: 280px;
+    justify-self: center;
+}
+
+.about__title {
+    margin-bottom: var(--mb-1);
+}
+
+.about__description {
+    margin-bottom: var(--mb-2);
+}
+
+.about__details {
+    display: grid;
+    row-gap: 1rem;
+    margin-bottom: var(--mb-2-5);
+    vertical-align: middle;
+}
+
+.about__details-description {
+    display: inline-flex;
+    column-gap: .5rem;
+    font-size: var(--small-font-size);
+}
+
+.about__details-icon {
+    font-size: 1rem;
+    color: var(--first-color);
+    margin-top: .15rem;
+}
+
+/*=============== STEPS ===============*/
+.steps__bg {
+    background-color: var(--first-color);
+    padding: 3rem 2rem 2rem;
+    border-radius: 1rem;
+}
+
+.steps__container {
+    gap: 2rem;
+    padding-top: 1rem;
+}
+
+.steps__title {
+    color: #FFF;
+}
+
+.steps__card {
+    background-color: var(--container-color);
+    padding: 2.5rem 3rem 2rem 1.5rem;
+    border-radius: 1rem;
+}
+
+.steps__card-number {
+    display: inline-block;
+    background-color: var(--first-color-alt);
+    color: #FFF;
+    padding: .5rem .75rem;
+    border-radius: .25rem;
+    font-size: var(--h2-font-size);
+    margin-bottom: var(--mb-1-5);
+    transition: .3s;
+}
+
+.steps__card-title {
+    font-size: var(--h3-font-size);
+    margin-bottom: var(--mb-0-5);
+}
+
+.steps__card-description {
+    font-size: var(--small-font-size);
+}
+
+.steps__card:hover .steps__card-number {
+    transform: translateY(-.25rem);
+}
+
+/*=============== lombaS ===============*/
+.lomba__description {
+    text-align: center;
+}
+
+.lomba__container {
+    padding: 3rem 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 3rem;
+}
+
+.lomba__card {
+    display: grid;
+    position: relative;
+}
+
+.lomba__img {
+    position: relative;
+    width: 120px;
+    justify-self: center;
+    margin-bottom: var(--mb-0-75);
+    transition: .3s;
+}
+
+.lomba__title,
+.lomba__price {
+    font-size: var(--small-font-size);
+    font-weight: var(--font-semi-bold);
+    color: var(--title-color);
+}
+
+.lomba__title {
+    margin-bottom: .25rem;
+}
+
+.lomba__button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: var(--first-color);
+    color: #FFF;
+    padding: .25rem;
+    border-radius: .35rem;
+    font-size: 1.15rem;
+}
+
+    .lomba__button:hover {
+        background-color: var(--first-color-alt);
+    }
+
+.lomba__circle {
+    width: 90px;
+    height: 90px;
+    background-color: var(--first-color-lighten);
+    border-radius: 50%;
+    position: absolute;
+    top: 18%;
+    left: 5%;
+}
+
+.lomba__card:hover .lomba__img {
+    transform: translateY(-.5rem);
+}
+
+/*=============== QUESTIONS ===============*/
+.questions {
+    background-color: var(--first-color-lighten);
+}
+
+.questions__container {
+    gap: 1.5rem;
+    padding: 1.5rem 0rem;
+}
+
+.questions__group {
+    display: grid;
+    row-gap: 1.5rem;
+}
+
+.questions__item {
+    background-color: var(--container-color);
+    border-radius: .25rem;
+}
+
+.questions__item-title {
+    font-size: var(--small-font-size);
+    font-weight: var(--font-medium);
+}
+
+.questions__icon {
+    font-size: 1.25rem;
+    color: var(--title-color);
+}
+
+.questions__description {
+    font-size: var(--smaller-font-size);
+    padding: 0 1.25rem 1.25rem 2.5rem;
+}
+
+.questions__header {
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+    padding: .75rem .5rem;
+    cursor: pointer;
+}
+
+.questions__content {
+    overflow: hidden;
+    height: 0;
+}
+
+.questions__item,
+.questions__header,
+.questions__item-title,
+.questions__icon,
+.questions__description,
+.questions__content {
+    transition: .3s;
+}
+
+    .questions__item:hover {
+        box-shadow: 0 2px 8px hsla(var(--hue), 4%, 15%, .15);
+    }
+
+/*Rotate icon, change color of titles and background*/
+.accordion-open .questions__header,
+.accordion-open .questions__content {
+    background-color: var(--first-color);
+}
+
+.accordion-open .questions__item-title,
+.accordion-open .questions__description,
+.accordion-open .questions__icon {
+    color: #FFF;
+}
+
+.accordion-open .questions__icon {
+    transform: rotate(45deg);
+}
+
+/*=============== CONTACT ===============*/
+.contact__container {
+    row-gap: 3.5rem;
+}
+
+.contact__data {
+    display: grid;
+    row-gap: 2rem;
+}
+
+.contact__subtitle {
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-medium);
+    color: var(--text-color);
+    margin-bottom: var(--mb-0-5);
+}
+
+.contact__description {
+    display: inline-flex;
+    align-items: center;
+    column-gap: .5rem;
+    color: var(--title-color);
+    font-weight: var(--font-medium);
+}
+
+.contact__icon {
+    font-size: 1.25rem;
+}
+
+.contact__inputs {
+    display: grid;
+    row-gap: 2rem;
+    margin-bottom: var(--mb-2-5);
+}
+
+.contact__content {
+    position: relative;
+    height: 3rem;
+    border-bottom: 1px solid var(--text-color-light);
+}
+
+.contact__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 1rem 1rem 0;
+    background: none;
+    color: var(--text-color);
+    border: none;
+    outline: none;
+    z-index: 1;
+}
+
+.contact__label {
+    position: absolute;
+    top: .75rem;
+    width: 100%;
+    font-size: var(--small-font-size);
+    color: var(--text-color-light);
+    transition: .3s;
+}
+
+.contact__area {
+    height: 7rem;
+}
+
+    .contact__area textarea {
+        resize: none;
+    }
+
+/*Input focus move up label*/
+.contact__input:focus + .contact__label {
+    top: -.75rem;
+    left: 0;
+    font-size: var(--smaller-font-size);
+    z-index: 10;
+}
+
+/*Input focus sticky top label*/
+.contact__input:not(:placeholder-shown).contact__input:not(:focus) + .contact__label {
+    top: -.75rem;
+    font-size: var(--smaller-font-size);
+    z-index: 10;
+}
+
+
+
+/*=============== SCROLL UP ===============*/
+.scrollup {
+    position: fixed;
+    background-color: var(--first-color);
+    right: 1rem;
+    bottom: -30%;
+    display: inline-flex;
+    padding: .5rem;
+    border-radius: .25rem;
+    z-index: var(--z-tooltip);
+    opacity: .8;
+    transition: .4s;
+}
+
+.scrollup__icon {
+    font-size: 1rem;
+    color: #FFF;
+}
+
+.scrollup:hover {
+    background-color: var(--first-color-alt);
+    opacity: 1;
+}
+
+/* Show Scroll Up*/
+.show-scroll {
+    bottom: 3rem;
+}
+
+/*=============== SCROLL BAR ===============*/
+::-webkit-scrollbar {
+    width: .6rem;
+    background: hsl(var(--hue), 4%, 53%);
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--hue), 4%, 29%);
+    border-radius: .5rem;
+}
+</style>
+
+
+
+<!--==================== HOME ====================-->
+<section class="home" id="home">
+    <div class="home__container containerr grid">
+        <img src="~/img/Pensi/home1.png" alt="" class="home__img">
+
+        <div class="home__data">
+            <h1 class="home__title">
+                PENTAS SENI ILMU KOMPUTER <br> TAHUN 2024
+            </h1>
+            <p class="home__description">
+                Merayakan Bakat Kreatif Mahasiswa dengan Inspirasi Teknologi Terbaru.
+            </p>
+            <a href="#about" class="button button--flex">
+                Pendaftaran <i class="ri-arrow-right-down-line button__icon"></i>
+            </a>
+        </div>
+
+        <div class="home__social">
+            <span class="home__social-follow">Ikuti Kami</span>
+
+            <div class="home__social-links">
+                <a href="" target="_blank" class="home__social-link">
+                    <i class="ri-tiktok-fill"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" class="home__social-link">
+                    <i class="ri-instagram-line"></i>
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="home__social-link">
+                    <i class="ri-twitter-x-fill"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--==================== ABOUT ====================-->
+<section class="about section containerr" id="about">
+    <div class="about__container grid">
+        <img src="~/img/Pensi/Heran.png" alt="" class="about__img">
+
+        <div class="about__data">
+            <h2 class="section__title about__title">
+                Apa tujuan dibuatnya <br> Pentas Seni 2024 ?
+            </h2>
+
+            <p class="about__description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.                
+            </p>
+
+            <div class="about__details">
+                <p class="about__details-description">
+                    <i class="ri-checkbox-fill about__details-icon"></i>
+                    Karna Prodi Terlalu Keren.
+                </p>
+                <p class="about__details-description">
+                    <i class="ri-checkbox-fill about__details-icon"></i>
+                    Program Studi Favorit ke-2 Undana.
+                </p>
+                <p class="about__details-description">
+                    <i class="ri-checkbox-fill about__details-icon"></i>
+                    Keprodi Baik Hati.
+                </p>
+                <p class="about__details-description">
+                    <i class="ri-checkbox-fill about__details-icon"></i>
+                    Keprodi mengutamakan Dies.
+                </p>
+            </div>
+
+            @* <a href="#" class="button--link button--flex">
+                Kunjungi SITE22 <i class="ri-arrow-right-down-line button__icon"></i>
+            </a> *@
+        </div>
+    </div>
+</section>
+
+<!--==================== STEPS ====================-->
+<section class="steps section containerr">
+    <div class="steps__bg">
+        <h2 class="section__title-center steps__title">
+            3 Langkah Pendaftaran<br>Lomba 
+        </h2>
+
+        <div class="steps__container grid">
+            <div class="steps__card">
+                <div class="steps__card-number">01</div>
+                <h3 class="steps__card-title">Menekan Tombol Pendaftaran</h3>
+                <p class="steps__card-description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor.
+                </p>
+            </div>
+
+            <div class="steps__card">
+                <div class="steps__card-number">02</div>
+                <h3 class="steps__card-title">Pilih Lomba</h3>
+                <p class="steps__card-description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor.
+                </p>
+            </div>
+
+            <div class="steps__card">
+                <div class="steps__card-number">03</div>
+                <h3 class="steps__card-title">Mengisi Form dan simpan</h3>
+                <p class="steps__card-description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--==================== lombaS ====================-->
+<section class="lomba section containerr" id="lombas">
+    <h2 class="section__title-center">
+        Lomba yang <br> dipertandingkan
+    </h2>
+
+    <p class="lomba__description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor.
+    </p>
+
+    <div class="lomba__container grid">
+        <article class="lomba__card">
+            <div class="lomba__circle"></div>
+
+            <img src="~/img/Lomba/Menyanyi2.png" alt="" class="lomba__img">
+
+            <h3 class="lomba__title">Menyanyi</h3>
+            <span class="lomba__price">Solo</span>
+
+            <button class="button--flex lomba__button">
+                <i class="ri-search-eye-line"></i>
+            </button>
+        </article>
+
+        <article class="lomba__card">
+            <div class="lomba__circle"></div>
+
+            <img src="~/img/Lomba/Menari.png" alt="" class="lomba__img">
+
+            <h3 class="lomba__title">Menari</h3>
+            <span class="lomba__price">Kelompok</span>
+
+            <button class="button--flex lomba__button">
+                <i class="ri-search-eye-line"></i>
+            </button>
+        </article>
+
+        <article class="lomba__card">
+            <div class="lomba__circle"></div>
+
+            <img src="~/img/Lomba/FashionShow.png" alt="" class="lomba__img">
+
+            <h3 class="lomba__title">Fashion Show</h3>
+            <span class="lomba__price">Pasangan</span>
+
+            <button class="button--flex lomba__button">
+                <i class="ri-search-eye-line"></i>
+            </button>
+        </article>
+
+        <article class="lomba__card">
+            <div class="lomba__circle"></div>
+
+            <img src="~/img/Lomba/DesainPoster.png" alt="" class="lomba__img">
+
+            <h3 class="lomba__title">Desain Poster</h3>
+            <span class="lomba__price">Solo</span>
+
+            <button class="button--flex lomba__button">
+                <i class="ri-search-eye-line"></i>
+            </button>
+        </article>   
+    </div>
+</section>
+
+<!--==================== QUESTIONS ====================-->
+<section class="questions section" id="faqs">
+    <h2 class="section__title-center questions__title containerr">
+        Beberapa pertanyaan umum <br> mengenai pensi ini
+    </h2>
+
+    <div class="questions__container containerr grid">
+        <div class="questions__group">
+            <div class="questions__item">
+                <header class="questions__header">
+                    <i class="ri-add-line questions__icon"></i>
+                    <h3 class="questions__item-title">
+                        Apakah akan ada hadiah lomba?
+                    </h3>
+                </header>
+
+                <div class="questions__content">
+                    <p class="questions__description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                        incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+
+            <div class="questions__item">
+                <header class="questions__header">
+                    <i class="ri-add-line questions__icon"></i>
+                    <h3 class="questions__item-title">
+                        Siapa nama kepan pensi ini?
+                    </h3>
+                </header>
+
+                <div class="questions__content">
+                    <p class="questions__description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+
+            <div class="questions__item">
+                <header class="questions__header">
+                    <i class="ri-add-line questions__icon"></i>
+                    <h3 class="questions__item-title">
+                        Apakah akan ada hadiah lomba?
+                    </h3>
+                </header>
+
+                <div class="questions__content">
+                    <p class="questions__description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="questions__group">
+            <div class="questions__item">
+                <header class="questions__header">
+                    <i class="ri-add-line questions__icon"></i>
+                    <h3 class="questions__item-title">
+                        Apakah akan ada hadiah lomba?
+                    </h3>
+                </header>
+
+                <div class="questions__content">
+                    <p class="questions__description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+
+            <div class="questions__item">
+                <header class="questions__header">
+                    <i class="ri-add-line questions__icon"></i>
+                    <h3 class="questions__item-title">
+                        Apakah akan ada hadiah lomba?
+                    </h3>
+                </header>
+
+                <div class="questions__content">
+                    <p class="questions__description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+
+            <div class="questions__item">
+                <header class="questions__header">
+                    <i class="ri-add-line questions__icon"></i>
+                    <h3 class="questions__item-title">
+                        Apakah akan ada hadiah lomba?
+                    </h3>
+                </header>
+
+                <div class="questions__content">
+                    <p class="questions__description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--==================== CONTACT ====================-->
+<section class="contact section containerr mb-5" id="contact">
+    <div class="contact__container grid">
+        <div class="contact__box">
+            <h2 class="section__title">
+                Hubungi kontak kami <br> jika anda memiliki kendala <br> atau pertanyaan terkait
+            </h2>
+
+            <div class="contact__data">
+                <div class="contact__information">
+                    <h3 class="contact__subtitle">Telepon atau Whatsapp kami</h3>
+                    <span class="contact__description">
+                        <i class="ri-phone-line contact__icon"></i>
+                        0821 4471 1486
+                    </span>
+                </div>
+
+                <div class="contact__information">
+                    <h3 class="contact__subtitle">Email kami</h3>
+                    <span class="contact__description">
+                        <i class="ri-mail-line contact__icon"></i>
+                        pensisite22@gmail.com
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <form action="" class="contact__form">
+            <div class="contact__inputs">
+                <div class="contact__content">
+                    <input type="email" placeholder=" " class="contact__input">
+                    <label for="" class="contact__label">Email anda</label>
+                </div>
+
+                <div class="contact__content">
+                    <input type="text" placeholder=" " class="contact__input">
+                    <label for="" class="contact__label">Subject</label>
+                </div>
+
+                <div class="contact__content contact__area">
+                    <textarea name="message" placeholder=" " class="contact__input"></textarea>
+                    <label for="" class="contact__label">Pesan</label>
+                </div>
+            </div>
+
+            <button class="button button--flex">
+                Kirim Pesan
+                <i class="ri-arrow-right-up-line button__icon"></i>
+            </button>
+        </form>
+    </div>
+</section>
+
+<script>
+    /*=============== QUESTIONS ACCORDION ===============*/
+    const accordionItems = document.querySelectorAll('.questions__item')
+
+    accordionItems.forEach((item) => {
+        const accordionHeader = item.querySelector('.questions__header')
+
+        accordionHeader.addEventListener('click', () => {
+            const openItem = document.querySelector('.accordion-open')
+
+            toggleItem(item)
+
+            if (openItem && openItem !== item) {
+                toggleItem(openItem)
+            }
+        })
+    })
+
+    const toggleItem = (item) => {
+        const accordionContent = item.querySelector('.questions__content')
+
+        if (item.classList.contains('accordion-open')) {
+            accordionContent.removeAttribute('style')
+            item.classList.remove('accordion-open')
+        } else {
+            accordionContent.style.height = accordionContent.scrollHeight + 'px'
+            item.classList.add('accordion-open')
+        }
+    }
+</script>
