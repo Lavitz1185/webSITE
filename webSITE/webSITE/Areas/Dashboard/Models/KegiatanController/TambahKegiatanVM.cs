@@ -27,11 +27,13 @@ namespace webSITE.Areas.Dashboard.Models.KegiatanController
         public string Keterangan { get; set; } = string.Empty;
 
         [Display(Name = "Foto")]
-        [Required]
+        [Required(ErrorMessage = "{0} harus dipilih")]
+        [MinLength(1, ErrorMessage = "Kegiatan harus memiliki minimal 1 {0}")]
         public List<int> DaftarIdFoto { get; set; } = new();
 
         [Display(Name = "Mahasiswa")]
-        [Required]
+        [Required(ErrorMessage = "{0} harus dipilih")]
+        [MinLength(1, ErrorMessage = "Kegiatan harus memiliki minimal 1 {0}")]
         public List<string> DaftarIdMahasiswa { get; set; } = new();
     }
 }

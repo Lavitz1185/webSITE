@@ -42,10 +42,12 @@
             </div>
 
             <div class="col-12 mt-2">
+                <span class="text-danger form-text" asp-validation-for="@Model.DaftarIdFoto"></span>
                 <vc:foto-picker name=@nameof(TambahKegiatanVM.DaftarIdFoto) multi=true></vc:foto-picker>
             </div>
 
             <div class="col-12 mt-2">
+                <span class="text-danger form-text" asp-validation-for="@Model.DaftarIdMahasiswa"></span>
                 <vc:mahasiswa-picker input-name=@nameof(TambahKegiatanVM.DaftarIdMahasiswa) multi=true></vc:mahasiswa-picker>
             </div>
 
