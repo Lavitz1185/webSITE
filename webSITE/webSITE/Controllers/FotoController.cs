@@ -14,30 +14,14 @@ namespace webSITE.Controllers
 {
     public class FotoController : Controller
     {
-        private readonly PhotoFileSettingsOptions _photoFileSettings;
-
         private readonly IRepositoriFoto _repositoriFoto;
         private readonly IRepositoriKegiatan _repositoriKegiatan;
-        private readonly IRepositoriMahasiswa _repositoriMahasiswa;
-        private readonly IMapper _mapper;
-        private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly INotificationService _notificationService;
 
         public FotoController(IRepositoriFoto repositoriFoto,
-            IRepositoriKegiatan repositoriKegiatan,
-            IMapper mapper,
-            IRepositoriMahasiswa repositoriMahasiswa,
-            IWebHostEnvironment webHostEnvironment,
-            INotificationService notificationService,
-            IOptions<PhotoFileSettingsOptions> options)
+            IRepositoriKegiatan repositoriKegiatan)
         {
-            _photoFileSettings = options.Value;
             _repositoriFoto = repositoriFoto;
             _repositoriKegiatan = repositoriKegiatan;
-            _mapper = mapper;
-            _repositoriMahasiswa = repositoriMahasiswa;
-            _webHostEnvironment = webHostEnvironment;
-            _notificationService = notificationService;
         }
         public async Task<IActionResult> Album(int? idKegiatan, string? returnUrl)
         {
