@@ -32,7 +32,7 @@
     <partial name="_FancyBoxPartial" />
 
     @* RUSAKK *@
-    <script>
+    @* <script>
         $(document).ready(function () {
             $("[data-fancybox]").fancybox({
                 Image: {
@@ -58,6 +58,21 @@
                     }
                 }
             });
+        });
+    </script> *@
+
+
+    <script type="text/javascript">
+        $(function () {
+            $.fancybox.defaults.buttons = [
+                'slideShow',
+                'share',
+                'zoom',
+                'fullScreen',
+                'download',
+                'thumbs',               
+                'close',
+            ];          
         });
     </script>
 }
