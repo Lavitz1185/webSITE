@@ -8,6 +8,8 @@ using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Domain;
 using webSITE.Domain.Abstractions;
 using webSITE.Domain.Exceptions;
+using webSITE.Domain.Exceptions.FotoExceptions;
+using webSITE.Domain.Exceptions.PengumumanExceptions;
 using webSITE.Models;
 using webSITE.Services.Contracts;
 using webSITE.Utilities;

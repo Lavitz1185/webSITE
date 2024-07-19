@@ -5,10 +5,12 @@ using webSITE.Areas.Dashboard.Models.KegiatanController;
 using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Domain;
-using webSITE.Domain.Exceptions;
 using webSITE.Models;
 using webSITE.Services.Contracts;
 using webSITE.Domain.Abstractions;
+using webSITE.Domain.Exceptions.FotoExceptions;
+using webSITE.Domain.Exceptions.KegiatanExceptions;
+using webSITE.Domain.Exceptions.MahasiswaExceptions;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {

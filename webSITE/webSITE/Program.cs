@@ -60,6 +60,9 @@ builder.Services.AddScoped<IRepositoriMahasiswa, RepositoriMahasiswa>();
 builder.Services.AddScoped<IRepositoriFoto, RepositoriFoto>();
 builder.Services.AddScoped<IRepositoriKegiatan, RepositoriKegiatan>();
 builder.Services.AddScoped<IRepositoriPengumuman, RepositoriPengumuman>();
+builder.Services.AddScoped<IRepositoriLomba, RepositoriLomba>();
+builder.Services.AddScoped<IRepositoriPesertaLomba, RepositoriPesertaLomba>();
+builder.Services.AddScoped<IRepositoriTimLomba, RepositoriTimLomba>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using webSITE.Domain.Abstractions;
 
-namespace webSITE.Domain.Exceptions
+namespace webSITE.Domain.Exceptions.KegiatanExceptions
 {
     public class PesertaKegiatanNotFoundException : DomainException
     {
-        public PesertaKegiatanNotFoundException(int idKegiatan, string idMahasiswa) 
+        public PesertaKegiatanNotFoundException(int idKegiatan, string idMahasiswa)
             : base($"Kegiatan dengan ID : {idKegiatan} tidak ada peserta dengan ID : {idMahasiswa}")
         {
         }

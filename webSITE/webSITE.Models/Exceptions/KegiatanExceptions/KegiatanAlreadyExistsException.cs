@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using webSITE.Domain.Abstractions;
 
-namespace webSITE.Domain.Exceptions
+namespace webSITE.Domain.Exceptions.KegiatanExceptions
 {
     public class KegiatanAlreadyExistsException : DomainException
     {
-        public KegiatanAlreadyExistsException(string namaKegiatan, DateTime tanggal) 
+        public KegiatanAlreadyExistsException(string namaKegiatan, DateTime tanggal)
             : base($"Kegiatan dengan nama {namaKegiatan} dan tanggal {tanggal.ToShortDateString()} sudah ada")
         {
         }
