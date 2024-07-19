@@ -3,6 +3,7 @@ using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Domain;
 using webSITE.Domain.Exceptions;
+using webSITE.Domain.Exceptions.PengumumanExceptions;
 
 namespace webSITE.DataAccess.Repositori.Implementasi
 {

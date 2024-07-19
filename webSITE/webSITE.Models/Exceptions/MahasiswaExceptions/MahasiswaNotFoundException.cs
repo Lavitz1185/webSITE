@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using webSITE.Domain.Abstractions;
 
-namespace webSITE.Domain.Exceptions
+namespace webSITE.Domain.Exceptions.MahasiswaExceptions
 {
     public class MahasiswaNotFoundException : NotFoundException<Mahasiswa, string>
     {

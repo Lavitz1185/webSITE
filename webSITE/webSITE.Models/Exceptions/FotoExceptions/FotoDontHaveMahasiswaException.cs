@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using webSITE.Domain.Abstractions;
 
-namespace webSITE.Domain.Exceptions
+namespace webSITE.Domain.Exceptions.FotoExceptions
 {
     public class FotoDontHaveMahasiswaException : DomainException
     {
-        public FotoDontHaveMahasiswaException(int idFoto, string idMahasiswa) 
+        public FotoDontHaveMahasiswaException(int idFoto, string idMahasiswa)
             : base($"Didalam Foto dengan ID : {idFoto} tidak ada Mahasiswa dengan ID : {idMahasiswa}")
         {
         }

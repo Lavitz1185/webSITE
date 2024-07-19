@@ -6,7 +6,7 @@ using webSITE.Domain;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Areas.Dashboard.Models.MahasiswaController;
 using webSITE.DataAccess.Data;
-using webSITE.Domain.Exceptions;
+using webSITE.Domain.Exceptions.MahasiswaExceptions;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {

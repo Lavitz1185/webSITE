@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using webSITE.Domain.Abstractions;
 using webSITE.Domain.Exceptions;
+using webSITE.Domain.Exceptions.FotoExceptions;
 
 namespace webSITE.Domain
 {

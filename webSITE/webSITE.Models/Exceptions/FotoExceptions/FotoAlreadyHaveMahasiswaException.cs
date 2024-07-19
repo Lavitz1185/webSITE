@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using webSITE.Domain.Abstractions;
 
-namespace webSITE.Domain.Exceptions
+namespace webSITE.Domain.Exceptions.FotoExceptions
 {
     public class FotoAlreadyHaveMahasiswaException : DomainException
     {
-        public FotoAlreadyHaveMahasiswaException(int idFoto, string idMahasiswa) : 
+        public FotoAlreadyHaveMahasiswaException(int idFoto, string idMahasiswa) :
             base($"Didalam Foto dengan ID : {idFoto} sudah ada Mahasiswa dengan ID : {idMahasiswa}")
         {
         }

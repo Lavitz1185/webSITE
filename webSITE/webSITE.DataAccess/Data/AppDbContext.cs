@@ -47,5 +47,8 @@ namespace webSITE.DataAccess.Data
         public DbSet<Kegiatan> TblKegiatan { get; set; }
         public DbSet<Foto> TblFoto { get; set; }
         public DbSet<Pengumuman> TblPengumuman { get; set; }
+        public DbSet<Lomba> TblLomba { get; set; }
+        public DbSet<PesertaLomba> TblPesertaLomba { get; set; }
+        public DbSet<TimLomba> TblTimLomba { get; set; }
     }
 }

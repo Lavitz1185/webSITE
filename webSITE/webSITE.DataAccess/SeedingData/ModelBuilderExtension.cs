@@ -1069,7 +1069,6 @@ namespace webSITE.DataAccess.SeedingData
             //    }
             //);
 
-            var foto = File.ReadAllBytes("wwwroot/img/LOGO_PENSI.jpg");
             builder.Entity<Pengumuman>().HasData(
                 new Pengumuman
                 {
@@ -1086,6 +1085,44 @@ namespace webSITE.DataAccess.SeedingData
                     Isi = "Coming Soon !!!!. ",
                     AddedAt = new DateTime(2024, 7, 11, 7, 0, 0, DateTimeKind.Local),
                     IsPriority = false,
+                }
+            );
+
+            builder.Entity<Lomba>().HasData(
+                new 
+                {
+                    Id = 1,
+                    Nama = "Menyanyi",
+                    Jenis = JenisLomba.Solo,
+                    Keterangan = "Keterangan",
+                    MaksKuotaPerAngkatan = 2
+                },
+                new 
+                {
+                    Id = 2,
+                    Nama = "Desain Poster",
+                    Jenis = JenisLomba.Solo,
+                    Keterangan = "Keterangan",
+                    MaksKuotaPerAngkatan = 2
+                },
+                new 
+                {
+                    Id = 3,
+                    Nama = "Menari",
+                    Jenis = JenisLomba.Tim,
+                    Keterangan = "Keterangan",
+                    MaksKuotaPerAngkatan = 2,
+                    MinAnggotaPerTim = 5,
+                    MaksAnggotaPerTim = 10
+                },
+                new
+                {
+                    Id = 4,
+                    Nama = "Fashion Show",
+                    Jenis = JenisLomba.Pasangan,
+                    Keterangan = "Keterangan",
+                    MaksKuotaPerAngkatan = 2,
+                    PasanganBedaJenisKelamin = true,
                 }
             );
 
