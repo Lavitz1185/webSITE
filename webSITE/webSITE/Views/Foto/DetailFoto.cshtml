@@ -7,28 +7,15 @@
 <div class="slider">
 
     <div class="menu px-4 d-flex justify-content-between align-items-center animate__animated animate__fadeInDown">
-        <a asp-action="Album" asp-route-idKegiatan="@ViewData["IdKegiatan"]"
-           class="close">&times;</a>
-        <h3 class="text-center">@ViewData["NamaKegiatan"]</h3>
+        <a asp-action="Album" asp-route-idKegiatan="@ViewData["IdKegiatan"]" class="close">&times;</a>
+        <h3 class="text-center m-0">@ViewData["NamaKegiatan"]</h3>
         <a id="detail">&iexcl;</a>
-        @* <span id="detail">
-            <img src="/img/information.png" width="30" height="30" class="info-image"/>
-        </span> *@
-        @* <img src="~/img/info.png" alt="" id="detail" /> *@
-        @* <button id="detail" class="btn btn-primary">
-            ...
-        </button> *@
     </div>
 
-    <div class="details ">
+    <div class="details">
         <div class="d-flex justify-content-between align-items-center px-4">
             <button class="close me-4">&times;</button>
             <h5>Detail Foto</h5>
-            @* <form id="formHapus" asp-action="Delete" method="post">
-                <button type="submit" class="btn btn-danger">
-                    <i class="fa fa-regular fa-trash"></i>
-                </button>
-            </form> *@
         </div>
         <div class="container-fluid">
             <div class="row">
@@ -67,16 +54,27 @@
     </div>
 
     <!--dots-->
-    <ul class="dots">
-        @for (int i = 0; i < Model.Count; i++)
+    <ul class="dots animate__animated animate__fadeInUp">
+        @foreach (var foto in Model)
         {
-            <li></li>
+            <li>
+                <img src="@Url.Action("Foto", "File", new {Id = foto.Id, Area=""})" />
+            </li>
         }
     </ul>
 
 </div>
 
+
 <style>
+    .grabbing {
+        cursor: grabbing;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
     footer {
         display: none;
     }
@@ -86,11 +84,10 @@
     }
 </style>
 
-@section Scripts{
+@section Scripts {
 
     <script type="text/javascript">
         $('document').ready(function () {
-
             const details = $('.details');
             const slider = $('.slider');
             const items = $('.item');
@@ -99,12 +96,15 @@
             const dots = $('.dots li');
             const detailBtn = $('#detail');
             const closeDetailBtn = $('.details .close');
-
+            const menu = $('.menu');
 
             const activeIndex = @ViewData["SelectedIndex"];
             const idKegiatan = @(ViewData["IdKegiatan"] ?? "null");
 
             let index = 0;
+            let isDragging = false;
+            let startPos = 0;
+            let holdTimeout;
 
             const updateDetails = () => {
                 const idFoto = $(items[index]).find('#idFoto').val();
@@ -121,8 +121,7 @@
                 $(dots).each((i, item) => {
                     if (i === index) {
                         $(item).addClass('active');
-                    }
-                    else {
+                    } else {
                         $(item).removeClass('active');
                     }
                 });
@@ -157,19 +156,59 @@
                 showSlide();
             }
 
+            const startDrag = (e) => {
+                isDragging = true;
+                startPos = e.pageX || e.originalEvent.touches[0].pageX;
+                slider.addClass('grabbing');
+            };
+
+            const onDrag = (e) => {
+                if (!isDragging) return;
+
+                const currentPosition = e.pageX || e.originalEvent.touches[0].pageX;
+                const diff = currentPosition - startPos;
+
+                if (diff > 50) {
+                    prevSlide();
+                    isDragging = false;
+                } else if (diff < -50) {
+                    nextSlide();
+                    isDragging = false;
+                }
+            };
+
+            const endDrag = () => {
+                isDragging = false;
+                slider.removeClass('grabbing');
+            };
+
+            const hideElements = () => {
+                // menu.hide();
+                // details.hide();
+                // $('.dots').hide();
+                menu.addClass('hidden');
+                details.addClass('hidden');
+                $('.dots').addClass('hidden');
+            };
+
+            const showElements = () => {
+                // menu.show();
+                // details.show();
+                // $('.dots').show();
+                menu.removeClass('hidden');
+                details.removeClass('hidden');
+                $('.dots').removeClass('hidden');
+            };
+
             $(prevBtn).on('click', prevSlide);
             $(nextBtn).on('click', nextSlide);
 
             $(detailBtn).on('click', () => {
-                $('.details').css({
-                    'display': 'block'
-                });
+                details.addClass('open');
             });
 
             $(closeDetailBtn).on('click', () => {
-                $('.details').css({
-                    'display': 'none'
-                });
+                details.removeClass('open');
             });
 
             $(dots).each((i, item) => {
@@ -179,9 +218,29 @@
                 });
             });
 
+            slider.on('mousedown touchstart', (e) => {
+                startDrag(e);
+                holdTimeout = setTimeout(hideElements, 500);
+            });
+
+            slider.on('mousemove touchmove', onDrag);
+
+            slider.on('mouseup touchend', () => {
+                clearTimeout(holdTimeout);
+                endDrag();
+                showElements();
+            });
+
+            slider.on('mouseleave', () => {
+                clearTimeout(holdTimeout);
+                endDrag();
+                showElements();
+            });
+
             index = activeIndex;
             showSlide();
         });
+
 
     </script>
 }

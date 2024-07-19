@@ -23,7 +23,11 @@
         color: azure;
         font-family: monospace;
         font-size: 50px;
-        transition: .2s ease-in-out;
+        transition: .3s ease-in-out;
+    }
+
+    .menu ::deep .close:active {
+        transform: scale(.85) 
     }
 
 /* tombol info */
@@ -50,16 +54,20 @@
 .details {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -100%; /* Mulai dari luar layar di sebelah kanan */
     height: 100%;
     width: 30%;
     z-index: 1000;
     background: rgba(0, 0, 0, 0.8);
     color: azure;
-    transition: right .2s ease-in-out;
+    transition: right .5s ease-in-out; /* Transisi halus */
     overflow-y: auto;
-    display: none;
 }
+
+    .details.open {
+        right: 0; /* Posisi akhir saat terbuka */
+    }
+
 
     .details ::deep .close {
         text-decoration: none;
@@ -69,12 +77,16 @@
         color: azure;
         font-family: monospace;
         font-size: 50px;
-        transition: .2s ease-in-out;
+        transition: .3s ease-in-out;
     }
 
-    .details .info-image {
-        filter: brightness(0) invert(1);
-    }
+        .details ::deep .close:active {
+            transform: scale(.85);
+        }
+
+        .details .info-image {
+            filter: brightness(0) invert(1);
+        }
 
 .list {
     position: relative; /* Tambahkan ini untuk memastikan posisi relatif */
@@ -153,30 +165,34 @@
     bottom: 10px;
     width: 100%;
     left: 0;
-    padding: 0;
     margin: 0;
     display: flex;
     justify-content: center;
-    z-index: 1001;
+    z-index: 999;
 }
 
-    .dots li {
+    ::deep .dots li {
         list-style: none;
         display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 20px;
-        background-color: whitesmoke;
+        width: 50px;
+        height: 50px;
+        margin: 0;
         cursor: pointer;
-        margin: 10px;
         transition: .5s ease-in-out;
         opacity: 60%;
     }
 
-        .dots li.active {
-            width: 30px;
-            opacity: 80%;
+        ::deep .dots li img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
+
+        ::deep .dots li.active {
+            opacity: 80%;
+            border: 1px solid #fff; /* Optional: Highlight the active thumbnail */
+        }
+
 
 
 @media only screen and (max-width: 667px) {

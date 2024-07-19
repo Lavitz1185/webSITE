@@ -244,6 +244,7 @@
 
 /* Preview Siters */
 #preSite {
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -580,7 +581,7 @@
 
 @media (max-width: 768px) {
     #preKeg {
-        height: 120vh;
+        height: 135vh;
     }
 
     .contentPreKeg {
@@ -612,7 +613,7 @@
     }
 
     #preKeg .row3 {
-        margin-top: 220px;
+        margin-top: 150px;
     }
 }
 

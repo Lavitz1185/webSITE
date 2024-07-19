@@ -4,44 +4,51 @@
     ViewData["ActiveMenuId"] = "ubahEmail";
 }
 
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-5 mb-5">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 mb-5">
             <partial name="_MenuPartial" />
         </div>
-        <div id="profil" class="col-md-9 me-auto">
-            <div class="row">
-                <div class="col">
-                    <h1>Ubah Email</h1>
+        <div id="ubahEmail" class="col-md-9 d-flex">
+            <div class="card w-100 shadow-sm">
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col">
+                            <h1>Ubah Email</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <form id="formUbahEmail" asp-controller="Account" asp-area="" asp-action="UbahEmail" class="col-md-12 d-flex flex-column gap-3" method="post">
+                            <div asp-validation-summary="All" class="text-center text-danger"></div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-2 my-auto text-md-end">
+                                    <label asp-for="@Model.Email"></label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="email" readonly="readonly" class="form-control" asp-for="@Model.Email">
+                                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-2 my-auto text-md-end">
+                                    <label asp-for="@Model.EmailBaru"></label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="email" class="form-control" asp-for="@Model.EmailBaru">
+                                    <span asp-validation-for="@Model.EmailBaru" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col d-flex justify-content-center">
+                                    <button class="btn btn-primary" type="submit">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <form id="formProfil" asp-controller="Account" asp-area="" asp-action="UbahEmail" class="col-md-9 d-flex flex-column gap-1" method="post">
-                    <div asp-validation-summary="All" class="text-danger"></div>
-
-                    <div class="row">
-                        <div class="col-4 my-auto"><label asp-for="@Model.Email"></label></div>
-                        <div class="col-8">
-                            <input type="email" readonly="readonly" class="form-control" asp-for="@Model.Email">
-                        </div>
-                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-4 my-auto"><label asp-for="@Model.EmailBaru"></label></div>
-                        <div class="col-8">
-                            <input type="email" class="form-control" asp-for="@Model.EmailBaru">
-                        </div>
-                        <span asp-validation-for="@Model.EmailBaru" class="text-danger"></span>
-                    </div>
-
-                    <div class="row">
-                        <div class="col d-flex">
-                            <button class="btn btn-primary" type="submit">Simpan</button>
-                        </div>
-                    </div>
-
-                </form>
             </div>
         </div>
     </div>

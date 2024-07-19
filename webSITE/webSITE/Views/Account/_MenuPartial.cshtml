@@ -2,23 +2,39 @@
     var activeId = ViewData["ActiveMenuId"] as string;
 }
 
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item">
-        <a id="profil" asp-action="Index" class="nav-link">Profil</a>
-    </li>
-    <li class="nav-item">
-        <a id="fotoProfil" asp-action="FotoProfil" class="nav-link">Foto Profil</a>
-    </li>
-    <li class="nav-item">
-        <a id="ubahEmail" asp-action="UbahEmail" class="nav-link">Ubah Email</a>
-    </li>
-    <li class="nav-item">
-        <a id="ubahPassword" asp-action="UbahPassword" class="nav-link">Ubah Password</a>
-    </li>
-</ul>
+<!-- Sidebar Navigation Menu -->
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a id="profil" asp-action="Index" class="nav-link d-flex align-items-center p-3">
+                    <i class="ri-user-line me-2"></i>
+                    Profil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a id="fotoProfil" asp-action="FotoProfil" class="nav-link d-flex align-items-center p-3">
+                    <i class="ri-image-line me-2"></i>
+                    Foto Profil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a id="ubahEmail" asp-action="UbahEmail" class="nav-link d-flex align-items-center p-3">
+                    <i class="ri-mail-line me-2"></i>
+                    Ubah Email
+                </a>
+            </li>
+            <li class="nav-item">
+                <a id="ubahPassword" asp-action="UbahPassword" class="nav-link d-flex align-items-center p-3">
+                    <i class="ri-lock-line me-2"></i>
+                    Ubah Password
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 
 <script type="text/javascript">
-    const activeId = '@activeId'
-
-    $('.nav-link#' + activeId).addClass('active');
+    const activeId = '@activeId';
+    $('.nav-link#' + activeId).addClass('active bg-primary text-white');
 </script>

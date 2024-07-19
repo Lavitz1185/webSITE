@@ -1,118 +1,140 @@
 ﻿<script type="text/javascript">
-    let activeLink1 = "@(ViewData["Active"] ?? "")";
-    let navbarTransparant = true;
-    let navbarToggled = false;
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleButton = document.getElementById('toggleButton');
+        const closeButton = document.getElementById('closeButton');
+        const sideMenu = document.getElementById('sideMenu');
+        const overlay = document.getElementById('overlay');
 
-    const toggleNavbarTransparent = (toggle) => {
+        let activeLink1 = "@(ViewData["Active"] ?? "")";
+        let navbarTransparant = true;
+        let navbarToggled = false;
 
-        if (toggle === true) {
-            $('nav').css({
-                "background": "rgba(255, 255, 255, 0)",
-                "box-shadow": "none"
-            });
+        const toggleNavbarTransparent = (toggle) => {
+            if (toggle === true) {
+                $('nav').css({
+                    "background": "rgba(255, 255, 255, 0)",
+                    "box-shadow": "none"
+                });
 
-            $('.navbar-brand img').css({
-                "filter": "invert(100%)"
-            });
-            
-            $('.navbar-toggler-icon').css({
-                "filter": "invert(100%)"
-            });
+                $('.navbar-brand img').css({
+                    "filter": "invert(100%)"
+                });
 
-            $('.nav-link').css({
-                "color": "white"
-            });
+                $('.navbar-toggler-icon').css({
+                    "filter": "invert(100%)"
+                });
 
-            $('.nav-link.active').css({
-                "color": "#FDC93B"
-            });
+                $('.nav-link').css({
+                    "color": "white"
+                });
 
-            $('.nav-link').hover(
-                function () {
-                    $(this).css({
-                        "color": "#FDC93B",
-                    })
-                },
-                function () {
-                    if ($(this).text() != activeLink1) {
+                $('.nav-link.active').css({
+                    "color": "#FDC93B"
+                });
+
+                $('.nav-link').hover(
+                    function () {
                         $(this).css({
-                            "color": "white"
-                        });
-                    }
-                }
-            );
-        } else {
-            $('nav').css({
-                "background": "rgba(255, 255, 255, 1)",
-                "box-shadow": "4px 4px 4px rgba(0, 0, 0, 0.3)"
-            });
-
-            $('.navbar-brand img').css({
-                "filter": "invert(0%)"
-            });
-
-            $('.navbar-toggler-icon').css({
-                "filter": "invert(0%)"
-            });
-
-            $('.nav-link').css({
-                "color": "rgb(21, 21, 100)"
-            });
-
-            $('.nav-link.active').css({
-                "color": "#FDC93B"
-            });
-
-            $('.nav-link').hover(
-                function () {
-                    $(this).css({
-                        "color": "#FDC93B",
-                    })
-                },
-                function () {
-                    if ($(this).text() != activeLink1) {
-                        $(this).css({
-                            "color": "rgb(21, 21, 100)"
+                            "color": "#FDC93B",
                         })
+                    },
+                    function () {
+                        if ($(this).text() != activeLink1) {
+                            $(this).css({
+                                "color": "white"
+                            });
+                        }
                     }
-                }
-            );
-        }
-    };
+                );
+            } else {
+                $('nav').css({
+                    "background": "rgba(255, 255, 255, 1)",
+                    "box-shadow": "4px 4px 4px rgba(0, 0, 0, 0.3)"
+                });
 
-    $('document').ready(function () {
-        $('div#main').css({
-            "margin-top": "0rem"
-        });
+                $('.navbar-brand img').css({
+                    "filter": "invert(0%)"
+                });
 
-        if (window.scrollY === 0)
-            toggleNavbarTransparent(true);
+                $('.navbar-toggler-icon').css({
+                    "filter": "invert(0%)"
+                });
 
-        $('.navbar-toggler').click(function () {
-            navbarToggled = !navbarToggled;
+                $('.nav-link').css({
+                    "color": "rgb(21, 21, 100)"
+                });
 
-            if (navbarToggled === true)
-                toggleNavbarTransparent(false);
-            else if (navbarToggled === false && navbarTransparant === true)
+                $('.nav-link.active').css({
+                    "color": "#FDC93B"
+                });
+
+                $('.nav-link').hover(
+                    function () {
+                        $(this).css({
+                            "color": "#FDC93B",
+                        })
+                    },
+                    function () {
+                        if ($(this).text() != activeLink1) {
+                            $(this).css({
+                                "color": "rgb(21, 21, 100)"
+                            })
+                        }
+                    }
+                );
+            }
+        };
+
+        const checkScrollPosition = () => {
+            if (window.scrollY === 0 && navbarToggled === false) {
+                navbarTransparant = true;
                 toggleNavbarTransparent(true);
+            } else {
+                navbarTransparant = false;
+                toggleNavbarTransparent(false);
+            }
+        };
+
+        toggleButton.addEventListener('click', function () {
+            navbarToggled = !navbarToggled;
+            if (navbarToggled === true || window.scrollY > 0) {
+                toggleNavbarTransparent(false);
+            } else if (navbarToggled === false && window.scrollY === 0) {
+                toggleNavbarTransparent(true);
+            }
         });
 
-        $('.nav-link.active').css({
-            "color": "#FDC93B"
+        closeButton.addEventListener('click', function () {
+            navbarToggled = false;
+            if (window.scrollY === 0) {
+                toggleNavbarTransparent(true);
+            }
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('show');
+        });
+
+        overlay.addEventListener('click', function () {
+            navbarToggled = false;
+            if (window.scrollY === 0) {
+                toggleNavbarTransparent(true);
+            }
+            sideMenu.classList.remove('open');
+            overlay.classList.remove('show');
+        });
+
+        document.addEventListener("scroll", checkScrollPosition);
+
+        $(document).ready(function () {
+            $('div#main').css({
+                "margin-top": "0rem"
+            });
+
+            checkScrollPosition();
+
+            $('.nav-link.active').css({
+                "color": "#FDC93B"
+            });
         });
     });
 
-    document.addEventListener("scroll", (event) => {
-        let lastKnownScrollPosition = window.scrollY;
-
-        if (lastKnownScrollPosition === 0 && navbarTransparant === false && navbarToggled === false) {
-            navbarTransparant = true;
-            toggleNavbarTransparent(true);
-        }
-        else if (lastKnownScrollPosition > 0 && navbarTransparant === true) {
-            navbarTransparant = false;
-            toggleNavbarTransparent(false);
-        }
-
-    });
 </script>
