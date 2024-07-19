@@ -118,6 +118,14 @@
     color: white;
 }
 
+    ::deep .fernanddd i {
+        transition: padding-right 0.3s ease-in;
+    }
+
+    ::deep .fernanddd:hover i {
+        padding-right: 5px;
+    }
+
 .gula {
     padding-right: 10px;
 }

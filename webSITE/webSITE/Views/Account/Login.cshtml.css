@@ -119,7 +119,7 @@
     .container ::deep form .login {
         width: 100%;
         margin-top: 30px;
-        background: #6b43ff;
+        background: rgb(35, 35, 85);
         color: white;
         border: none;
         line-height: 50px;
@@ -133,7 +133,7 @@
     }
 
         .container ::deep form .login:hover {
-            background: #5222fd;
+            background: rgb(30, 30, 64);
         }
 
 

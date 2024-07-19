@@ -32,7 +32,6 @@
         text-align: center;
         align-items: center;
         justify-content: center;
-        text-decoration: none;
         cursor: pointer;
         background-color: #a1a1a173;
         font-size: 80px;
@@ -55,7 +54,6 @@
     transition: .2s;
     color: white;
     background-color: rgb(35, 35, 85);
-    text-decoration: none;
 }
 
     ::deep .top a:hover {

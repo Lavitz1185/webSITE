@@ -41,6 +41,16 @@ h6 {
     color: rgb(24, 24, 49);
 }
 
+.btn-custom {
+    background: rgb(35, 35, 85);
+    color: white;
+}
+
+    .btn-custom:hover {
+        background: rgb(30, 30, 64);
+        color: white;
+    }
+
 
 @charset "UTF-8";
 /*!
