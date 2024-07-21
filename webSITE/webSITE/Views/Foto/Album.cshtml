@@ -70,9 +70,24 @@
                 'zoom',
                 'fullScreen',
                 'download',
-                'thumbs',               
+                'thumbs',
                 'close',
-            ];          
+            ];
+
+            // Move 'slideShow', 'share', 'zoom' to the middle
+            const buttons = $.fancybox.defaults.buttons;
+            const middleButtons = ['slideShow', 'share', 'zoom'];
+            const newButtons = buttons.filter(btn => !middleButtons.includes(btn));
+
+            // Calculate the middle index
+            const middleIndex = Math.floor(newButtons.length / 2);
+
+            // Insert middleButtons at the middle index
+            newButtons.splice(middleIndex, 0, ...middleButtons);
+
+            // Update the fancybox buttons
+            $.fancybox.defaults.buttons = newButtons;
         });
     </script>
+
 }
