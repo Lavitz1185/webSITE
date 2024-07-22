@@ -45,3 +45,31 @@
 
     }
 </div>
+
+
+
+
+
+
+@section Scripts {
+    <partial name="_OwlCarouselPartial" />
+    <script type="text/javascript">
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            loop: false,
+            nav: true,
+            margin: 5,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                960: {
+                    items: 5
+                },
+            }
+        });
+    </script>
+}

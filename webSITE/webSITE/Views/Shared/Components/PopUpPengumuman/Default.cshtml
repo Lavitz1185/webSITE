@@ -18,8 +18,11 @@
 <div class="popup-card shadow-lg">
     <i class="ri-close-line cls-btn-popup"></i>
     <div class="popup-content">
+        <div class="cover-popup-card">
+            <img src="~/img/popup-card1.jpg" />
+        </div>
         <!-- Konten popup di sini -->
-        <p>Card Popup Content</p>
+        @* <p>Card Popup Content</p> *@
     </div>
 </div>
 
@@ -69,7 +72,7 @@
             toggleTrigger.classList.remove("hidden"); 
             popupCard.classList.remove("active"); 
             popupCard.classList.remove("hide"); 
-        }, 100); // Waktu untuk menutup card
+        }, 50); // Waktu untuk menutup card
     });
 
 

@@ -5,12 +5,16 @@
 {
     var user = await UserManager.GetUserAsync(User);
     <li class="nav-item align-items-center" style="padding-right: 20px">
+        <div class="cover-user-pic">
         <img src="@Url.Action("FotoProfil", "File", new {Area = "", id = user.Id})"
              class="user-pic" />
+        </div>
         <div class="sub-menu-wrap" id="subMenu">
             <div class="sub-menu">
                 <div class="user-info">
-                    <img src="@Url.Action("FotoProfil", "File", new {Area = "", id = user.Id})" />
+                    <div class="cover-user-info">
+                        <img src="@Url.Action("FotoProfil", "File", new {Area = "", id = user.Id})" />
+                    </div>
                     <h2>@user.NamaPanggilan</h2>
                 </div>
                 <hr>
