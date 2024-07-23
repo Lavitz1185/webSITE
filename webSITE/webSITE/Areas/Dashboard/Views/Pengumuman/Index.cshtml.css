@@ -96,8 +96,6 @@
 
 ::deep a.btn {
     padding: 10px 18px;
-    background-color: var(--primary-clr);
-    color: var(--light-heading-clr);
     font-size: 15px;
     border: 1px solid transparent;
     border-radius: 5px;
@@ -108,7 +106,5 @@
 }
 
     ::deep a.btn:hover {
-        background-color: var(--light-heading-clr);
-        color: var(--primary-clr);
         border: 1px solid var(--primary-clr);
     }

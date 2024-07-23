@@ -12,7 +12,7 @@
 </div>
 <div class="gallery animate__animated animate__fadeIn animate__slow">
     <div class="row" style="margin-bottom: 20px; padding: 1px 1px">
-        @if (Model.DaftarFoto is not null && Model.DaftarFoto.Count > 0)
+        @if (Model.DaftarFoto != null && Model.DaftarFoto.Count > 0)
         {
             @foreach (var foto in Model.DaftarFoto)
             {
@@ -29,38 +29,7 @@
 </div>
 
 @section Scripts {
-    <partial name="_FancyBoxPartial" />
-
-    @* RUSAKK *@
-    @* <script>
-        $(document).ready(function () {
-            $("[data-fancybox]").fancybox({
-                Image: {
-                    initialSize: "fit",
-                },
-                Thumbs: {
-                    showOnStart: true,
-                    position: "bottom" 
-                },
-                Toolbar: {
-                    display: {
-                        left: ["infobar"],
-                        middle: [
-                            "zoomIn",
-                            "zoomOut",
-                            "toggle1to1",
-                            "rotateCCW",
-                            "rotateCW",
-                            "flipX",
-                            "flipY"
-                        ],
-                        right: ["slideshow", "thumbs", "close"]
-                    }
-                }
-            });
-        });
-    </script> *@
-
+    <partial name="_FancyBoxPartial" />    
 
     <script type="text/javascript">
         $(function () {
@@ -73,19 +42,15 @@
                 'thumbs',
                 'close',
             ];
-
-            // Move 'slideShow', 'share', 'zoom' to the middle
+            
             const buttons = $.fancybox.defaults.buttons;
             const middleButtons = ['slideShow', 'share', 'zoom'];
             const newButtons = buttons.filter(btn => !middleButtons.includes(btn));
 
-            // Calculate the middle index
             const middleIndex = Math.floor(newButtons.length / 2);
 
-            // Insert middleButtons at the middle index
             newButtons.splice(middleIndex, 0, ...middleButtons);
 
-            // Update the fancybox buttons
             $.fancybox.defaults.buttons = newButtons;
         });
     </script>
