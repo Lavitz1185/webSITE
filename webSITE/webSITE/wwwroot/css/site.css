@@ -41,7 +41,7 @@ h6 {
     color: rgb(24, 24, 49);
 }
 
-::deep .btn:focus,
+.btn:focus,
 .btn:active,
 .btn:focus:active,
 .btn.collis:focus,
