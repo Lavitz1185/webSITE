@@ -56,6 +56,9 @@
                         </td>
                         <td>
                             <div class="d-flex justify-content-start gap-1" role="group">
+                                <a class="btn btn-warning" asp-action="Detail" asp-route-id="@mahasiswa.Id">
+                                    <i class='fas fa-eye' style='color:#ffffff'></i>
+                                </a>
                                 @if (User.Identity.Name != mahasiswa.UserName)
                                 {
                                     <a class="btn btn-primary" asp-action="Edit" asp-route-id="@mahasiswa.Id"><i class="fas fa-pen-square fa-lg"></i></a>
@@ -64,10 +67,7 @@
                                             <i class="fa fa-regular fa-trash"></i>
                                         </button>
                                     </form>
-                                }
-                                <a class="btn btn-warning" asp-action="Detail" asp-route-id="@mahasiswa.Id">
-                                    <i class='fas fa-eye' style='color:#ffffff'></i>
-                                </a>
+                                }                              
                             </div>
                         </td>
                     </tr>
