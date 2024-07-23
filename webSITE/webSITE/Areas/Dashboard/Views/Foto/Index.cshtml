@@ -81,6 +81,14 @@
     h1 {
         font-size: 30px;
     }
+
+    .card-title {
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; /* Ganti ujung teks dengan (...) */
+        display: block;
+        max-width: 100%;
+    }
 </style>
 
 @{
@@ -91,8 +99,8 @@
     <h2 class="text-center animate__animated animate__fadeInDown">Album Mahasiswa</h2>
 
     <h3>Tampilan</h3>
-    <a class="btn btn-primary" asp-action="Index" asp-route-view="list">Daftar</a>
-    <a class="btn btn-primary" asp-action="Index" asp-route-view="album">Album</a>
+    <a class="btn btn-custom" asp-action="Index" asp-route-view="list">Daftar</a>
+    <a class="btn btn-custom" asp-action="Index" asp-route-view="album">Album</a>
 
     <hr />
 

@@ -1,10 +1,18 @@
-﻿::deep .user-pic {
-    width: 55px;
-    height: 55px;
+﻿::deep .cover-user-pic {
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    cursor: pointer;
+    overflow: hidden;
     border: solid;
     box-shadow: 0 2px 15px rgb(25, 25, 25, 0.46);
+}
+
+::deep .user-pic {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background-size: cover;
+    object-fit: cover;
 }
 
 ::deep .sub-menu-wrap {
@@ -33,20 +41,26 @@
     align-items: center;
 }
 
-::deep .user-info {
-    display: flex;
-    align-items: center;
-}
+    ::deep .cover-user-info {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 15px;
+    }
 
     ::deep .user-info img {
-        width: 30px;
-        border-radius: 50%;
-        margin-right: 15px;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        object-fit: cover;
+        
     }
 
     ::deep .user-info h2 {
         font-weight: 500;
         font-size: 18px;
+        margin: 4px 0;
     }
 
 ::deep .sub-menu hr {

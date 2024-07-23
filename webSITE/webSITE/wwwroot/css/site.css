@@ -41,6 +41,26 @@ h6 {
     color: rgb(24, 24, 49);
 }
 
+::deep .btn:focus,
+.btn:active,
+.btn:focus:active,
+.btn.collis:focus,
+.btn.collis:active,
+.btn.collis:focus:active {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-custom {
+    background: rgb(35, 35, 85);
+    color: white;
+}
+
+    .btn-custom:hover {
+        background: rgb(30, 30, 64);
+        color: white;
+    }
+
 
 @charset "UTF-8";
 /*!

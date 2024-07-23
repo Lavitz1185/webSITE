@@ -238,12 +238,239 @@
         }
 
             #experts ::deep .expert-box .profile h6 {
-                padding-top: 10px;
+                padding-top: 15px;
             }
+
+    ::deep .cover-generaluser {
+        width: 165px;
+        height: 165px;
+        overflow: hidden;
+        border-radius: 50%;
+        margin-top: 1rem;
+        margin: 0 auto;
+    }
+
+        ::deep .cover-generaluser img{
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            object-fit: cover;
+        }
 /*Akhir Profile*/
 
+
+
 /* Preview Siters */
-#preSite {
+#preSiters {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+::deep .owl-stage-outer {
+    padding: 0 5px !important;
+}
+
+#preSiters .sitewrapper {
+    max-width: 1550px; /* width wrap */
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/*::deep .owl-nav {
+    
+}*/
+
+::deep .owl-prev,
+::deep .owl-next {
+    position: absolute !important;
+    background: #fff !important;
+    border-radius: 50% !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23);
+    top: calc(50% - 25px);
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 2.2rem !important;
+    z-index: 9999;
+    opacity: 1;
+    text-align: center;
+    transition: transform 0.1s linear;
+}
+
+    ::deep .owl-prev.disabled,
+    ::deep .owl-next.disabled {
+        opacity: 0 !important;
+    }
+
+    ::deep .owl-prev:active,
+    ::deep .owl-next:active {
+        transform: translateY(-50%) scale(0.85);
+    }
+
+    ::deep .owl-prev:hover,
+    ::deep .owl-next:hover {
+        color: black !important;
+    }
+
+::deep .owl-prev {
+    left: -3px !important;
+}
+
+::deep .owl-next {
+    right: -3px !important;
+}
+
+#preSiters .card {
+    flex: 0 0 calc((100% - 84px) / 5); /* 5 cards fit */
+    scroll-snap-align: start;
+    list-style: none;
+    background: #fff;
+    padding-bottom: 15px;
+    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+    margin: 7px;
+}
+
+#preSiters .profile-img {
+    width: 8rem;
+    clip-path: circle(60px at center);
+    margin-top: 1rem;
+    margin: 0 auto;
+}
+
+#preSiters .name-profile {
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+}
+
+#preSiters .name2-profile {
+    font-size: 1.1rem;
+    margin-top: 0.2rem;
+}
+
+#preSiters .cover-bio {
+    margin: 1rem auto;
+    height: 45px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    #preSiters .cover-bio .bio {
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+
+#preSiters .btn-profile {
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background: rgb(35, 35, 85);
+    padding: 1rem;
+    margin-top: auto;
+    text-decoration: none;
+    display: inline-block;
+}
+
+    #preSiters .btn-profile:hover {
+        text-decoration: none;
+        background: rgb(30, 30, 64);
+        color: white;
+    }
+
+#preSiters .text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#preSiters .name-profile,
+#preSiters .name2-profile {
+    width: 100%;
+}
+
+/* Custom last-card */
+#preSiters .last-card {
+    position: relative;
+    padding: 0;
+    height: 100%;
+}
+
+#preSiters .card-parent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 341.95px;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+#preSiters .content-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+@media (max-width: 1550px) {
+
+    #preSiters .sitewrapper {
+        max-width: 1300px;
+    }
+}
+
+@media (max-width: 1500px) {
+
+    #preSiters {
+        padding: 0 8vw 0 8vw;
+        text-align: center;
+    }
+}
+
+@media (max-width: 500px) {
+
+    #preSiters .sitewrapper {
+        max-width: 350px;
+    }
+}
+
+/* Akhir Preview Siters */
+
+
+
+
+/*#preSite {
     margin-top: 100px;
     display: flex;
     flex-direction: column;
@@ -252,8 +479,8 @@
 }
 
 .sitewrap {
-    max-width: 1550px; /* width wrap */
-    width: 100%;
+    max-width: 1550px;*/ /* width wrap */
+/*width: 100%;
     position: relative;
     overflow: hidden;
 }
@@ -293,8 +520,8 @@
         scroll-behavior: smooth;
         scrollbar-width: none;
         gap: 6px;
-        padding: 0 20px; /* padding visibility */
-    }
+        padding: 0 20px;*/ /* padding visibility */
+/*}
 
 .carousel::-webkit-scrollbar {
     display: none;
@@ -315,8 +542,8 @@
     }
 
 .carousel .card {
-    flex: 0 0 calc((100% - 84px) / 5); /* 5 cards fit */
-    scroll-snap-align: start;
+    flex: 0 0 calc((100% - 84px) / 5);*/ /* 5 cards fit */
+/*scroll-snap-align: start;
     list-style: none;
     background: #fff;
     padding-bottom: 15px;
@@ -365,7 +592,7 @@
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    background: #6b43ff;
+    background: rgb(35, 35, 85);
     padding: 1rem;
     margin-top: auto;
     text-decoration: none;
@@ -374,7 +601,7 @@
 
     .btn-profile:hover {
         text-decoration: none;
-        background: #5222fd;
+        background: rgb(30, 30, 64);
         color: white;
     }
 
@@ -387,10 +614,8 @@
 .name-profile,
 .name2-profile {
     width: 100%;
-}
-
-/* Custom last-card */
-.last-card {
+}*/
+/*.last-card {
     position: relative;
     padding: 0; 
     height: 100%; 
@@ -405,8 +630,7 @@
     width: 100%;
     color: inherit;
     text-decoration: none;
-}
-
+}*/
 /*.content-link a {
     position: absolute;
     top: 0;
@@ -415,43 +639,37 @@
     width: 100%;
     z-index: 1;
 }*/
-
-.content-link {
+/*.content-link {
     position: absolute;
     top: 0;
     left: 0;
     height: 320.56px;
     width: 100%;
     z-index: 1;
-}
-
-/* Responsive */
-@media screen and (max-width: 1200px) {
+}*/
+/*@media screen and (max-width: 1200px) {
     .carousel .card {
-        flex: 0 0 calc((100% - 48px) / 4); /* Show 4 cards */
-    }
+        flex: 0 0 calc((100% - 48px) / 4);*/ /* Show 4 cards */
+/*}
 }
 
 @media screen and (max-width: 900px) {
     .carousel .card {
-        flex: 0 0 calc((100% - 24px) / 3); /* Show 3 cards */
-    }
+        flex: 0 0 calc((100% - 24px) / 3);*/ /* Show 3 cards */
+/*}
 }
 
 @media screen and (max-width: 600px) {
     .carousel .card {
-        flex: 0 0 calc((100%) / 2); /*Show 2 cards */
-    }
+        flex: 0 0 calc((100%) / 2);*/ /*Show 2 cards */
+/*}
 }
 
 @media screen and (max-width: 400px) {
     .carousel .card {
-        flex: 0 0 100%; /* Show 1 card */
-    }
-}
-
-/* Akhir Preview Siters */
-
+        flex: 0 0 100%;*/ /* Show 1 card */
+/*}
+}*/
 /* Preview Kegiatan */
 #preKeg {
     position: relative;

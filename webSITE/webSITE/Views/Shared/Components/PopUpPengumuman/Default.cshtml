@@ -1,8 +1,7 @@
 ﻿@model Pengumuman?
 
-@if(Model is not null)
+@if (Model is not null)
 {
-
     <div class="popup-screen">
         <div class="popup-box">
             <i class="ri-close-line cls-btn"></i>
@@ -10,23 +9,35 @@
             <a asp-action="Index" asp-controller="Pensi">Daftar</a>
         </div>
     </div>
-
-
-
-    @* <div class="popup-screen">
-        <div class="popup-box">
-            <i class="ri-close-line cls-btn"></i>
-            <h2>@Model.Judul</h2>
-            <p>@Model.Isi</p>
-            <a href="#" >Ente Ente</a>
-        </div>
-    </div>*@  
 }
 
+<div class="toggle-trigger">
+    PENSI ILKOM 2024
+</div>
+
+<div class="popup-card shadow-lg">
+    <i class="ri-close-line cls-btn-popup"></i>
+    <div class="popup-content">
+        <div class="cover-popup-card">
+            <img src="~/img/popup-card1.jpg" />
+        </div>
+        <!-- Konten popup di sini -->
+        @* <p>Card Popup Content</p> *@
+    </div>
+</div>
+
+
 <script type="text/javascript">
-    const popupScreen = document.querySelector(".popup-screen");
     // const popupBox = document.querySelector(".popup-box"); //cookies
+    const popupScreen = document.querySelector(".popup-screen");
     const closeBtn = document.querySelector(".cls-btn");
+
+    const toggleTrigger = document.querySelector(".toggle-trigger");
+    const popupCard = document.querySelector(".popup-card");
+    const closePopupBtn = document.querySelector(".cls-btn-popup");
+
+    let clickTimeout;
+    const doubleClickThreshold = 200; // 0.2s
 
     window.addEventListener("load", () => {
         setTimeout(() => {
@@ -36,5 +47,33 @@
 
     closeBtn.addEventListener("click", () => {
         popupScreen.classList.remove("active");
+        toggleTrigger.classList.remove("hidden"); 
+        toggleTrigger.style.right = '0'; 
     });
+
+    toggleTrigger.addEventListener("click", () => {
+        if (clickTimeout) {
+            clearTimeout(clickTimeout);
+            clickTimeout = null;
+            // saat double click dibawah 0.2s maka toggle-tigger akan tertutup
+            toggleTrigger.classList.add("off-screen");
+        } else {
+            clickTimeout = setTimeout(() => {
+                toggleTrigger.classList.add("hidden"); 
+                popupCard.classList.add("active"); 
+                clickTimeout = null;
+            }, doubleClickThreshold);
+        }
+    });
+
+    closePopupBtn.addEventListener("click", () => {
+        popupCard.classList.add("hide"); 
+        setTimeout(() => {
+            toggleTrigger.classList.remove("hidden"); 
+            popupCard.classList.remove("active"); 
+            popupCard.classList.remove("hide"); 
+        }, 50); // Waktu untuk menutup card
+    });
+
+
 </script>

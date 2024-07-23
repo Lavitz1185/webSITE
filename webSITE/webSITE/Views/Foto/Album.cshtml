@@ -10,15 +10,17 @@
         <h2>@Model.NamaKegiatan</h2>
     </div>
 </div>
-<div class="galery animate__animated animate__fadeIn animate__slow">
+<div class="gallery animate__animated animate__fadeIn animate__slow">
     <div class="row" style="margin-bottom: 20px; padding: 1px 1px">
-        @if (Model.DaftarFoto is not null && Model.DaftarFoto.Count > 0)
+        @if (Model.DaftarFoto != null && Model.DaftarFoto.Count > 0)
         {
             @foreach (var foto in Model.DaftarFoto)
             {
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6" style="padding: 1px">
                     <div class="content">
-                        <img src="@Url.Action("Foto", "File", new {Id = foto.Id, Area=""})" class="img-thumbnail" />
+                        <a data-fancybox="gallery" href="@Url.Action("Foto", "File", new { Id = foto.Id, Area = "" })">
+                            <img src="@Url.Action("Foto", "File", new { Id = foto.Id, Area = "" })" class="img-thumbnail" />
+                        </a>
                     </div>
                 </div>
             }
@@ -27,5 +29,30 @@
 </div>
 
 @section Scripts {
-    <partial name="_FancyBoxPartial" />
+    <partial name="_FancyBoxPartial" />    
+
+    <script type="text/javascript">
+        $(function () {
+            $.fancybox.defaults.buttons = [
+                'slideShow',
+                'share',
+                'zoom',
+                'fullScreen',
+                'download',
+                'thumbs',
+                'close',
+            ];
+            
+            const buttons = $.fancybox.defaults.buttons;
+            const middleButtons = ['slideShow', 'share', 'zoom'];
+            const newButtons = buttons.filter(btn => !middleButtons.includes(btn));
+
+            const middleIndex = Math.floor(newButtons.length / 2);
+
+            newButtons.splice(middleIndex, 0, ...middleButtons);
+
+            $.fancybox.defaults.buttons = newButtons;
+        });
+    </script>
+
 }
