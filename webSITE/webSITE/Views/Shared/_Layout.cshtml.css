@@ -388,9 +388,9 @@ footer .row {
 }
 
 .progress-bar-fill {
-    stroke-dasharray: 0 100; /* initial state, hidden */
+    stroke-dasharray: 0 100; 
     stroke: #ecedf3;
     stroke-width: 2;
-    fill: none; /* Ensure the fill is set to none */
-    background: #20203c !important; /* Ensure background is transparent */
+    fill: none; /* wajib */
+    background: #20203c !important; 
 }
