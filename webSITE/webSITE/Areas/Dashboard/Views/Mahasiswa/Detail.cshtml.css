@@ -1,2 +1,52 @@
-﻿body {
+﻿.cardplus {
+    padding: 20px;
+    border-radius: 10px;
+    background: var(--light);
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, .05);
+    margin-bottom: 20px;
+}
+
+.detail-mahasiswa {
+    width: 100%;
+    padding: 24px 20px 20px 20px;
+}
+
+    /* CSS Hyperlink */
+    .detail-mahasiswa .title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .detail-mahasiswa .breadcrumbs {
+        display: flex;
+        grid-gap: 6px;
+        padding: 0;
+        margin: 0;
+    }
+
+        .detail-mahasiswa .breadcrumbs li,
+        .detail-mahasiswa .breadcrumbs li a {
+            font-size: 14px;
+            list-style: none;
+        }
+
+            .detail-mahasiswa .breadcrumbs li a {
+                color: var(--blue);
+            }
+
+                .detail-mahasiswa .breadcrumbs li a.active,
+                .detail-mahasiswa .breadcrumbs li.divider {
+                    color: var(--dark-grey);
+                    pointer-events: none;
+                }
+/* Akhir CSS Hyperlink */
+
+.profile-sectionn .row {
+    margin-bottom: 10px;
+}
+
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
 }

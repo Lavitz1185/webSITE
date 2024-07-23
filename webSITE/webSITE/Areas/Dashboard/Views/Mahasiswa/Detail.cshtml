@@ -1,56 +1,70 @@
 ﻿@model Mahasiswa
 @{
-    ViewData["title"] = $"Detail - {Model.NamaLengkap}";
+    ViewData["Title"] = $"Detail - {Model.NamaLengkap}";
 }
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-center">
-                <img src="@Url.ActionLink("FotoProfil", "File", new {Id = Model.Id, Area = ""})"
-                     class="img-thumbnail mx-auto border-5 border-primary"
+<div class="detail-mahasiswa">
+    <!-- Hyperlink -->
+    <h1 class="title">Detail Mahasiswa</h1>
+    <ul class="breadcrumbs mb-4">
+        <li><a asp-action="Index">Mahasiswa</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Detail Mahasiswa</a></li>
+    </ul>
+    <!-- Akhir Hyperlink -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Image Card -->
+            <div class="cardplus mb-4">
+                <img src="@Url.ActionLink("FotoProfil", "File", new { Id = Model.Id, Area = "" })"
+                     class="img-thumbnail mx-auto d-block"
                      width="250"
                      height="250" />
             </div>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-6"><b>ID</b></div>
-                    <div class="col-6">@Model.Id</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><b>NIM</b></div>
-                    <div class="col-6">@Model.Nim</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><b>Nama Lengkap</b></div>
-                    <div class="col-6">@Model.NamaLengkap</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><b>Nama Panggilan</b></div>
-                    <div class="col-6">@Model.NamaPanggilan</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><b>Jenis Kelamin</b></div>
-                    <div class="col-6">@Model.StrJenisKelamin</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><b>Tanggal Lahir</b></div>
-                    <div class="col-6">@Model.TanggalLahir.ToLongDateString()</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><b>Email</b></div>
-                    <div class="col-6">@Model.Email</div>
-                </div>
-                <div class="row">
-                    <div class="col-6"><b>Status Akun</b></div>
-                    <div class="col-6">@Model.StrStatus</div>
+
+            <!-- Profile Section Card -->
+            <div class="cardplus">
+                <div class="profile-sectionn">
+                    <div class="row mb-2">
+                        <div class="col-6"><b>ID</b></div>
+                        <div class="col-6">@Model.Id</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6"><b>NIM</b></div>
+                        <div class="col-6">@Model.Nim</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6"><b>Nama Lengkap</b></div>
+                        <div class="col-6">@Model.NamaLengkap</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6"><b>Nama Panggilan</b></div>
+                        <div class="col-6">@Model.NamaPanggilan</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6"><b>Jenis Kelamin</b></div>
+                        <div class="col-6">@Model.StrJenisKelamin</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6"><b>Tanggal Lahir</b></div>
+                        <div class="col-6">@Model.TanggalLahir.ToLongDateString()</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6"><b>Email</b></div>
+                        <div class="col-6">@Model.Email</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6"><b>Status Akun</b></div>
+                        <div class="col-6">@Model.StrStatus</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-12">
+
+        <div class="col-md-6">
+            <!-- Kegiatan Table Card -->
+            <div class="cardplus mb-4">
                 <h3 class="text-center">Daftar Kegiatan</h3>
                 <table class="table table-bordered">
                     <thead>
@@ -72,9 +86,9 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+
+            <!-- Album Table Card -->
+            <div class="cardplus">
                 <h3 class="text-center">Daftar Foto</h3>
                 <table class="table table-bordered">
                     <thead>
@@ -91,7 +105,7 @@
                                 <td>@foto.Id</td>
                                 <td>@foto.AddedAt.ToShortDateString()</td>
                                 <td>
-                                    <img width="120" src="@Url.ActionLink("Foto", "File", new {Id = foto.Id, Area = ""})" />
+                                    <img width="120" src="@Url.ActionLink("Foto", "File", new { Id = foto.Id, Area = "" })" />
                                 </td>
                             </tr>
                         }
@@ -102,7 +116,7 @@
     </div>
 </div>
 
-<a asp-action="Index">Kembali</a>
+<a asp-action="Index" class="btn btn-primary mt-4">Kembali</a>
 
 @section Scripts {
     <partial name="_DataTable"></partial>
