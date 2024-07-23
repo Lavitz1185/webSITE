@@ -41,11 +41,37 @@ li {
 }
 
 .btn-custom {
+    padding: 5px 20px;
+    border-radius: 5px;
     background: #10316B;
     color: white;
 }
 
     .btn-custom:hover {
+        background: rgb(35, 35, 85);
+        color: white;
+    }
+
+a.btn-customdel {
+    padding: 5px 20px;
+    border-radius: 5px;
+    background: darkred;
+    color: white;
+}
+
+    a.btn-customdel:hover {
+        background: #4a0202;
+        color: white;
+    }
+
+a.btn-custom {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: #10316B;
+    color: white;
+}
+
+    a.btn-custom:hover {
         background: rgb(35, 35, 85);
         color: white;
     }

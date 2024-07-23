@@ -1,2 +1,48 @@
-﻿body {
+﻿.cardplus {
+    padding: 20px;
+    border-radius: 10px;
+    background: var(--light);
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, .05);
+    margin-bottom: 20px;
+}
+
+.detail-kegiatan {
+    width: 100%;
+    padding: 24px 20px 20px 20px;
+}
+
+    /* CSS Hyperlink */
+    .detail-kegiatan .title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .detail-kegiatan .breadcrumbs {
+        display: flex;
+        grid-gap: 6px;
+        padding: 0;
+        margin: 0;
+    }
+
+        .detail-kegiatan .breadcrumbs li,
+        .detail-kegiatan .breadcrumbs li a {
+            font-size: 14px;
+            list-style: none;
+        }
+
+            .detail-kegiatan .breadcrumbs li a {
+                color: var(--blue);
+            }
+
+                .detail-kegiatan .breadcrumbs li a.active,
+                .detail-kegiatan .breadcrumbs li.divider {
+                    color: var(--dark-grey);
+                    pointer-events: none;
+                }
+/* Akhir CSS Hyperlink */
+
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
 }
