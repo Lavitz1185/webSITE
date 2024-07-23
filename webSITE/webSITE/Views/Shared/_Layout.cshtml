@@ -91,7 +91,17 @@
         <p>Copyright &copy;2024 <partial name="_TombolDashboardPartial" />. All rights Reserved.</p>
     </div>
 
-    <a class="gotopbtn" href="#"><i class="ri-arrow-up-s-line" style="width: 1000px"></i></a>
+    <a class="gotopbtn progress-wrap" href="#">
+        <i class="ri-arrow-up-s-line" style="z-index: 99999 !important"></i>
+        <div class="progress-bar" >
+            <svg class="progress-bar-fill" width="100%" height="100%" viewBox="0 0 36 36" >
+                <path d="M18 2.0845
+                     a 15.9155 15.9155 0 0 1 0 31.831
+                     a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+        </div>
+    </a>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/popper/popper.min.js"></script>
@@ -116,32 +126,30 @@
         });
 
         $(document).ready(function () {
-            const gotopbtn = $('.gotopbtn');
+            var offset = 650;
+            var duration = 100;
 
-            const toggleButtonVisibility = () => {
-                if ($(document).scrollTop() >= 650) {
-                    gotopbtn.addClass('visible');
+            $(window).on('scroll', function () {
+                if ($(this).scrollTop() > offset) {
+                    $('.progress-wrap').addClass('active-progress');
                 } else {
-                    gotopbtn.removeClass('visible');
+                    $('.progress-wrap').removeClass('active-progress');
                 }
-            };
 
-            $(gotopbtn).on('click', () => $(document).scrollTo(0));
-            $(document).on('scroll', toggleButtonVisibility);
-            toggleButtonVisibility();
+                var scroll = $(window).scrollTop();
+                var height = $(document).height() - $(window).height();
+                var progress = (scroll / height) * 100;
+                $('.progress-bar-fill').css('stroke-dasharray', progress + '0');
+            });
+
+            $('.progress-wrap').on('click', function (event) {
+                event.preventDefault();
+                $('html, body').animate({ scrollTop: 0 }, duration, 'swing');
+                return false;
+            });
         });
 
-        const alertBs = $('.alert');
 
-        if (alertBs.length != 0) {
-            const navbar = $('nav');
-
-            $(navbar).css("top", "auto");
-
-            $(alertBs).on('closed.bs.alert', () => {
-                $(navbar).css("top", "0");
-            })
-        }
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
