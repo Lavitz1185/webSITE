@@ -41,7 +41,7 @@
     height: 450px;
 }
 
-.popup-box a {
+.popup-box ::deep a {
     position: absolute;
     text-decoration: none;
     color: white;
@@ -55,7 +55,7 @@
     transition: all .3s ease;
 }
 
-    .popup-box a:hover {
+    .popup-box ::deep a:hover {
         background-color: #d00380;
     }
 

@@ -20,6 +20,8 @@ namespace webSITE.Domain
         public int? MaksAnggotaPerTim { get; set; }
         public bool? PasanganBedaJenisKelamin { get; set; }
 
+        public int JumlahPendaftar { get => Jenis == JenisLomba.Solo ? _daftarPeserta.Count : _daftarTim.Count; }
+
         public IReadOnlyList<PesertaLomba> DaftarPeserta { get => _daftarPeserta; }
         public IReadOnlyList<TimLomba> DaftarTim { get => _daftarTim; }
 
@@ -207,6 +209,28 @@ namespace webSITE.Domain
                     $"Lomba {Nama} tidak memiliki tim dengan nama : {tim.NamaTim}");
 
             _daftarTim.Remove(tim);
+        }
+
+        public List<string> GetSyaratLomba()
+        {
+            var daftarSyarat = new List<string> 
+            { 
+                $"Maks Kuota Per Angkatan {MaksKuotaPerAngkatan} {Jenis.ToString()}",
+            };
+
+            switch (Jenis)
+            {
+                case JenisLomba.Tim:
+                    daftarSyarat.Add(
+                        $"Jumlah Anggota Tim Minimal {MinAnggotaPerTim} orang dan Maksimal {MaksAnggotaPerTim} orang");
+                    break;
+                case JenisLomba.Pasangan:
+                    if (PasanganBedaJenisKelamin!.Value)
+                        daftarSyarat.Add("Pasangan harus berbeda jenis kelamin");
+                    break;
+            }
+
+            return daftarSyarat;
         }
 
         private bool IsKuotaPenuh(Angkatan angkatan)
