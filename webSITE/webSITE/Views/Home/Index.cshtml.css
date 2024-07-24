@@ -675,7 +675,7 @@
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: 100vh;
+    height: 80vh;
     margin: 0;
     padding: 0;
     display: flex;
@@ -687,13 +687,34 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, #000, #4D4CC4);
+    background: linear-gradient(to top, #000, #353483);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 0;
+    padding: 0;
 }
+
+::deep .background-img-preKeg {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    z-index: 0;
+}
+
+    ::deep .background-img-preKeg img {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-size: cover;
+        opacity: 10%;
+
+        background-attachment: fixed !important; 
+    }
+
 
 #preKeg .row {
     width: 100%;
@@ -739,7 +760,7 @@
             }
 
 #preKeg .row1 {
-    margin-top: 8rem;
+    margin-top: 2rem;
 }
 
     #preKeg .row1 h1 {
@@ -789,7 +810,7 @@
         }
 
     #preKeg .row1 {
-        margin-top: 7rem;
+        margin-top: 2rem;
     }
 
     #preKeg .row3 {
