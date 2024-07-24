@@ -1,0 +1,32 @@
+﻿@model EditVM
+@{
+    ViewData["Title"] = "Edit Lomba";
+}
+
+<h1>Tambah Lomba</h1>
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.Nama" class="form-label"></label>
+            <input asp-for="@Model.Nama" class="form-control" type="text" />
+            <span asp-validation-for="@Model.Nama" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.Keterangan" class="form-label"></label>
+            <textarea asp-for="@Model.Keterangan" class="form-control"></textarea>
+            <span asp-validation-for="@Model.Keterangan" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+    </div>
+</form>

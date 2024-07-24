@@ -215,7 +215,7 @@ namespace webSITE.Domain
         {
             var daftarSyarat = new List<string> 
             { 
-                $"Maks Kuota Per Angkatan {MaksKuotaPerAngkatan} {Jenis.ToString()}",
+                $"Maks Kuota Per Angkatan {MaksKuotaPerAngkatan} {(Jenis == JenisLomba.Solo ? "Orang" : Jenis)}",
             };
 
             switch (Jenis)

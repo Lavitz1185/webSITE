@@ -1,0 +1,56 @@
+﻿@using Humanizer
+@model List<Lomba>
+@{
+    ViewData["Title"] = "Pensi";
+}
+
+<h1>Pentas Seni - Daftar Lomba</h1>
+
+<a asp-action="Tambah" class="btn btn-primary">Tambah Lomba</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Jenis Lomba</th>
+            <th>Keterangan</th>
+            <th>Jumlah Pendaftar</th>
+            <th>Syarat Lomba</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var lomba in Model)
+        {
+            <tr>
+                <td>@lomba.Id</td>
+                <td>@lomba.Nama</td>
+                <td>@lomba.Jenis.Humanize()</td>
+                <td>@lomba.Keterangan</td>
+                <td>@lomba.JumlahPendaftar @(lomba.Jenis == JenisLomba.Solo ? "Orang" : "Tim")</td>
+                <td>
+                    Syarat Lomba
+                    <ul>
+                        @foreach (var syarat in lomba.GetSyaratLomba())
+                        {
+                            <li>@syarat</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <a asp-action="Detail" asp-route-id="@lomba.Id" class="btn btn-primary">Detail</a>
+                    <a asp-action="Edit" asp-route-id="@lomba.Id" class="btn btn-warning">Edit</a>
+
+                    <form asp-action="Hapus" asp-route-id="@lomba.Id">
+                        <button class="btn btn-danger" type="submit">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_DataTable" />
+}

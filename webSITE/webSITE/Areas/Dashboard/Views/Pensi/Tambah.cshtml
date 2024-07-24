@@ -1,0 +1,106 @@
+﻿@using Humanizer
+@model TambahVM
+@{
+    ViewData["Title"] = "Tambah Lomba";
+}
+
+<h1>Tambah Lomba</h1>
+
+<form asp-action="Tambah">
+    <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.Nama" class="form-label"></label>
+            <input asp-for="@Model.Nama" class="form-control" type="text" />
+            <span asp-validation-for="@Model.Nama" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.Jenis" class="form-label"></label>
+            <select asp-for="@Model.Jenis"
+                    asp-items="@Enum.GetValues<JenisLomba>().Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
+                    class="form-control">
+            </select>
+            <span asp-validation-for="@Model.Jenis" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.Keterangan" class="form-label"></label>
+            <textarea asp-for="@Model.Keterangan" class="form-control"></textarea>
+            <span asp-validation-for="@Model.Keterangan" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <h4>Syarat</h4>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.MaksKuotaPerAngkatan" class="form-label"></label>
+            <input asp-for="@Model.MaksKuotaPerAngkatan" class="form-control" type="number" />
+            <span asp-validation-for="@Model.MaksKuotaPerAngkatan" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3 @JenisLomba.Tim visually-hidden">
+        <div class="col">
+            <label asp-for="@Model.MinAnggotaPerTim" class="form-label"></label>
+            <input asp-for="@Model.MinAnggotaPerTim" class="form-control" type="number" />
+            <span asp-validation-for="@Model.MinAnggotaPerTim" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3 @JenisLomba.Tim visually-hidden">
+        <div class="col">
+            <label asp-for="@Model.MaksAnggotaPerTim" class="form-label"></label>
+            <input asp-for="@Model.MaksAnggotaPerTim" class="form-control" type="number" />
+            <span asp-validation-for="@Model.MaksAnggotaPerTim" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3 @JenisLomba.Pasangan visually-hidden">
+        <div class="col">
+            <input asp-for="@Model.PasanganBedaJenisKelamin" class="form-check-inline" type="checkbox" />
+            <label asp-for="@Model.PasanganBedaJenisKelamin" class="form-check-label"></label>
+            <span asp-validation-for="@Model.PasanganBedaJenisKelamin" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        $('select#@(nameof(Model.Jenis))').on('change', () => {
+            const jenis = $('select#@(nameof(Model.Jenis))').val();
+
+            console.log(jenis);
+
+            const jenisTim = $('.@(JenisLomba.Tim)');
+            const jenisPasangan = $('.@(JenisLomba.Pasangan)');
+
+            switch(jenis) {
+                case '@(JenisLomba.Solo)':
+                    jenisTim.addClass('visually-hidden');
+                    jenisPasangan.addClass('visually-hidden');
+                    break;
+                case '@(JenisLomba.Tim)':
+                    jenisTim.removeClass('visually-hidden');
+                    jenisPasangan.addClass('visually-hidden');
+                    break;
+                case '@(JenisLomba.Pasangan)':
+                    jenisTim.addClass('visually-hidden');
+                    jenisPasangan.removeClass('visually-hidden');
+                    break;
+            }
+        });
+    </script>
+}
