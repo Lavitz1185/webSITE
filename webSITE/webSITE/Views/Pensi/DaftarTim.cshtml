@@ -1,0 +1,82 @@
+﻿@using Humanizer
+@model TambahTimLombaVM
+@{
+    ViewData["Title"] = "Daftar";
+}
+
+<h1>Form Pendaftaran Peserta Lomba</h1>
+
+<form asp-action="DaftarTim" asp-route-id="@ViewData["id"]" id="form">
+    <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.NamaTim" class="form-label"></label>
+            <input asp-for="@Model.NamaTim" type="text" class="form-control" />
+            <span asp-validation-for="@Model.NamaTim" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.Angkatan" class="form-label"></label>
+            <select asp-for="@Model.Angkatan"
+                    asp-items="@Enum.GetValues<Angkatan>()
+                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
+                    class="form-control">
+            </select>
+            <span asp-validation-for="@Model.Angkatan" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <h3>Anggota Tim</h3>
+
+    <div id="anggotaTimContainer">
+        @Html.EditorFor(model => model.AnggotaTim)
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <button class="btn btn-primary" type="button" id="tambahAnggota">Tambah Anggota</button>
+            <button class="btn btn-primary" type="button" id="hapusAnggota">Hapus Anggota</button>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <button class="btn btn-primary">Simpan</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+        $('#tambahAnggota').on('click', function () {
+            $.ajax({
+                async : true,
+                data : $('#form').serialize(),
+                type : 'POST',
+                url : '@(Url.Action("TambahAnggota", "Pensi"))',
+                success : function (partialView) {
+                    console.log(partialView);
+                    $('#anggotaTimContainer').html(partialView);
+                }
+            });
+        });
+
+        $('#hapusAnggota').on('click', function () {
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: 'POST',
+                url: '@(Url.Action("HapusAnggota", "Pensi"))',
+                success: function (partialView) {
+                    console.log(partialView);
+                    $('#anggotaTimContainer').html(partialView);
+                }
+            });
+        });
+    </script>
+}
