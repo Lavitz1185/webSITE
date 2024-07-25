@@ -13,5 +13,5 @@ public class TambahTimLombaVM
     [Required(ErrorMessage = "{0} harus diisi")]
     public Angkatan Angkatan { get; set; }
 
-    public TambahPesertaVM[] AnggotaTim { get; set; } = Array.Empty<TambahPesertaVM>();
+    public List<TambahPesertaVM> AnggotaTim { get; set; } = new List<TambahPesertaVM>();
 }

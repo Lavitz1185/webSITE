@@ -61,7 +61,7 @@ namespace webSITE.Controllers
                 JenisLomba.Pasangan =>
                     View(
                         "DaftarPasangan",
-                        new TambahTimLombaVM { AnggotaTim = new[] { new TambahPesertaVM(), new TambahPesertaVM() } }),
+                        new TambahTimLombaVM { AnggotaTim = new() { new TambahPesertaVM(), new TambahPesertaVM() } }),
                 _ => BadRequest()
             };
         }
@@ -195,6 +195,89 @@ namespace webSITE.Controllers
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(tambahTimLombaVM);
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DaftarTim(int id, TambahTimLombaVM tambahTimVM)
+        {
+            ViewData["id"] = id;
+
+            if (!ModelState.IsValid) return View(tambahTimVM);
+
+            try
+            {
+                var lomba = await _repositoriLomba.GetWithDetail(id);
+
+                if (lomba is null)
+                {
+                    _notificationService.AddNotification(new ToastrNotification
+                    {
+                        Type = ToastrNotificationType.Error,
+                        Title = "Lomba tidak ditemukan"
+                    });
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var tim = new TimLomba
+                {
+                    NamaTim = tambahTimVM.NamaTim,
+                    Angkatan = tambahTimVM.Angkatan,
+                    TanggalDaftar = DateTime.Now,
+                    AnggotaTim = tambahTimVM.AnggotaTim
+                        .Select(a => PesertaLomba.Create(
+                            Nim.Create(a.Nim),
+                            a.Nama,
+                            a.JenisKelamin,
+                            a.Angkatan,
+                            NoWa.Create(a.NoWa),
+                            DateTime.Now)).ToList()
+                };
+
+                _repositoriTimLomba.Add(tim);
+                lomba.TambahTim(tim);
+                await _unitOfWork.SaveChangesAsync();
+
+                _logger.LogInformation(
+                    "Peserta Tim ID : {@timId} ditambahkan ke Lomba dengan ID : {@lombaId} pada {@dateTime}",
+                    tim.Id, lomba.Id, DateTime.Now);
+
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Success,
+                    Title = "Pendaftaran Sukse"
+                });
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DomainException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(tambahTimVM);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(tambahTimVM);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TambahAnggota(
+            [Bind(nameof(TambahTimLombaVM.AnggotaTim))] TambahTimLombaVM tambahTimVM)
+        {
+            tambahTimVM.AnggotaTim.Add(new TambahPesertaVM());
+            return PartialView("_TambahPesertaVMPartial", tambahTimVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> HapusAnggota(
+            [Bind(nameof(TambahTimLombaVM.AnggotaTim))] TambahTimLombaVM tambahTimVM)
+        {
+            if(tambahTimVM.AnggotaTim.Count > 0)
+            {
+                tambahTimVM.AnggotaTim.RemoveAt(tambahTimVM.AnggotaTim.Count - 1);
+            }
+            return PartialView("_TambahPesertaVMPartial", tambahTimVM);
         }
     }
 }
