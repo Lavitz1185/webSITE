@@ -3,33 +3,47 @@
     ViewData["Title"] = "Edit Lomba";
 }
 
-<h1>Tambah Lomba</h1>
+<div class="edit-lombaa">
+    <!-- Hyperlink -->
+    <h1 class="title">Edit Lomba</h1>
+    <ul class="breadcrumbs mb-4">
+        <li><a asp-action="Index">Pentas Seni</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Edit Lomba</a></li>
+    </ul>
+    <!-- Akhir Hyperlink -->
 
-<form asp-action="Edit">
-    <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+    <div class="container-fluid cardplus">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
-    <div class="row mb-3">
-        <div class="col">
-            <label asp-for="@Model.Nama" class="form-label"></label>
-            <input asp-for="@Model.Nama" class="form-control" type="text" />
-            <span asp-validation-for="@Model.Nama" class="form-text text-danger"></span>
-        </div>
+            <div class="row input-box mb-3">
+                <div class="col">
+                    <label asp-for="@Model.Nama" class="form-label"></label>
+                    <input asp-for="@Model.Nama" class="form-control" type="text" />
+                    <span asp-validation-for="@Model.Nama" class="form-text text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row input-box mb-3">
+                <div class="col">
+                    <label asp-for="@Model.Keterangan" class="form-label"></label>
+                    <textarea asp-for="@Model.Keterangan" class="form-control" rows="8"></textarea>
+                    <span asp-validation-for="@Model.Keterangan" class="form-text text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-3 d-flex justify-content-start">
+                <button class="btn-custom me-2" type="submit">Simpan</button>
+                <a class="btn-customdel" asp-action="Index">
+                    Batal
+                </a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="row mb-3">
-        <div class="col">
-            <label asp-for="@Model.Keterangan" class="form-label"></label>
-            <textarea asp-for="@Model.Keterangan" class="form-control"></textarea>
-            <span asp-validation-for="@Model.Keterangan" class="form-text text-danger"></span>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-    </div>
-</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

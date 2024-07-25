@@ -4,23 +4,48 @@
     ViewData["Title"] = "Tambah Foto";
 }
 
-<form enctype="multipart/form-data" method="post" class="container pt-5" asp-action="Tambah"
-      asp-route-returnUrl="@ViewData["returnUrl"]">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <div class="row">
-        <label asp-for="@Model.FormFile" class="form-label"></label>
-        <input asp-for="@Model.FormFile" class="form-control" />
-        <span asp-validation-for="@Model.FormFile" class="form-text text-danger"></span>
+
+<div class="tambah-foto">
+    <!-- Hyperlink -->
+    <h1 class="title">Tambah Foto</h1>
+    <ul class="breadcrumbs mb-4">
+        <li><a asp-action="Index">Album</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Tambah Foto</a></li>
+    </ul>
+    <!-- Akhir Hyperlink -->
+
+    <div class="container-fluid cardplus">
+        <form enctype="multipart/form-data" method="post" class="" asp-action="Tambah"
+              asp-route-returnUrl="@ViewData["returnUrl"]">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <label asp-for="@Model.FormFile" style="padding-left: 0px;" class="mb-2">Tambah Foto</label>
+                <input asp-for="@Model.FormFile" class="form-control" />
+                <span asp-validation-for="@Model.FormFile" class="form-text text-danger"></span>
+            </div>
+
+            <div class="row mt-3 input-box">
+                <span asp-validation-for="@Model.DaftarIdMahasiswa" class="form-text text-danger"></span>
+                <vc:mahasiswa-picker input-name=@nameof(TambahVM.DaftarIdMahasiswa) multi=true></vc:mahasiswa-picker>
+            </div>
+
+            <div class="col-md-12 mt-3 d-flex justify-content-start">
+                <button class="btn-custom me-2" type="submit">Simpan</button>
+                @* <a class="btn-customdel" asp-action="Index">
+                    Batal
+                </a> *@
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="row">
-        <span asp-validation-for="@Model.DaftarIdMahasiswa" class="form-text text-danger"></span>
-        <vc:mahasiswa-picker input-name=@nameof(TambahVM.DaftarIdMahasiswa) multi=true></vc:mahasiswa-picker>
-    </div>
 
-    <button type="submit" class="btn btn-primary">Simpan</button>
-</form>
+
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -18,22 +18,22 @@
 
             <input type="text" asp-for="@Model.Id" hidden="hidden">
 
-            <div class="col-md-6 input-box">
+            <div class="col-md-12 input-box">
                 <label asp-for="@Model.NamaKegiatan"></label>
                 <input class="form-control" type="text" asp-for="@Model.NamaKegiatan">
                 <span class="text-danger" asp-validation-for="@Model.NamaKegiatan"></span>
             </div>
-            <div class="col-md-6 input-box">
+            <div class="col-md-12 mt-2 input-box">
                 <label asp-for="@Model.TempatKegiatan"></label>
                 <input class="form-control" type="text" asp-for="@Model.TempatKegiatan">
                 <span class="text-danger" asp-validation-for="@Model.TempatKegiatan"></span>
             </div>
-            <div class="col-md-6 mt-2 input-box">
+            <div class="col-md-12 mt-2 input-box">
                 <label asp-for="@Model.Tanggal"></label>
                 <input class="form-control" type="date" asp-for="@Model.Tanggal">
                 <span class="text-danger" asp-validation-for="@Model.Tanggal"></span>
             </div>
-            <div class="col-md-6 mt-2 input-box">
+            <div class="col-md-12 mt-2 input-box">
                 <label asp-for="@Model.JumlahHari"></label>
                 <input class="form-control" type="number" asp-for="@Model.JumlahHari">
                 <span class="text-danger" asp-validation-for="@Model.JumlahHari"></span>
@@ -58,8 +58,11 @@
                 </vc:mahasiswa-picker>
             </div>
 
-            <div class="col-12 mt-2 d-flex justify-content-center">
-                <button class="btn btn-custom" type="submit">Simpan</button>
+            <div class="col-md-12 mt-5 d-flex justify-content-start">
+                <button class="btn btn-custom me-2" type="submit">Simpan</button>
+                <a class="btn-customdel" asp-action="Index">
+                    Batal
+                </a>
             </div>
         </form>
     </div>

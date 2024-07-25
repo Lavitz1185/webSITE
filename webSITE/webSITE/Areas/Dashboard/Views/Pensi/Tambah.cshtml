@@ -4,78 +4,92 @@
     ViewData["Title"] = "Tambah Lomba";
 }
 
-<h1>Tambah Lomba</h1>
+<div class="tambah-lomba">
+    <!-- Hyperlink -->
+    <h1 class="title">Tambah Lomba</h1>
+    <ul class="breadcrumbs mb-4">
+        <li><a asp-action="Index">Pentas Seni</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Tambah Lomba</a></li>
+    </ul>
+    <!-- Akhir Hyperlink -->
+    <div class="container-fluid cardplus">
+        <form asp-action="Tambah">
+            <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
-<form asp-action="Tambah">
-    <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+            <div class="row input-box mb-3">
+                <div class="col">
+                    <label asp-for="@Model.Nama" class="form-label"></label>
+                    <input asp-for="@Model.Nama" class="form-control" type="text" />
+                    <span asp-validation-for="@Model.Nama" class="form-text text-danger"></span>
+                </div>
+            </div>
 
-    <div class="row mb-3">
-        <div class="col">
-            <label asp-for="@Model.Nama" class="form-label"></label>
-            <input asp-for="@Model.Nama" class="form-control" type="text" />
-            <span asp-validation-for="@Model.Nama" class="form-text text-danger"></span>
-        </div>
+            <div class="row input-box mb-3">
+                <div class="col">
+                    <label asp-for="@Model.Jenis" class="form-label"></label>
+                    <select asp-for="@Model.Jenis"
+                            asp-items="@Enum.GetValues<JenisLomba>().Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
+                            class="form-control">
+                    </select>
+                    <span asp-validation-for="@Model.Jenis" class="form-text text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row input-box mb-3">
+                <div class="col">
+                    <label asp-for="@Model.Keterangan" class="form-label"></label>
+                    <textarea asp-for="@Model.Keterangan" class="form-control" rows="8"></textarea>
+                    <span asp-validation-for="@Model.Keterangan" class="form-text text-danger"></span>
+                </div>
+            </div>
+
+            <h4 style="font-weight:600;">Syarat</h4>
+
+            <div class="ro input-boxw mb-3">
+                <div class="col">
+                    <label asp-for="@Model.MaksKuotaPerAngkatan" class="form-label"></label>
+                    <input asp-for="@Model.MaksKuotaPerAngkatan" class="form-control" type="number" />
+                    <span asp-validation-for="@Model.MaksKuotaPerAngkatan" class="form-text text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row input-box mb-3 @JenisLomba.Tim visually-hidden">
+                <div class="col">
+                    <label asp-for="@Model.MinAnggotaPerTim" class="form-label"></label>
+                    <input asp-for="@Model.MinAnggotaPerTim" class="form-control" type="number" />
+                    <span asp-validation-for="@Model.MinAnggotaPerTim" class="form-text text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row input-box mb-3 @JenisLomba.Tim visually-hidden">
+                <div class="col">
+                    <label asp-for="@Model.MaksAnggotaPerTim" class="form-label"></label>
+                    <input asp-for="@Model.MaksAnggotaPerTim" class="form-control" type="number" />
+                    <span asp-validation-for="@Model.MaksAnggotaPerTim" class="form-text text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row input-box mb-3 @JenisLomba.Pasangan visually-hidden">
+                <div class="col">
+                    <input asp-for="@Model.PasanganBedaJenisKelamin" class="form-check-inline" type="checkbox" />
+                    <label asp-for="@Model.PasanganBedaJenisKelamin" class="form-check-label"></label>
+                    <span asp-validation-for="@Model.PasanganBedaJenisKelamin" class="form-text text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-4 d-flex justify-content-start">
+                <button class="btn-custom me-2" type="submit">Simpan</button>
+                <a class="btn-customdel" asp-action="Index">
+                    Batal
+                </a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="row mb-3">
-        <div class="col">
-            <label asp-for="@Model.Jenis" class="form-label"></label>
-            <select asp-for="@Model.Jenis"
-                    asp-items="@Enum.GetValues<JenisLomba>().Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
-                    class="form-control">
-            </select>
-            <span asp-validation-for="@Model.Jenis" class="form-text text-danger"></span>
-        </div>
-    </div>
 
-    <div class="row mb-3">
-        <div class="col">
-            <label asp-for="@Model.Keterangan" class="form-label"></label>
-            <textarea asp-for="@Model.Keterangan" class="form-control"></textarea>
-            <span asp-validation-for="@Model.Keterangan" class="form-text text-danger"></span>
-        </div>
-    </div>
 
-    <h4>Syarat</h4>
-
-    <div class="row mb-3">
-        <div class="col">
-            <label asp-for="@Model.MaksKuotaPerAngkatan" class="form-label"></label>
-            <input asp-for="@Model.MaksKuotaPerAngkatan" class="form-control" type="number" />
-            <span asp-validation-for="@Model.MaksKuotaPerAngkatan" class="form-text text-danger"></span>
-        </div>
-    </div>
-
-    <div class="row mb-3 @JenisLomba.Tim visually-hidden">
-        <div class="col">
-            <label asp-for="@Model.MinAnggotaPerTim" class="form-label"></label>
-            <input asp-for="@Model.MinAnggotaPerTim" class="form-control" type="number" />
-            <span asp-validation-for="@Model.MinAnggotaPerTim" class="form-text text-danger"></span>
-        </div>
-    </div>
-
-    <div class="row mb-3 @JenisLomba.Tim visually-hidden">
-        <div class="col">
-            <label asp-for="@Model.MaksAnggotaPerTim" class="form-label"></label>
-            <input asp-for="@Model.MaksAnggotaPerTim" class="form-control" type="number" />
-            <span asp-validation-for="@Model.MaksAnggotaPerTim" class="form-text text-danger"></span>
-        </div>
-    </div>
-
-    <div class="row mb-3 @JenisLomba.Pasangan visually-hidden">
-        <div class="col">
-            <input asp-for="@Model.PasanganBedaJenisKelamin" class="form-check-inline" type="checkbox" />
-            <label asp-for="@Model.PasanganBedaJenisKelamin" class="form-check-label"></label>
-            <span asp-validation-for="@Model.PasanganBedaJenisKelamin" class="form-text text-danger"></span>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-    </div>
-</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

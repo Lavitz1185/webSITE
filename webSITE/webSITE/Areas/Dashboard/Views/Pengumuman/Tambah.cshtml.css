@@ -1,2 +1,86 @@
-﻿body {
+﻿.cardplus {
+    padding: 20px;
+    border-radius: 10px;
+    background: var(--light);
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, .05);
 }
+
+.tambah-pengumuman {
+    width: 100%;
+    padding: 24px 20px 20px 20px;
+}
+
+    /* CSS Hyperlink */
+    .tambah-pengumuman .title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .tambah-pengumuman .breadcrumbs {
+        display: flex;
+        grid-gap: 6px;
+        padding: 0;
+        margin: 0;
+    }
+
+        .tambah-pengumuman .breadcrumbs li,
+        .tambah-pengumuman .breadcrumbs li a {
+            font-size: 16px;
+            list-style: none;
+        }
+
+            .tambah-pengumuman .breadcrumbs li a {
+                color: var(--blue);
+            }
+
+                .tambah-pengumuman .breadcrumbs li a.active,
+                .tambah-pengumuman .breadcrumbs li.divider {
+                    color: var(--dark-grey);
+                    pointer-events: none;
+                }
+/* Akhir CSS Hyperlink */
+
+
+/* CSS type input Text dan Textarea */
+::deep .input-box label {
+    color: #333;
+    margin-bottom: 3px;
+    font-size: 16px;
+}
+
+::deep .input-box input {
+    position: relative;
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+    outline: none;
+    color: #707070;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+::deep .input-box select {
+    position: relative;
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+    outline: none;
+    color: #707070;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+::deep .input-box textarea {
+    position: relative;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    color: #707070;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+/* Akhir CSS type input Text dan Textarea */

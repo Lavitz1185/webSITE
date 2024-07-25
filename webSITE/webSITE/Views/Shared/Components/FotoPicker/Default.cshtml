@@ -12,6 +12,10 @@
         <input type="text" name="@Model.Name" id="@Model.Name" class="form-control" value="@id" hidden />
     }
 </div>
+<div class="text-center">
+    <button type="button" class="btn-custom mb-3" data-bs-toggle="modal" data-bs-target="#modal@(Id)">Pilih Foto</button>
+</div>
+
 <div class="row mb-3 justify-content-center align-items-center">
     <div id="previewFoto@(Id)" class="d-flex justify-content-center preview @(Model.Multi ? "multi" : "")">
         @foreach (var id in Model.DaftarIdFoto)
@@ -20,7 +24,7 @@
         }
     </div>
 </div>
-<button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#modal@(Id)">Pilih Gambar</button>
+
 <!-- Akhir Tombol Pilihan Gambar -->
 <!-- Modal Upload Foto -->
 <div class="modal fade" id="modal@(Id)" data-bs-backdrop="static" tabindex="-1" aria-labelledby="#modal@(Id)" aria-hidden="true">

@@ -9,6 +9,12 @@
         <input hidden type="text" name="@Model.Name" id="@Model.Name" class="form-control" value="@id" readonly />
     }
 </div>
+<div class="text-center">
+    <button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#modal@(Id)">
+        Pilih
+        Mahasiswa
+    </button>
+</div>
 <table class="table" id="preview@(Id)">
     <thead>
         <tr>
@@ -28,10 +34,7 @@
         }
     </tbody>
 </table>
-<button type="button" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#modal@(Id)">
-    Pilih
-    Mahasiswa
-</button>
+
 
 <div class="modal fade" id="modal@(Id)" data-bs-backdrop="static" tabindex="-1" aria-labelledby="modal@(Id)"
      aria-hidden="true">

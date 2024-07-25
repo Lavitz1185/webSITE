@@ -1,32 +1,32 @@
-﻿.pengumumann {
+﻿.pensi-info {
     width: 100%;
     padding: 24px 20px 20px 20px;
 }
 
-    .pengumumann .title {
+    .pensi-info .title {
         font-size: 28px;
         font-weight: 600;
         margin-bottom: 10px;
     }
 
-    .pengumumann .breadcrumbs {
+    .pensi-info .breadcrumbs {
         display: flex;
         grid-gap: 6px;
         padding: 0;
         margin: 0;
     }
 
-        .pengumumann .breadcrumbs li,
-        .pengumumann .breadcrumbs li a {
+        .pensi-info .breadcrumbs li,
+        .pensi-info .breadcrumbs li a {
             font-size: 16px;
         }
 
-            .pengumumann .breadcrumbs li a {
+            .pensi-info .breadcrumbs li a {
                 color: var(--blue);
             }
 
-                .pengumumann .breadcrumbs li a.active,
-                .pengumumann .breadcrumbs li.divider {
+                .pensi-info .breadcrumbs li a.active,
+                .pensi-info .breadcrumbs li.divider {
                     color: var(--dark-grey);
                     pointer-events: none;
                 }

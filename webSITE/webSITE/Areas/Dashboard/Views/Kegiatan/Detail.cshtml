@@ -13,35 +13,37 @@
     </ul>
     <!-- Akhir Hyperlink -->
 
-    <div class="cardplus mb-4">
-        <div class="row">
-            <div class="col-6"><b>ID</b></div>
-            <div class="col-6">@Model.Id</div>
-        </div>
-        <div class="row">
-            <div class="col-6"><b>Nama Kegiatan</b></div>
-            <div class="col-6">@Model.NamaKegiatan</div>
-        </div>
-        <div class="row">
-            <div class="col-6"><b>Tempat Kegiatan</b></div>
-            <div class="col-6">@Model.TempatKegiatan</div>
-        </div>
-        <div class="row">
-            <div class="col-6"><b>Tanggal</b></div>
-            <div class="col-6">@Model.Tanggal.ToShortDateString()</div>
-        </div>
-        <div class="row">
-            <div class="col-6"><b>Jumlah Hari</b></div>
-            <div class="col-6">@Model.JumlahHari</div>
-        </div>
-        <div class="row">
-            <div class="col-6"><b>Keterangan</b></div>
-            <div class="col-6">@Model.Keterangan</div>
-        </div>
-    </div>
-
     <div class="row">
+        <!-- Kolom Kiri -->
         <div class="col-md-6">
+            <!-- Biodata -->
+            <div class="cardplus mb-4">
+                <div class="row">
+                    <div class="col-6"><b>ID</b></div>
+                    <div class="col-6">@Model.Id</div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><b>Nama Kegiatan</b></div>
+                    <div class="col-6">@Model.NamaKegiatan</div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><b>Tempat Kegiatan</b></div>
+                    <div class="col-6">@Model.TempatKegiatan</div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><b>Tanggal</b></div>
+                    <div class="col-6">@Model.Tanggal.ToShortDateString()</div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><b>Jumlah Hari</b></div>
+                    <div class="col-6">@Model.JumlahHari</div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><b>Keterangan</b></div>
+                    <div class="col-6">@Model.Keterangan</div>
+                </div>
+            </div>
+            <!-- Daftar Mahasiswa -->
             <div class="cardplus">
                 <h3 class="text-center">Peserta Kegiatan</h3>
                 <table class="table table-bordered">
@@ -63,6 +65,7 @@
                 </table>
             </div>
         </div>
+        <!-- Kolom Kanan -->
         <div class="col-md-6">
             <div class="cardplus">
                 <h3 class="text-center">Daftar Foto</h3>

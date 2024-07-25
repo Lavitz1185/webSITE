@@ -4,52 +4,64 @@
     ViewData["Title"] = "Pensi";
 }
 
-<h1>Pentas Seni - Daftar Lomba</h1>
+<div class="pensi-info">
+    <h1 class="title">Pentas Seni</h1>
+    <ul class="breadcrumbs mb-4">
+        <li><a href="#">Pengumuman</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Pentas Seni</a></li>
+    </ul>
+    <div class="mb-4 mt-4">
+        <a style="" class="btn btn-custom w-100" asp-area="Dashboard" asp-controller="Pensi" asp-action="Tambah"> + Tambah Lomba </a>
+    </div>
+    <div class="container">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Jenis Lomba</th>
+                    <th>Keterangan</th>
+                    <th>Jumlah Pendaftar</th>
+                    <th>Syarat Lomba</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lomba in Model)
+                {
+                    <tr>
+                        <td>@lomba.Id</td>
+                        <td>@lomba.Nama</td>
+                        <td>@lomba.Jenis.Humanize()</td>
+                        <td>@lomba.Keterangan</td>
+                        <td>@lomba.JumlahPendaftar @(lomba.Jenis == JenisLomba.Solo ? "Orang" : "Tim")</td>
+                        <td>
+                            Syarat Lomba
+                            <ul>
+                                @foreach (var syarat in lomba.GetSyaratLomba())
+                                {
+                                    <li>@syarat</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-start">
+                                <a asp-action="Detail" asp-route-id="@lomba.Id" class="btn btn-warning"><i class='fas fa-eye' style='color:#ffffff'></i></a>
+                                <a asp-action="Edit" asp-route-id="@lomba.Id" class="btn btn-primary"><i class="fas fa-pen-square fa-lg" style='color:#ffffff'></i></a>
 
-<a asp-action="Tambah" class="btn btn-primary">Tambah Lomba</a>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nama</th>
-            <th>Jenis Lomba</th>
-            <th>Keterangan</th>
-            <th>Jumlah Pendaftar</th>
-            <th>Syarat Lomba</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var lomba in Model)
-        {
-            <tr>
-                <td>@lomba.Id</td>
-                <td>@lomba.Nama</td>
-                <td>@lomba.Jenis.Humanize()</td>
-                <td>@lomba.Keterangan</td>
-                <td>@lomba.JumlahPendaftar @(lomba.Jenis == JenisLomba.Solo ? "Orang" : "Tim")</td>
-                <td>
-                    Syarat Lomba
-                    <ul>
-                        @foreach (var syarat in lomba.GetSyaratLomba())
-                        {
-                            <li>@syarat</li>
-                        }
-                    </ul>
-                </td>
-                <td>
-                    <a asp-action="Detail" asp-route-id="@lomba.Id" class="btn btn-primary">Detail</a>
-                    <a asp-action="Edit" asp-route-id="@lomba.Id" class="btn btn-warning">Edit</a>
-
-                    <form asp-action="Hapus" asp-route-id="@lomba.Id">
-                        <button class="btn btn-danger" type="submit">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                                <form asp-action="Hapus" asp-route-id="@lomba.Id">
+                                    <button class="btn btn-danger" style="padding: 10px 20px;" type="submit"><i class="fa fa-regular fa-trash"></i></button>
+                                </form>
+                            </div>
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
 @section Scripts {
     <partial name="_DataTable" />

@@ -18,18 +18,18 @@
         <form action="" method="post" class="row d-flex justify-content-center">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="col-md-12 input-box">
-                <label asp-for="@Model.Id" class="form-label"></label>
+            <div class="col-md-12 mb-2 input-box">
+                <label asp-for="@Model.Id" class=""></label>
                 <input asp-for="@Model.Id" readonly="true" />
             </div>
 
-            <div class="col-md-12 input-box">
-                <label asp-for="@Model.NamaLengkap" class="form-label"></label>
+            <div class="col-md-12 mb-2 input-box">
+                <label asp-for="@Model.NamaLengkap" class=""></label>
                 <input asp-for="@Model.NamaLengkap" readonly="true" />
             </div>
 
-            <div class="col-md-12 input-box">
-                <label asp-for="@Model.StatusAkun" class="form-label"></label>
+            <div class="col-md-12 mb-1 input-box">
+                <label asp-for="@Model.StatusAkun" class=""></label>
                 <select asp-for="@Model.StatusAkun">
                     @foreach (StatusAkun status in Enum.GetValues(typeof(StatusAkun)))
                     {
@@ -40,7 +40,7 @@
 
             @if (User.IsInRole("SuperAdmin"))
             {
-                <div class="col-md-12 mt-2 check-box">
+                <div class="col-md-12 mt-2 mb-3 check-box">
                     <input type="checkbox" asp-for="@Model.Admin" class="form-check-input" />
                     <label asp-for="@Model.Admin"></label>                
                 </div>

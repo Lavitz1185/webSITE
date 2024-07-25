@@ -4,66 +4,88 @@
     ViewData["Title"] = "Detail Lomba";
 }
 
-@if(Model.Jenis == JenisLomba.Solo)
-{
-    <h2>Peserta Lomba</h2>
+<div class="lombaa">
+    @if (Model.Jenis == JenisLomba.Solo)
+    {
+        <!-- Hyperlink -->
+        <h1 class="title">Peserta Lomba</h1>
+        <ul class="breadcrumbs mb-4">
+            <li><a asp-action="Index">Pentas Seni</a></li>
+            <li class="divider">/</li>
+            <li><a href="#" class="active">Peserta Lomba</a></li>
+        </ul>
+        <!-- Akhir Hyperlink -->
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>NIM</th>
-                <th>Nama</th>
-                <th>Jenis Kelamin</th>
-                <th>Angkatan</th>
-                <th>No. WA</th>
-                <th>Tanggal Daftar</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var peserta in Model.DaftarPeserta)
-            {
-                <tr>
-                    <td>@peserta.Id</td>
-                    <td>@peserta.Nim.Value</td>
-                    <td>@peserta.Nama</td>
-                    <td>@peserta.JenisKelamin.Humanize()</td>
-                    <td>@peserta.Angkatan.Humanize()</td>
-                    <td>@peserta.NoWa.Value</td>
-                    <td>@peserta.TanggalDaftar.ToString()</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <h2>Tim Lomba</h2>
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Angkatan</th>
+                        <th>No. WA</th>
+                        <th>Tanggal Daftar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var peserta in Model.DaftarPeserta)
+                    {
+                        <tr>
+                            <td>@peserta.Id</td>
+                            <td>@peserta.Nim.Value</td>
+                            <td>@peserta.Nama</td>
+                            <td>@peserta.JenisKelamin.Humanize()</td>
+                            <td>@peserta.Angkatan.Humanize()</td>
+                            <td>@peserta.NoWa.Value</td>
+                            <td>@peserta.TanggalDaftar.ToString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nama Tim</th>
-                <th>Angkatan</th>
-                <th>No. Wa Perwakilan</th>
-                <th>Tanggal Daftar</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var tim in Model.DaftarTim)
-            {
-                <tr>
-                    <td>@tim.Id</td>
-                    <td>@tim.NamaTim</td>
-                    <td>@tim.Angkatan.Humanize()</td>
-                    <td>@tim.NoWaPerwakilan.Value</td>
-                    <td>@tim.TanggalDaftar.ToString()</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+
+    }
+    else
+    {
+        <!-- Hyperlink -->
+        <h1 class="title">Tim Lomba</h1>
+        <ul class="breadcrumbs mb-4">
+            <li><a href="#">Pentas Seni</a></li>
+            <li class="divider">/</li>
+            <li><a href="#" class="active">Tim Lomba</a></li>
+        </ul>
+        <!-- Akhir Hyperlink -->
+
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama Tim</th>
+                        <th>Angkatan</th>
+                        <th>No. Wa Perwakilan</th>
+                        <th>Tanggal Daftar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tim in Model.DaftarTim)
+                    {
+                        <tr>
+                            <td>@tim.Id</td>
+                            <td>@tim.NamaTim</td>
+                            <td>@tim.Angkatan.Humanize()</td>
+                            <td>@tim.NoWaPerwakilan.Value</td>
+                            <td>@tim.TanggalDaftar.ToString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
 
 @section Scripts {
     <partial name="_DataTable" />

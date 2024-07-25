@@ -95,145 +95,158 @@
     string view = (ViewData["view"] as string)!;
 }
 
-<div class="container-fluid py-5">
-    <h2 class="text-center animate__animated animate__fadeInDown">Album Mahasiswa</h2>
 
-    <h3>Tampilan</h3>
-    <a class="btn btn-custom" asp-action="Index" asp-route-view="list">Daftar</a>
-    <a class="btn btn-custom" asp-action="Index" asp-route-view="album">Album</a>
 
-    <hr />
+<div class="foto-semua">
+    <!-- Hyperlink -->
+    <h1 class="title">Album</h1>
+    <ul class="breadcrumbs mb-4">
+        <li><a href="#">Album</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Album</a></li>
+    </ul>
+    <!-- Akhir Hyperlink -->
 
-    @if (view == "album")
-    {
-        <div class="row row-cols-1 row-cols-md-3 g-4 py-5 animate__animated animate__fadeInLeftBig">
-            @foreach (var fotoViewModel in Model)
-            {
+    <div class="container">
+        <a class="btn btn-custom" asp-action="Index" asp-route-view="list">Daftar</a>
+        <a class="btn btn-custom" asp-action="Index" asp-route-view="album">Album</a>
 
-                <div class="col-md-6 col-lg-4">
-                    <div class="card">
-                        <div class="parent">
+        <hr />
 
-                            @if (fotoViewModel.IdThumbnail == null)
-                            {
-                                <img src=""
-                                     class="child"
-                                     alt="...">
-                            }
-                            else
-                            {
-                                <img src="@Url.Action("Foto", "File", new {Area = "", Id = fotoViewModel.IdThumbnail})"
-                                     class="child"
-                                     alt="...">
-                            }
+        @if (view == "album")
+        {
+            <div class="row row-cols-1 row-cols-md-3 g-4 py-3 animate__animated animate__fadeInLeftBig">
+                @foreach (var fotoViewModel in Model)
+                {
 
-                            <div class="content">
-                                <a asp-action="Album" asp-controller="Foto" asp-route-idKegiatan="@fotoViewModel.IdKegiatan">
-                                    <h3>Select</h3>
-                                </a>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="parent">
+
+                                @if (fotoViewModel.IdThumbnail == null)
+                                {
+                                    <img src=""
+                                         class="child"
+                                         alt="...">
+                                }
+                                else
+                                {
+                                    <img src="@Url.Action("Foto", "File", new {Area = "", Id = fotoViewModel.IdThumbnail})"
+                                         class="child"
+                                         alt="...">
+                                }
+
+                                <div class="content">
+                                    <a asp-action="Album" asp-controller="Foto" asp-route-idKegiatan="@fotoViewModel.IdKegiatan">
+                                        <h3>Select</h3>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title">@fotoViewModel.NamaKegiatan</h1>
+                                <h4 class="card-text">@fotoViewModel.JumlahFoto</h4>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <h1 class="card-title">@fotoViewModel.NamaKegiatan</h1>
-                            <h4 class="card-text">@fotoViewModel.JumlahFoto</h4>
-                        </div>
                     </div>
-                </div>
-            }
-        </div>
-    }
-    else
-    {
-        var daftarFoto = Model
+                }
+            </div>
+        }
+        else
+        {
+            var daftarFoto = Model
             .SelectMany(a => a.DaftarFoto ?? new List<Foto>())
             .Distinct()
             .OrderBy(f => f.Id).ToList();
 
-        @foreach (var foto in daftarFoto)
-        {
-            <!-- Modal -->
-            <div class="modal fade" id="modal@(foto.Id)" tabindex="-1" aria-labelledby="modal@(foto.Id)" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered custom-modal">
-                    <div class="modal-content">
-                        <div class="kepala-modal">
-                            <h2 class="aku-h2" id="exampleModalLabel">Dalam Foto</h2>
-                            @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="container">
-                                @*<h2 class="aku-h2">Anggota Peserta</h2>*@
-                                <ul class="responsive-table">
-                                    <li class="table-header">
-                                        <div class="col col-1 text-center">Foto</div>
-                                        <div class="col col-2 text-center">NIM</div>
-                                        <div class="col col-4 text-center">Nama</div>
-                                    </li>
-                                    @foreach (var mahasiswa in foto.DaftarMahasiswa)
-                                    {
-                                        <li class="table-row">
-                                            <div class="col col-1 text-center" @*data-label="Foto"*@>
-                                                <img src="@Url.Action("FotoProfil", "File", new { Area = "", id = mahasiswa.Id })" alt="" class="img-thumbnail">
-                                            </div>
-                                            <div class="col col-2 text-center" @*data-label="NIM"*@>@mahasiswa.Nim</div>
-                                            <div class="col col-4 text-center" @*data-label="Nama"*@>@mahasiswa.NamaLengkap</div>
-                                        </li>
-                                    }
-                                </ul>
+            @foreach (var foto in daftarFoto)
+            {
+                <!-- Modal -->
+                <div class="modal fade" id="modal@(foto.Id)" tabindex="-1" aria-labelledby="modal@(foto.Id)" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered custom-modal">
+                        <div class="modal-content">
+                            <div class="kepala-modal">
+                                <h2 class="aku-h2" id="exampleModalLabel">Dalam Foto</h2>
+                                @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
                             </div>
+                            <div class="modal-body">
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <div class="container">
+                                    @*<h2 class="aku-h2">Anggota Peserta</h2>*@
+                                    <ul class="responsive-table">
+                                        <li class="table-header">
+                                            <div class="col col-1 text-center">Foto</div>
+                                            <div class="col col-2 text-center">NIM</div>
+                                            <div class="col col-4 text-center">Nama</div>
+                                        </li>
+                                        @foreach (var mahasiswa in foto.DaftarMahasiswa)
+                                        {
+                                            <li class="table-row">
+                                                <div class="col col-1 text-center" @*data-label="Foto"*@>
+                                                    <img src="@Url.Action("FotoProfil", "File", new { Area = "", id = mahasiswa.Id })" alt="" class="img-thumbnail">
+                                                </div>
+                                                <div class="col col-2 text-center" @*data-label="NIM"*@>@mahasiswa.Nim</div>
+                                                <div class="col col-4 text-center" @*data-label="Nama"*@>@mahasiswa.NamaLengkap</div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th width="10%">Foto</th>
-                    <th>Tanggal Dibuat</th>
-                    <th>Tanggal Diubah</th>
-                    <th>Pembuat</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var foto in daftarFoto)
-                {
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td>@foto.Id</td>
-                        <td>
-                            <img class="img-fluid" src="@Url.Action("Foto", "File", new {Area="", Id = foto.Id})">
-                        </td>
-                        <td>@foto.AddedAt.ToString("dd/MMM/yyyy hh:mm tt")</td>
-                        <td>@(foto.ModifiedAt.HasValue ? foto.ModifiedAt.Value.ToString("dd/MMM/yyyy hh:mm tt") : "")</td>
-                        <td>@(foto.Creator is not null ? foto.Creator.NamaLengkap : "Tidak Ada")</td>
-                        <td>
-                            <div class="d-flex gap-1 justify-content-center">
-                                <a class="btn btn-primary">
-                                    <i class="fas fa-pen-square fa-lg"></i>
-                                </a>
-
-                                <button class="btn btn-warning" type="button"
-                                        data-bs-toggle="modal" data-bs-target="#modal@(foto.Id)">
-                                    <i class="fa fa-regular fa-eye"></i>
-                                </button>
-
-                                <form asp-action="Delete" asp-route-id="@foto.Id">
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
-                                </form>
-                            </div>
-                        </td>
+                        <th>ID</th>
+                        <th width="10%">Foto</th>
+                        <th>Tanggal Dibuat</th>
+                        <th>Tanggal Diubah</th>
+                        <th>Pembuat</th>
+                        <th>Aksi</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
+                </thead>
+                <tbody>
+                    @foreach (var foto in daftarFoto)
+                    {
+                        <tr>
+                            <td>@foto.Id</td>
+                            <td>
+                                <img class="img-fluid" src="@Url.Action("Foto", "File", new {Area="", Id = foto.Id})">
+                            </td>
+                            <td>@foto.AddedAt.ToString("dd/MMM/yyyy hh:mm tt")</td>
+                            <td>@(foto.ModifiedAt.HasValue ? foto.ModifiedAt.Value.ToString("dd/MMM/yyyy hh:mm tt") : "")</td>
+                            <td>@(foto.Creator is not null ? foto.Creator.NamaLengkap : "Tidak Ada")</td>
+                            <td>
+                                <div class="d-flex gap-1 justify-content-center">
+
+                                    <button class="btn btn-warning" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#modal@(foto.Id)">
+                                        <i class="fa fa-regular fa-eye"></i>
+                                    </button>
+
+                                    <a class="btn btn-primary">
+                                        <i class="fas fa-pen-square fa-lg"></i>
+                                    </a>
+
+                                    
+
+                                    <form asp-action="Delete" asp-route-id="@foto.Id">
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
 </div>
 
 @section Scripts {
