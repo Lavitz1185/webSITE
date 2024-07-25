@@ -78,6 +78,8 @@
 </form>
 
 @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
     <script>
         $('select#@(nameof(Model.Jenis))').on('change', () => {
             const jenis = $('select#@(nameof(Model.Jenis))').val();

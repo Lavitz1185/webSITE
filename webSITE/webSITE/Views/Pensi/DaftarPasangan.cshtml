@@ -1,0 +1,92 @@
+﻿@using Humanizer
+@model TambahTimLombaVM
+@{
+    ViewData["Title"] = "Daftar";
+}
+
+<h1>Form Pendaftaran Peserta Lomba</h1>
+
+<form asp-action="DaftarPasangan" asp-route-id="@ViewData["id"]">
+    <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.NamaTim" class="form-label"></label>
+            <input asp-for="@Model.NamaTim" type="text" class="form-control" />
+            <span asp-validation-for="@Model.NamaTim" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.Angkatan" class="form-label"></label>
+            <select asp-for="@Model.Angkatan"
+                    asp-items="@Enum.GetValues<Angkatan>()
+                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
+                    class="form-control">
+            </select>
+            <span asp-validation-for="@Model.Angkatan" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <h3>Anggota Tim</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NIM</th>
+                <th>Nama</th>
+                <th>Jenis Kelamin</th>
+                <th>Angkatan</th>
+                <th>No. WA</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.AnggotaTim.Length; i++)
+            {
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td>
+                        <input asp-for="@Model.AnggotaTim[i].Nim" class="form-control" />
+                        <span asp-validation-for="@Model.AnggotaTim[i].Nim" class="form-text text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="@Model.AnggotaTim[i].Nama" type="text" class="form-control" />
+                        <span asp-validation-for="@Model.AnggotaTim[i].Nama" class="form-text text-danger"></span>
+                    </td>
+                    <td>
+                        <select asp-for="@Model.AnggotaTim[i].JenisKelamin"
+                                asp-items="@Enum.GetValues<JenisKelamin>()
+                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
+                                class="form-control">
+                        </select>
+                        <span asp-validation-for="@Model.AnggotaTim[i].JenisKelamin" class="form-text text-danger"></span>
+                    </td>
+                    <td>
+                        <select asp-for="@Model.AnggotaTim[i].Angkatan"
+                                asp-items="@Enum.GetValues<Angkatan>()
+                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
+                                class="form-control">
+                        </select>
+                        <span asp-validation-for="@Model.AnggotaTim[i].Angkatan" class="form-text text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="@Model.AnggotaTim[i].NoWa" type="text" class="form-control" />
+                        <span asp-validation-for="@Model.AnggotaTim[i].NoWa" class="form-text text-danger"></span>
+                    </td>
+                </tr>                
+            }
+        </tbody>
+    </table>
+
+    <div class="row mb-3">
+        <div class="col">
+            <button class="btn btn-primary">Simpan</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

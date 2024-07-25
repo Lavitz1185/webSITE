@@ -1,0 +1,69 @@
+﻿@using Humanizer
+@model TambahPesertaVM
+@{
+    ViewData["Title"] = "Daftar";
+}
+
+<h1>Form Pendaftaran Lomba</h1>
+
+<form asp-action="DaftarSolo" asp-route-id="@ViewData["id"]">
+    <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.Nim" class="form-label"></label>
+            <input asp-for="@Model.Nim" type="text" class="form-control" />
+            <span asp-validation-for="@Model.Nim" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.Nama" class="form-label"></label>
+            <input asp-for="@Model.Nama" type="text" class="form-control" />
+            <span asp-validation-for="@Model.Nama" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.JenisKelamin" class="form-label"></label>
+            <select asp-for="@Model.JenisKelamin"
+                    asp-items="@Enum.GetValues<JenisKelamin>()
+                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
+                    class="form-control">
+            </select>
+            <span asp-validation-for="@Model.JenisKelamin" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.Angkatan" class="form-label"></label>
+            <select asp-for="@Model.Angkatan"
+                    asp-items="@Enum.GetValues<Angkatan>()
+                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
+                    class="form-control">
+            </select>
+            <span asp-validation-for="@Model.Angkatan" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label asp-for="@Model.NoWa" class="form-label"></label>
+            <input asp-for="@Model.NoWa" type="text" class="form-control" />
+            <span asp-validation-for="@Model.NoWa" class="form-text text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <button class="btn btn-primary">Simpan</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

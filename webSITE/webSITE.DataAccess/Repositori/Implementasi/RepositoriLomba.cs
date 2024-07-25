@@ -25,7 +25,7 @@ namespace webSITE.DataAccess.Repositori.Implementasi
         {
             return await _appDbContext.TblLomba
                 .Include(l => l.DaftarPeserta)
-                .Include(l => l.DaftarTim)
+                .Include(l => l.DaftarTim).ThenInclude(t => t.AnggotaTim)
                 .FirstOrDefaultAsync(l => l.Id == id);
         }
 

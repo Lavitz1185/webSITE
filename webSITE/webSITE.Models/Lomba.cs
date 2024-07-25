@@ -93,7 +93,7 @@ namespace webSITE.Domain
 
             if (duplikasi)
                 throw new LombaDuplicatePesertaException(
-                    $"Lomba {Nama} sudah memiliki peserta dengan NIM : {peserta.Nim}");
+                    $"Lomba {Nama} sudah memiliki peserta dengan NIM : {peserta.Nim.Value}");
 
             _daftarPeserta.Add(peserta);
         }
@@ -129,7 +129,7 @@ namespace webSITE.Domain
 
         public void TambahTim(TimLomba tim)
         {
-            if (Jenis != JenisLomba.Pasangan || Jenis != JenisLomba.Tim)
+            if (Jenis != JenisLomba.Pasangan && Jenis != JenisLomba.Tim)
                 throw new LombaInvalidJenisLombaException(
                     $"Tidak bisa menambah tim pada lomba dengan jenis bukan tim atau pasangan");
 
@@ -184,7 +184,7 @@ namespace webSITE.Domain
 
         public void TambahTimRange(List<TimLomba> daftarTimLomba)
         {
-            if (Jenis != JenisLomba.Pasangan || Jenis != JenisLomba.Tim)
+            if (Jenis != JenisLomba.Pasangan && Jenis != JenisLomba.Tim)
                 throw new LombaInvalidJenisLombaException(
                     $"Tidak bisa menambah tim pada lomba dengan jenis bukan tim atau pasangan");
 

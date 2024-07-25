@@ -10,7 +10,6 @@ namespace webSITE.DataAccess.EntityConfigurations
         public void Configure(EntityTypeBuilder<PesertaLomba> builder)
         {
             builder.Property(p => p.Nim).HasConversion<NimValueConverter>();
-            builder.HasIndex(p => p.Nim).IsUnique();
             builder.Property(p => p.NoWa).HasConversion<NoWaValueConverter>();
             builder.Property(p => p.TanggalDaftar).HasColumnType("timestamp without time zone");
         }
