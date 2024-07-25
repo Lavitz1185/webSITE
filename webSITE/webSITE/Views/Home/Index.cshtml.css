@@ -678,7 +678,7 @@
     position: relative;
     overflow: hidden;
     width: 100%;
-    height: 80vh;
+    height: 70vh;
     margin: 0;
     padding: 0;
     display: flex;
@@ -732,7 +732,7 @@
     }
 
         #preKeg .row .col .card {
-            width: 500px;
+            width: 450px;
             height: 300px;
             display: flex;
             flex-direction: column;
@@ -746,7 +746,7 @@
 
             #preKeg .row .col .card .card-img-top {
                 width: 100%;
-                height: 230px;
+                height: 240px;
                 overflow: hidden;
                 padding: 0;
             }
@@ -762,10 +762,11 @@
 
             #preKeg .row .col .card .card-title {
                 text-align: center;
+                margin: 0;            
             }
 
 #preKeg .row1 {
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
     #preKeg .row1 h1 {
@@ -775,7 +776,8 @@
 
 #preKeg .row2 {
     height: 60%;
-    margin-bottom: 0;
+    margin: 50px 0 80px 0;
+    padding: 0 150px;
 }
 
     #preKeg .row2 .card1 {
@@ -806,18 +808,26 @@
             }
 
 @media (max-width: 1545px) {
+    .parallax-bg {
+        height: 140vh;
+    }
+
     #preKeg .row .col .card {
-        width: 400px;
-        height: 250px;
+        width: 320px;
+        height: 210px;
     }
 
         #preKeg .row .col .card .card-img-top {
             width: 100%;
-            height: 170px;
+            height: 155px;
         }
 
     #preKeg .row1 {
         margin-top: 2rem;
+    }
+
+    #preKeg .row2 {
+        padding: 0 100px;
     }
 
     #preKeg .row3 {
@@ -827,7 +837,7 @@
 
 @media (max-width: 768px) {
     #preKeg {
-        height: 135vh;
+        height: 125vh;
     }
 
 
@@ -842,7 +852,7 @@
 
         #preKeg .row .col .card .card-img-top {
             width: 100%;
-            height: 130px;
+            height: 140px;
             overflow: hidden;
             padding: 0;
         }
@@ -855,12 +865,17 @@
             font-size: 2rem;
         }
 
+    #preKeg .row2 {
+        margin: 0 0 80px 0;
+        padding: 0 50px;
+    }
+
     #preKeg .row2 .card1 {
         margin: 2rem 0;
     }
 
     #preKeg .row3 {
-        margin-top: 150px;
+        margin-top: 60px;
     }
 }
 

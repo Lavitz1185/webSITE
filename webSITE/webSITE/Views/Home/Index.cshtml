@@ -118,14 +118,14 @@
         </div>
         <div class="profile" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
             <div class="cover-generaluser">
-                <img src="~/img/herikntl.jpg" alt="APASIH" />
+                <img src="~/img/herikntl1.jpg" alt="LA'E'" />
             </div>
             <h6>Herijuart Djawa</h6>
             <p>Koordinator I</p>
         </div>
         <div class="profile" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
             <div class="cover-generaluser">
-                <img src="~/img/generaluser.png" alt="APASIH" />
+                <img src="~/img/bernnard1.jpg" alt="APASIH" />
             </div>
             <h6>Bernard Pa</h6>
             <p>Koordinator II</p>
@@ -144,7 +144,7 @@
 <!-- Preview Siters -->
 <section id="preSiters" class="mb-5">
     <h2 data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Preview Siters</h2>
-    <div class="sitewrapper" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
+    <div class="sitewrapper" data-aos="fade-right" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
         <div class="owl-carousel owl-theme">
             <div class="precard">
                 <div class="card container-siters">
@@ -156,7 +156,7 @@
                     </div>
                     <div class="cover-bio">
                         <p class="bio">
-                            Ayu Tapatab #1
+                            Tapatab #1
                         </p>
                     </div>
                     <a href="#" class="btn-profile">Cek Profile</a>
@@ -172,7 +172,7 @@
                     </div>
                     <div class="cover-bio">
                         <p class="bio">
-                            Ayu Tapatab #1
+                            Tapatab #1
                         </p>
                     </div>
                     <a href="#" class="btn-profile">Cek Profile</a>
@@ -413,14 +413,14 @@
                 <h1 data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Preview Kegiatan</h1>
             </div>
         </div>
-        <div class="row mb-4 row2">
+        <div class="row row2">
 
             @for (int i = 0; i < Model.DaftarKegiatan.Count; i++)
             {
                 var kegiatan = Model.DaftarKegiatan[i];
                 var thumbnail = kegiatan.DaftarFoto.Count > 0 ? kegiatan.DaftarFoto[0] : null;
                 <div class="col col-md-4 card1">
-                    <div class="card" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
+                    <div class="card" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                         <div class="card-img-top">
                             @if (thumbnail is not null)
                             {
@@ -589,7 +589,7 @@
         window.addEventListener('scroll', function() {
         const parallax = document.querySelector('.parallax-img');
         let scrollPosition = window.pageYOffset;
-        parallax.style.transform = 'translateY(' + (scrollPosition * 0.3 - 1200) + 'px)';
+        parallax.style.transform = 'translateY(' + (scrollPosition * 0.5 - 2000) + 'px)';
         });
 
 
