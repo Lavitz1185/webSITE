@@ -40,7 +40,7 @@
                         <td class="text-center">
                             <form method="post" asp-action="Prioritas" asp-route-id="@item.Id" asp-route-priority="@((!item.IsPriority).ToString().ToLower())">
                                 <button type="submit" class="btn btn-primary">
-                                    @Html.Raw(item.IsPriority ? "<i class='ri-check-fill'></i>" : "<i class='ri-close-fill'></i>")
+                                    @Html.Raw(item.IsPriority ? "<i class='ri-close-fill'></i>" : "<i class='ri-check-fill'></i>")
                                 </button>
                             </form>
 
