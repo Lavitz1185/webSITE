@@ -188,7 +188,7 @@
                     </div>
                     <div class="cover-bio">
                         <p class="bio">
-                            Ayu Tapatab #1
+                            Tapatab #1
                         </p>
                     </div>
                     <a href="#" class="btn-profile">Cek Profile</a>
@@ -204,7 +204,7 @@
                     </div>
                     <div class="cover-bio">
                         <p class="bio">
-                            Ayu Tapatab #1
+                            Tapatab #1
                         </p>
                     </div>
                     <a href="#" class="btn-profile">Cek Profile</a>
@@ -220,7 +220,7 @@
                     </div>
                     <div class="cover-bio">
                         <p class="bio">
-                            Ayu Tapatab #1
+                            Tapatab #1
                         </p>
                     </div>
                     <a href="#" class="btn-profile">Cek Profile</a>
@@ -236,7 +236,7 @@
                     </div>
                     <div class="cover-bio">
                         <p class="bio">
-                            Ayu Tapatab #1
+                            Tapatab #1
                         </p>
                     </div>
                     <a href="#" class="btn-profile">Cek Profile</a>
@@ -390,11 +390,22 @@
 </section>
  *@
 
+
+@* <section id="parallax" class="mb-5">
+    <div class="parallax-bg">
+        <img src="~/img/palrallax-bg.png" alt="Parallax Background" class="parallax-img" />
+    </div>
+</section> *@
+
+
+
+
+
 <!-- Preview Kegiatan -->
 <section id="preKeg" class="mb-5">
     <div class="contentPreKeg">  
-        <div class="background-img-preKeg">
-            <img src="~/img/background-preKeg.png" />
+        <div class="parallax-bg">
+            <img src="~/img/parallax-bg1.png" alt="Background Image" class="parallax-img" />
         </div>
 
         <div class="row row1">
@@ -573,6 +584,15 @@
             checkScreenWidth();
             startAutoSlide();
         });
+
+
+        window.addEventListener('scroll', function() {
+        const parallax = document.querySelector('.parallax-img');
+        let scrollPosition = window.pageYOffset;
+        parallax.style.transform = 'translateY(' + (scrollPosition * 0.3 - 1200) + 'px)';
+        });
+
+
 
 
 

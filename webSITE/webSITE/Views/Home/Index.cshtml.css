@@ -141,7 +141,7 @@
     margin: 0;
     display: flex;
     justify-content: center;
-    z-index: 1001;
+    z-index: 1000;
 }
 
     #home .dots li {
@@ -670,6 +670,9 @@
         flex: 0 0 100%;*/ /* Show 1 card */
 /*}
 }*/
+
+
+
 /* Preview Kegiatan */
 #preKeg {
     position: relative;
@@ -695,29 +698,31 @@
     padding: 0;
 }
 
-::deep .background-img-preKeg {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+.parallax-bg {
     position: absolute;
-    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1; 
 }
 
-    ::deep .background-img-preKeg img {
+    ::deep .parallax-img {
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: 140%;
         object-fit: cover;
-        background-size: cover;
         opacity: 10%;
-
-        background-attachment: fixed !important; 
+        z-index: 0; 
     }
 
 
 #preKeg .row {
     width: 100%;
+    z-index: 2;
 }
 
     #preKeg .row .col {
@@ -736,7 +741,7 @@
             overflow: hidden;
             position: relative;
             border-radius: 15px;
-            box-shadow: 0px 2px 8px 0px;
+            box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
         }
 
             #preKeg .row .col .card .card-img-top {
@@ -765,6 +770,7 @@
 
     #preKeg .row1 h1 {
         color: white;
+        text-shadow: 0px 1px 0px rgba(0, 0, 0, 1);
     }
 
 #preKeg .row2 {
@@ -792,6 +798,7 @@
             opacity: 0.7;
             transition: .3s ease;
             transition-property: opacity;
+            text-shadow: 0px 1px 0px rgba(0, 0, 0, 1);
         }
 
             #preKeg .row3 .col .selengkapnya h5:hover {
@@ -823,8 +830,9 @@
         height: 135vh;
     }
 
-    .contentPreKeg {
-        height: 99.5%;
+
+    .parallax-bg {
+        height: 100%;
     }
 
     #preKeg .row .col .card {

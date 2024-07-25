@@ -201,7 +201,7 @@
         height: 300px; 
     }
 
-    .popup-box a {
+    ::deep .popup-box a {
         top: 270px; 
     }
 

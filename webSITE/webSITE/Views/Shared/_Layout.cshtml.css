@@ -342,8 +342,8 @@ footer .row {
 
 .progress-wrap {
     position: fixed;
-    right: 40px;
-    bottom: 40px;
+    right: 20px;
+    bottom: 20px;
     height: 50px;
     width: 50px;
     cursor: pointer;
@@ -352,7 +352,7 @@ footer .row {
     align-items: center;
     border-radius: 50%;
     box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2);
-    z-index: 10000;
+    z-index: 1000;
     opacity: 0;
     visibility: hidden;
     transform: translateY(15px);
