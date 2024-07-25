@@ -37,11 +37,10 @@
                         <td>@lomba.Keterangan</td>
                         <td>@lomba.JumlahPendaftar @(lomba.Jenis == JenisLomba.Solo ? "Orang" : "Tim")</td>
                         <td>
-                            Syarat Lomba
                             <ul>
                                 @foreach (var syarat in lomba.GetSyaratLomba())
                                 {
-                                    <li>@syarat</li>
+                                    <li style="list-style:circle">@syarat</li>
                                 }
                             </ul>
                         </td>
