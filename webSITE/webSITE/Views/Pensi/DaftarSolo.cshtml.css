@@ -23,7 +23,7 @@
 
     .container-lomba-solo .container-ketentuan a {
         text-decoration: none;
-        background-color: #d75ad0;
+        background-color: var(--first-color);
         padding: 5px 13px;
         border-radius: 8px;
         color: white;
@@ -34,6 +34,12 @@
         .container-lomba-solo .container-ketentuan a:hover {
             color: white;
         }
+
+::deep .input-pensi:focus, input-pensi:active {
+    border: 1px solid #000000;
+}
+
+
 
 
 /* CSS type input Text dan Textarea */
@@ -50,7 +56,7 @@
     width: 100%;
     outline: none;
     color: #707070;
-    border: 1px solid #000000;
+    border: 1px solid #ddd;
     border-radius: 6px;
     padding: 0 15px;
 }

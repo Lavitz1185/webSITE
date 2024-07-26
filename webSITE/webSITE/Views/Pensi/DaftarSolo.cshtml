@@ -4,6 +4,30 @@
     ViewData["Title"] = "Daftar";
 }
 
+<style>
+    :root {
+        --hue: 312;
+        --first-color: hsl(var(--hue), 24%, 32%);
+        --first-color-alt: hsl(var(--hue), 24%, 28%);
+    }
+
+    body {
+        background: linear-gradient(to right, #fffcde, #ffeffe, #f4ddf2);       
+    }
+
+    .btn-custom {
+        background-color: var(--first-color);
+        border: none;
+    }
+
+    .btn-custom:hover {
+        background-color: var(--first-color-alt);
+    }
+</style>
+
+
+
+
 <div class="container-lomba-solo">
 
     <div class="judul-lomba">
@@ -20,12 +44,12 @@
         <div class="row input-box">
             <div class="col-md-12 col-12 mb-3">
                 <label asp-for="@Model.Nim" class="form-label">NIM *</label>
-                <input asp-for="@Model.Nim" type="text" class=""/>
+                <input asp-for="@Model.Nim" type="text" class="input-pensi"/>
                 <span asp-validation-for="@Model.Nim" class="form-text text-danger"></span>
             </div>
             <div class="col-md-12 col-12 mb-3">
                 <label asp-for="@Model.Nama" class="form-label">Nama *</label>
-                <input asp-for="@Model.Nama" type="text" class="form-control" />
+                <input asp-for="@Model.Nama" type="text" class="input-pensi" />
                 <span asp-validation-for="@Model.Nama" class="form-text text-danger"></span>
             </div>
         </div>
@@ -36,7 +60,7 @@
                 <select asp-for="@Model.JenisKelamin"
                         asp-items="@Enum.GetValues<JenisKelamin>()
                                     .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
-                        class="form-control">
+                        class="input-pensi">
                 </select>
                 <span asp-validation-for="@Model.JenisKelamin" class="form-text text-danger"></span>
             </div>
@@ -45,7 +69,7 @@
                 <select asp-for="@Model.Angkatan"
                         asp-items="@Enum.GetValues<Angkatan>()
                                     .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
-                        class="form-control">
+                        class="input-pensi">
                 </select>
                 <span asp-validation-for="@Model.Angkatan" class="form-text text-danger"></span>
             </div>
@@ -54,7 +78,7 @@
         <div class="row input-box">
             <div class="col-12 mb-3">
                 <label asp-for="@Model.NoWa" class="form-label">Nomor WA *</label>
-                <input asp-for="@Model.NoWa" type="text" class="form-control" />
+                <input asp-for="@Model.NoWa" type="text" class="input-pensi" />
                 <span asp-validation-for="@Model.NoWa" class="form-text text-danger"></span>
             </div>
         </div>
