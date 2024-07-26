@@ -762,12 +762,22 @@
 
             #preKeg .row .col .card .card-title {
                 text-align: center;
-                margin: 0;            
+                margin: 0;
+                white-space: nowrap; 
+                overflow: hidden; 
+                text-overflow: ellipsis; 
+                width: 100%; 
+                display: block; 
             }
 
 #preKeg .row1 {
     margin-top: 3rem;
 }
+
+    #preKeg .row1 .col {
+        padding: 0 30px;
+        text-align: center;
+    }
 
     #preKeg .row1 h1 {
         color: white;
@@ -835,9 +845,9 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     #preKeg {
-        height: 125vh;
+        height: 1120px;
     }
 
 

@@ -22,12 +22,17 @@
         color: var(--clr-gray);
     }
 
+    .container-mahasiswa {
+        padding: 2vw 7vw 2vw 7vw;
+        margin: 0;
+    }
+
     .wrapper-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         justify-content: center;
         grid-gap: 2rem;
-        margin: 1rem;
+        margin: 1rem 0;
     }
 
     .container-siters {
@@ -174,49 +179,50 @@
         }
     /* Akhir Tombol Sebelumnya dan Selanjutnya */
 </style>
+<div class="container-mahasiswa">
+    <h2 class="text-center pt-2 animate__animated animate__fadeInDown">Mahasiswa SITE22</h2>
 
-<h2 class="text-center pt-5 animate__animated animate__fadeInDown">Mahasiswa SITE22</h2>
-
-<form asp-action="Index" method="get">
-    <div class="search-container animate__animated animate__fadeIn">
-        <input type="text" name="searchString" class="search-input" placeholder="Cari mahasiswa..." value="@ViewData["searchString"]">
-        <button type="submit" class="search-button">Cari</button>
-    </div>
-</form>
-
-<div class="wrapper-grid pt-5 animate__animated animate__fadeInLeftBig pb-4">
-    @foreach (var mahasiswa in Model)
-    {
-        <div class="container-siters">
-            <div class="cover-profile-img">
-                <img src="@Url.ActionLink("FotoProfil", "File", new {Id = mahasiswa.Id, Area = ""})" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
-            </div>
-            <div class="text-container">
-                <h1 class="name-profile">@mahasiswa.NamaPanggilan</h1>
-                <h1 class="name2-profile">@mahasiswa.Nim</h1>
-            </div>
-            <p class="bio">
-                @mahasiswa.Bio
-            </p>
-            <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-id="@mahasiswa.Id" class="btn-profile">Cek Profile</a>
+    <form asp-action="Index" method="get">
+        <div class="search-container animate__animated animate__fadeIn">
+            <input type="text" name="searchString" class="search-input" placeholder="Cari mahasiswa..." value="@ViewData["searchString"]">
+            <button type="submit" class="search-button">Cari</button>
         </div>
+    </form>
+
+    <div class="wrapper-grid pt-5 animate__animated animate__fadeInLeftBig pb-4">
+        @foreach (var mahasiswa in Model)
+        {
+            <div class="container-siters">
+                <div class="cover-profile-img">
+                    <img src="@Url.ActionLink("FotoProfil", "File", new {Id = mahasiswa.Id, Area = ""})" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
+                </div>
+                <div class="text-container">
+                    <h1 class="name-profile">@mahasiswa.NamaPanggilan</h1>
+                    <h1 class="name2-profile">@mahasiswa.Nim</h1>
+                </div>
+                <p class="bio">
+                    @mahasiswa.Bio
+                </p>
+                <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-id="@mahasiswa.Id" class="btn-profile">Cek Profile</a>
+            </div>
+        }
+    </div>
+
+    @{
+        var prevDisabled = Model.HasPreviousPage ? "" : "disabled";
+        var nextDisabled = Model.HasNextPage ? "" : "disabled";
     }
-</div>
 
-@{
-    var prevDisabled = Model.HasPreviousPage ? "" : "disabled";
-    var nextDisabled = Model.HasNextPage ? "" : "disabled";
-}
-
-<div class="pagination-container mb-4">
-    <a class="pagination-button btn @prevDisabled"
-       asp-action="Index"
-       asp-route-pageIndex="@(Model.PageIndex - 1)">
-        Sebelumnya
-    </a>
-    <a class="pagination-button btn @nextDisabled"
-       asp-action="Index"
-       asp-route-pageIndex="@(Model.PageIndex + 1)">
-        Selanjutnya
-    </a>
+    <div class="pagination-container mb-4">
+        <a class="pagination-button btn @prevDisabled"
+           asp-action="Index"
+           asp-route-pageIndex="@(Model.PageIndex - 1)">
+            Sebelumnya
+        </a>
+        <a class="pagination-button btn @nextDisabled"
+           asp-action="Index"
+           asp-route-pageIndex="@(Model.PageIndex + 1)">
+            Selanjutnya
+        </a>
+    </div>
 </div>

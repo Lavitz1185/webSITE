@@ -1,4 +1,6 @@
-﻿.row {
+﻿
+
+.row {
     width: 100%;
     margin: 0;
     padding: 1px 0px;
@@ -86,4 +88,31 @@
     align-items: center;
     margin: 0;
     font-size: 30px;
+}
+
+
+@media (max-width: 424px) {
+    .scrollable-title {
+        padding-top: 30px;
+        height: 90px;
+        max-height: 300px;
+        max-width: 600px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+        .scrollable-title::-webkit-scrollbar {
+            width: 2px;
+        }
+
+        .scrollable-title::-webkit-scrollbar-thumb {
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        .scrollable-title::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+
 }

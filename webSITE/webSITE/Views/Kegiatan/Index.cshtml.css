@@ -1,4 +1,8 @@
-﻿.container {
+﻿.container-kegiatan {
+    padding: 2vw 7vw 2vw 7vw;
+}
+
+.container {
     max-width: 1500px;
 }
 
@@ -185,5 +189,12 @@
     .img-thumbnail {
         width: 100px;
         height: 100px;
+    }
+}
+
+
+@media screen and (max-width: 326px) {
+    ::deep.fernanddd .collis {
+        padding: 6px 16px;
     }
 }
