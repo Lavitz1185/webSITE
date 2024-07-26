@@ -33,7 +33,7 @@
 }
 
 .popup-screen.active .popup-box {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -53%) scale(1);
 }
 
 .popup-box img {
@@ -51,7 +51,7 @@
     border-radius: 20px;
     background-color: deeppink;
     cursor: pointer;
-    top: 450px;
+    top: 455px;
     transition: all .3s ease;
 }
 

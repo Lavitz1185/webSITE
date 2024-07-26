@@ -168,7 +168,7 @@
 #about-container {
     display: flex;
     align-items: center;
-    padding: 2vw 8vw 2vw 8vw;
+    padding: 4vw 8vw 2vw 8vw;
 }
 
     #about-container ::deep .about-img {
@@ -221,7 +221,7 @@
 
 /*Profile*/
 #experts {
-    padding: 0 8vw 0 8vw;
+    padding: 2vw 8vw 0 8vw;
     text-align: center;
 }
 
@@ -270,6 +270,7 @@
 }
 
 ::deep .owl-stage-outer {
+    margin-top : 25px;
     padding: 0 5px !important;
 }
 
@@ -283,6 +284,11 @@
 /*::deep .owl-nav {
     
 }*/
+
+#preSiters .card[b-xtzi2rkw2t] {
+    margin-left: 7px;
+    margin-right: 13px;
+}
 
 ::deep .owl-prev,
 ::deep .owl-next {
@@ -302,6 +308,18 @@
     text-align: center;
     transition: transform 0.1s linear;
 }
+
+::deep .owl-next span {
+    position: absolute;
+    top: -5%;
+    left: 43%;
+}
+
+    ::deep .owl-prev span {
+        position: absolute;
+        top: -5%;
+        left: 38%;
+    }
 
     ::deep .owl-prev.disabled,
     ::deep .owl-next.disabled {
@@ -679,7 +697,7 @@
     overflow: hidden;
     width: 100%;
     height: 70vh;
-    margin: 0;
+    margin: 5vw 0vw 0vw;
     padding: 0;
     display: flex;
     justify-content: center;
@@ -1032,6 +1050,7 @@
 
 /* Map */
 #map {
+    margin: 5vw 0vw;
     width: 100%;
     height: 60vh;
 }
