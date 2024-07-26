@@ -41,7 +41,7 @@
         <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
         <div class="row mb-3">
-            <div class="col">
+            <div class="col input-box">
                 <label asp-for="@Model.NamaTim" class="form-label"></label>
                 <input asp-for="@Model.NamaTim" type="text" class="input-pensi"/>
                 <span asp-validation-for="@Model.NamaTim" class="form-text text-danger"></span>
@@ -49,7 +49,7 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col">
+            <div class="col input-box">
                 <label asp-for="@Model.Angkatan" class="form-label"></label>
                 <select asp-for="@Model.Angkatan"
                         asp-items="@Enum.GetValues<Angkatan>()
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <h3>Anggota Tim</h3>
+        <h4>Anggota Tim</h4>
 
         <div id="anggotaTimContainer">
             @Html.EditorFor(model => model.AnggotaTim)
@@ -68,14 +68,14 @@
 
         <div class="row mb-3">
             <div class="col">
-                <button class="btn btn-primary" type="button" id="tambahAnggota">Tambah Anggota</button>
-                <button class="btn btn-primary" type="button" id="hapusAnggota">Hapus Anggota</button>
+                <button class="btn-custom" style="border-radius: 10px; padding: 13px 10px;" type="button" id="tambahAnggota"><i class="ri-add-fill"></i>Tambah Anggota</button>
+                <button class="btn-custom" style="border-radius: 10px; padding: 13px 10px;" type="button" id="hapusAnggota"><i class="ri-close-fill"></i>Hapus Anggota</button>
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col">
-                <button class="btn btn-primary">Simpan</button>
+        <div class="row mt-5">
+            <div class="col-12">
+                <button class="btn-custom w-100" style="border-radius: 10px; padding: 15px 10px;">Simpan</button>
             </div>
         </div>
     </form>

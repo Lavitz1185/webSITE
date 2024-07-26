@@ -39,7 +39,11 @@
     border: 1px solid #000000;
 }
 
-
+h4 {
+    font-size : 23px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
 
 
 /* CSS type input Text dan Textarea */
