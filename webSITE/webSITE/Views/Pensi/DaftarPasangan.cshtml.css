@@ -1,2 +1,103 @@
-﻿body {
+﻿.container-lomba-pasangan {
+    margin: 8vw 30vw 5vw;
+    box-shadow: rgba(100, 100, 111, 0.15) 0px 7px 29px 0px;
+    border-radius: 15px;
+    background-color: white;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+    .container-lomba-pasangan .judul-lomba h3 {
+        font-size: 38px;
+        margin: 0px;
+        font-weight: 600;
+    }
+
+    .container-lomba-pasangan .judul-lomba p {
+        font-size: 15px;
+    }
+
+    .container-lomba-pasangan .container-ketentuan {
+        margin-bottom: 20px;
+    }
+
+        .container-lomba-pasangan .container-ketentuan a {
+            text-decoration: none;
+            background-color: var(--first-color);
+            padding: 5px 13px;
+            border-radius: 8px;
+            color: white;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+            .container-lomba-pasangan .container-ketentuan a:hover {
+                color: white;
+            }
+
+::deep .input-pensi:focus {
+    border: 1px solid #000000;
+}
+
+h4 {
+    font-size: 23px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+
+/* CSS type input Text dan Textarea */
+::deep .input-box label {
+    color: #333;
+    margin-bottom: 3px;
+    font-size: 16px;
+}
+
+::deep .input-box input {
+    position: relative;
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+    outline: none;
+    color: #707070;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+::deep .input-box select {
+    position: relative;
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+    outline: none;
+    color: #707070;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+::deep .input-box textarea {
+    position: relative;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    color: #707070;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+/* Akhir CSS type input Text dan Textarea */
+
+
+
+@media (max-width: 768px) {
+
+    .container-lomba-pasangan {
+        margin: 20vw 5vw 5vw;
+    }
+
+        .container-lomba-pasangan .container-ketentuan a {
+            font-size: 12px;
+        }
 }

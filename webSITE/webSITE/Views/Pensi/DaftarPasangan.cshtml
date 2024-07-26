@@ -4,88 +4,118 @@
     ViewData["Title"] = "Daftar";
 }
 
-<h1>Form Pendaftaran Peserta Lomba</h1>
+<style>
+    :root {
+        --hue: 312;
+        --first-color: hsl(var(--hue), 24%, 32%);
+        --first-color-alt: hsl(var(--hue), 24%, 28%);
+    }
 
-<form asp-action="DaftarPasangan" asp-route-id="@ViewData["id"]">
-    <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+    body {
+        background-image: linear-gradient(to right, #fffcde, #ffeffe, #f4ddf2), url("D:/Website/webSITE/webSITE/webSITE/wwwroot/img/Pentas_Tari.png");
+    }
 
-    <div class="row mb-3">
-        <div class="col">
-            <label asp-for="@Model.NamaTim" class="form-label"></label>
-            <input asp-for="@Model.NamaTim" type="text" class="form-control" />
-            <span asp-validation-for="@Model.NamaTim" class="form-text text-danger"></span>
-        </div>
+    .btn-custom {
+        background-color: var(--first-color);
+        border: none;
+    }
+
+        .btn-custom:hover {
+            background-color: var(--first-color-alt);
+        }
+</style>
+
+
+
+<div class="container-lomba-pasangan">
+    <div class="judul-lomba">
+        <h3>Pendaftaran Lomba</h3>
+        <p>Silakan isi form di bawah ini untuk mendaftar</p>
+    </div>
+    <div class="container-ketentuan">
+        <a>Download Syarat dan ketentuan lomba disini <i class="ri-download-2-fill"></i></a>
     </div>
 
-    <div class="row mb-3">
-        <div class="col">
-            <label asp-for="@Model.Angkatan" class="form-label"></label>
-            <select asp-for="@Model.Angkatan"
-                    asp-items="@Enum.GetValues<Angkatan>()
-                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
-                    class="form-control">
-            </select>
-            <span asp-validation-for="@Model.Angkatan" class="form-text text-danger"></span>
+    <form asp-action="DaftarPasangan" asp-route-id="@ViewData["id"]">
+        <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+
+        <div class="row mb-3">
+            <div class="col-12 input-box">
+                <label asp-for="@Model.NamaTim" class="form-label"></label>
+                <input asp-for="@Model.NamaTim" type="text" class="input-pensi" />
+                <span asp-validation-for="@Model.NamaTim" class="form-text text-danger"></span>
+            </div>
         </div>
-    </div>
 
-    <h3>Anggota Tim</h3>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>NIM</th>
-                <th>Nama</th>
-                <th>Jenis Kelamin</th>
-                <th>Angkatan</th>
-                <th>No. WA</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.AnggotaTim.Count; i++)
-            {
-                <tr>
-                    <td>@(i + 1)</td>
-                    <td>
-                        <input asp-for="@Model.AnggotaTim[i].Nim" class="form-control" />
-                        <span asp-validation-for="@Model.AnggotaTim[i].Nim" class="form-text text-danger"></span>
-                    </td>
-                    <td>
-                        <input asp-for="@Model.AnggotaTim[i].Nama" type="text" class="form-control" />
-                        <span asp-validation-for="@Model.AnggotaTim[i].Nama" class="form-text text-danger"></span>
-                    </td>
-                    <td>
-                        <select asp-for="@Model.AnggotaTim[i].JenisKelamin"
-                                asp-items="@Enum.GetValues<JenisKelamin>()
+        <div class="row mb-4">
+            <div class="col-12 input-box">
+                <label asp-for="@Model.Angkatan" class="form-label"></label>
+                <select asp-for="@Model.Angkatan"
+                        asp-items="@Enum.GetValues<Angkatan>()
                                     .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
-                                class="form-control">
-                        </select>
-                        <span asp-validation-for="@Model.AnggotaTim[i].JenisKelamin" class="form-text text-danger"></span>
-                    </td>
-                    <td>
-                        <select asp-for="@Model.AnggotaTim[i].Angkatan"
-                                asp-items="@Enum.GetValues<Angkatan>()
-                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
-                                class="form-control">
-                        </select>
-                        <span asp-validation-for="@Model.AnggotaTim[i].Angkatan" class="form-text text-danger"></span>
-                    </td>
-                    <td>
-                        <input asp-for="@Model.AnggotaTim[i].NoWa" type="text" class="form-control" />
-                        <span asp-validation-for="@Model.AnggotaTim[i].NoWa" class="form-text text-danger"></span>
-                    </td>
-                </tr>                
-            }
-        </tbody>
-    </table>
-
-    <div class="row mb-3">
-        <div class="col">
-            <button class="btn btn-primary">Simpan</button>
+                        class="input-pensi">
+                </select>
+                <span asp-validation-for="@Model.Angkatan" class="form-text text-danger"></span>
+            </div>
         </div>
-    </div>
-</form>
+
+        <h4 class="mb-3">Anggota Tim</h4>
+
+        @for (int i = 0; i < Model.AnggotaTim.Count; i++)
+        {
+            <div class="row">
+                <h5 style="font-size:18px; border-top: 1px solid #000; padding: 15px 0px; margin-left:12px;">Peserta ke-@(i + 1)</h5>
+
+                <div class="col-12 mb-3 input-box">
+                    <label asp-for="@Model.AnggotaTim[i].Nim" class="form-label"></label>
+                    <input asp-for="@Model.AnggotaTim[i].Nim" class="input-pensi" />
+                    <span asp-validation-for="@Model.AnggotaTim[i].Nim" class="form-text text-danger"></span>
+                </div>
+                <div class="col-12 mb-3 input-box">
+                    <label asp-for="@Model.AnggotaTim[i].Nama" class="form-label"></label>
+                    <input asp-for="@Model.AnggotaTim[i].Nama" type="text" class="input-pensi" />
+                    <span asp-validation-for="@Model.AnggotaTim[i].Nama" class="form-text text-danger"></span>
+                </div>
+                <div class="col-12 mb-3 input-box">
+                    <label asp-for="@Model.AnggotaTim[i].JenisKelamin" class="form-label"></label>
+                    <select asp-for="@Model.AnggotaTim[i].JenisKelamin"
+                            asp-items="@Enum.GetValues<JenisKelamin>()
+                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
+                            class="input-pensi">
+                    </select>
+                    <span asp-validation-for="@Model.AnggotaTim[i].JenisKelamin" class="form-text text-danger"></span>
+                </div>
+                <div class="col-12 mb-3 input-box">
+                    <label asp-for="@Model.AnggotaTim[i].Angkatan" class="form-label"></label>
+                    <select asp-for="@Model.AnggotaTim[i].Angkatan"
+                            asp-items="@Enum.GetValues<Angkatan>()
+                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
+                            class="input-pensi">
+                    </select>
+                    <span asp-validation-for="@Model.AnggotaTim[i].Angkatan" class="form-text text-danger"></span>
+                </div>
+                <div class="col-12 mb-4 input-box">
+                    <label asp-for="@Model.AnggotaTim[i].NoWa" class="form-label"></label>
+                    <input asp-for="@Model.AnggotaTim[i].NoWa" type="text" class="input-pensi" />
+                    <span asp-validation-for="@Model.AnggotaTim[i].NoWa" class="form-text text-danger"></span>
+                </div>
+            </div>
+        }
+
+
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <button class="btn-custom w-100" style="border-radius: 10px; padding: 15px 10px;">Simpan</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

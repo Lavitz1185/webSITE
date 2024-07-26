@@ -91,7 +91,7 @@
 
 .card-img {
     width: 100%;
-    height: 375px;
+    height: 353px;
     object-fit: cover;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -139,12 +139,12 @@
 }
 
 .card-text {
-    font-size: 13px;
+    font-size: 14px;
     text-align: justify;
 }
 
 .card-body {
-    height: 375px;
+    height: 353px;
     overflow: auto;
 }
 
