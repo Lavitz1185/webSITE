@@ -4,50 +4,86 @@
     ViewData["Title"] = "Daftar";
 }
 
-<h1>Form Pendaftaran Peserta Lomba</h1>
 
-<form asp-action="DaftarTim" asp-route-id="@ViewData["id"]" id="form">
-    <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+<style>
+    :root {
+        --hue: 312;
+        --first-color: hsl(var(--hue), 24%, 32%);
+        --first-color-alt: hsl(var(--hue), 24%, 28%);
+    }
 
-    <div class="row mb-3">
-        <div class="col">
-            <label asp-for="@Model.NamaTim" class="form-label"></label>
-            <input asp-for="@Model.NamaTim" type="text" class="form-control" />
-            <span asp-validation-for="@Model.NamaTim" class="form-text text-danger"></span>
-        </div>
+    body {
+        background-image: linear-gradient(to right, #fffcde, #ffeffe, #f4ddf2), url("D:/Website/webSITE/webSITE/webSITE/wwwroot/img/Pentas_Tari.png");
+    }
+
+    .btn-custom {
+        background-color: var(--first-color);
+        border: none;
+    }
+
+        .btn-custom:hover {
+            background-color: var(--first-color-alt);
+        }
+</style>
+
+
+
+<div class="container-lomba-tim">
+    <div class="judul-lomba">
+        <h3>Pendaftaran Lomba</h3>
+        <p>Silakan isi form di bawah ini untuk mendaftar</p>
+    </div>
+    <div class="container-ketentuan">
+        <a>Download Syarat dan ketentuan lomba disini <i class="ri-download-2-fill"></i></a>
     </div>
 
-    <div class="row mb-3">
-        <div class="col">
-            <label asp-for="@Model.Angkatan" class="form-label"></label>
-            <select asp-for="@Model.Angkatan"
-                    asp-items="@Enum.GetValues<Angkatan>()
+    <form asp-action="DaftarTim" asp-route-id="@ViewData["id"]" id="form">
+        <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label asp-for="@Model.NamaTim" class="form-label"></label>
+                <input asp-for="@Model.NamaTim" type="text" class="input-pensi"/>
+                <span asp-validation-for="@Model.NamaTim" class="form-text text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <label asp-for="@Model.Angkatan" class="form-label"></label>
+                <select asp-for="@Model.Angkatan"
+                        asp-items="@Enum.GetValues<Angkatan>()
                                     .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
-                    class="form-control">
-            </select>
-            <span asp-validation-for="@Model.Angkatan" class="form-text text-danger"></span>
+                        class="input-pensi">
+                </select>
+                <span asp-validation-for="@Model.Angkatan" class="form-text text-danger"></span>
+            </div>
         </div>
-    </div>
 
-    <h3>Anggota Tim</h3>
+        <h3>Anggota Tim</h3>
 
-    <div id="anggotaTimContainer">
-        @Html.EditorFor(model => model.AnggotaTim)
-    </div>
-
-    <div class="row mb-3">
-        <div class="col">
-            <button class="btn btn-primary" type="button" id="tambahAnggota">Tambah Anggota</button>
-            <button class="btn btn-primary" type="button" id="hapusAnggota">Hapus Anggota</button>
+        <div id="anggotaTimContainer">
+            @Html.EditorFor(model => model.AnggotaTim)
         </div>
-    </div>
 
-    <div class="row mb-3">
-        <div class="col">
-            <button class="btn btn-primary">Simpan</button>
+        <div class="row mb-3">
+            <div class="col">
+                <button class="btn btn-primary" type="button" id="tambahAnggota">Tambah Anggota</button>
+                <button class="btn btn-primary" type="button" id="hapusAnggota">Hapus Anggota</button>
+            </div>
         </div>
-    </div>
-</form>
+
+        <div class="row mb-3">
+            <div class="col">
+                <button class="btn btn-primary">Simpan</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
