@@ -19,7 +19,7 @@
 
         .pertama .breadcrumbs li,
         .pertama .breadcrumbs li a {
-            font-size: 14px;
+            font-size: 16px;
             list-style: none;
         }
 
@@ -62,7 +62,7 @@
         }
 
         .pertama .card .head p {
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .pertama .card .head .icon {
@@ -97,7 +97,7 @@
         }
 
     .pertama .card .label {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 700;
     }
 
