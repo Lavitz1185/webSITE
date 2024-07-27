@@ -12,7 +12,17 @@
     }
 
     body {
-        background-image: linear-gradient(to right, #fffcde, #ffeffe, #f4ddf2), url("D:/Website/webSITE/webSITE/webSITE/wwwroot/img/Pentas_Tari.png");
+        background: none; 
+    }
+
+    .bg-pendaftaran-solo img {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1; 
     }
 
     .btn-custom {
@@ -20,16 +30,17 @@
         border: none;
     }
 
-    .btn-custom:hover {
-        background-color: var(--first-color-alt);
-    }
+        .btn-custom:hover {
+            background-color: var(--first-color-alt);
+        }
 </style>
 
 
+<div class="bg-pendaftaran-solo">
+    <img src="~/img/bg-pendafataran-pensi.jpg" alt="Background Image" />
+</div>
 
-
-<div class="container-lomba-solo">
-
+<div class="container-lomba-solo animate__animated animate__fadeInDownBig">
     <div class="judul-lomba">
         <h3>Pendaftaran Lomba</h3>
         <p>Silakan isi form di bawah ini untuk mendaftar</p>
@@ -44,7 +55,7 @@
         <div class="row input-box">
             <div class="col-md-12 col-12 mb-3">
                 <label asp-for="@Model.Nim" class="form-label">NIM *</label>
-                <input asp-for="@Model.Nim" type="text" class="input-pensi"/>
+                <input asp-for="@Model.Nim" type="text" class="input-pensi" />
                 <span asp-validation-for="@Model.Nim" class="form-text text-danger"></span>
             </div>
             <div class="col-md-12 col-12 mb-3">
@@ -90,8 +101,6 @@
         </div>
     </form>
 </div>
-
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
