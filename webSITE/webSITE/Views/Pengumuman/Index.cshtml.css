@@ -30,9 +30,20 @@
         height: 70px;
     }
 
-.tanggal-pengumuman h5 {
-    font-size: 16px;
+
+.judul-tanggal {
+    display: flex;
 }
+
+    .judul-tanggal h5 {
+        font-size: 16px;
+    }
+
+.tanggal {
+    display: flex;
+    justify-content: end;
+}
+
 
 .content {
     position: absolute;
@@ -41,7 +52,7 @@
     right: 0;
     bottom: 0;
     z-index: 1;
-    background: rgba(0, 0, 0, 0); 
+    background: rgba(0, 0, 0, 0);
 }
 
     ::deep .content a {
@@ -233,4 +244,29 @@
     height: 100%;
     width: 100%;
     z-index: 1;
+}
+
+
+@media (max-width: 768px) {
+    .container-pengumuman {
+        padding: 40px 30px 60px;
+    }
+
+    .tanggal {
+        justify-content: start;
+    }
+
+    .judul-tanggal {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .judul-tanggal h4 {
+        margin-bottom: 3px;
+    }
+
+    .judul-tanggal h5 {
+        font-size: 13px;
+    }
+
 }
