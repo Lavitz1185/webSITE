@@ -11,7 +11,15 @@
     }
 
     .search-input {
-        width: 75%;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+
+    .container-mahasiswa {
+        padding: 8vw 7vw 2vw 7vw;
+        margin: 0;
     }
 }
 
@@ -19,6 +27,8 @@
     .wrapper-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+
+    
 }
 
 @media screen and (min-width: 1250px) {
