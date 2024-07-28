@@ -825,6 +825,7 @@
 #preKeg .card:hover .overlay,
 #preKeg .card:active .overlay {
     opacity: 1;
+    cursor: pointer;
 }
 
 #preKeg .row1 {
