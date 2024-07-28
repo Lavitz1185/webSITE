@@ -430,7 +430,7 @@
                 var kegiatan = Model.DaftarKegiatan[i];
                 var thumbnail = kegiatan.DaftarFoto.Count > 0 ? kegiatan.DaftarFoto[0] : null;
                 <div class="col col-md-4 card1">
-                    <div class="card" data-aos="zoom-in" data-aos-duration="500" data-aos-anchor-placement="top-bottom">
+                    <div class="card" data-aos="zoom-in" data-aos-duration="300" data-aos-anchor-placement="top-bottom">
                         <div class="card-img-top">
                             @if (thumbnail is not null)
                             {
@@ -444,11 +444,13 @@
                         <div class="overlay">
                             <div class="overlay-content">
                                 <h5>@kegiatan.NamaKegiatan</h5>
+                                <p>@kegiatan.TempatKegiatan</p>
+                                <p>@kegiatan.Tanggal.ToString("dd MMMM yyyy")</p>
                             </div>
                         </div>
-                        <div class="card-body">
+                        @* <div class="card-body">
                             <h5 class="card-title">@kegiatan.NamaKegiatan</h5>
-                        </div>
+                        </div> *@
                     </div>
                 </div>
             }

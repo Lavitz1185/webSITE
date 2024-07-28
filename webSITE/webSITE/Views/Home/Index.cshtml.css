@@ -759,14 +759,15 @@
             align-items: center;
             overflow: hidden;
             position: relative;
-            border-radius: 15px;
+            border-radius: 5px;
             box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
             border: none;
         }
 
             #preKeg .row .col .card .card-img-top {
                 width: 100%;
-                height: 240px;
+                /*height: 245px;*/
+                height: 100%;
                 overflow: hidden;
                 padding: 0;
             }
@@ -807,8 +808,18 @@
 }
 
 #preKeg .overlay-content {
-    padding-top: 50px;
+    padding-top: 150px;
     text-align: center;
+}
+
+.overlay-content h5 {
+    font-size: 1.5rem;
+    margin : 0 2rem 0.5rem;
+}
+
+.overlay-content p {
+    margin: 0.25rem 0;
+    font-size: 1rem;
 }
 
 #preKeg .card:hover .overlay,
@@ -873,10 +884,10 @@
         height: 210px;
     }
 
-        #preKeg .row .col .card .card-img-top {
+        /*#preKeg .row .col .card .card-img-top {
             width: 100%;
             height: 155px;
-        }
+        }*/
 
     #preKeg .row1 {
         margin-top: 2rem;
@@ -888,6 +899,22 @@
 
     #preKeg .row3 {
         margin-bottom: 5rem;
+    }
+
+
+    #preKeg .overlay-content {
+        padding-top: 100px;
+        text-align: center;
+    }
+
+    .overlay-content h5 {
+        font-size: 1rem;
+        margin: 0 2rem 0.5rem;
+    }
+
+    .overlay-content p {
+        margin: 0.2rem 0;
+        font-size: 0.8rem;
     }
 }
 
@@ -906,12 +933,12 @@
         height: 200px;
     }
 
-        #preKeg .row .col .card .card-img-top {
+        /*#preKeg .row .col .card .card-img-top {
             width: 100%;
             height: 140px;
             overflow: hidden;
             padding: 0;
-        }
+        }*/
 
     #preKeg .row1 {
         margin-top: 85px;
@@ -932,6 +959,11 @@
 
     #preKeg .row3 {
         margin-top: 60px;
+    }
+
+    #preKeg .overlay-content {
+        padding-top: 80px;
+        text-align: center;
     }
 }
 
