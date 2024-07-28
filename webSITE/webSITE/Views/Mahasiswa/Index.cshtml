@@ -73,11 +73,20 @@
         margin-top: 0.2rem;
     }
 
-    .bio {
+    .cover-bio {
         margin: 1rem auto;
-        font-size: 0.9rem;
+        height: 45px;
         width: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bio {
+        font-size: 0.9rem;
+        width: 100%;
         text-align: center;
+        margin: 0;
     }
 
     .btn-profile {
@@ -200,9 +209,11 @@
                     <h1 class="name-profile">@mahasiswa.NamaPanggilan</h1>
                     <h1 class="name2-profile">@mahasiswa.Nim</h1>
                 </div>
-                <p class="bio">
-                    @mahasiswa.Bio
-                </p>
+                <div class="cover-bio">
+                    <p class="bio">
+                        @mahasiswa.Bio
+                    </p>
+                </div>
                 <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-id="@mahasiswa.Id" class="btn-profile">Cek Profile</a>
             </div>
         }

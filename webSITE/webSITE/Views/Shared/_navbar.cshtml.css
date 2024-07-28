@@ -33,18 +33,34 @@ nav {
     color: rgb(21, 21, 100);
     font-size: 16px;
     font-weight: 500;
-    transition: 0.3s ease;
+    position: relative;
+    transition: color 0.3s ease;
 }
+
+    ::deep .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        right: 50%;
+        height: 3px;
+        background-color: #FDC93B;
+        transition: left 0.3s ease-in-out, right 0.3s ease-in-out;
+    }
+
+    ::deep .nav-link.active::after {
+        left: 0;
+        right: 0;
+    }
 
     ::deep .nav-link.active {
         color: #FDC93B;
-        border-bottom: 3px solid #FDC93B;
-        transition: .6s;
     }
 
     ::deep .nav-link:hover {
         color: #FDC93B;
     }
+
 
 .menu-img, .close-img {
     transition: transform 0.4s ease;

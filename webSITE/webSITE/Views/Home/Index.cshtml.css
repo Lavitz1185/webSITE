@@ -378,6 +378,7 @@
 #preSiters .name2-profile {
     font-size: 1.1rem;
     margin-top: 0.2rem;
+    margin-bottom: 0;
 }
 
 #preSiters .cover-bio {
@@ -760,6 +761,7 @@
             position: relative;
             border-radius: 15px;
             box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
+            border: none;
         }
 
             #preKeg .row .col .card .card-img-top {
