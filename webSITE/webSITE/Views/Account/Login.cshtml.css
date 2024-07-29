@@ -1,5 +1,4 @@
-﻿/* Login Form */
-
+﻿/* ==== Form Login Section ==== */
 #login-form {
     padding-top: 50px;
     display: flex;
@@ -106,9 +105,9 @@
 
         .container ::deep form .custome-input i {
             position: absolute;
-            font-size: 28px;
+            font-size: 23px;
             right: 10px;
-            top: 10px;
+            top: 13px;
             transition: all 0.3s ease;
         }
 
@@ -155,3 +154,4 @@
             .container ::deep .links a:hover {
                 text-decoration: underline;
             }
+/* ==== Akhir Form Login Section ==== */
