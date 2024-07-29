@@ -5,7 +5,7 @@
 .one-pengumuman {
     position: relative;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 7px;
     cursor: pointer;
     transition: all 0.3s;
     box-shadow: 1px 2px 3px 2px rgba(0,0,0,0.15);
@@ -14,9 +14,7 @@
 }
 
     .one-pengumuman:hover {
-        box-shadow: 1px 2px 3px 2px rgba(0,0,0,0.40);
-        -webkit-box-shadow: 1px 2px 3px 2px rgba(0,0,0,0.40);
-        -moz-box-shadow: 1px 2px 3px 2px rgba(0,0,0,0.40);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
 
 .gambar {
@@ -37,6 +35,7 @@
 
     .judul-tanggal h5 {
         font-size: 16px;
+        color: #666666;
     }
 
 .tanggal {
@@ -262,7 +261,7 @@
     }
 
     .judul-tanggal h4 {
-        margin-bottom: 3px;
+        margin-bottom: 5px;
     }
 
     .judul-tanggal h5 {

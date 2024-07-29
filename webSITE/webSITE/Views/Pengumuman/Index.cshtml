@@ -15,15 +15,15 @@
     {
         <div class="one-pengumuman mb-3">
             <div class="row">
-                <div class="col-md-1 col-3 gambar">
+                <div class="col-lg-1 col-md-2 col-3 gambar">
                     <img src="@Url.Action("Foto", "File", new {Area = "", id = pengumuman.Foto?.Id})" />
                 </div>
-                <div class="col-md-11 col-9">
+                <div class="col-lg-11 col-md-10 col-9">
                     <div class="row judul-tanggal">
                         <div class="col-md col-12">
 
-                            <h4 style="font-weight:bold;">
-                                @pengumuman.Judul
+                            <h4 class="d-flex" style="font-weight:bold;">
+                                @pengumuman.Judul 
                             </h4>
                         </div>
                         <div class="tanggal col-md col-12">
@@ -31,9 +31,7 @@
                                 @pengumuman.AddedAt.ToString(cultureInfo.DateTimeFormat.LongDatePattern, cultureInfo) ~ @pengumuman.AddedAt.ToString("hh.mm tt")
                             </h5>
 
-                        </div>
-                        
-                        
+                        </div>                                            
                     </div>
                     <div class="row">
                         <p style="margin-bottom: 0px;">
@@ -41,7 +39,6 @@
                         </p>
                     </div>
                 </div>
-
             </div>
             <div class="content">
                 @if (pengumuman.Judul.ToLower().Contains("Pentas Seni".ToLower()) 
@@ -51,13 +48,8 @@
                 }
             </div>
         </div>
-
     }
 </div>
-
-
-
-
 
 
 @section Scripts {
