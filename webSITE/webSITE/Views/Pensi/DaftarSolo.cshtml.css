@@ -88,7 +88,7 @@
             padding: 5px 13px;
             border-radius: 8px;
             color: white;
-            font-size: 13px;
+            font-size: .8rem;
             cursor: pointer;
         }
 
@@ -143,12 +143,18 @@
 }
 /* Akhir CSS type input Text dan Textarea */
 
-@media (max-width: 768px) {
+@media (max-width: 1083px) {
     .container-lomba-solo {
         margin: 20vw 5vw 5vw;
     }
 
         .container-lomba-solo .container-ketentuan a {
-            font-size: 12px;
+            font-size: .67rem;
+        }
+}
+
+@media (max-width: 425px) {
+        .container-lomba-solo .container-ketentuan a {
+            font-size: .55rem;
         }
 }
