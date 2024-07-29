@@ -215,7 +215,7 @@
                         {
                             @foreach (var foto in Model.DaftarFoto)
                             {
-                                <div class="col-md-4 col-12 mb-3">
+                                <div class="col-md-3 col-6 mb-3">
                                     <img src="@Url.ActionLink("Foto", "File", new { Id = foto.Id, Area = "" })" class="img-fluid" />
                                 </div>
                             }
@@ -228,7 +228,7 @@
                 </div>
             </div>
         </div>
-        <a asp-controller="Mahasiswa" asp-action="Index" class="btn-back py-2">Kembali</a>
+        <a asp-controller="Mahasiswa" asp-action="Index" style="margin-left: 10px;" class="btn-back py-2">Kembali</a>
     </div>
 }
 

@@ -28,8 +28,7 @@
                         </div>
                         <div class="tanggal col-md col-12">
                             <h5>
-                                @pengumuman.AddedAt.ToString(cultureInfo.DateTimeFormat.LongDatePattern, cultureInfo) /
-                                @pengumuman.AddedAt.ToString("hh.mm tt")
+                                @pengumuman.AddedAt.ToString(cultureInfo.DateTimeFormat.LongDatePattern, cultureInfo) ~ @pengumuman.AddedAt.ToString("hh.mm tt")
                             </h5>
 
                         </div>
