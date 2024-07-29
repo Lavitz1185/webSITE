@@ -268,6 +268,10 @@
         font-size: var(--small-font-size);
     }
 
+        .about__details-description span {
+            padding-top: 5px;
+        }
+
     .about__details-icon {
         font-size: 1rem;
         color: var(--first-color);
@@ -363,11 +367,14 @@
         color: #FFF;
         padding: .25rem;
         border-radius: .35rem;
-        font-size: 1.15rem;
+        font-size: .75rem;
+        gap: 5px;
+        cursor: pointer;
     }
 
         .lomba__button:hover {
             background-color: var(--first-color-alt);
+            color: #fff;
         }
 
     .lomba__circle {
@@ -609,7 +616,7 @@
                 PENTAS SENI ILMU KOMPUTER <br> TAHUN 2024
             </h1>
             <p class="home__description" data-aos="fade-right" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
-                Merayakan Bakat Kreatif Mahasiswa dengan Inspirasi Teknologi Terbaru.
+                <strong>Beauty of Culture & Tech: </strong> Merayakan Bakat Kreatif Mahasiswa dengan Inspirasi Teknologi Terbaru.
             </p>
             <a href="#lombas" class="button button--flex" data-aos="fade-up-right" data-aos-duration="1500" data-aos-anchor-placement="top-bottom">
                 Pendaftaran <i class="ri-arrow-right-down-line button__icon"></i>
@@ -637,7 +644,7 @@
 <!--==================== ABOUT ====================-->
 <section class="about section containerr" id="about">
     <div class="about__container grid">
-        <img src="~/img/Pensi/Heran.png" alt="" class="about__img" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
+        <img src="~/img/Pensi/heran1.png" alt="" class="about__img" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
 
         <div class="about__data">
             <h2 class="section__title about__title" data-aos="fade-in" data-aos-duration="2000" data-aos-anchor-placement="top-bottom">
@@ -646,25 +653,26 @@
 
             <p class="about__description" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                sed do eiusmod tempor incididunt ut labore.
             </p>
 
             <div class="about__details">
                 <p class="about__details-description" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                     <i class="ri-checkbox-fill about__details-icon"></i>
-                    Karna Prodi Terlalu Keren.
+                    <span>Memperluas potensi seni mahasiswa.</span>
                 </p>
                 <p class="about__details-description" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                     <i class="ri-checkbox-fill about__details-icon"></i>
-                    Program Studi Favorit ke-2 Undana.
+                    <span>Membangun komunitas.</span>
+
                 </p>
                 <p class="about__details-description" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                     <i class="ri-checkbox-fill about__details-icon"></i>
-                    Keprodi Baik Hati.
+                    <span>Promosi Program Studi Ilmu Komputer.</span>
                 </p>
                 <p class="about__details-description" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
                     <i class="ri-checkbox-fill about__details-icon"></i>
-                    Keprodi mengutamakan Dies.
+                    <span>Keprodi mengutamakan Dies.</span>
                 </p>
             </div>
 
@@ -735,9 +743,9 @@
                 <h3 class="lomba__title">@lomba.Nama</h3>
                 <span class="lomba__price">@lomba.Jenis.Humanize()</span>
 
-                <button class="button--flex lomba__button">
-                    <i class="ri-search-eye-line"></i>
-                </button>
+                <a asp-action="DaftarSolo" asp-controller="Pensi" class="button--flex lomba__button">
+                    Daftar<i class="ri-draft-line"></i>
+                </a>
             </article>
         }
 
