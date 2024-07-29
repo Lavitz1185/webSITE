@@ -17,6 +17,12 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
+            <vc:foto-picker name=@nameof(EditVM.FotoId)
+                            multi=false
+                            value=@(Model.FotoId is not null ? new List<int>{ Model.FotoId.Value } : null)>
+            </vc:foto-picker>
+            <span asp-validation-for="@Model.FotoId" class="form-text text-danger"></span>
+
             <div class="row input-box mb-3">
                 <div class="col">
                     <label asp-for="@Model.Nama" class="form-label"></label>
@@ -30,6 +36,14 @@
                     <label asp-for="@Model.Keterangan" class="form-label"></label>
                     <textarea asp-for="@Model.Keterangan" class="form-control" rows="8"></textarea>
                     <span asp-validation-for="@Model.Keterangan" class="form-text text-danger"></span>
+                </div>
+            </div>
+
+            <div class="ro input-boxw mb-3">
+                <div class="col">
+                    <label asp-for="@Model.LinkGrupWa" class="form-label"></label>
+                    <input asp-for="@Model.LinkGrupWa" class="form-control" type="text" />
+                    <span asp-validation-for="@Model.LinkGrupWa" class="form-text text-danger"></span>
                 </div>
             </div>
 

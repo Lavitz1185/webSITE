@@ -16,12 +16,14 @@ namespace webSITE.Domain
         public JenisLomba Jenis { get; set; }
         public string Keterangan { get; set; }
         public int MaksKuotaPerAngkatan { get; set; }
+        public Uri LinkGrupWa { get; set; }
         public int? MinAnggotaPerTim { get; set; }
         public int? MaksAnggotaPerTim { get; set; }
         public bool? PasanganBedaJenisKelamin { get; set; }
 
         public int JumlahPendaftar { get => Jenis == JenisLomba.Solo ? _daftarPeserta.Count : _daftarTim.Count; }
 
+        public Foto? FotoLomba { get; set; }
         public IReadOnlyList<PesertaLomba> DaftarPeserta { get => _daftarPeserta; }
         public IReadOnlyList<TimLomba> DaftarTim { get => _daftarTim; }
 
@@ -30,6 +32,7 @@ namespace webSITE.Domain
             JenisLomba jenis,
             string keterangan,
             int maksKuotaPerAngkatan,
+            Uri linkGrupWa,
             int? minAnggotaPerTim,
             int? maksAnggotaPerTim,
             bool? pasanganBedaJenisKelamin)
@@ -38,6 +41,7 @@ namespace webSITE.Domain
             Jenis = jenis;
             Keterangan = keterangan;
             MaksKuotaPerAngkatan = maksKuotaPerAngkatan;
+            LinkGrupWa = linkGrupWa;
             MinAnggotaPerTim = minAnggotaPerTim;
             MaksAnggotaPerTim = maksAnggotaPerTim;
             PasanganBedaJenisKelamin = pasanganBedaJenisKelamin;
@@ -48,6 +52,7 @@ namespace webSITE.Domain
             JenisLomba jenis,
             string keterangan,
             int maksKuotaPerAngkatan,
+            Uri linkGrupWa,
             int? minAnggotaPerTim,
             int? maksAnggotaPerTim,
             bool? pasanganBedaJenisKelamin)
@@ -74,6 +79,7 @@ namespace webSITE.Domain
                 jenis,
                 keterangan,
                 maksKuotaPerAngkatan,
+                linkGrupWa,
                 minAnggotaPerTim ?? 2,
                 maksAnggotaPerTim,
                 pasanganBedaJenisKelamin);

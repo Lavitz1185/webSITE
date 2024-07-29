@@ -18,12 +18,14 @@ namespace webSITE.DataAccess.Repositori.Implementasi
         public async Task<Lomba?> Get(int id)
         {
             return await _appDbContext.TblLomba
+                .Include(l => l.FotoLomba)
                 .FirstOrDefaultAsync(l => l.Id == id);
         }
 
         public async Task<Lomba?> GetWithDetail(int id)
         {
             return await _appDbContext.TblLomba
+                .Include(l => l.FotoLomba)
                 .Include(l => l.DaftarPeserta)
                 .Include(l => l.DaftarTim).ThenInclude(t => t.AnggotaTim)
                 .FirstOrDefaultAsync(l => l.Id == id);
@@ -31,12 +33,15 @@ namespace webSITE.DataAccess.Repositori.Implementasi
 
         public async Task<List<Lomba>?> GetAll()
         {
-            return await _appDbContext.TblLomba.ToListAsync();
+            return await _appDbContext.TblLomba
+                .Include(l => l.FotoLomba)
+                .ToListAsync();
         }
 
         public async Task<List<Lomba>?> GetAllWithDetail()
         {
             return await _appDbContext.TblLomba
+                .Include(l => l.FotoLomba)
                 .Include(l => l.DaftarPeserta)
                 .Include(l => l.DaftarTim)
                 .ToListAsync();

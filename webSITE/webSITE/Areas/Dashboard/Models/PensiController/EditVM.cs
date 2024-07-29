@@ -15,4 +15,13 @@ public class EditVM
     [Display(Name = "Keterangan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public string Keterangan { get; set; } = string.Empty;
+
+    [Display(Name = "Link Grup WA")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    [Url(ErrorMessage = "{0} bukan URL yang valid")]
+    public string LinkGrupWa { get; set; } = string.Empty;
+
+    [Display(Name = "Foto Lomba")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public int? FotoId { get; set; }
 }

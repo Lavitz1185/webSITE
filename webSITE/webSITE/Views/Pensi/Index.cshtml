@@ -737,13 +737,13 @@
         {
             <article class="lomba__card" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" id="lombas">
                 <div class="lomba__circle"></div>
-
-                <img src="~/img/Lomba/Menyanyi2.png" alt="" class="lomba__img">
+                
+                <img src="@Url.Action("Foto", "File", new {Area = "", id = lomba.FotoLomba?.Id ?? 0})" alt="" class="lomba__img">
 
                 <h3 class="lomba__title">@lomba.Nama</h3>
                 <span class="lomba__price">@lomba.Jenis.Humanize()</span>
 
-                <a asp-action="DaftarSolo" asp-controller="Pensi" class="button--flex lomba__button">
+                <a asp-action="Daftar" asp-controller="Pensi" asp-route-id="@lomba.Id" class="button--flex lomba__button">
                     Daftar<i class="ri-draft-line"></i>
                 </a>
             </article>

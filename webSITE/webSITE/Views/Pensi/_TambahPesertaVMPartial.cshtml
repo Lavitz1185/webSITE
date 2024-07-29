@@ -1,2 +1,6 @@
 ﻿@model TambahTimLombaVM
-@Html.EditorFor(model => model.AnggotaTim)
+@for(int i = 0; i < Model.AnggotaTim.Count; i++)
+{
+    <h3 style="font-size:18px; border-top: 1px solid #000; padding: 15px 0px; margin-left:12px;">Peserta ke-@(i + 1)</h3>
+    @Html.EditorFor(x => x.AnggotaTim[i])
+}

@@ -1089,23 +1089,25 @@ namespace webSITE.DataAccess.SeedingData
             );
 
             builder.Entity<Lomba>().HasData(
-                new 
+                new
                 {
                     Id = 1,
                     Nama = "Menyanyi",
                     Jenis = JenisLomba.Solo,
                     Keterangan = "Keterangan",
-                    MaksKuotaPerAngkatan = 2
+                    MaksKuotaPerAngkatan = 2,
+                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM")
                 },
-                new 
+                new
                 {
                     Id = 2,
                     Nama = "Desain Poster",
                     Jenis = JenisLomba.Solo,
                     Keterangan = "Keterangan",
-                    MaksKuotaPerAngkatan = 2
+                    MaksKuotaPerAngkatan = 2,
+                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM")
                 },
-                new 
+                new
                 {
                     Id = 3,
                     Nama = "Menari",
@@ -1113,7 +1115,8 @@ namespace webSITE.DataAccess.SeedingData
                     Keterangan = "Keterangan",
                     MaksKuotaPerAngkatan = 2,
                     MinAnggotaPerTim = 5,
-                    MaksAnggotaPerTim = 10
+                    MaksAnggotaPerTim = 10,
+                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM")
                 },
                 new
                 {
@@ -1123,6 +1126,7 @@ namespace webSITE.DataAccess.SeedingData
                     Keterangan = "Keterangan",
                     MaksKuotaPerAngkatan = 2,
                     PasanganBedaJenisKelamin = true,
+                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM")
                 }
             );
 

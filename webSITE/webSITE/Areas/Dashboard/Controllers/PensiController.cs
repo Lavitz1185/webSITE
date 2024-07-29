@@ -21,6 +21,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly ILogger<PensiController> _logger;
         private readonly IRepositoriPesertaLomba _repositoriPesertaLomba;
         private readonly IRepositoriTimLomba _repositoriTimLomba;
+        private readonly IRepositoriFoto _repositoriFoto;
 
         public PensiController(
             IRepositoriLomba repositoriLomba,
@@ -28,7 +29,8 @@ namespace webSITE.Areas.Dashboard.Controllers
             INotificationService notificationService,
             ILogger<PensiController> logger,
             IRepositoriPesertaLomba repositoriPesertaLomba,
-            IRepositoriTimLomba repositoriTimLomba)
+            IRepositoriTimLomba repositoriTimLomba,
+            IRepositoriFoto repositoriFoto)
         {
             _repositoriLomba = repositoriLomba;
             _unitOfWork = unitOfWork;
@@ -36,6 +38,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             _logger = logger;
             _repositoriPesertaLomba = repositoriPesertaLomba;
             _repositoriTimLomba = repositoriTimLomba;
+            _repositoriFoto = repositoriFoto;
         }
 
         public async Task<IActionResult> Index()
@@ -69,6 +72,14 @@ namespace webSITE.Areas.Dashboard.Controllers
             //Validasi
             if (!ModelState.IsValid) return View(tambahVM);
 
+            var foto = await _repositoriFoto.Get(tambahVM.FotoId);
+
+            if (foto is null)
+            {
+                ModelState.AddModelError(nameof(TambahVM.FotoId), "Foto tidak ditemukan");
+                return View(tambahVM);
+            }
+
             //Simpan ke database
             try
             {
@@ -77,9 +88,12 @@ namespace webSITE.Areas.Dashboard.Controllers
                     tambahVM.Jenis,
                     tambahVM.Keterangan,
                     tambahVM.MaksKuotaPerAngkatan,
+                    new Uri(tambahVM.LinkGrupWa),
                     tambahVM.MinAnggotaPerTim,
                     tambahVM.MaksAnggotaPerTim,
                     tambahVM.PasanganBedaJenisKelamin);
+
+                lomba.FotoLomba = foto;
 
                 _repositoriLomba.Add(lomba);
 
@@ -93,12 +107,12 @@ namespace webSITE.Areas.Dashboard.Controllers
                 });
                 return RedirectToAction(nameof(Index));
             }
-            catch(DomainException ex)
+            catch (DomainException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(tambahVM);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(tambahVM);
@@ -117,6 +131,8 @@ namespace webSITE.Areas.Dashboard.Controllers
                 Id = lomba.Id,
                 Nama = lomba.Nama,
                 Keterangan = lomba.Keterangan,
+                LinkGrupWa = lomba.LinkGrupWa.ToString(),
+                FotoId = lomba.FotoLomba?.Id
             });
         }
 
@@ -125,6 +141,14 @@ namespace webSITE.Areas.Dashboard.Controllers
         {
             //Validasi
             if (!ModelState.IsValid) return View(editVM);
+
+            var foto = await _repositoriFoto.Get(editVM.FotoId!.Value);
+
+            if (foto is null)
+            {
+                ModelState.AddModelError(nameof(EditVM.FotoId), "Foto tidak ditemukan");
+                return View(editVM);
+            }
 
             var lomba = await _repositoriLomba.Get(editVM.Id);
 
@@ -143,6 +167,8 @@ namespace webSITE.Areas.Dashboard.Controllers
             {
                 lomba.Nama = editVM.Nama;
                 lomba.Keterangan = editVM.Keterangan;
+                lomba.LinkGrupWa = new Uri(editVM.LinkGrupWa);
+                lomba.FotoLomba = foto;
 
                 _repositoriLomba.Update(lomba);
 
@@ -152,12 +178,12 @@ namespace webSITE.Areas.Dashboard.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            catch(DomainException ex)
+            catch (DomainException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(editVM);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(editVM);
@@ -182,13 +208,13 @@ namespace webSITE.Areas.Dashboard.Controllers
                 });
                 return RedirectToAction(nameof(Index));
             }
-            catch(LombaNotFoundException ex)
+            catch (LombaNotFoundException ex)
             {
                 _logger.LogError(ex, "Error hapus lomba dengan ID : {@id} pada {@dateTime}. Message {@message}",
                     id, DateTime.Now, ex.Message);
                 return NotFound();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "Error hapus lomba dengan ID : {@id} pada {@dateTime}. Message {@message}",
                     id, DateTime.Now, ex.Message);

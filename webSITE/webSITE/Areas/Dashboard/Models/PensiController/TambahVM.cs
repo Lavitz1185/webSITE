@@ -7,7 +7,7 @@ public class TambahVM
 {
     [Display(Name = "Nama")]
     [Required(ErrorMessage = "{0} harus diisi")]
-    public string Nama { get; set; } = string.Empty; 
+    public string Nama { get; set; } = string.Empty;
 
     [Display(Name = "Jenis Lomba")]
     [Required(ErrorMessage = "{0} harus diisi")]
@@ -16,6 +16,15 @@ public class TambahVM
     [Display(Name = "Keterangan")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public string Keterangan { get; set; } = string.Empty;
+
+    [Display(Name = "Link Grup WA")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    [Url(ErrorMessage = "{0} bukan URL yang valid")]
+    public string LinkGrupWa { get; set; } = string.Empty;
+
+    [Display(Name = "Foto Lomba")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public int FotoId { get; set; }
 
     [Display(Name = "Maksimal Kuota Per Angkatan")]
     [Required(ErrorMessage = "{0} harus diisi")]

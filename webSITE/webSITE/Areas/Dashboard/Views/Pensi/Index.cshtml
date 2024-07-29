@@ -20,8 +20,10 @@
                 <tr>
                     <th>ID</th>
                     <th>Nama</th>
+                    <th width="20%">Foto Lomba</th>
                     <th>Jenis Lomba</th>
                     <th>Keterangan</th>
+                    <th>Link Grup WA</th>
                     <th>Jumlah Pendaftar</th>
                     <th>Syarat Lomba</th>
                     <th>Aksi</th>
@@ -33,8 +35,14 @@
                     <tr>
                         <td>@lomba.Id</td>
                         <td>@lomba.Nama</td>
+                        <td>
+                            <img class="img-fluid" src="@Url.Action("Foto", "File", new { Area = "", id = lomba.FotoLomba?.Id ?? 0})"/>
+                        </td>
                         <td>@lomba.Jenis.Humanize()</td>
                         <td>@lomba.Keterangan</td>
+                        <td>
+                            <a href="@lomba.LinkGrupWa.ToString()" target="_blank" rel="nofollow noreferrer">Link Grup WA</a>
+                        </td>
                         <td>@lomba.JumlahPendaftar @(lomba.Jenis == JenisLomba.Solo ? "Orang" : "Tim")</td>
                         <td>
                             <ul>
