@@ -1,0 +1,134 @@
+﻿/* CSS Ibadah Bagian Top */
+.backfoto {
+    padding-top: 0px;
+}
+
+    .backfoto ::deep img {
+        width: 100%;
+        object-fit: cover;
+        height: 150px;
+    }
+
+.foto-profil {
+    margin-bottom: -80px;
+}
+
+
+    .foto-profil ::deep img {
+        position: relative;
+        left: 50%;
+        top: 31%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        object-fit: cover;
+        box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+    }
+
+/* Akhir CSS Ibadah Bagian Top */
+.keterangan-foto-profil {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container-menu {
+    display: flex;
+    justify-content: center;
+    padding: 0vw 5vw;
+}
+
+.container-input-utama {
+    padding-top: 50px;
+}
+
+.ruang-input {
+    padding: 0vw 15vw;
+}
+
+/* CSS type input Text dan Textarea */
+.input-box label {
+    color: #333;
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.input-box input,
+.input-box select,
+.input-box textarea {
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    color: #707070;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+.input-box input,
+.input-box select {
+    height: 40px;
+}
+
+.input-box textarea {
+    resize: none;
+}
+/* Akhir CSS type input Text dan Textarea */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .foto-profil {
+        margin-bottom: -50px;
+    }
+
+        .foto-profil ::deep img {
+            width: 170px;
+            height: 170px;
+            top: calc(50% - 21%);
+        }
+
+    #profil {
+        padding: 0 5vw;
+    }
+}
+
+@media (max-width: 576px) {
+    .foto-profil ::deep img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .container-menu {
+        padding: 0vw 5vw;
+    }
+
+    .container-menu-lebar {
+        width: 100%;
+    }
+
+    .container-input-utama {
+        padding-top: 20px;
+    }
+
+    .ruang-input {
+        padding: 0vw 5vw;
+    }
+
+    .input-box label {
+        font-size: 14px;
+    }
+
+    .input-box input,
+    .input-box select,
+    .input-box textarea {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+
+    .btn-custom {
+        padding: 5px 10px;
+    }
+}
