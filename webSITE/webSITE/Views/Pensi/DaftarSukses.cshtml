@@ -1,7 +1,50 @@
 ﻿@model Lomba
 
-<partial name="_MenuPartial" model=@true/>
-<h1>Daftar Sukses</h1>
+<style>
+    :root {
+        --hue: 312;
+        --first-color: hsl(var(--hue), 24%, 32%);
+        --first-color-alt: hsl(var(--hue), 24%, 28%);
+    }
 
-<p>Gabung ke grup wa lomba : <a href="@Model.LinkGrupWa.ToString()" target="_blank" rel="nofollow noreferrer">Link Grup WA</a></p>
-<a class="btn btn-primary" asp-action="Index" asp-controller="Pensi" asp-area="">Selesai</a>
+    body {
+        background: none; 
+    }
+
+    .bg-pendaftaran-solo img {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1; 
+    }
+
+    .btn-custom {
+        background-color: var(--first-color);
+        border: none;
+    }
+
+        .btn-custom:hover {
+            background-color: var(--first-color-alt);
+        }
+</style>
+
+
+<div class="bg-pendaftaran-solo">
+    <img src="~/img/bg-pendafataran-pensi.jpg" alt="Background Image" />
+</div>
+
+<div class="container-lomba-solo animate__animated animate__fadeInDownBig">
+    <partial name="_MenuPartial" model=@true />
+
+    <div class="judul-lomba">
+        <h3>Daftar Sukses</h3>
+    </div>
+
+    <p>Gabung ke grup wa lomba : 
+        <a href="@Model.LinkGrupWa.ToString()" target="_blank" rel="nofollow noreferrer">Link Grup WA</a>
+    </p>
+    <a class="btn btn-primary" asp-action="Index" asp-controller="Pensi" asp-area="">Selesai</a>
+</div>
