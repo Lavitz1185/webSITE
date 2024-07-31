@@ -216,11 +216,15 @@
 
 @media (max-width: 750px) {
     ::deep .popup-box img {
-        height: 300px; 
+        width: 400px;
+        height: 320px;
     }
 
     ::deep .popup-box a {
-        top: 270px; 
+        top: 290px;
+        padding: 4px 40px;
+        font-size: 17px;
+        font-weight: 500;
     }
 
     .toggle-trigger {

@@ -6,7 +6,7 @@
 
 @foreach (var kegiatan in Model)
 {
-    <!-- Modal -->
+    <!-- Modal untuk Peserta -->
     <div class="modal fade" id="modal@(kegiatan.Id)" tabindex="-1" aria-labelledby="modal@(kegiatan.Id)" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered custom-modal">
             <div class="modal-content">
@@ -39,6 +39,29 @@
     </div>
 }
 
+@foreach (var kegiatan in Model)
+{
+    <!-- Modal untuk Judul dan  Detail -->
+    <div class="modal fade" id="detailModal@(kegiatan.Id)" tabindex="-1" aria-labelledby="detailModalLabel@(kegiatan.Id)" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailModalLabel@(kegiatan.Id)">@kegiatan.NamaKegiatan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align: justify">
+                    <p>@kegiatan.Keterangan</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
 <div class="container-kegiatan">
     <h2 class="text-center pt-2 animate__animated animate__fadeInDown">Kegiatan Mahasiswa</h2>
     <div class="row g-3 py-5 animate__animated animate__fadeInLeftBig">
@@ -65,8 +88,10 @@
                                     <h3 class="card-title">@kegiatan.TempatKegiatan</h3>
                                     <h3 class="card-title">@kegiatan.Tanggal.ToString("dd MMMM yyyy")</h3>
                                 </div>
-                                <h2 class="card-title">@kegiatan.NamaKegiatan</h2>
-                                <p class="card-text">
+                                <h2 class="card-title" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#detailModal@(kegiatan.Id)">
+                                    @kegiatan.NamaKegiatan
+                                </h2>
+                                <p class="card-text" data-bs-toggle="modal" data-bs-target="#detailModal@(kegiatan.Id)">
                                     @kegiatan.Keterangan
                                 </p>
                                 <div class="mt-auto">
@@ -95,4 +120,5 @@
             </div>
         }
     </div>
+
 </div>
