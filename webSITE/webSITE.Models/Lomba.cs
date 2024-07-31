@@ -17,6 +17,7 @@ namespace webSITE.Domain
         public string Keterangan { get; set; }
         public int MaksKuotaPerAngkatan { get; set; }
         public Uri LinkGrupWa { get; set; }
+        public string PDFPath { get; set; }
         public int? MinAnggotaPerTim { get; set; }
         public int? MaksAnggotaPerTim { get; set; }
         public bool? PasanganBedaJenisKelamin { get; set; }
@@ -33,6 +34,7 @@ namespace webSITE.Domain
             string keterangan,
             int maksKuotaPerAngkatan,
             Uri linkGrupWa,
+            string pDFPath,
             int? minAnggotaPerTim,
             int? maksAnggotaPerTim,
             bool? pasanganBedaJenisKelamin)
@@ -41,6 +43,7 @@ namespace webSITE.Domain
             Jenis = jenis;
             Keterangan = keterangan;
             MaksKuotaPerAngkatan = maksKuotaPerAngkatan;
+            PDFPath = pDFPath;
             LinkGrupWa = linkGrupWa;
             MinAnggotaPerTim = minAnggotaPerTim;
             MaksAnggotaPerTim = maksAnggotaPerTim;
@@ -53,6 +56,7 @@ namespace webSITE.Domain
             string keterangan,
             int maksKuotaPerAngkatan,
             Uri linkGrupWa,
+            string pDFPath,
             int? minAnggotaPerTim,
             int? maksAnggotaPerTim,
             bool? pasanganBedaJenisKelamin)
@@ -80,6 +84,7 @@ namespace webSITE.Domain
                 keterangan,
                 maksKuotaPerAngkatan,
                 linkGrupWa,
+                pDFPath,
                 minAnggotaPerTim ?? 2,
                 maksAnggotaPerTim,
                 pasanganBedaJenisKelamin);

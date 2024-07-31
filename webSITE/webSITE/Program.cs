@@ -22,6 +22,7 @@ else
 
 builder.Services.Configure<MailSettingsOptions>(builder.Configuration.GetSection(MailSettingsOptions.MailSettings));
 builder.Services.Configure<PhotoFileSettingsOptions>(builder.Configuration.GetSection(PhotoFileSettingsOptions.PhotoFileSettings));
+builder.Services.Configure<PDFFileSettingsOptions>(builder.Configuration.GetSection(PDFFileSettingsOptions.PDFFileSettings));
 
 builder.Services.AddRazorPages().AddSessionStateTempDataProvider();
 builder.Services.AddControllersWithViews().AddSessionStateTempDataProvider();

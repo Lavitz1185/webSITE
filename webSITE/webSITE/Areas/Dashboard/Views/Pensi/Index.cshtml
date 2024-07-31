@@ -24,6 +24,7 @@
                     <th>Jenis Lomba</th>
                     <th>Keterangan</th>
                     <th>Link Grup WA</th>
+                    <th>File PDF</th>
                     <th>Jumlah Pendaftar</th>
                     <th>Syarat Lomba</th>
                     <th>Aksi</th>
@@ -42,6 +43,9 @@
                         <td>@lomba.Keterangan</td>
                         <td>
                             <a href="@lomba.LinkGrupWa.ToString()" target="_blank" rel="nofollow noreferrer">Link Grup WA</a>
+                        </td>
+                        <td>
+                            <a href="@lomba.PDFPath" target="_blank" rel="nofollow noreferrer">Lihat File PDF</a>
                         </td>
                         <td>@lomba.JumlahPendaftar @(lomba.Jenis == JenisLomba.Solo ? "Orang" : "Tim")</td>
                         <td>

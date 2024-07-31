@@ -140,7 +140,6 @@ namespace webSITE.Utilities
                 modelState.AddModelError(formFile.Name,
                     $"{fieldDisplayName}({trustedFileNameForDisplay}) upload failed. " +
                     $"Please contact the Help Desk for support. Error: {ex.HResult}");
-                // Log the exception
             }
 
             return Array.Empty<byte>();
@@ -247,12 +246,12 @@ namespace webSITE.Utilities
                 // for files (when possible) for all file types you intend
                 // to allow on the system and perform the file signature
                 // check.
-                /*
+
                 if (!_fileSignature.ContainsKey(ext))
                 {
                     return true;
                 }
-                */
+
 
                 // File signature check
                 // --------------------

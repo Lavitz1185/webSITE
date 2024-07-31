@@ -5,7 +5,6 @@
     ViewData["Active"] = "Pensi";
 }
 
-
 <style>
     :root {
         --hue: 312;
@@ -49,7 +48,7 @@
         <p>Silakan isi form di bawah ini untuk mendaftar</p>
     </div>
     <div class="container-ketentuan">
-        <a>Download Syarat dan ketentuan lomba disini <i class="ri-download-2-fill"></i></a>
+        <a href="@ViewData["PDFPath"]" target="_blank" rel="nofollow noreferrer">Download Syarat dan ketentuan lomba disini <i class="ri-download-2-fill"></i></a>
     </div>
 
     <form asp-action="DaftarTim" asp-route-id="@ViewData["id"]" id="form">

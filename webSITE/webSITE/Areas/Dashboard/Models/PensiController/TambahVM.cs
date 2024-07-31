@@ -22,6 +22,10 @@ public class TambahVM
     [Url(ErrorMessage = "{0} bukan URL yang valid")]
     public string LinkGrupWa { get; set; } = string.Empty;
 
+    [Display(Name = "File PDF")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public IFormFile FilePDF { get; set; }
+
     [Display(Name = "Foto Lomba")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public int FotoId { get; set; }

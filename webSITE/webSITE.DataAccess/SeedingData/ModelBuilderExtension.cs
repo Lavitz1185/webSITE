@@ -1096,7 +1096,8 @@ namespace webSITE.DataAccess.SeedingData
                     Jenis = JenisLomba.Solo,
                     Keterangan = "Keterangan",
                     MaksKuotaPerAngkatan = 2,
-                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM")
+                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM"),
+                    PDFPath = "/pdf/Csharp_in_Depth_4th_Edition.pdf"
                 },
                 new
                 {
@@ -1105,7 +1106,8 @@ namespace webSITE.DataAccess.SeedingData
                     Jenis = JenisLomba.Solo,
                     Keterangan = "Keterangan",
                     MaksKuotaPerAngkatan = 2,
-                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM")
+                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM"),
+                    PDFPath = "/pdf/Csharp_in_Depth_4th_Edition.pdf"
                 },
                 new
                 {
@@ -1116,7 +1118,8 @@ namespace webSITE.DataAccess.SeedingData
                     MaksKuotaPerAngkatan = 2,
                     MinAnggotaPerTim = 5,
                     MaksAnggotaPerTim = 10,
-                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM")
+                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM"),
+                    PDFPath = "/pdf/Csharp_in_Depth_4th_Edition.pdf"
                 },
                 new
                 {
@@ -1126,7 +1129,8 @@ namespace webSITE.DataAccess.SeedingData
                     Keterangan = "Keterangan",
                     MaksKuotaPerAngkatan = 2,
                     PasanganBedaJenisKelamin = true,
-                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM")
+                    LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM"),
+                    PDFPath = "/pdf/Csharp_in_Depth_4th_Edition.pdf"
                 }
             );
 

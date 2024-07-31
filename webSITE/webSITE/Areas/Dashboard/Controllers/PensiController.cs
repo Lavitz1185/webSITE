@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using webSITE.Areas.Dashboard.Models.PensiController;
+using webSITE.Configuration;
 using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Domain;
@@ -8,6 +12,7 @@ using webSITE.Domain.Abstractions;
 using webSITE.Domain.Exceptions.LombaExceptions;
 using webSITE.Models;
 using webSITE.Services.Contracts;
+using webSITE.Utilities;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {
@@ -22,6 +27,8 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IRepositoriPesertaLomba _repositoriPesertaLomba;
         private readonly IRepositoriTimLomba _repositoriTimLomba;
         private readonly IRepositoriFoto _repositoriFoto;
+        private readonly PDFFileSettingsOptions _pDFFileSettingsOptions;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public PensiController(
             IRepositoriLomba repositoriLomba,
@@ -30,7 +37,9 @@ namespace webSITE.Areas.Dashboard.Controllers
             ILogger<PensiController> logger,
             IRepositoriPesertaLomba repositoriPesertaLomba,
             IRepositoriTimLomba repositoriTimLomba,
-            IRepositoriFoto repositoriFoto)
+            IRepositoriFoto repositoriFoto,
+            IOptions<PDFFileSettingsOptions> pDFFileSettingsOptions,
+            IWebHostEnvironment webHostEnvironment)
         {
             _repositoriLomba = repositoriLomba;
             _unitOfWork = unitOfWork;
@@ -39,6 +48,8 @@ namespace webSITE.Areas.Dashboard.Controllers
             _repositoriPesertaLomba = repositoriPesertaLomba;
             _repositoriTimLomba = repositoriTimLomba;
             _repositoriFoto = repositoriFoto;
+            _pDFFileSettingsOptions = pDFFileSettingsOptions.Value;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Index()
@@ -80,6 +91,10 @@ namespace webSITE.Areas.Dashboard.Controllers
                 return View(tambahVM);
             }
 
+            var pathPDF = await SavePDFAsync<TambahVM>(tambahVM.FilePDF);
+
+            if(pathPDF is null) return View(tambahVM);
+
             //Simpan ke database
             try
             {
@@ -89,6 +104,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                     tambahVM.Keterangan,
                     tambahVM.MaksKuotaPerAngkatan,
                     new Uri(tambahVM.LinkGrupWa),
+                    pathPDF,
                     tambahVM.MinAnggotaPerTim,
                     tambahVM.MaksAnggotaPerTim,
                     tambahVM.PasanganBedaJenisKelamin);
@@ -163,12 +179,28 @@ namespace webSITE.Areas.Dashboard.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            if (!System.IO.File.Exists(Path.Combine(_webHostEnvironment.WebRootPath + lomba.PDFPath))
+                && editVM.FilePDF is null)
+            {
+                ModelState.AddModelError(nameof(EditVM.FilePDF), "File PDF lama tidak ada jadi harus diisi");
+                return View(editVM);
+            }
+
             try
             {
                 lomba.Nama = editVM.Nama;
                 lomba.Keterangan = editVM.Keterangan;
                 lomba.LinkGrupWa = new Uri(editVM.LinkGrupWa);
                 lomba.FotoLomba = foto;
+
+                if(editVM.FilePDF is not null)
+                {
+                    var pdfPath = await SavePDFAsync<EditVM>(editVM.FilePDF);
+
+                    if (pdfPath is null) return View(editVM);
+
+                    lomba.PDFPath = pdfPath;
+                }
 
                 _repositoriLomba.Update(lomba);
 
@@ -224,6 +256,39 @@ namespace webSITE.Areas.Dashboard.Controllers
                     Title = "Hapus Gagal!"
                 });
                 return RedirectToAction(nameof(Index));
+            }
+        }
+
+        private async Task<string?> SavePDFAsync<TModel>(IFormFile formFile)
+        {
+            try
+            {
+                var fileFormContent = await FileHelpers.ProcessFormFile<TModel>(formFile, ModelState,
+                    new string[] { ".pdf" }, _pDFFileSettingsOptions.SizeLimit);
+
+                if(!ModelState.IsValid)
+                {
+                    return null;
+                }
+
+                var fileName = $"{Path.GetRandomFileName()}{Path.GetExtension(formFile.FileName)}";
+                var filePath = $"{_pDFFileSettingsOptions.FolderPath}/{fileName}";
+
+                using (FileStream fs = System.IO.File.Create($"{_webHostEnvironment.WebRootPath}/{filePath}"))
+                {
+                    await fs.WriteAsync(fileFormContent);
+                }
+
+                return filePath;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error menyimpan file PDF {@namaFile}. Timestamp : {@timeStamp}",
+                    formFile.FileName, DateTime.Now);
+
+                ModelState.AddModelError(formFile.FileName, "Error menyimpan file PDF");
+
+                return null;
             }
         }
     }

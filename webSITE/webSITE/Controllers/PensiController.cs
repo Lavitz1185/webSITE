@@ -53,6 +53,7 @@ namespace webSITE.Controllers
             if (lomba is null) return NotFound();
 
             ViewData["id"] = id;
+            ViewData["PDFPath"] = lomba.PDFPath;
 
             return lomba.Jenis switch
             {

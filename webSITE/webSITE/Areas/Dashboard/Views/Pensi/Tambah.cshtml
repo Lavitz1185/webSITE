@@ -14,7 +14,7 @@
     </ul>
     <!-- Akhir Hyperlink -->
     <div class="container-fluid cardplus">
-        <form asp-action="Tambah">
+        <form asp-action="Tambah" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
 
             <vc:foto-picker name=@nameof(TambahVM.FotoId) multi=false></vc:foto-picker>
@@ -52,6 +52,14 @@
                     <label asp-for="@Model.LinkGrupWa" class="form-label"></label>
                     <input asp-for="@Model.LinkGrupWa" class="form-control" type="text" />
                     <span asp-validation-for="@Model.LinkGrupWa" class="form-text text-danger"></span>
+                </div>
+            </div>
+
+            <div class="ro input-boxw mb-3">
+                <div class="col">
+                    <label asp-for="@Model.FilePDF" class="form-label"></label>
+                    <input asp-for="@Model.FilePDF" class="form-control" type="file" />
+                    <span asp-validation-for="@Model.FilePDF" class="form-text text-danger"></span>
                 </div>
             </div>
 
