@@ -4,9 +4,10 @@
     ViewData["Active"] = "Kegiatan";
 }
 
+
+<!-- ==== Modal untuk Peserta Kegiatan ==== -->
 @foreach (var kegiatan in Model)
 {
-    <!-- Modal untuk Peserta -->
     <div class="modal fade" id="modal@(kegiatan.Id)" tabindex="-1" aria-labelledby="modal@(kegiatan.Id)" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered custom-modal">
             <div class="modal-content">
@@ -20,9 +21,11 @@
                             @foreach (var mahasiswa in kegiatan.DaftarMahasiswa)
                             {
                                 <li class="table-row">
+                                    <!-- Foto Profil Peserta -->
                                     <div class="col col-1 text-center">
                                         <img src="@Url.Action("FotoProfil", "File", new { Area = "", id = mahasiswa.Id })" alt="" class="img-thumbnail">
                                     </div>
+                                    <!-- Nama Peserta -->
                                     <div class="col col-4 text-center">
                                         <span class="participant-name">@mahasiswa.NamaLengkap</span>
                                     </div>
@@ -31,6 +34,7 @@
                         </ul>
                     </div>
                 </div>
+                <!-- Tombol Close/Keluar -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -38,20 +42,26 @@
         </div>
     </div>
 }
+<!-- ==== Akhir Modal untuk Peserta Kegiatan ==== -->
 
+
+
+<!-- ==== Modal untuk Judul dan Detail Kegiatan ==== -->
 @foreach (var kegiatan in Model)
 {
-    <!-- Modal untuk Judul dan  Detail -->
     <div class="modal fade" id="detailModal@(kegiatan.Id)" tabindex="-1" aria-labelledby="detailModalLabel@(kegiatan.Id)" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
             <div class="modal-content">
+                <!-- Judul Kegiatan -->
                 <div class="modal-header">
                     <h5 class="modal-title" id="detailModalLabel@(kegiatan.Id)">@kegiatan.NamaKegiatan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <!-- Detail Kegiatan -->
                 <div class="modal-body" style="text-align: justify">
                     <p>@kegiatan.Keterangan</p>
                 </div>
+                <!-- Tombol Close -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -59,43 +69,50 @@
         </div>
     </div>
 }
+<!-- ==== Akhir Modal untuk Judul dan Detail Kegiatan ==== -->
 
 
 
+<!-- ==== Section Kegiatan ==== -->
 <div class="container-kegiatan">
+    <!-- Judul Halaman Kegiatan -->
     <h2 class="text-center pt-2 animate__animated animate__fadeInDown">Kegiatan Mahasiswa</h2>
     <div class="row g-3 py-5 animate__animated animate__fadeInLeftBig">
+        <!-- Card Kegiatan -->
         @foreach (var kegiatan in Model)
-        {
+        {           
             var fotoThumnail = kegiatan.DaftarFoto
             .OrderBy(f => f.AddedAt)
             .FirstOrDefault();
-
             string url = fotoThumnail is null ?
             "/img/LOGO_SITE-removebg-preview.png" : Url.Action("Foto", "File", new { Area = "", Id = fotoThumnail.Id! });
 
             <div class="col-12 col-md-12 col-lg-6">
                 <div class="card">
                     <div class="row g-0">
-                        <div class="col-12 col-md-5">
-                            <!-- Gambar di kiri -->
+                        <!-- Foto Kegiatan (Column Kiri) -->
+                        <div class="col-12 col-md-5">                           
                             <img src="@url" class="card-img img-fluid rounded-start" alt="Foto Card" />
                         </div>
                         <div class="col-12 col-md-7">
-                            <!-- Card-body di kanan -->
+                            <!-- Content Kegiatan (Column Kanan) -->
                             <div class="card-body d-flex flex-column">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                <!-- Tempat dan Tanggal Kegiatan -->
+                                <div class="d-flex justify-content-between align-items-center mb-1">                                 
                                     <h3 class="card-title">@kegiatan.TempatKegiatan</h3>
                                     <h3 class="card-title">@kegiatan.Tanggal.ToString("dd MMMM yyyy")</h3>
                                 </div>
+                                <!-- Nama Kegiatan -->
                                 <h2 class="card-title" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#detailModal@(kegiatan.Id)">
                                     @kegiatan.NamaKegiatan
                                 </h2>
+                                <!-- Detail/Keterangan Kegiatan -->
                                 <p class="card-text" data-bs-toggle="modal" data-bs-target="#detailModal@(kegiatan.Id)">
                                     @kegiatan.Keterangan
                                 </p>
                                 <div class="mt-auto">
                                     <div class="row gula">
+                                        <!-- Tombol Lihat Peserta -->
                                         <div class="col-6">
                                             <button class="btn fernanddd w-100" type="button"
                                                     data-bs-toggle="modal" data-bs-target="#modal@(kegiatan.Id)">
@@ -103,6 +120,7 @@
                                                 Peserta
                                             </button>
                                         </div>
+                                        <!-- Tombol Lihat Album -->
                                         <div class="col-6 fernanddd">
                                             <a class="btn collis w-100" asp-action="Album" asp-controller="Foto"
                                                asp-route-idKegiatan="@kegiatan.Id"
@@ -119,6 +137,7 @@
                 </div>
             </div>
         }
+        <!-- Akhir Card Kegiatan -->
     </div>
-
 </div>
+<!-- ==== Akhir Section Kegiatan ==== -->

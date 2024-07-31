@@ -62,7 +62,9 @@
 }
 /* Akhir CSS Datatable */
 
+/* ================================================= Responsive =================================================  */
 
+/* Responsive MAX 767px */
 @media (max-width: 767px) {
     .col-md-6 {
         flex: 0 0 100%;

@@ -1,11 +1,4 @@
-﻿.container-kegiatan {
-    padding: 40px 7vw 2vw 7vw;
-}
-
-.container {
-    max-width: 1500px;
-}
-
+﻿/* ==== CSS Modal untuk Peserta dan content (Judul dan Keterangan) ==== */
 .custom-modal {
     max-width: 600px;
 }
@@ -31,8 +24,6 @@
     border-top-right-radius: 0.3rem;
     background-color: #f8f9fa;
 }
-
-
 
 .modal-title {
     font-size: 24px;
@@ -83,6 +74,18 @@
     flex-basis: 75%;
     text-align: left;
 }
+/* ==== Akhir CSS Modal untuk Peserta dan content (Judul dan Keterangan) ==== */
+
+
+
+/* ==== CSS Section Kegiatan ==== */
+.container-kegiatan {
+    padding: 40px 7vw 2vw 7vw;
+}
+
+.container {
+    max-width: 1500px;
+}
 
 .card {
     box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
@@ -118,6 +121,7 @@
     font-weight: 600;
 }
 
+/* CSS Tombol Kegiatan */
 .fernanddd {
     background: rgb(35, 35, 85);
     color: white;
@@ -141,6 +145,7 @@
     padding-right: 5px;
 }
 
+/* CSS Row Button */
 .gula {
     padding-right: 10px;
 }
@@ -170,52 +175,13 @@
         padding-top: 1px;
         padding-bottom: 1px;
     }
-
-@media all and (max-width: 767px) {
-    .table-row {
-        display: flex;
-        flex-wrap: wrap;
-        border-bottom: 1px solid #ddd;
-        padding: 10px 0;
-    }
-
-    .col-1 {
-        flex-basis: 100%;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    .card-body {
-        height: auto;
-        overflow: auto;
-    }
-
-    .col-4 {
-        flex-basis: 100%;
-        text-align: center;
-    }
-
-    .card-img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-        border-top-right-radius: 0px;
-        border-bottom-right-radius: 0px;
-    }
-
-    .img-thumbnail {
-        width: 100px;
-        height: 100px;
-    }
-}
+/* ==== Akhir CSS Section Kegiatan ==== */
 
 
-@media screen and (max-width: 326px) {
-    ::deep.fernanddd .collis {
-        padding: 6px 16px;
-    }
-}
 
+/* ================================================= Responsive =================================================  */
+
+/* Responsive MIN 767px */
 @media screen and (min-width: 767px) {
     .card-body {
         height: 300px;
@@ -227,6 +193,7 @@
     }
 }
 
+/* Responsive MIN 992px */
 @media screen and (min-width: 992px) {
     .card-body {
         height: 410px;
@@ -237,6 +204,7 @@
     }
 }
 
+/* Responsive MIN 1130px */
 @media screen and (min-width: 1130px) {
     .card-body {
         height: 350px;
@@ -247,6 +215,7 @@
     }
 }
 
+/* Responsive MIN 1200px */
 @media screen and (min-width: 1200px) {
     .card-body {
         height: 330px;
@@ -257,6 +226,7 @@
     }
 }
 
+/* Responsive MIN 1300px */
 @media screen and (min-width: 1300px) {
     .card-body {
         height: 350px;
@@ -267,6 +237,7 @@
     }
 }
 
+/* Responsive MIN 1400px */
 @media screen and (min-width: 1400px) {
     .card-body {
         height: 330px;
@@ -277,6 +248,7 @@
     }
 }
 
+/* Responsive MIN 1496px */
 @media screen and (min-width: 1496px) {
     .card-body {
         height: 320px;
@@ -287,6 +259,7 @@
     }
 }
 
+/* Responsive MIN 1600px */
 @media screen and (min-width: 1600px) {
     .card-body {
         height: 310px;
@@ -297,6 +270,7 @@
     }
 }
 
+/* Responsive MIN 1900px */
 @media screen and (min-width: 1900px) {
     .card-body {
         height: 300px;
@@ -305,4 +279,57 @@
     .card-img {
         height: 300px;
     }
+}
+
+
+
+/* Responsive MAX 326px */
+@media screen and (max-width: 326px) {
+    ::deep.fernanddd .collis {
+        padding: 6px 16px;
+    }
+}
+
+/* Responsive MAX 767px */
+@media all and (max-width: 767px) {
+    /* ==== CSS Modal untuk Peserta dan content (Judul dan Keterangan) ==== */
+    .table-row {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+    }
+
+    .img-thumbnail {
+        width: 100px;
+        height: 100px;
+    }
+
+    .col-1 {
+        flex-basis: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .col-4 {
+        flex-basis: 100%;
+        text-align: center;
+    }
+    /* ==== CSS Modal untuk Peserta dan content (Judul dan Keterangan) ==== */
+
+
+    /* ==== CSS Section Kegiatan ==== */
+    .card-body {
+        height: auto;
+        overflow: auto;
+    }
+
+    .card-img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    /* ==== Akhir CSS Section Kegiatan ==== */
 }

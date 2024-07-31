@@ -1,10 +1,31 @@
-﻿/* Responsive */
+﻿/* ================================================= Responsive =================================================  */
+
+/* Responsive MIN 760px */
+@media screen and (min-width: 760px) {
+    .wrapper-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Responsive MIN 1250px */
+@media screen and (min-width: 1250px) {
+    .wrapper-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .search-container {
+        padding: 0;
+    }
+}
+
+/* Responsive MAX 360px */
 @media screen and (max-width: 360px) {
     ::deep .pagination-button {
         padding: 5px 10px;
     }
 }
 
+/* Responsive MAX 600px */
 @media screen and (max-width: 600px) {
     .wrapper-grid {
         grid-template-columns: repeat(1, 1fr);
@@ -15,28 +36,10 @@
     }
 }
 
+/* Responsive MAX 992px */
 @media screen and (max-width: 992px) {
 
     .container-mahasiswa {
         margin: 0;
     }
 }
-
-@media screen and (min-width: 760px) {
-    .wrapper-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    
-}
-
-@media screen and (min-width: 1250px) {
-    .wrapper-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    .search-container {
-        padding: 0;    
-    }   
-}
-/* Akhir Responsive */
