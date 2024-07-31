@@ -117,23 +117,21 @@
             });
         });
 
-        function hapusAnggota() {
-            $(this).on('click', function () {
-                const index = $(this).data("index");
+        function hapusAnggota(button) {
+            const index = $(button).data("index");
 
-                console.log("this", this);
-                console.log("data-index", index);
+            console.log("this", button);
+            console.log("data-index", index);
 
-                $.ajax({
-                    async: true,
-                    data: $('#form').serialize(),
-                    type: 'POST',
-                    url: `/Pensi/HapusAnggota?indexAnggota=${index}`,
-                    success: function (partialView) {
-                        console.log(partialView);
-                        $('#anggotaTimContainer').html(partialView);
-                    }
-                });
+            $.ajax({
+                async: true,
+                data: $('#form').serialize(),
+                type: 'POST',
+                url: `/Pensi/HapusAnggota?indexAnggota=${index}`,
+                success: function (partialView) {
+                    console.log(partialView);
+                    $('#anggotaTimContainer').html(partialView);
+                }
             });
         }
 

@@ -274,7 +274,7 @@ namespace webSITE.Controllers
         public async Task<IActionResult> HapusAnggota(
             [Bind(nameof(TambahTimLombaVM.AnggotaTim))] TambahTimLombaVM tambahTimVM, int indexAnggota)
         {
-            if(tambahTimVM.AnggotaTim.Count > 0 && tambahTimVM.AnggotaTim.Count > indexAnggota + 1)
+            if(tambahTimVM.AnggotaTim.Count > 0 && tambahTimVM.AnggotaTim.Count >= indexAnggota + 1)
             {
                 tambahTimVM.AnggotaTim.RemoveAt(indexAnggota);
             }
