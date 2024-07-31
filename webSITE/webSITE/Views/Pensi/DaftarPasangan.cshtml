@@ -42,6 +42,8 @@
 </div>
 
 <div class="container-lomba-pasangan animate__animated animate__fadeIn">
+    <partial name="_MenuPartial" model=@false />
+
     <div class="judul-lomba">
         <h3>Pendaftaran Lomba</h3>
         <p>Silakan isi form di bawah ini untuk mendaftar</p>
@@ -99,15 +101,6 @@
                     </select>
                     <span asp-validation-for="@Model.AnggotaTim[i].JenisKelamin" class="form-text text-danger"></span>
                 </div>
-                <div class="col-12 mb-3 input-box">
-                    <label asp-for="@Model.AnggotaTim[i].Angkatan" class="form-label"></label>
-                    <select asp-for="@Model.AnggotaTim[i].Angkatan"
-                            asp-items="@Enum.GetValues<Angkatan>()
-                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
-                            class="input-pensi">
-                    </select>
-                    <span asp-validation-for="@Model.AnggotaTim[i].Angkatan" class="form-text text-danger"></span>
-                </div>
                 <div class="col-12 mb-4 input-box">
                     <label asp-for="@Model.AnggotaTim[i].NoWa" class="form-label"></label>
                     <input asp-for="@Model.AnggotaTim[i].NoWa" type="text" class="input-pensi" />
@@ -115,8 +108,6 @@
                 </div>
             </div>
         }
-
-
 
         <div class="row mt-3">
             <div class="col-12">

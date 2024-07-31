@@ -25,16 +25,6 @@
             <span asp-validation-for="@Model.JenisKelamin" class="form-text text-danger"></span>
         </div>
 
-        <div class="col-12 mb-3 input-box">
-            <label asp-for="@Model.Angkatan" class="form-label"></label>
-            <select asp-for="@Model.Angkatan"
-                    asp-items="@Enum.GetValues<Angkatan>()
-                                    .Select(j => new SelectListItem(j.Humanize(), j.ToString()))"
-                    class="input-pensi">
-            </select>
-            <span asp-validation-for="@Model.Angkatan" class="form-text text-danger"></span>
-        </div>
-
         <div class="col-12 input-box">
             <label asp-for="@Model.NoWa" class="form-label"></label>
             <input asp-for="@Model.NoWa" type="text" class="input-pensi" />

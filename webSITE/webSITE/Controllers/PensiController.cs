@@ -110,7 +110,7 @@ namespace webSITE.Controllers
                     Title = "Pendaftaran Sukse"
                 });
 
-                return RedirectToAction(nameof(Index));
+                return View("DaftarSukses", lomba);
             }
             catch (InvalidNimException ex)
             {
@@ -165,7 +165,7 @@ namespace webSITE.Controllers
                             Nim.Create(a.Nim),
                             a.Nama,
                             a.JenisKelamin,
-                            a.Angkatan,
+                            tambahTimLombaVM.Angkatan,
                             NoWa.Create(a.NoWa),
                             DateTime.Now)).ToList()
                 };
@@ -229,7 +229,7 @@ namespace webSITE.Controllers
                             Nim.Create(a.Nim),
                             a.Nama,
                             a.JenisKelamin,
-                            a.Angkatan,
+                            tambahTimVM.Angkatan,
                             NoWa.Create(a.NoWa),
                             DateTime.Now)).ToList()
                 };
@@ -272,11 +272,11 @@ namespace webSITE.Controllers
 
         [HttpPost]
         public async Task<IActionResult> HapusAnggota(
-            [Bind(nameof(TambahTimLombaVM.AnggotaTim))] TambahTimLombaVM tambahTimVM)
+            [Bind(nameof(TambahTimLombaVM.AnggotaTim))] TambahTimLombaVM tambahTimVM, int indexAnggota)
         {
-            if(tambahTimVM.AnggotaTim.Count > 0)
+            if(tambahTimVM.AnggotaTim.Count > 0 && tambahTimVM.AnggotaTim.Count > indexAnggota + 1)
             {
-                tambahTimVM.AnggotaTim.RemoveAt(tambahTimVM.AnggotaTim.Count - 1);
+                tambahTimVM.AnggotaTim.RemoveAt(indexAnggota);
             }
             return PartialView("_TambahPesertaVMPartial", tambahTimVM);
         }

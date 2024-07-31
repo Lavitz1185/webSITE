@@ -3,4 +3,8 @@
 {
     <h3 style="font-size:18px; border-top: 1px solid #000; padding: 15px 0px; margin-left:12px;">Peserta ke-@(i + 1)</h3>
     @Html.EditorFor(x => x.AnggotaTim[i])
+    <button class="btn-custom hapusAnggota-btn" onclick="hapusAnggota()" data-index="@i" style="border-radius: 10px; padding: 13px 10px;" type="button">
+        <i class="ri-close-fill"></i>
+        Hapus Anggota
+    </button>
 }

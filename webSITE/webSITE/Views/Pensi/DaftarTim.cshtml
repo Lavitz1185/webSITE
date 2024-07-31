@@ -43,6 +43,8 @@
 
 
 <div class="container-lomba-tim animate__animated animate__fadeInDownBig">
+    <partial name="_MenuPartial" model=@false />
+
     <div class="judul-lomba">
         <h3>Pendaftaran Lomba</h3>
         <p>Silakan isi form di bawah ini untuk mendaftar</p>
@@ -57,7 +59,7 @@
         <div class="row mb-3">
             <div class="col-12 input-box">
                 <label asp-for="@Model.NamaTim" class="form-label"></label>
-                <input asp-for="@Model.NamaTim" type="text" class="input-pensi"/>
+                <input asp-for="@Model.NamaTim" type="text" class="input-pensi" />
                 <span asp-validation-for="@Model.NamaTim" class="form-text text-danger"></span>
             </div>
         </div>
@@ -83,7 +85,6 @@
         <div class="row mb-3">
             <div class="col">
                 <button class="btn-custom" style="border-radius: 10px; padding: 13px 10px;" type="button" id="tambahAnggota"><i class="ri-add-fill"></i>Tambah Anggota</button>
-                <button class="btn-custom" style="border-radius: 10px; padding: 13px 10px;" type="button" id="hapusAnggota"><i class="ri-close-fill"></i>Hapus Anggota</button>
             </div>
         </div>
 
@@ -105,28 +106,36 @@
     <script type="text/javascript">
         $('#tambahAnggota').on('click', function () {
             $.ajax({
-                async : true,
-                data : $('#form').serialize(),
-                type : 'POST',
-                url : '@(Url.Action("TambahAnggota", "Pensi"))',
-                success : function (partialView) {
-                    console.log(partialView);
-                    $('#anggotaTimContainer').html(partialView);
-                }
-            });
-        });
-
-        $('#hapusAnggota').on('click', function () {
-            $.ajax({
                 async: true,
                 data: $('#form').serialize(),
                 type: 'POST',
-                url: '@(Url.Action("HapusAnggota", "Pensi"))',
+                url: '@(Url.Action("TambahAnggota", "Pensi"))',
                 success: function (partialView) {
                     console.log(partialView);
                     $('#anggotaTimContainer').html(partialView);
                 }
             });
         });
+
+        function hapusAnggota() {
+            $(this).on('click', function () {
+                const index = $(this).data("index");
+
+                console.log("this", this);
+                console.log("data-index", index);
+
+                $.ajax({
+                    async: true,
+                    data: $('#form').serialize(),
+                    type: 'POST',
+                    url: `/Pensi/HapusAnggota?indexAnggota=${index}`,
+                    success: function (partialView) {
+                        console.log(partialView);
+                        $('#anggotaTimContainer').html(partialView);
+                    }
+                });
+            });
+        }
+
     </script>
 }
