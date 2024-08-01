@@ -1,4 +1,4 @@
-﻿/* Kontak dan Laporkan Error */
+﻿/* ==== CSS Laporkan Error ==== */
 #contact {
     padding: 2vw 8vw;
     display: flex;
@@ -82,27 +82,10 @@
             width: 100%;
             margin-bottom: 10px;
         }
+/* ==== Akhir CSS Laporkan Error ==== */
 
-#pro-links {
-    margin-top: 10px;
-}
-
-.pro-links i {
-    padding: 10px 13px;
-    margin-right: 3px;
-    border: 1px solid rgb(21, 21, 100);
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-    .pro-links i:hover {
-        background: rgb(21, 21, 100);
-        color: #ffffff;
-        border: 1px solid rgb(21, 21, 100);
-        cursor: pointer;
-    }
-
-/* Responsive */
+/* =============================== Responsive =============================== */
+/* Responsive MAX 1300px */
 @media (max-width: 1300px) {
     #contact {
         padding: 4vw 1vw 2vw 4vw;
@@ -112,6 +95,7 @@
     }
 }
 
+/* Responsive MAX 600px */
 @media (max-width: 600px) {
     #contact {
         padding: 10vw 10vw;
@@ -153,4 +137,4 @@
                     margin-bottom: 10px;
                 }
 }
-/* Akhir Responsive */
+/* =============================== Akhir Responsive =============================== */

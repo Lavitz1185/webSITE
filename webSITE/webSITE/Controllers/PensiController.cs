@@ -184,7 +184,7 @@ namespace webSITE.Controllers
                     Title = "Pendaftaran Sukse"
                 });
 
-                return RedirectToAction(nameof(Index));
+                return View("DaftarSukses", lomba);
             }
             catch (DomainException ex)
             {
@@ -248,7 +248,7 @@ namespace webSITE.Controllers
                     Title = "Pendaftaran Sukse"
                 });
 
-                return RedirectToAction(nameof(Index));
+                return View("DaftarSukses", lomba);
             }
             catch (DomainException ex)
             {

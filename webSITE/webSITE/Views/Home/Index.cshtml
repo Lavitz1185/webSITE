@@ -5,21 +5,16 @@
     ViewData["Active"] = "Home";
 }
 
-<style>
-    .transparent {
-        background-color: transparent !important;
-        color: transparent !important;
-    }
-</style>
-
+<!-- ==== Pengumuman Section ==== -->
 <vc:pop-up-pengumuman></vc:pop-up-pengumuman>
+<!-- ==== Akhir Pengumuman Section ==== -->
 
-<!-- Hero Section -->
+<!-- ==== Hero Section ==== -->
 <section id="home" class="mb-5">
     <div class="slider">
 
         <div class="gradient"></div>
-
+        <!-- List IMG Background Hero -->
         <div class="list">
             <div class="item active">
                 <img src="~/img/Front_Building.jpg" alt="" style="width:100%; height:100vh; object-fit: cover" />
@@ -34,10 +29,11 @@
             </div>
         </div>
 
-        <!--button slide-->
+        <!-- Button Slide Hero -->
         <div class="buttons">
             <button id="prev">&#60;</button>
             <button id="next">&#62;</button>
+            <!-- Content Hero -->
             <div class="element">
                 <h2 class="animate__animated animate__slideInDown">SITE 22 ILMU KOMPUTER</h2>
                 <p class="animate__animated animate__slideInDown">
@@ -55,7 +51,7 @@
             </div>
         </div>
 
-        <!--dots-->
+        <!-- Dots Slider Hero -->
         <ul class="dots">
             <li class="active"></li>
             <li></li>
@@ -64,20 +60,25 @@
 
     </div>
 </section>
-<!-- Akhir Hero Section -->
+<!-- ==== Akhir Hero Section ==== -->
 
-<!-- About Us -->
+<!-- ==== About Us ==== -->
 <section id="about-container" class="mb-5">
+    <!-- Kumpulan Gambar Kanan -->
     <div class="about-img" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
         <img src="~/img/Gambar_Boot.png" />
     </div>
+    <!-- Content Section About Us -->
     <div class="about-text">
+        <!-- Judul -->
         <h2 data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Selamat Datang di Website SITE22, Semoga Betah</h2>
+        <!-- Deskripsi -->
         <p data-aos="fade-in" data-aos-duration="1500" data-aos-anchor-placement="top-bottom">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
             quis nostrud exercitation ullamco laboris.
         </p>
+        <!-- Content 1 -->
         <div class="about-fe">
             <img src="~/img/programmer.png" alt="" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" />
             <div class="fe-text">
@@ -88,6 +89,7 @@
                 </p>
             </div>
         </div>
+        <!-- Content 2 -->
         <div class="about-fe">
             <img src="~/img/student.png" alt="" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" />
             <div class="fe-text">
@@ -100,22 +102,28 @@
         </div>
     </div>
 </section>
-<!-- Akhir About Us -->
+<!-- ==== Akhir About Us ==== -->
 
-<!-- Profile -->
+<!-- ==== Pengurus Angkatan ==== -->
 <section id="experts" class="mb-5">
+    <!-- Judul -->
     <h1 data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Pengurus Angkatan SITE22</h1>
+    <!-- Deskripsi Singkat -->
     <p data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
     </p>
+    <!-- Empat Box Foto -->
     <div class="expert-box">
+        <!-- Dion -->
         <div class="profile" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
             <div class="cover-generaluser">
-                <img src="~/img/herikntl1.jpg" alt="APASIH" />
+                <img src="~/img/keting5.jpg" alt="APASIH" />
             </div>
             <h6>Dion Stekiko M Tabelak</h6>
             <p>Ketua Tingkat</p>
         </div>
+
+        <!-- Heri -->
         <div class="profile" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
             <div class="cover-generaluser">
                 <img src="~/img/herikntl1.jpg" alt="LA'E'" />
@@ -123,6 +131,8 @@
             <h6>Herijuart Djawa</h6>
             <p>Koordinator I</p>
         </div>
+
+        <!-- Bernard -->
         <div class="profile" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
             <div class="cover-generaluser">
                 <img src="~/img/bernnard1.jpg" alt="APASIH" />
@@ -130,25 +140,33 @@
             <h6>Bernard Pa</h6>
             <p>Koordinator II</p>
         </div>
+
+        <!-- Naqia  -->
         <div class="profile" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
             <div class="cover-generaluser">
-                <img src="~/img/bernard4.jpg" alt="APASIH" />
+                <img src="~/img/generaluser.png" alt="APASIH" />
             </div>
             <h6>Naqia Yesoko Nggeok</h6>
             <p>Bendahara Umum</p>
         </div>
     </div>
 </section>
-<!-- Akhir Profile -->
+<!-- ==== Akhir Pengurus Angkatan ==== -->
 
-<!-- Preview Siters -->
+<!-- ==== Preview Siters ==== -->
 <section id="preSiters" class="mb-5">
+    <!-- Judul -->
     <h2 data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Preview Siters</h2>
+    <!-- Deskripsi Singkat -->
     <p data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
     </p>
+
+    <!-- PreSiters Wrapper -->
     <div class="sitewrapper" data-aos="fade-right" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
+        <!-- Owl-Carousel -->
         <div class="owl-carousel owl-theme">
+            <!-- 7 Card Profil Terpilih + 1 Last Card -->
             <div class="precard">
                 <div class="card container-siters">
                     <div class="img">
@@ -268,6 +286,8 @@
                     <a href="#" class="btn-profile">Cek Profile</a>
                 </div>
             </div>
+
+            <!-- Last Card -->
             <div class="precard">
                 <div class="card container-siters last-card">
                     <div class="card-parent">
@@ -286,151 +306,37 @@
             </div>
         </div>
     </div>
+    <!-- Akhir PreSiters Wrapper -->
 </section>
-
-<!-- Akhir Preview Siters -->
-
-
-@* <section id="preSite" class="mb-5">
-    <h2 data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Preview Siters</h2>
-    <div class="sitewrap" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
-        <i id="left">&#60;</i>
-        <ul class="carousel">
-            <li class="card container-siters">
-                <div class="img">
-                    <img src="~/img/student.png" alt="Blanche Pearson" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                </div>
-                <div class="text-container">
-                    <h1 class="name-profile">Blanche Pearson</h1>
-                </div>
-                <p class="bio">
-                    Ayu Tapatab #1
-                </p>
-                <a href="#" class="btn-profile">Cek Profile</a>
-            </li>
-            <li class="card container-siters">
-                <div class="img">
-                    <img src="~/img/student.png" alt="Joenas Brauers" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                </div>
-                <div class="text-container">
-                    <h1 class="name-profile">Joenas Brauers</h1>
-                </div>
-                <p class="bio">
-                    Albert Tapatab #1
-                </p>
-                <a href="#" class="btn-profile">Cek Profile</a>
-            </li>
-            <li class="card container-siters">
-                <div class="img">
-                    <img src="~/img/student.png" alt="Lariach French" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                </div>
-                <div class="text-container">
-                    <h1 class="name-profile">Lariach French</h1>
-                </div>
-                <p class="bio">
-                    Umbu Tapatab #1
-                </p>
-                <a href="#" class="btn-profile">Cek Profile</a>
-            </li>
-            <li class="card container-siters">
-                <div class="img">
-                    <img src="~/img/student.png" alt="Lariach French" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                </div>
-                <div class="text-container">
-                    <h1 class="name-profile">Lariach French</h1>
-                </div>
-                <p class="bio">
-                    Gege Tapatab #1
-                </p>
-                <a href="#" class="btn-profile">Cek Profile</a>
-            </li>
-            <li class="card container-siters">
-                <div class="img">
-                    <img src="~/img/student.png" alt="Lariach French" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                </div>
-                <div class="text-container">
-                    <h1 class="name-profile">Lariach French</h1>
-                </div>
-                <p class="bio">
-                    Gege Tapatab #1
-                </p>
-                <a href="#" class="btn-profile">Cek Profile</a>
-            </li>
-            <li class="card container-siters">
-                <div class="img">
-                    <img src="~/img/student.png" alt="Lariach French" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                </div>
-                <div class="text-container">
-                    <h1 class="name-profile">Lariach French</h1>
-                </div>
-                <p class="bio">
-                    Gege Tapatab #1
-                </p>
-                <a href="#" class="btn-profile">Cek Profile</a>
-            </li>
-            <li class="card container-siters">
-                <div class="img">
-                    <img src="~/img/student.png" alt="Lariach French" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                </div>
-                <div class="text-container">
-                    <h1 class="name-profile">Lariach French</h1>
-                </div>
-                <p class="bio">
-                    Gege Tapatab #1
-                </p>
-                <a href="#" class="btn-profile">Cek Profile</a>
-            </li>
-            <li class="card container-siters last-card">
-                <div class="card-parent">
-                    <div class="img">
-                        <img src="~/img/button.png" alt="More" class="profile-img" style="width: 4rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                    </div>
-                    <div class="text-container">
-                    <h1 class="name-profile">Click to</h1> //gk dipake
-                        <h1 class="name-profile">View More</h1>
-                    </div>
-                </div>
-                <div class="content-link">
-                    <a asp-area="" asp-controller="Mahasiswa" asp-action="Index" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; z-index: 1;"></a>
-                </div>
-            </li>
-        </ul>
-        <i id="right">&#62;</i>
-    </div>
-</section>
- *@
-
-
-@* <section id="parallax" class="mb-5">
-    <div class="parallax-bg">
-        <img src="~/img/palrallax-bg.png" alt="Parallax Background" class="parallax-img" />
-    </div>
-</section> *@
+<!-- ==== Akhir Section Preview Siters ==== -->
 
 
 
-
-
-<!-- Preview Kegiatan -->
+<!-- ==== Preview Kegiatan ==== -->
 <section id="preKeg" class="mb-5">
     <div class="contentPreKeg">  
+        <!-- BG Parallax -->
         <div class="parallax-bg">
             <img src="~/img/parallax-bg1.png" alt="Background Image" class="parallax-img" />
         </div>
 
+        <!-- Row Judul -->
         <div class="row row1">
             <div class="col col-md-12">
                 <h1 data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">Preview Kegiatan</h1>
             </div>
         </div>
-        <div class="row row2">
 
+        <!-- Row Card Content -->
+        <div class="row row2">
             @for (int i = 0; i < Model.DaftarKegiatan.Count; i++)
             {
                 var kegiatan = Model.DaftarKegiatan[i];
                 var thumbnail = kegiatan.DaftarFoto.Count > 0 ? kegiatan.DaftarFoto[0] : null;
+                <!-- Card Preview Kegiatan -->
                 <div class="col col-md-4 card1">
                     <div class="card" data-aos="zoom-in" data-aos-duration="300" data-aos-anchor-placement="top-bottom">
+                        <!-- IMG Card -->
                         <div class="card-img-top">
                             @if (thumbnail is not null)
                             {
@@ -441,6 +347,7 @@
                                 <img src="~/img/IMG_4611.jpeg" style="width: 100%; height: 100%; object-fit:cover; background-size: cover" alt="Card Image 1">
                             }
                         </div>
+                        <!-- Overlay Content Card -->
                         <div class="overlay">
                             <div class="overlay-content">
                                 <h5>@kegiatan.NamaKegiatan</h5>
@@ -448,14 +355,16 @@
                                 <p>@kegiatan.Tanggal.ToString("dd MMMM yyyy")</p>
                             </div>
                         </div>
+                        <!-- Masih Diperhitungkan -->
                         @* <div class="card-body">
                             <h5 class="card-title">@kegiatan.NamaKegiatan</h5>
                         </div> *@
                     </div>
                 </div>
             }
-
         </div>
+
+        <!-- Row Selengkapnya -->
         <div class="row row3">
             <div class="col col-md-12">
                 <a class="selengkapnya" data-aos="fade-in" data-aos-duration="1000" data-aos-anchor-placement="top-bottom" asp-area=" " asp-controller="Kegiatan" asp-action="Index" style="z-index: 999"><h5>Selengkapnya -></h5></a>
@@ -465,7 +374,17 @@
     
     
 </section>
+<!-- ==== Akhir Preview Kegiatan ===== -->
 
+
+<!-- ===== Section Map ==== -->
+<section id="map" class="mb-5 pb-2">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7854.6012934210685!2d123.66063784444012!3d-10.156198999077231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c5683014f4531cf%3A0x4242205fc88842ff!2sProdi%20Ilmu%20Komputer%20Undana!5e0!3m2!1sid!2sid!4v1706842308468!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>
+<!-- ==== Akhir Section Map ==== -->
+
+
+<!-- Masih Diperhitungkan -->
 @* <svg class="preimg preimgbot" style=" width: 100%; position: absolute; bottom: 0; left: 0; right: 0; z-index: 0; " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,256L120,261.3C240,267,480,277,720,282.7C960,288,1200,288,1320,288L1440,288L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>
     <svg class="preimg preimgtop" style="width: 100%; position: absolute; top: 0; left: 0; right: 0;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,160L60,144C120,128,240,96,360,74.7C480,53,600,43,720,69.3C840,96,960,160,1080,165.3C1200,171,1320,117,1380,90.7L1440,64L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
  *@
@@ -473,20 +392,25 @@
 @* <img class="preimg preimgtop" style="width: 100%; position: absolute; top: 0; left: 0; right: 0;" src="~/img/preKegtop.png" alt="Top Image" /> *@
 @*     <svg xmlns="http://www.w3.org/2000/svg" style="position: absolute; bottom: 0; z-index:1" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,160L40,186.7C80,213,160,267,240,277.3C320,288,400,256,480,213.3C560,171,640,117,720,96C800,75,880,85,960,112C1040,139,1120,181,1200,197.3C1280,213,1360,203,1400,197.3L1440,192L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg> *@
 @* <img class="preimg preimgbot" style=" width: 100%; position: absolute; bottom: 0; left: 0; right: 0; z-index: 0; " src="~/img/preKegbot.png" alt="Bottom Image" /> *@
-<!-- Akhir Preview Kegiatan -->
 
-<!-- Map -->
-<section id="map" class="mb-5 pb-2">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7854.6012934210685!2d123.66063784444012!3d-10.156198999077231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c5683014f4531cf%3A0x4242205fc88842ff!2sProdi%20Ilmu%20Komputer%20Undana!5e0!3m2!1sid!2sid!4v1706842308468!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</section>
-<!-- Akhir Map -->
 
+
+
+<!-- CSS untuk JS Slider Hero -->
+<style>
+    .transparent {
+        background-color: transparent !important;
+        color: transparent !important;
+    }
+</style>
+
+<!-- ====== Section JavaScript ======-->
 @section Scripts{
     <partial name="_TransparentNavbar" />
     <partial name="_OwlCarouselPartial" />
 
-
     <script type="text/javascript">
+        // JS PreSiters
         var owl = $('.owl-carousel');
         owl.owlCarousel({
             loop: false,
@@ -508,7 +432,7 @@
             }
         });
 
-
+        // JS Slider Hero
         $(document).ready(function () {
             const slider = $(".slider");
             const items = $(".item");
@@ -558,6 +482,7 @@
                 showSlide();
             }
 
+            // auto slide
             function startAutoSlide() {
                 interval = setInterval(nextSlide, 5000); // slide setiap 5s
             }
@@ -566,6 +491,7 @@
                 clearInterval(interval);
             }
 
+            //button next & prev transparant saat mode HP
             function checkScreenWidth() {
                 if (window.innerWidth < 768) {
                     prevBtn.addClass('transparent');
@@ -602,74 +528,13 @@
             startAutoSlide();
         });
 
-
+        // JS bg-parallax PreKeg
         window.addEventListener('scroll', function() {
         const parallax = document.querySelector('.parallax-img');
         let scrollPosition = window.pageYOffset;
         parallax.style.transform = 'translateY(' + (scrollPosition * 0.5 - 2000) + 'px)';
         });
 
-
-
-
-
-        //js preview siters
-        // document.addEventListener('DOMContentLoaded', () => {
-        //     const leftArrow = document.getElementById('left');
-        //     const rightArrow = document.getElementById('right');
-        //     const carousel = document.querySelector('.carousel');
-        //     const cards = document.querySelectorAll('.carousel .card');
-
-        //     const cardWidth = cards[0].offsetWidth + 16;
-        //     const visibleCards = 5; // jumlah card yang akan muncul
-        //     const totalCards = cards.length;
-        //     let currentPosition = 0;
-
-        //     function updateArrows() {
-        //         const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
-
-        //         if (currentPosition === 0) {
-        //             leftArrow.style.opacity = '0';
-        //             leftArrow.style.pointerEvents = 'none';
-        //         } else {
-        //             leftArrow.style.opacity = '1';
-        //             leftArrow.style.pointerEvents = 'auto';
-        //         }
-
-        //         if (currentPosition >= totalCards - visibleCards) {
-        //             rightArrow.style.opacity = '0';
-        //             rightArrow.style.pointerEvents = 'none';
-        //         } else {
-        //             rightArrow.style.opacity = '1';
-        //             rightArrow.style.pointerEvents = 'auto';
-        //         }
-        //     }
-
-        //     function scrollLeft() {
-        //         currentPosition = 0;
-        //         carousel.scrollTo({ left: 0, behavior: 'smooth' });
-        //         updateArrows();
-        //     }
-
-        //     function scrollRight() {
-        //         currentPosition = totalCards - visibleCards;
-        //         carousel.scrollTo({ left: carousel.scrollWidth, behavior: 'smooth' });
-        //         updateArrows();
-        //     }
-
-        //     function onScroll() {
-        //         const scrollLeft = carousel.scrollLeft;
-        //         currentPosition = Math.round(scrollLeft / cardWidth);
-        //         updateArrows();
-        //     }
-
-        //     leftArrow.addEventListener('click', scrollLeft);
-        //     rightArrow.addEventListener('click', scrollRight);
-        //     carousel.addEventListener('scroll', onScroll);
-
-        //     updateArrows();
-        // });
-        // //akhir
 
     </script>
 }

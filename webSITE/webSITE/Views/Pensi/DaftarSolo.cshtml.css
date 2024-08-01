@@ -1,4 +1,56 @@
-﻿
+﻿/* Progress Bar */
+.progressbar {
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    counter-reset: step;
+    margin: 0rem 0 3.5rem;
+}
+
+    .progressbar::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 4px;
+        width: 50%;
+        background-color: #dcdcdc;
+        z-index: -1;
+    }
+
+.progress-step {
+    width : 35px;
+    height: 35px;
+    background-color: #dcdcdc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.progress-step::before {
+    counter-increment: step;
+    content: counter(step);
+}
+
+    .progress-step::after {
+        content: attr(data-title);
+        position: absolute;
+        top: calc(100% + 0.75rem);
+        font-size: 0.85rem;
+        color: #666;
+    }
+
+
+/* === Warna coklat di angka pertama === */
+.progress-active-pertama {
+    background-color: var(--first-color);
+    color: white;
+}
+
+/* Akhir Progress Bar */
 
 .container-lomba-solo {
     margin: 8vw 30vw 5vw;
@@ -7,15 +59,20 @@
     background-color: white;
     padding: 50px;
     border-radius: 10px;
-    position: relative; /* Ensure this container stays above the background */
+    position: relative; 
     z-index: 1;
 }
 
-    .container-lomba-solo .judul-lomba h3 {
-        font-size: 38px;
-        margin: 0px;
-        font-weight: 600;
-    }
+.judul-lomba {
+    padding-top: 25px;
+    border-top: 1px solid #dcdcdc;
+}
+
+.container-lomba-solo .judul-lomba h3 {
+    font-size: 38px;
+    margin: 0px;
+    font-weight: 600;
+}
 
     .container-lomba-solo .judul-lomba p {
         font-size: 15px;
@@ -31,7 +88,7 @@
             padding: 5px 13px;
             border-radius: 8px;
             color: white;
-            font-size: 13px;
+            font-size: .8rem;
             cursor: pointer;
         }
 
@@ -86,12 +143,18 @@
 }
 /* Akhir CSS type input Text dan Textarea */
 
-@media (max-width: 768px) {
+@media (max-width: 1083px) {
     .container-lomba-solo {
         margin: 20vw 5vw 5vw;
     }
 
         .container-lomba-solo .container-ketentuan a {
-            font-size: 12px;
+            font-size: .67rem;
+        }
+}
+
+@media (max-width: 425px) {
+        .container-lomba-solo .container-ketentuan a {
+            font-size: .55rem;
         }
 }

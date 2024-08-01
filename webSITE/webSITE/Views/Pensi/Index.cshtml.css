@@ -221,7 +221,7 @@
     }
 
     .lomba__container {
-        padding: 4rem 0;
+        padding: 2rem 0 4rem;
         grid-template-columns: repeat(4, 185px);
         gap: 4rem 6rem;
     }
@@ -236,7 +236,7 @@
     }
 
     .lomba__title,
-    .lomba__price {
+    .lomba__kategori {
         font-size: var(--normal-font-size);
     }
 

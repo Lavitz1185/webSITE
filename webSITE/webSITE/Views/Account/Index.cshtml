@@ -4,63 +4,64 @@
     ViewData["ActiveMenuId"] = "profil";
 }
 
-<div class="container-fluid pt-5 mb-5">
+<!-- Bagian Top -->
+<section class="backfoto">
+    <img src="~/img/background_blue.png" />
+    <div class="foto-profil">
+        <img src="~/img/bentol.jpg" />
+    </div>
+</section>
+<!-- Akhir Bagian Top -->
+
+<div class="keterangan-foto-profil mb-3">
+    <button style="padding:7px 15px" class="btn btn-custom mb-3">Ganti Foto</button>
+    <h3>Oswaldus Putra Fernando</h3>
+    <h5 style="color:#111">2206080016</h5>
+</div>
+
+<div class="container-menu">
+    <div class="container-menu-lebar">
+        <partial name="_MenuPartial" />
+    </div>
+</div>
+
+
+<div class="container-fluid container-input-utama mb-5">
     <div class="row">
-        <div class="col-md-3 mb-5">
-            <partial name="_MenuPartial" />
-        </div>
-        <div id="profil" class="col-md-9 d-flex">
+        <div id="profil" class="col-md ruang-input">
             <div class="card w-100 shadow-sm">
                 <div class="card-body">
-                    <div class="row mb-4">
-                        <div class="col">
-                            <h1>Profil @Model.NamaLengkap</h1>
-                        </div>
-                    </div>
+
                     <div class="row">
-                        <form id="formProfil" asp-controller="Account" asp-area="" asp-action="Index" class="col-md-12 d-flex flex-column gap-3" method="post">
+                        <form id="formProfil" asp-controller="Account" asp-area="" asp-action="Index" class="col-md-12 d-flex flex-column" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-center"></div>
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
+                            <div class="row">                               
+                                <div class="col-md-12 mb-3 input-box">
+                                    <label asp-for="@Model.NamaLengkap"></label>
+                                    <input type="text" class="form-control" asp-for="@Model.NamaLengkap" readonly="true">
+                                    <span asp-validation-for="@Model.NamaLengkap" class="text-danger"></span>
+                                </div>                                
+                            </div>
+                            <div class="row">                               
+                                <div class="col-md-6 mb-3 input-box">
                                     <label asp-for="@Model.Nim"></label>
-                                </div>
-                                <div class="col-md-8">
                                     <input type="text" class="form-control" asp-for="@Model.Nim" readonly="true">
                                     <span asp-validation-for="@Model.Nim" class="text-danger"></span>
                                 </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
-                                    <label asp-for="@Model.NamaLengkap"></label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" asp-for="@Model.NamaLengkap" readonly="true">
-                                    <span asp-validation-for="@Model.NamaLengkap" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
+                                <div class="col-md-6 mb-3 input-box">
                                     <label asp-for="@Model.NamaPanggilan"></label>
-                                </div>
-                                <div class="col-md-8">
                                     <input type="text" class="form-control" asp-for="@Model.NamaPanggilan" readonly="true">
                                     <span asp-validation-for="@Model.NamaPanggilan" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
+                            <div class="row">
+                                <div class="col-md-6 mb-3 input-box">
                                     <label asp-for="@Model.TanggalLahir"></label>
-                                </div>
-                                <div class="col-md-8">
                                     <input type="date" class="form-control" asp-for="@Model.TanggalLahir" readonly="true">
                                     <span asp-validation-for="@Model.TanggalLahir" class="text-danger"></span>
                                 </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
+                                <div class="col-md-6 mb-3 input-box">
                                     <label asp-for="@Model.JenisKelamin"></label>
-                                </div>
-                                <div class="col-md-8">
                                     <select class="form-control" asp-for="@Model.JenisKelamin" disabled>
                                         @foreach (JenisKelamin jenisKelamin in Enum.GetValues(typeof(JenisKelamin)))
                                         {
@@ -69,45 +70,30 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
+                            <div class="row">
+                                <div class="col-md-12 mb-3 input-box">
                                     <label>Bio</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <textarea class="form-control" readonly="true">Asu Kayang</textarea>
+                                    <textarea class="form-control" readonly="true" rows="3">Asu Kayang</textarea>
                                 </div>
                             </div>
-                            <!-- Instagram -->
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
+                            <div class="row">
+                                <div class="col-md-4 mb-3 input-box">
                                     <label>Instagram</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control"  readonly="true">
-                                    <span class="text-danger"></span>
-                                </div>
-                            </div>
-                            <!-- Facebook -->
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
-                                    <label>Facebook</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control"  readonly="true">
-                                    <span  class="text-danger"></span>
-                                </div>
-                            </div>
-                            <!-- Tiktok -->
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
-                                    <label>Tiktok</label>
-                                </div>
-                                <div class="col-md-8">
                                     <input type="text" class="form-control" readonly="true">
                                     <span class="text-danger"></span>
                                 </div>
-                            </div>
-                            <div class="row mb-2">
+                                <div class="col-md-4 mb-3 input-box">
+                                    <label>Facebook</label>
+                                    <input type="text" class="form-control" readonly="true">
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="col-md-4 mb-3 input-box">
+                                    <label>Tiktok</label>
+                                    <input type="text" class="form-control" readonly="true">
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>                          
+                            <div class="row">
                                 <div class="col d-flex justify-content-center">
                                     <button id="btnSubmit" class="btn btn-custom" hidden="hidden" type="submit">Simpan</button>
                                     <a id="btnBatal" class="btn btn-secondary ms-2" asp-action="Index" hidden="hidden">Batal</a>
@@ -116,8 +102,8 @@
                         </form>
                     </div>
                     <div class="row mt-1">
-                        <div class="col d-flex justify-content-center">
-                            <button id="btnEdit" class="btn btn-custom">Edit</button>
+                        <div class="col d-flex justify-content-end">
+                            <button style="padding: 5px 20px;" id="btnEdit" class="btn btn-custom">Edit</button>
                         </div>
                     </div>
                 </div>

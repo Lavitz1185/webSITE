@@ -2,22 +2,32 @@
     var activeId = ViewData["ActiveMenuId"] as string;
 }
 
+<style>
+    .card ul li a {
+        color: rgb(35, 35, 85);
+    }
+
+    .backg-primary {
+        background: rgb(35, 35, 85);
+    }
+</style>
+
 <!-- Sidebar Navigation Menu -->
-<div class="card shadow-sm">
+<div class="card shadow-sm" style="border-radius:8px !important;">
     <div class="card-body p-0">
-        <ul class="nav flex-column">
+        <ul class="nav">
             <li class="nav-item">
                 <a id="profil" asp-action="Index" class="nav-link d-flex align-items-center p-3">
                     <i class="ri-user-line me-2"></i>
-                    Profil
+                     Kelola Profil
                 </a>
             </li>
-            <li class="nav-item">
+@*             <li class="nav-item">
                 <a id="fotoProfil" asp-action="FotoProfil" class="nav-link d-flex align-items-center p-3">
                     <i class="ri-image-line me-2"></i>
                     Foto Profil
                 </a>
-            </li>
+            </li> *@
             <li class="nav-item">
                 <a id="ubahEmail" asp-action="UbahEmail" class="nav-link d-flex align-items-center p-3">
                     <i class="ri-mail-line me-2"></i>
@@ -34,15 +44,7 @@
     </div>
 </div>
 
-<style>
-    .card ul li a {
-        color: rgb(35, 35, 85);
-    }
 
-    .backg-primary {
-        background: rgb(35, 35, 85);
-    }
-</style>
 
 <script type="text/javascript">
     const activeId = '@activeId';

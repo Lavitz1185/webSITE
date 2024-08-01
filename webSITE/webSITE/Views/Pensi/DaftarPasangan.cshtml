@@ -2,7 +2,7 @@
 @model TambahTimLombaVM
 @{
     ViewData["Title"] = "Daftar";
-    ViewData["Active"] = "Pensi";
+    ViewData["Active"] = "Pengumuman";
 }
 
 <style>
@@ -42,7 +42,7 @@
 </div>
 
 <div class="container-lomba-pasangan animate__animated animate__fadeIn">
-    <partial name="_ProgressPartial" model=@false />
+    <partial name="_ProgressPartial" model=@false/>
 
     <div class="judul-lomba">
         <h3>Pendaftaran Lomba</h3>
@@ -116,11 +116,6 @@
         </div>
     </form>
 </div>
-
-
-
-
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

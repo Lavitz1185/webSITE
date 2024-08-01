@@ -2,7 +2,7 @@
 @model List<Lomba>
 @{
     ViewData["Title"] = "Pensi";
-    ViewData["Active"] = "Pensi";
+    ViewData["Active"] = "Pengumuman";
 }
 
 <style>
@@ -349,7 +349,9 @@
     }
 
     .lomba__title,
-    .lomba__price {
+    .lomba__kategori {
+        display: flex;
+        justify-content: center;
         font-size: var(--small-font-size);
         font-weight: var(--font-semi-bold);
         color: var(--title-color);
@@ -360,14 +362,14 @@
     }
 
     .lomba__button {
-        position: absolute;
-        right: 0;
-        bottom: 0;
+        align-items: center;
+        text-align: center;
+        align-content: center;
         background-color: var(--first-color);
-        color: #FFF;
-        padding: .25rem;
+        color: #FFF;       
+        padding: 8px 15px;
         border-radius: .35rem;
-        font-size: .75rem;
+        font-size: 14px;
         gap: 5px;
         cursor: pointer;
     }
@@ -741,11 +743,14 @@
                 <img src="@Url.Action("Foto", "File", new {Area = "", id = lomba.FotoLomba?.Id ?? 0})" alt="" class="lomba__img">
 
                 <h3 class="lomba__title">@lomba.Nama</h3>
-                <span class="lomba__price">@lomba.Jenis.Humanize()</span>
+                <span class="lomba__kategori">@lomba.Jenis.Humanize()</span>
 
-                <a asp-action="Daftar" asp-controller="Pensi" asp-route-id="@lomba.Id" class="button--flex lomba__button">
-                    Daftar<i class="ri-draft-line"></i>
-                </a>
+                <div class="button-lomba-tengah" style="text-align: center; margin-top:15px;">
+                    <a asp-action="Daftar" asp-controller="Pensi" asp-route-id="@lomba.Id" class="lomba__button">
+                        Daftar
+                    </a>
+                </div>
+                
             </article>
         }
 
@@ -755,7 +760,7 @@
             <img src="~/img/Lomba/Menyanyi2.png" alt="" class="lomba__img">
 
             <h3 class="lomba__title">Menyanyi</h3>
-            <span class="lomba__price">Solo</span>
+            <span class="lomba__kategori">Solo</span>
 
             <button class="button--flex lomba__button">
                 <i class="ri-search-eye-line"></i>
@@ -768,7 +773,7 @@
             <img src="~/img/Lomba/Menari.png" alt="" class="lomba__img">
 
             <h3 class="lomba__title">Menari</h3>
-            <span class="lomba__price">Kelompok</span>
+            <span class="lomba__kategori">Kelompok</span>
 
             <button class="button--flex lomba__button">
                 <i class="ri-search-eye-line"></i>
@@ -781,7 +786,7 @@
             <img src="~/img/Lomba/FashionShow.png" alt="" class="lomba__img">
 
             <h3 class="lomba__title">Fashion Show</h3>
-            <span class="lomba__price">Pasangan</span>
+            <span class="lomba__kategori">Pasangan</span>
 
             <button class="button--flex lomba__button">
                 <i class="ri-search-eye-line"></i>
@@ -794,7 +799,7 @@
             <img src="~/img/Lomba/DesainPoster.png" alt="" class="lomba__img">
 
             <h3 class="lomba__title">Desain Poster</h3>
-            <span class="lomba__price">Solo</span>
+            <span class="lomba__kategori">Solo</span>
 
             <button class="button--flex lomba__button">
                 <i class="ri-search-eye-line"></i>

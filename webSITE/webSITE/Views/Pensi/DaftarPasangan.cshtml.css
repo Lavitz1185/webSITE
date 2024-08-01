@@ -7,6 +7,11 @@
     border-radius: 10px;
 }
 
+.judul-lomba {
+    padding-top: 25px;
+    border-top: 1px solid #dcdcdc;
+}
+
     .container-lomba-pasangan .judul-lomba h3 {
         font-size: 38px;
         margin: 0px;

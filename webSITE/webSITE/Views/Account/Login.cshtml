@@ -4,43 +4,58 @@
     ViewData["Active"] = "Masuk";
 }
 
+<!-- ===== Form Login Section ==== -->
 <section id="login-form" class="mb-5 pb-5">
     <div class="container mt-4 animate__animated animate__backInDown">
-        
         <h1 class="text-center">Masuk ke akun anda</h1>
 
         <form id="account" method="post" asp-route-returnUrl="@ViewData["ReturnUrl"]">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
 
             <div class="divider">
                 <div class="line"></div>
                 <div class="line"></div>
             </div>
 
+            <!-- Email -->
             <label asp-for="@Model.Email">Email:</label>
             <div class="custome-input">
                 <input asp-for="@Model.Email" type="email" placeholder="Your Email" autocomplete="off" />
-                <i class="ri-mail-add-line"></i>
+                <i class="ri-mail-line"></i>
                 <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
 
+            <!-- Password -->
             <label asp-for="@Model.Password">Password:</label>
             <div class="custome-input">
-                <input asp-for="@Model.Password" type="password" placeholder="Your Password" />
-                <i class="ri-key-fill"></i>
+                <input asp-for="@Model.Password" type="password" placeholder="Your Password" id="id_password" />
+                <i class="ri-eye-line" id="togglePassword"></i>
                 <span asp-validation-for="@Model.Password" class="text-danger"></span>
             </div>
 
+            <!-- Tombol Login -->
             <button class="login">Masuk</button>
 
+            <!-- Anchor Masalah Login -->
             <div class="links">
-                <a asp-action="LaporError" asp-controller="Home" asp-area="">Memiliki masalah ?</a>
+                <a asp-action="LaporError" asp-controller="Home" asp-area="">Masalah login ?</a>
             </div>
         </form>
     </div>
 </section>
+<!-- ===== Akhir Form Login Section ==== -->
 
 @section Scripts {
+    <script type="text/javascript">
+        const togglePassword = $('#togglePassword');
+        const password = $('#id_password');
+
+        $(togglePassword).on('click', function (e) {
+            const type = $(password).attr('type') === 'password' ? 'text' : 'password';
+            $(password).attr('type', type);
+            $(this).toggleClass('ri-eye-off-line');
+        });
+    </script>
+
     <partial name="_ValidationScriptsPartial" />
 }

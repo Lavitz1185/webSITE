@@ -4,38 +4,48 @@
     ViewData["ActiveMenuId"] = "ubahEmail";
 }
 
-<div class="container-fluid pt-5 mb-5">
+<!-- Bagian Top -->
+<section class="backfoto">
+    <img src="~/img/background_blue.png" />
+    <div class="foto-profil">
+        <img src="~/img/bentol.jpg" />
+    </div>
+</section>
+<!-- Akhir Bagian Top -->
+
+<div class="keterangan-foto-profil mb-3">
+    <button style="padding:7px 15px" class="btn btn-custom mb-3">Ganti Foto</button>
+    <h3>Oswaldus Putra Fernando</h3>
+    <h5 style="color:#111">2206080016</h5>
+</div>
+
+<div class="container-menu">
+    <div class="container-menu-lebar">
+        <partial name="_MenuPartial" />
+    </div>
+</div>
+
+<div class="container-fluid container-input-utama mb-5">
     <div class="row">
-        <div class="col-md-3 mb-5">
-            <partial name="_MenuPartial" />
-        </div>
-        <div id="ubahEmail" class="col-md-9 d-flex">
+        
+        <div id="ubahEmail" class="col-md ruang-input">
             <div class="card w-100 shadow-sm">
                 <div class="card-body">
-                    <div class="row mb-4">
-                        <div class="col">
-                            <h1>Ubah Email</h1>
-                        </div>
-                    </div>
                     <div class="row">
-                        <form id="formUbahEmail" asp-controller="Account" asp-area="" asp-action="UbahEmail" class="col-md-12 d-flex flex-column gap-3" method="post">
+                        <form id="formUbahEmail" asp-controller="Account" asp-area="" asp-action="UbahEmail" class="col-md-12 d-flex flex-column" method="post">
                             <div asp-validation-summary="All" class="text-center text-danger"></div>
 
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
+                            <div class="row">
+                                <div class="col-md-12 mb-3 input-box">
                                     <label asp-for="@Model.Email"></label>
-                                </div>
-                                <div class="col-md-8">
                                     <input type="email" readonly="readonly" class="form-control" asp-for="@Model.Email">
                                     <span asp-validation-for="@Model.Email" class="text-danger"></span>
                                 </div>
                             </div>
 
-                            <div class="row mb-2">
-                                <div class="col-md-2 my-auto text-md-end">
+                            <div class="row">
+                                <div class="col-md-12 mb-3  input-box">
                                     <label asp-for="@Model.EmailBaru"></label>
-                                </div>
-                                <div class="col-md-8">
                                     <input type="email" class="form-control" asp-for="@Model.EmailBaru">
                                     <span asp-validation-for="@Model.EmailBaru" class="text-danger"></span>
                                 </div>

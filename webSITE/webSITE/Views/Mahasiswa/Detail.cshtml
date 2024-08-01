@@ -6,13 +6,16 @@
 }
 
 <style>
+    /* ==== CSS Global Halaman Detail Mahasiswa ==== */
     :root {
         --clr-primary: rgb(35, 35, 85);
         --clr-primary2: rgb(30, 30, 64);
         --clr-gray: #37474f;
         --clr-gray-light: #b0bec5;
     }
+    /* ==== CSS Global Halaman Detail Mahasiswa ==== */
 
+    /* ==== CSS Section Detail Mahasiswa ==== */
     .container-fluid {
         padding: 20px;
     }
@@ -74,7 +77,6 @@
     .img-thumbnail {
         max-width: 100%;
         height: auto;
-        /* border-radius: 50%; */ /* saat detail lbh baik fp di buat kotak */
     }
 
     .table-responsive {
@@ -97,16 +99,20 @@
         .social-icons a:hover {
             color: var(--clr-primary2);
         }
+    /* ==== Akhir CSS Global Halaman Mahasiswa ==== */
 </style>
 
+<!-- ==== Section Detail Mahasiswa ==== -->
 @if (Model != null)
 {
     <div class="container-fluid pt-4 position-relative">
         <div class="row">
             <div class="col-md-6 profile-section">
+                <!-- Card Foto Mahasiswa -->
                 <div class="profile-img-container d-flex justify-content-center mb-4">
                     <img src="@Url.ActionLink("FotoProfil", "File", new { Id = Model.Id, Area = "" })" class="img-thumbnail" height="250" width="250" />
                 </div>
+                <!-- Card Biodata Mahasiswa -->
                 <div class="biodata-section mb-4">
                     <h3 class="text-center">Biodata</h3>
                     <div class="divider"></div>
@@ -159,12 +165,12 @@
                         </div>
                     </div>
                 </div>
-                <!-- Media Sosial -->
+                <!-- Card Media Sosial Mahasiswa -->
                 <div class="sosmed-section">
                     <h3 class="text-center">Media Sosial</h3>
                     <div class="divider"></div>
                     <div class="d-flex justify-content-center social-icons">
-                        <a href="#" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
+                        <a href="https://www.instagram.com/_all.berliano/" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
                         <a href="#" target="_blank" title="Facebook"><i class="ri-facebook-box-line"></i></a>
                         <a href="#" target="_blank" title="TikTok"><i class="ri-tiktok-line"></i></a>
                     </div>
@@ -172,6 +178,7 @@
             </div>
 
             <div class="col-md-6">
+                <!-- Card kegiatan Mahasiswa -->
                 <div class="kegiatan-section">
                     <h3 class="text-center">Kegiatan</h3>
                     <div class="divider"></div>
@@ -207,6 +214,7 @@
                     </div>
                 </div>
 
+                <!-- Card Album Mahasiswa -->
                 <div class="album-section">
                     <h3 class="text-center">Album Foto</h3>
                     <div class="divider"></div>
@@ -215,7 +223,7 @@
                         {
                             @foreach (var foto in Model.DaftarFoto)
                             {
-                                <div class="col-md-4 col-12 mb-3">
+                                <div class="col-md-3 col-6 mb-3">
                                     <img src="@Url.ActionLink("Foto", "File", new { Id = foto.Id, Area = "" })" class="img-fluid" />
                                 </div>
                             }
@@ -228,10 +236,14 @@
                 </div>
             </div>
         </div>
-        <a asp-controller="Mahasiswa" asp-action="Index" class="btn-back py-2">Kembali</a>
+        <!-- Tombol Kembali -->
+        <a asp-controller="Mahasiswa" asp-action="Index" style="margin-left: 10px;" class="btn-back py-2">Kembali</a>
     </div>
 }
+<!-- ==== Akhir Section Detail Mahasiswa ==== -->
 
+
+<!-- ====== Section Javascript ====== -->
 @section Scripts {
     <partial name="_DataTable"></partial>
 }
