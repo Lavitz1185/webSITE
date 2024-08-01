@@ -7,7 +7,7 @@
     background-color: white;
     padding: 50px;
     border-radius: 10px;
-    position: relative; /* Ensure this container stays above the background */
+    position: relative; 
     z-index: 1;
 }
 
@@ -17,81 +17,27 @@
         font-weight: 600;
     }
 
-    .container-lomba-solo .judul-lomba p {
+    .container-lomba-solo p {
         font-size: 15px;
     }
 
-    .container-lomba-solo .container-ketentuan {
-        margin-bottom: 20px;
-    }
-
-        .container-lomba-solo .container-ketentuan a {
-            text-decoration: none;
-            background-color: var(--first-color);
-            padding: 5px 13px;
-            border-radius: 8px;
-            color: white;
-            font-size: 13px;
-            cursor: pointer;
+        .container-lomba-solo p a {
+            color: #1d539e;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
         }
 
-            .container-lomba-solo .container-ketentuan a:hover {
-                color: white;
+            .container-lomba-solo p a:hover,
+            .container-lomba-solo p a:active {
+                color: #1f9f5d;
+                text-decoration: underline;
             }
 
-::deep .input-pensi:focus {
-    border: 1px solid #000000;
-}
-
-/* CSS type input Text dan Textarea */
-::deep .input-box label {
-    color: #333;
-    margin-bottom: 3px;
-    font-size: 16px;
-}
-
-::deep .input-box input {
-    position: relative;
-    font-size: 16px;
-    height: 40px;
-    width: 100%;
-    outline: none;
-    color: #707070;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 0 15px;
-}
-
-::deep .input-box select {
-    position: relative;
-    font-size: 16px;
-    height: 40px;
-    width: 100%;
-    outline: none;
-    color: #707070;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 0 15px;
-}
-
-::deep .input-box textarea {
-    position: relative;
-    font-size: 16px;
-    width: 100%;
-    outline: none;
-    color: #707070;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 0 15px;
-}
 /* Akhir CSS type input Text dan Textarea */
 
 @media (max-width: 768px) {
     .container-lomba-solo {
         margin: 20vw 5vw 5vw;
     }
-
-        .container-lomba-solo .container-ketentuan a {
-            font-size: 12px;
-        }
 }

@@ -58,14 +58,6 @@
 
         <div class="row mb-3">
             <div class="col-12 input-box">
-                <label asp-for="@Model.NamaTim" class="form-label"></label>
-                <input asp-for="@Model.NamaTim" type="text" class="input-pensi" />
-                <span asp-validation-for="@Model.NamaTim" class="form-text text-danger"></span>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-12 input-box">
                 <label asp-for="@Model.Angkatan" class="form-label"></label>
                 <select asp-for="@Model.Angkatan"
                         asp-items="@Enum.GetValues<Angkatan>()
@@ -75,6 +67,14 @@
                 <span asp-validation-for="@Model.Angkatan" class="form-text text-danger"></span>
             </div>
         </div>
+
+        <div class="row mb-3">
+            <div class="col-12 input-box">
+                <label asp-for="@Model.NamaTim" class="form-label"></label>
+                <input asp-for="@Model.NamaTim" type="text" class="input-pensi" />
+                <span asp-validation-for="@Model.NamaTim" class="form-text text-danger"></span>
+            </div>
+        </div>        
 
         <h4>Anggota Tim</h4>
 
@@ -88,7 +88,19 @@
             </div>
         </div>
 
+        <!-- Checkbox -->
         <div class="row mt-5">
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox">
+                    <label class="form-check-label">
+                        Saya sudah menyetujui semua persyaratan dan ketentuan lomba.
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
             <div class="col-12">
                 <button class="btn-custom w-100" style="border-radius: 10px; padding: 15px 10px;">Daftar</button>
             </div>

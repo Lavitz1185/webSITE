@@ -1,4 +1,8 @@
 ﻿@model Lomba
+@{
+    ViewData["Title"] = "Daftar";
+    ViewData["Active"] = "Pengumuman";
+}
 
 <style>
     :root {
@@ -36,15 +40,20 @@
     <img src="~/img/bg-pendafataran-pensi.jpg" alt="Background Image" />
 </div>
 
-<div class="container-lomba-solo animate__animated animate__fadeInDownBig">
+<div class="container-lomba-solo animate__animated animate__fadeIn">
     <partial name="_ProgressPartial" model=@true />
 
     <div class="judul-lomba">
         <h3>Daftar Sukses</h3>
     </div>
 
-    <p>Gabung ke grup wa lomba : 
-        <a href="@Model.LinkGrupWa.ToString()" target="_blank" rel="nofollow noreferrer">Link Grup WA</a>
-    </p>
-    <a class="btn btn-primary" asp-action="Index" asp-controller="Pensi" asp-area="">Selesai</a>
+    <div class="mt-1">
+        <p>Silahkan Bergabung ke Grup WA Lomba : 
+            <a href="@Model.LinkGrupWa.ToString()" target="_blank" rel="nofollow noreferrer"> @Model.LinkGrupWa.ToString()</a>
+        </p>
+    </div>
+
+    <div class=" mt-5">
+        <a class="btn-custom w-100" style="border-radius: 10px; padding: 10px 15px;" asp-action="Index" asp-controller="Pensi" asp-area="">Selesai</a>
+    </div>
 </div>

@@ -143,18 +143,58 @@
 }
 /* Akhir CSS type input Text dan Textarea */
 
-@media (max-width: 1083px) {
+
+/* Checkbox */
+.form-check {
+    margin-bottom: 20px;
+}
+
+    ::deep .form-check .form-check-input {
+        width: 20px;
+        height: 20px;
+        text-align: center;
+    }
+
+        ::deep .form-check .form-check-input:focus {
+/*            border: 1px solid #000000;*/
+            outline: none;
+            box-shadow: none;
+        }
+
+.form-check-label {
+    padding-top: 3px;
+    margin-left: 10px;
+    font-size: 15px;
+}
+
+
+
+
+@media (max-width: 1088px) {
     .container-lomba-solo {
         margin: 20vw 5vw 5vw;
     }
 
-        .container-lomba-solo .container-ketentuan a {
-            font-size: .67rem;
-        }
+    ::deep .container-lomba-solo .container-ketentuan a {
+        font-size: .67rem;
+    }
 }
 
-@media (max-width: 425px) {
-        .container-lomba-solo .container-ketentuan a {
-            font-size: .55rem;
-        }
+@media (max-width: 483px) {
+    .container-lomba-solo .container-ketentuan a {
+        font-size: .75rem;
+    }
+}
+
+
+@media (max-width: 457px) {
+    .container-lomba-solo .container-ketentuan a {
+        font-size: .67rem;
+    }
+}
+
+@media (max-width: 424px) {
+    .container-lomba-solo .container-ketentuan a {
+        font-size: .60rem;
+    }
 }
