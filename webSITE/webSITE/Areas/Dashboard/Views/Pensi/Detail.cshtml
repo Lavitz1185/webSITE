@@ -27,6 +27,7 @@
                         <th>Angkatan</th>
                         <th>No. WA</th>
                         <th>Tanggal Daftar</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,13 @@
                             <td>@peserta.Angkatan.Humanize()</td>
                             <td>@peserta.NoWa.Value</td>
                             <td>@peserta.TanggalDaftar.ToString()</td>
+                            <td>
+                                <form asp-action="HapusPeserta" asp-route-id="@Model.Id" asp-route-idPeserta="@peserta.Id">
+                                    <button class="btn btn-danger" style="padding: 10px 20px;" type="submit">
+                                        <i class="fa fa-regular fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -68,6 +76,7 @@
                         <th>Angkatan</th>
                         <th>No. Wa Perwakilan</th>
                         <th>Tanggal Daftar</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,6 +88,13 @@
                             <td>@tim.Angkatan.Humanize()</td>
                             <td>@tim.NoWaPerwakilan.Value</td>
                             <td>@tim.TanggalDaftar.ToString()</td>
+                            <td>
+                                <form asp-action="HapusTim" asp-route-id="@Model.Id" asp-route-idTim="@tim.Id">
+                                    <button class="btn btn-danger" style="padding: 10px 20px;" type="submit">
+                                        <i class="fa fa-regular fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>

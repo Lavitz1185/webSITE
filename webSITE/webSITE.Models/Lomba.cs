@@ -209,11 +209,11 @@ namespace webSITE.Domain
 
         public void HapusTim(TimLomba tim)
         {
-            if (Jenis != JenisLomba.Pasangan || Jenis != JenisLomba.Tim)
+            if (Jenis != JenisLomba.Pasangan && Jenis != JenisLomba.Tim)
                 throw new LombaInvalidJenisLombaException(
                     $"Tidak bisa menghapus tim pada lomba dengan jenis bukan tim atau pasangan");
 
-            var exists = _daftarPeserta.Any(t => t.Id == tim.Id);
+            var exists = _daftarTim.Any(t => t.Id == tim.Id);
 
             if (!exists)
                 throw new TimLombaNotFoundException(

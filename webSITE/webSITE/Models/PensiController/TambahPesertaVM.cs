@@ -24,4 +24,11 @@ public class TambahPesertaVM
     [Display(Name = "Nomor Wa")]
     [Required(ErrorMessage = "{0} harus diisi")]
     public string NoWa { get; set; } = string.Empty;
+
+    [Display(Name = "Setuju Ketentuan Lomba")]
+    [Required(ErrorMessage = "Harus diisi")]
+    [Compare(nameof(IsTrue), ErrorMessage = "Harus Dicentang")]
+    public bool Setuju { get; set; }
+
+    public bool IsTrue => true;
 }

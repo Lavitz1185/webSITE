@@ -259,6 +259,102 @@ namespace webSITE.Areas.Dashboard.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> HapusPeserta(int id, int idPeserta)
+        {
+            //Validasi
+            var lomba = await _repositoriLomba.GetWithDetail(id);
+
+            if (lomba is null) return NotFound();
+
+            var peserta = lomba.DaftarPeserta.FirstOrDefault(x => x.Id == idPeserta);
+
+            if(peserta is null) return NotFound();
+
+            //Simpan perubahan ke database
+            try
+            {
+                lomba.HapusPeserta(peserta);
+
+                await _unitOfWork.SaveChangesAsync();
+
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Success,
+                    Title = "Hapus Peserta Sukses",
+                });
+            }
+            catch(DomainException ex)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Hapus Peserta Gagal",
+                    Message = ex.Message,
+                });
+            }
+            catch(Exception ex)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Hapus Peserta Gagal",
+                });
+                _logger.LogError(ex, "Unhandled Exception Message : {@message}, DateTime : {@dateTime}",
+                    ex.Message, DateTime.Now);
+            }
+                
+            return RedirectToAction(nameof(Detail), new { id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> HapusTim(int id, int idTim)
+        {
+            //Validasi
+            var lomba = await _repositoriLomba.GetWithDetail(id);
+
+            if (lomba is null) return NotFound();
+
+            var tim = lomba.DaftarTim.FirstOrDefault(x => x.Id == idTim);
+
+            if (tim is null) return NotFound();
+
+            //Simpan perubahan ke database
+            try
+            {
+                lomba.HapusTim(tim);
+
+                await _unitOfWork.SaveChangesAsync();
+
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Success,
+                    Title = "Hapus Tim Sukses",
+                });
+            }
+            catch (DomainException ex)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Hapus Tim Gagal",
+                    Message = ex.Message,
+                });
+            }
+            catch (Exception ex)
+            {
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Hapus Tim Gagal",
+                });
+                _logger.LogError(ex, "Unhandled Exception Message : {@message}, DateTime : {@dateTime}",
+                    ex.Message, DateTime.Now);
+            }
+
+            return RedirectToAction(nameof(Detail), new { id });
+        }
+
         private async Task<string?> SavePDFAsync<TModel>(IFormFile formFile)
         {
             try
