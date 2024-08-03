@@ -13,7 +13,7 @@ namespace webSITE.DataAccess.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Mahasiswa> builder)
         {
-            builder.HasIndex(m => m.Nim).IsUnique();
+            builder.HasIndex(m => m.Nim);
             builder.Property(m => m.TanggalLahir).HasColumnType("timestamp without time zone");
             builder.HasMany(m => m.DaftarFoto).WithMany(f => f.DaftarMahasiswa);
             builder.ToTable("TblMahasiswa");

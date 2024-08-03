@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webSITE.DataAccess", "webSI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webSITE.Configuration", "webSITE.Configuration\webSITE.Configuration.csproj", "{517A9158-ACEB-4C9C-A9C9-B02BA19DED67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webSITE.Test", "webSITE.Test\webSITE.Test.csproj", "{AB59FB0A-613F-4160-A48F-3FAEEACAC5CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webSITE.Test", "webSITE.Test\webSITE.Test.csproj", "{AB59FB0A-613F-4160-A48F-3FAEEACAC5CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C576D383-9F30-4E87-8748-415AFCC8D84A}"
+	ProjectSection(SolutionItems) = preProject
+		SeedDataMahasiswa.sql = SeedDataMahasiswa.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
