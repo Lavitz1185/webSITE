@@ -11,33 +11,64 @@
     z-index: 1;
 }
 
-    .container-lomba-solo .judul-lomba h3 {
+    .container-lomba-solo .content {
+        width: 100%;
+        text-align: center;
+    }
+
+    .content .judul-lomba h3 {
         font-size: 38px;
         margin: 0px;
         font-weight: 600;
     }
 
-    .container-lomba-solo p {
-        font-size: 15px;
+.content p {
+    font-size: 15px;
+}
+
+    .content a {
+        color: #1d539e;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        display: block;
+        text-align: center;
     }
 
-        .container-lomba-solo p a {
-            color: #1d539e;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            white-space: normal;
-        }
-
-            .container-lomba-solo p a:hover,
-            .container-lomba-solo p a:active {
+            .content a:hover,
+            .content a:active {
                 color: #1f9f5d;
                 text-decoration: underline;
             }
 
 /* Akhir CSS type input Text dan Textarea */
 
-@media (max-width: 768px) {
+@media (max-width: 1273px) {
     .container-lomba-solo {
-        margin: 20vw 5vw 5vw;
+        margin: 100px 20vw 50px;
+        padding: 20px;
+    }
+
+        .container-lomba-solo .content .judul-lomba h3 {
+            font-size: 24px;
+        }
+
+    .content p {
+        font-size: 14px;
+    }
+}
+
+
+@media (max-width: 700px) {
+    .container-lomba-solo {
+        margin: 100px 5vw 5vw;
+    }
+}
+
+
+@media (max-width: 460px) {
+    ::deep .content img {
+        width: 80%;
+        height: 80%;
     }
 }

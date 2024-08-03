@@ -175,7 +175,7 @@ h4 {
 
 @media (max-width: 1088px) {
     .container-lomba-tim {
-        margin: 20vw 5vw 5vw;
+        margin: 100px 5vw 5vw;
     }
 
         ::deep .container-lomba-tim .container-ketentuan a {

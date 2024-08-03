@@ -28,11 +28,16 @@
     .btn-custom {
         background-color: var(--first-color);
         border: none;
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 10px;
+        text-align: center;
     }
 
         .btn-custom:hover {
             background-color: var(--first-color-alt);
         }
+
 </style>
 
 
@@ -43,17 +48,22 @@
 <div class="container-lomba-solo animate__animated animate__fadeIn">
     <partial name="_ProgressPartial" model=@true />
 
-    <div class="judul-lomba">
-        <h3>Daftar Sukses</h3>
-    </div>
+    <div class="content">
+        <div class="judul-lomba">
+            <h3>Pendaftaran Berhasil!</h3>
+            <img src="~/img/icon-selamat.png" alt="Icon Selamat" />
+        </div>
 
-    <div class="mt-1">
-        <p>Silahkan Bergabung ke Grup WA Lomba : 
+        <div class="mt-1">
+            <p>Silahkan Bergabung ke Grup WA Lomba Dibawah</p>
             <a href="@Model.LinkGrupWa.ToString()" target="_blank" rel="nofollow noreferrer"> @Model.LinkGrupWa.ToString()</a>
-        </p>
-    </div>
+        </div>
 
-    <div class=" mt-5">
-        <a class="btn-custom w-100" style="border-radius: 10px; padding: 10px 15px;" asp-action="Index" asp-controller="Pensi" asp-area="">Selesai</a>
+        <div class="row mt-5 w-100">
+            <div class="col-12">
+                <a class="btn-custom d-block" asp-action="Index" asp-controller="Pensi" asp-area="">Selesai</a>
+            </div>
+        </div>
+
     </div>
 </div>

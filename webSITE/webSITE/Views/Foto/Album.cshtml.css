@@ -56,6 +56,8 @@
     transition: .2s;
     color: white;
     background-color: rgb(35, 35, 85);
+    height: 90px;
+    width: 90px;
 }
 
     ::deep .top a:hover {
@@ -91,12 +93,12 @@
 }
 
 
-@media (max-width: 424px) {
+@media (max-width: 769px) {
     .scrollable-title {
-        padding-top: 30px;
+/*        padding-top: 30px;*/
         height: 90px;
-        max-height: 300px;
-        max-width: 600px;
+        max-height: auto;
+        max-width: 769px;
         overflow-x: auto;
         scrollbar-width: thin;
     }
@@ -113,6 +115,4 @@
         .scrollable-title::-webkit-scrollbar-track {
             background: transparent;
         }
-
-
 }
