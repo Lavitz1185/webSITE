@@ -15,19 +15,60 @@
 }
 
 
-.foto-profil ::deep img {
-    position: relative;
-    left: 50%;
-    top: 31%;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 5px solid #fff;
-    object-fit: cover;
-    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
-    
+    .foto-profil .cover-fp {
+        position: relative;
+        left: 50%;
+        top: 31%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        object-fit: cover;
+        box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+        .foto-profil .cover-fp ::deep img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-size: cover;
+            transition: .3s;
+        }
+
+.cover-fp:hover ::deep img {
+    transform: scale(1.1);
+    cursor: pointer;
+    filter: brightness(70%);
 }
+
+.cover-fp:hover .overlay-gantifp {
+    opacity: 0.8;
+    color: white;
+}
+
+.cover-fp .overlay-gantifp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: white;
+    opacity: 0;
+    transition: 0.2s ease-in-out;
+    height: 200px;
+    width: 200px;
+}
+
+    .cover-fp .overlay-gantifp ::deep a {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
 
 /* Akhir CSS Ibadah Bagian Top */
 .keterangan-foto-profil {

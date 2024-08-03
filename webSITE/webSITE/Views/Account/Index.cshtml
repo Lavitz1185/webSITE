@@ -10,13 +10,19 @@
 <section class="backfoto">
     <img src="~/img/background_blue.png" />
     <div class="foto-profil">
-        <img src="~/img/bentol.jpg" />
+        <div class="cover-fp">
+            <img src="~/img/bentol.jpg" />
+            <div class="overlay-gantifp">
+                <a id="fotoProfil" asp-action="FotoProfil">
+                    <h3>Change</h3>
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 <!-- Akhir Bagian Top -->
 
 <div class="keterangan-foto-profil mb-3">
-    <a id="fotoProfil" asp-action="FotoProfil" style="padding:7px 15px" class="btn btn-custom mb-3">Ganti Foto</a>
     <h3>Oswaldus Putra Fernando</h3>
     <h5 style="color:#111">2206080016</h5>
 </div>
