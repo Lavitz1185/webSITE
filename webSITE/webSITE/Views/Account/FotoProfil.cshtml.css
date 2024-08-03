@@ -1,0 +1,51 @@
+﻿/* CSS Ibadah Bagian Top */
+.backfoto {
+    padding-top: 0px;
+}
+
+    .backfoto ::deep img {
+        width: 100%;
+        object-fit: cover;
+        height: 150px;
+    }
+
+.foto-profil {
+    margin-bottom: -80px;
+}
+
+
+    .foto-profil ::deep img {
+        position: relative;
+        left: 50%;
+        top: 31%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        object-fit: cover;
+        box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+    }
+
+/* Akhir CSS Ibadah Bagian Top */
+
+.keterangan-foto-profil {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container-menu {
+    display: flex;
+    justify-content: center;
+    padding: 0vw 5vw;
+}
+
+.container-input-utama {
+    padding-top: 50px;
+}
+
+.ruang-input {
+    padding: 0vw 15vw;
+}

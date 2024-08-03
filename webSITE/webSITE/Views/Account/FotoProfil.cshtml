@@ -10,13 +10,32 @@
     ViewData["ActiveMenuId"] = "fotoProfil";
 }
 
-<div class="container-fluid pt-5 mb-5">
+<!-- Bagian Top -->
+<section class="backfoto">
+    <img src="~/img/background_blue.png" />
+    <div class="foto-profil">
+        <img src="~/img/bentol.jpg" />
+    </div>
+</section>
+<!-- Akhir Bagian Top -->
+
+<div class="keterangan-foto-profil mb-3">
+    <h3>Oswaldus Putra Fernando</h3>
+    <h5 style="color:#111">2206080016</h5>
+</div>
+
+<div class="container-menu">
+    <div class="container-menu-lebar">
+        <partial name="_MenuPartial" />
+    </div>
+</div>
+
+
+<div class="container-fluid container-input-utama mb-5">
     <div class="row">
-        <div class="col-md-3 mb-5">
-            <partial name="_MenuPartial" />
-        </div>
-        <div class="col-md-9 d-flex justify-content-center">
-            <div class="card w-100 shadow-sm">
+
+        <div class="col-12 d-flex justify-content-center">
+            <div class="card w-100 shadow-sm" @* style="max-width: 600px" *@>
                 <div class="card-body">
                     <div class="row mb-4" id="fotoProfilFoto">
                         <div class="col d-flex justify-content-center">

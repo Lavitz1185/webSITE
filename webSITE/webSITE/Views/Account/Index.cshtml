@@ -2,6 +2,8 @@
 @{
     ViewData["title"] = $"Profil {Model.NamaLengkap}";
     ViewData["ActiveMenuId"] = "profil";
+
+    var activeId = ViewData["ActiveMenuId"] as string;
 }
 
 <!-- Bagian Top -->
@@ -14,7 +16,7 @@
 <!-- Akhir Bagian Top -->
 
 <div class="keterangan-foto-profil mb-3">
-    <button style="padding:7px 15px" class="btn btn-custom mb-3">Ganti Foto</button>
+    <a id="fotoProfil" asp-action="FotoProfil" style="padding:7px 15px" class="btn btn-custom mb-3">Ganti Foto</a>
     <h3>Oswaldus Putra Fernando</h3>
     <h5 style="color:#111">2206080016</h5>
 </div>
