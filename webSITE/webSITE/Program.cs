@@ -15,10 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 string connectionString = "";
 
-if (builder.Environment.IsDevelopment())
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
-else
-    connectionString = builder.Configuration.GetConnectionString("PublishedConnection")!;
+connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 builder.Services.Configure<MailSettingsOptions>(builder.Configuration.GetSection(MailSettingsOptions.MailSettings));
 builder.Services.Configure<PhotoFileSettingsOptions>(builder.Configuration.GetSection(PhotoFileSettingsOptions.PhotoFileSettings));
