@@ -5,16 +5,18 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>bin\Release\net6.0\publish\</_PublishTargetUrl>
-    <History>True|2024-01-11T09:24:56.4482854Z;True|2024-01-11T17:22:20.2496236+08:00;True|2024-01-11T16:42:10.5100296+08:00;False|2024-01-11T16:41:32.8497441+08:00;False|2024-01-11T16:39:43.1812268+08:00;True|2024-01-06T16:48:36.9118857+08:00;True|2024-01-06T16:44:03.9695556+08:00;True|2023-12-24T17:04:05.8832506+08:00;True|2023-12-22T22:44:33.0375098+08:00;True|2023-12-22T21:15:17.6484213+08:00;True|2023-12-22T21:12:28.1173596+08:00;True|2023-12-22T21:11:55.2723706+08:00;True|2023-12-22T18:31:28.5506997+08:00;False|2023-12-22T18:27:51.0837521+08:00;</History>
+    <_PublishTargetUrl>C:\Users\ACER\Documents\WebSITE\webSITE\webSITE\webSITE\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2024-08-03T14:29:00.4423929Z||;True|2024-08-03T22:20:24.2443611+08:00||;True|2024-01-11T17:24:56.4482854+08:00||;True|2024-01-11T17:22:20.2496236+08:00||;True|2024-01-11T16:42:10.5100296+08:00||;False|2024-01-11T16:41:32.8497441+08:00||;False|2024-01-11T16:39:43.1812268+08:00||;True|2024-01-06T16:48:36.9118857+08:00||;True|2024-01-06T16:44:03.9695556+08:00||;True|2023-12-24T17:04:05.8832506+08:00||;True|2023-12-22T22:44:33.0375098+08:00||;True|2023-12-22T21:15:17.6484213+08:00||;True|2023-12-22T21:12:28.1173596+08:00||;True|2023-12-22T21:11:55.2723706+08:00||;True|2023-12-22T18:31:28.5506997+08:00||;False|2023-12-22T18:27:51.0837521+08:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <DestinationConnectionStrings Include="DefaultConnection">
       <Value>server=site-undana.com%3bdatabase=webSITEDb%3bUser Id=sa%3bpassword=AdiAirnona290204%3bTrustServerCertificate=true</Value>
     </DestinationConnectionStrings>
-    <DestinationConnectionStrings Include="PublishedConnection">
-      <Value>server=site-undana.com%3bdatabase=webSITEDb%3bUser Id=sa%3bpassword=AdiAirnona290204%3bTrustServerCertificate=true</Value>
-    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="webSITE.DataAccess.Data.AppDbContext">
+      <Value>Host=localhost%3bPort=5432%3bDatabase=webSITEDb%3bUsername=postgres%3bPassword=asus</Value>
+    </EFMigrations>
   </ItemGroup>
 </Project>
