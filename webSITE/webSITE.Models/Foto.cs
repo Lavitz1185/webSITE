@@ -24,18 +24,18 @@ namespace webSITE.Domain
 
         public void AddMahasiswa(Mahasiswa mahasiswa)
         {
-            var duplikasi = DaftarMahasiswa.Contains(mahasiswa);
+            var duplikasi = DaftarMahasiswa.Any(m => m.Id == mahasiswa.Id);
 
-            if (duplikasi) throw new FotoAlreadyHaveMahasiswaException(Id, mahasiswa.Id);
+            if (duplikasi) throw new FotoAlreadyHaveMahasiswaException(mahasiswa.Nim);
 
             _daftarMahasiswa.Add(mahasiswa);
         }
 
         public void DeleteMahasiswa(Mahasiswa mahasiswa)
         {
-            var exists = DaftarMahasiswa.Contains(mahasiswa);
+            var exists = DaftarMahasiswa.Any(m => m.Id == mahasiswa.Id);
 
-            if(!exists) throw new FotoDontHaveMahasiswaException(Id, mahasiswa.Id);
+            if (!exists) throw new FotoDontHaveMahasiswaException(mahasiswa.Nim);
 
             _daftarMahasiswa.Add(mahasiswa);
         }

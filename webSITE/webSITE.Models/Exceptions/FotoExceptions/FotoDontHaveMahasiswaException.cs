@@ -9,8 +9,8 @@ namespace webSITE.Domain.Exceptions.FotoExceptions
 {
     public class FotoDontHaveMahasiswaException : DomainException
     {
-        public FotoDontHaveMahasiswaException(int idFoto, string idMahasiswa)
-            : base($"Didalam Foto dengan ID : {idFoto} tidak ada Mahasiswa dengan ID : {idMahasiswa}")
+        public FotoDontHaveMahasiswaException(string nim)
+            : base($"Foto tidak memiliki Mahasiswa dengan NIM : {nim}")
         {
         }
     }

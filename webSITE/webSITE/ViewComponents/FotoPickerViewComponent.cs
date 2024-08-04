@@ -31,7 +31,7 @@ namespace webSITE.ViewComponents
 
             if (value is not null && value.Count > 0)
             {
-                if (multi) model.DaftarIdFoto = value;
+                if (multi) model.DaftarIdFoto = value.Distinct().ToList();
                 else model.DaftarIdFoto.Add(value.First());
             }
 

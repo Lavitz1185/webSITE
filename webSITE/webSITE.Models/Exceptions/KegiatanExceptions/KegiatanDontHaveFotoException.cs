@@ -9,8 +9,8 @@ namespace webSITE.Domain.Exceptions.KegiatanExceptions
 {
     public class KegiatanDontHaveFotoException : DomainException
     {
-        public KegiatanDontHaveFotoException(int idKegiatan, int idFoto)
-            : base($"Kegiatan dengan Id : {idKegiatan} tidak punya Foto dengan Id : {idFoto}")
+        public KegiatanDontHaveFotoException(string namaKegiatan, int idFoto)
+            : base($"Kegiatan {namaKegiatan} tidak punya Foto dengan Id : {idFoto}")
         {
         }
     }
