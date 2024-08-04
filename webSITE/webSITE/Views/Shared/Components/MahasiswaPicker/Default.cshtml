@@ -58,21 +58,15 @@
                             <table class="table" id="data@(Id)">
                                 <thead>
                                     <tr>
-                                        <th>Pilih</th>
                                         <th>NIM</th>
                                         <th>Nama</th>
+                                        <th>Pilih</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var mahasiswa in Model.DaftarMahasiswa)
                                     {
                                         <tr>
-                                            <td>
-                                                <input type="checkbox" id="selected" class="form-check" />
-                                                <input type="text" id="id" readonly class="form-control"
-                                                       hidden="hidden"
-                                                       value="@mahasiswa.Id" />
-                                            </td>
                                             <td>
                                                 <input type="text" id="nim" hidden readonly class="form-control"
                                                        value="@mahasiswa.Nim" />
@@ -82,6 +76,12 @@
                                                 <input type="text" id="nama" hidden readonly class="form-control"
                                                        value="@mahasiswa.NamaLengkap" />
                                                 @mahasiswa.NamaLengkap
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="selected" class="form-check" />
+                                                <input type="text" id="id" readonly class="form-control"
+                                                       hidden="hidden"
+                                                       value="@mahasiswa.Id" />
                                             </td>
                                         </tr>
                                     }
