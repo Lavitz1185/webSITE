@@ -1,5 +1,5 @@
 ﻿@using Humanizer
-@model TambahPesertaVM
+@model TambahAnggotaTimVM
 
 <div class="row mb-3">
     <div class="row mb-3">
@@ -23,12 +23,6 @@
                     class="input-pensi">
             </select>
             <span asp-validation-for="@Model.JenisKelamin" class="form-text text-danger"></span>
-        </div>
-
-        <div class="col-12 input-box">
-            <label asp-for="@Model.NoWa" class="form-label"></label>
-            <input asp-for="@Model.NoWa" type="text" class="input-pensi" />
-            <span asp-validation-for="@Model.NoWa" class="form-text text-danger"></span>
         </div>
     </div>
 </div>

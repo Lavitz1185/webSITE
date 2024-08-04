@@ -13,6 +13,10 @@ public class TambahTimLombaVM
     [Required(ErrorMessage = "{0} harus diisi")]
     public Angkatan Angkatan { get; set; }
 
+    [Display(Name = "Nomor Wa")]
+    [Required(ErrorMessage = "{0} harus diisi")]
+    public string NoWa { get; set; } = string.Empty;
+
     [Display(Name = "Setuju Ketentuan Lomba")]
     [Required(ErrorMessage = "Harus diisi")]
     [Compare(nameof(IsTrue), ErrorMessage = "Harus Dicentang")]
@@ -20,5 +24,5 @@ public class TambahTimLombaVM
 
     public bool IsTrue => true;
 
-    public List<TambahPesertaVM> AnggotaTim { get; set; } = new List<TambahPesertaVM>();
+    public List<TambahAnggotaTimVM> AnggotaTim { get; set; } = new List<TambahAnggotaTimVM>();
 }

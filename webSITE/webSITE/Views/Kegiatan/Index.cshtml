@@ -2,8 +2,8 @@
 @{
     ViewData["title"] = "Kegiatan";
     ViewData["Active"] = "Kegiatan";
+    var cultureInfo = new CultureInfo("id-ID");
 }
-
 
 <!-- ==== Modal untuk Peserta Kegiatan ==== -->
 @foreach (var kegiatan in Model)
@@ -100,7 +100,7 @@
                                 <!-- Tempat dan Tanggal Kegiatan -->
                                 <div class="d-flex justify-content-between align-items-center mb-1">                                 
                                     <h3 class="card-title">@kegiatan.TempatKegiatan</h3>
-                                    <h3 class="card-title">@kegiatan.Tanggal.ToString("dd MMMM yyyy")</h3>
+                                    <h3 class="card-title">@kegiatan.Tanggal.ToString("dd MMMM yyyy", cultureInfo)</h3>
                                 </div>
                                 <!-- Nama Kegiatan -->
                                 <h2 class="card-title" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#detailModal@(kegiatan.Id)">

@@ -62,7 +62,7 @@ namespace webSITE.Controllers
                 JenisLomba.Pasangan =>
                     View(
                         "DaftarPasangan",
-                        new TambahTimLombaVM { AnggotaTim = new() { new TambahPesertaVM(), new TambahPesertaVM() } }),
+                        new TambahTimLombaVM { AnggotaTim = new() { new(), new() } }),
                 _ => BadRequest()
             };
         }
@@ -78,15 +78,7 @@ namespace webSITE.Controllers
             {
                 var lomba = await _repositoriLomba.GetWithDetail(id);
 
-                if (lomba is null)
-                {
-                    _notificationService.AddNotification(new ToastrNotification
-                    {
-                        Type = ToastrNotificationType.Error,
-                        Title = "Lomba tidak ditemukan"
-                    });
-                    return RedirectToAction(nameof(Index));
-                }
+                if (lomba is null) return NotFound();
 
                 var peserta = PesertaLomba.Create(
                     Nim.Create(tambahPesertaVM.Nim),
@@ -145,15 +137,7 @@ namespace webSITE.Controllers
             {
                 var lomba = await _repositoriLomba.GetWithDetail(id);
 
-                if (lomba is null)
-                {
-                    _notificationService.AddNotification(new ToastrNotification
-                    {
-                        Type = ToastrNotificationType.Error,
-                        Title = "Lomba tidak ditemukan"
-                    });
-                    return RedirectToAction(nameof(Index));
-                }
+                if (lomba is null) return NotFound();
 
                 var tim = new TimLomba
                 {
@@ -166,7 +150,7 @@ namespace webSITE.Controllers
                             a.Nama,
                             a.JenisKelamin,
                             tambahTimLombaVM.Angkatan,
-                            NoWa.Create(a.NoWa),
+                            NoWa.Create(tambahTimLombaVM.NoWa),
                             DateTime.Now)).ToList()
                 };
 
@@ -209,15 +193,7 @@ namespace webSITE.Controllers
             {
                 var lomba = await _repositoriLomba.GetWithDetail(id);
 
-                if (lomba is null)
-                {
-                    _notificationService.AddNotification(new ToastrNotification
-                    {
-                        Type = ToastrNotificationType.Error,
-                        Title = "Lomba tidak ditemukan"
-                    });
-                    return RedirectToAction(nameof(Index));
-                }
+                if (lomba is null) return NotFound();
 
                 var tim = new TimLomba
                 {
@@ -230,7 +206,7 @@ namespace webSITE.Controllers
                             a.Nama,
                             a.JenisKelamin,
                             tambahTimVM.Angkatan,
-                            NoWa.Create(a.NoWa),
+                            NoWa.Create(tambahTimVM.NoWa),
                             DateTime.Now)).ToList()
                 };
 
@@ -263,22 +239,26 @@ namespace webSITE.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> TambahAnggota(
+        public IActionResult TambahAnggota(
             [Bind(nameof(TambahTimLombaVM.AnggotaTim))] TambahTimLombaVM tambahTimVM)
         {
-            tambahTimVM.AnggotaTim.Add(new TambahPesertaVM());
-            return PartialView("_TambahPesertaVMPartial", tambahTimVM);
+            tambahTimVM.AnggotaTim.Add(new());
+
+            ModelState.Clear();
+            return PartialView("_TambahAnggotaTimVMPartial", tambahTimVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> HapusAnggota(
+        public IActionResult HapusAnggota(
             [Bind(nameof(TambahTimLombaVM.AnggotaTim))] TambahTimLombaVM tambahTimVM, int indexAnggota)
         {
             if(tambahTimVM.AnggotaTim.Count > 0 && tambahTimVM.AnggotaTim.Count >= indexAnggota + 1)
             {
                 tambahTimVM.AnggotaTim.RemoveAt(indexAnggota);
             }
-            return PartialView("_TambahPesertaVMPartial", tambahTimVM);
+
+            ModelState.Clear();
+            return PartialView("_TambahAnggotaTimVMPartial", tambahTimVM);
         }
     }
 }

@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Home Page";
     ViewData["Active"] = "Home";
+    var cultureInfo = new CultureInfo("id-ID");
 }
 
 <!-- ==== Pengumuman Section ==== -->
@@ -246,7 +247,7 @@
                             <div class="overlay-content">
                                 <h5>@kegiatan.NamaKegiatan</h5>
                                 <p>@kegiatan.TempatKegiatan</p>
-                                <p>@kegiatan.Tanggal.ToString("dd MMMM yyyy")</p>
+                                <p>@kegiatan.Tanggal.ToString("dd MMMM yyyy", cultureInfo)</p>
                             </div>
                         </div>
                         <!-- Masih Diperhitungkan -->

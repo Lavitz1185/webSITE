@@ -23,36 +23,13 @@ namespace webSITE.Controllers
             _repositoriFoto = repositoriFoto;
             _repositoriKegiatan = repositoriKegiatan;
         }
-        public async Task<IActionResult> Album(int? idKegiatan, string? returnUrl)
+        public async Task<IActionResult> Album(int idKegiatan, string? returnUrl)
         {
             returnUrl = returnUrl ?? Url.Action("Index", "Foto", new { Area = "" });
 
             ViewData["ReturnUrl"] = returnUrl;
 
-            if (idKegiatan is null)
-            {
-                var daftarFotoTanpaKegiatan = await _repositoriFoto.GetAllWithKegiatan();
-
-                if (daftarFotoTanpaKegiatan is null || daftarFotoTanpaKegiatan.Count == 0)
-                    return View(new AlbumVM
-                    {
-                        NamaKegiatan = "Lain - Lain"
-                    });
-
-                daftarFotoTanpaKegiatan = daftarFotoTanpaKegiatan
-                    .Where(f => f.DaftarKegiatan.Count == 0)
-                    .OrderBy(f => f.AddedAt)
-                    .ToList();
-
-                return View(new AlbumVM
-                {
-                    NamaKegiatan = "Lain - Lain",
-                    Tanggal = daftarFotoTanpaKegiatan.First().AddedAt,
-                    DaftarFoto = daftarFotoTanpaKegiatan.ToList()
-                });
-            }
-
-            var kegiatan = await _repositoriKegiatan.GetWithDetail(idKegiatan.Value);
+            var kegiatan = await _repositoriKegiatan.GetWithDetail(idKegiatan);
 
             if (kegiatan is null) return NotFound();
 
@@ -71,7 +48,6 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var daftarFoto = (await _repositoriFoto.GetAllWithKegiatan()) ?? new();
             var daftarKegiatan = (await _repositoriKegiatan.GetAllWithDetail()) ?? new();
 
             List<AlbumVM> viewModel = new List<AlbumVM>();
@@ -98,31 +74,6 @@ namespace webSITE.Controllers
                         IdKegiatan = kegiatan.Id,
                         JumlahFoto = 0
                     });
-            }
-
-            var fotoTanpaKegiatan = daftarFoto
-                .Where(f => f.DaftarKegiatan.Count == 0)
-                .OrderBy(f => f.AddedAt)
-                .ToList();
-
-            if (fotoTanpaKegiatan.Count > 0)
-            {
-                viewModel.Add(new AlbumVM
-                {
-                    NamaKegiatan = "Lain - Lain",
-                    IdThumbnail = fotoTanpaKegiatan.First().Id,
-                    JumlahFoto = fotoTanpaKegiatan.Count,
-                    Tanggal = fotoTanpaKegiatan.First().AddedAt,
-                    DaftarFoto = fotoTanpaKegiatan,
-                });
-            }
-            else
-            {
-                viewModel.Add(new AlbumVM
-                {
-                    NamaKegiatan = "Lain -Lain",
-                    JumlahFoto = 0
-                });
             }
 
             return View(viewModel);

@@ -76,10 +76,18 @@
             </div>
         </div>
 
+        <div class="row mb-3">
+            <div class="col-12 input-box">
+                <label asp-for="@Model.NoWa" class="form-label"></label>
+                <input asp-for="@Model.NoWa" type="text" class="input-pensi" />
+                <span asp-validation-for="@Model.NoWa" class="form-text text-danger"></span>
+            </div>
+        </div>
+
         <h4>Anggota Tim</h4>
 
         <div id="anggotaTimContainer">
-            <partial name="_TambahPesertaVMPartial" model=@Model />
+            <partial name="_TambahAnggotaTimVMPartial" model=@Model />
         </div>
 
         <div class="row mb-3">

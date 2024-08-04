@@ -3,6 +3,7 @@
 @{
     ViewData["title"] = "Profil";
     ViewData["Active"] = "Siters";
+    var cultureInfo = new CultureInfo("id-ID");
 }
 
 <style>
@@ -153,7 +154,7 @@
                             <b>Tanggal Lahir</b>
                         </div>
                         <div class="col-6">
-                            @Model.TanggalLahir.ToLongDateString()
+                            @Model.TanggalLahir.ToString("dd MMMM yyyy", cultureInfo)
                         </div>
                     </div>
                     <div class="row mt-2">
