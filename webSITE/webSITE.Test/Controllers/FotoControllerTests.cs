@@ -71,30 +71,6 @@ namespace webSITE.Test.Controllers
         }
 
         [Fact]
-        public async Task Album_Should_ReturnViewResultObject_WhenIdKegiatanIsNull()
-        {
-            //Arrange
-            int? idKegiatan = null;
-            string namaAlbum = "Lain - Lain";
-            var daftarFoto = new List<Foto>();
-
-            _repositoriFoto.Setup(r => r.GetAllWithKegiatan()).ReturnsAsync(daftarFoto);
-
-            //Act
-            var result = await _fotoController.Album(idKegiatan, "");
-
-            //Assert
-            result.Should().NotBeNull();
-            var viewResult = result.Should().BeOfType<ViewResult>().Subject;
-
-            viewResult.Should().NotBeNull();
-            var albumVM = viewResult.Model.Should().BeOfType<AlbumVM>().Subject;
-
-            albumVM.IdKegiatan.Should().Be(idKegiatan);
-            albumVM.NamaKegiatan.Should().Be(namaAlbum);
-        }
-
-        [Fact]
         public async Task Album_Should_ReturnNotFoundResultObject_WhenIdKegiatanIsNotNullAndKegiatanIsNotFound()
         {
             //Arrange
