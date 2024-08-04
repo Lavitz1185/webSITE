@@ -29,53 +29,29 @@ namespace webSITE.Controllers
 
         public async Task<IActionResult> Index(int? pageIndex, string? searchString)
         {
-            IEnumerable<Mahasiswa> listMahasiwa = (await _repositoriMahasiswa.GetAll())
-                .Where(m => m.StatusAkun == StatusAkun.Aktif)
-                .OrderBy(m => long.Parse(m.Nim));
+            var listMahasiwa = await _repositoriMahasiswa.GetAll();
+
+            listMahasiwa = listMahasiwa?.OrderBy(x => x.Nim).ToList();
 
             if (searchString != null && !searchString.IsNullOrEmpty()) 
             { 
-                listMahasiwa = listMahasiwa
-                    .Where(m => m.NamaLengkap.ToLower().Contains(searchString.ToLower()) || m.NamaPanggilan.ToLower().Contains(searchString.ToLower()) || m.Nim.ToLower().Contains(searchString.ToLower()));
+                listMahasiwa = listMahasiwa?
+                    .Where(m => m.NamaLengkap.ToLower().Contains(searchString.ToLower()) || m.NamaPanggilan.ToLower().Contains(searchString.ToLower()) || m.Nim.ToLower().Contains(searchString.ToLower()))
+                    .ToList();
             }
 
             ViewData["searchString"] = searchString;
 
-            var items = PaginatedList<Mahasiswa>.CreateAsync(listMahasiwa, pageIndex ?? 1, 12);
+            var items = PaginatedList<Mahasiswa>.CreateAsync(listMahasiwa ?? new(), pageIndex ?? 1, 12);
 
             return View(items);
         }
 
         public async Task<IActionResult> Detail(string id)
         {
-            if (id == null)
-            {
-                _logger.LogError("Mahasiswa.Detail Id null/tidak ada");
-
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Detail Mahasiswa",
-                    Message = "Error mengambil data mahasiswa"
-                });
-
-                return RedirectToAction(nameof(Index));
-            }
-
             var mahasiswa = await _repositoriMahasiswa.GetWithDetail(id);
-            if (mahasiswa == null)
-            {
-                _logger.LogError("Mahasiswa.Detail Mahasiswa dengan Id {id} tidak ada", id);
 
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Error,
-                    Title = "Detail Mahasiswa",
-                    Message = "Error mengambil data mahasiswa"
-                });
-
-                return RedirectToAction(nameof(Index));
-            }
+            if (mahasiswa is null) return NotFound();
 
             return View(mahasiswa);
         }

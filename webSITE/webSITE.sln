@@ -15,6 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webSITE.Test", "webSITE.Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C576D383-9F30-4E87-8748-415AFCC8D84A}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		SeedDataMahasiswa.sql = SeedDataMahasiswa.sql
 	EndProjectSection
 EndProject

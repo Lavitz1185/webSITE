@@ -59,25 +59,26 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mb-3 input-box">
-                                    <label>Bio</label>
-                                    <textarea class="form-control" readonly="true" rows="3">Asu Kayang</textarea>
+                                    <label asp-for="@Model.Bio"></label>
+                                    <textarea asp-for="@Model.Bio" class="form-control" readonly="readonly" rows="3"></textarea>
+                                    <span asp-validation-for="@Model.Bio" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 mb-3 input-box">
-                                    <label>Instagram</label>
-                                    <input type="text" class="form-control" readonly="true">
+                                    <label asp-for="@Model.InstagramProfileLink"></label>
+                                    <input asp-for="@Model.InstagramProfileLink" type="text" class="form-control" readonly="readonly">
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4 mb-3 input-box">
-                                    <label>Facebook</label>
-                                    <input type="text" class="form-control" readonly="true">
-                                    <span class="text-danger"></span>
+                                    <label asp-for="@Model.FacebookProfileLink"></label>
+                                    <input asp-for="@Model.FacebookProfileLink" type="text" class="form-control" readonly="readonly">
+                                    <span asp-validation-for="@Model.FacebookProfileLink" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4 mb-3 input-box">
-                                    <label>Tiktok</label>
-                                    <input type="text" class="form-control" readonly="true">
-                                    <span class="text-danger"></span>
+                                    <label asp-for="@Model.TikTokProfileLink"></label>
+                                    <input asp-for="@Model.TikTokProfileLink" type="text" class="form-control" readonly="readonly">
+                                    <span asp-validation-for="@Model.TikTokProfileLink" class="text-danger"></span>
                                 </div>
                             </div>                          
                             <div class="row">

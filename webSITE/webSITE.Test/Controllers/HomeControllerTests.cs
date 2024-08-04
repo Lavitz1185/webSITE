@@ -15,6 +15,7 @@ namespace webSITE.Test.Controllers
     {
         private readonly Mock<IRepositoriKegiatan> _repositoriKegiatan;
         private readonly Mock<ILogger<HomeController>> _logger;
+        private readonly Mock<IRepositoriMahasiswa> _repositoriMahasiswa;
 
         private readonly HomeController _homeController;
 
@@ -23,9 +24,13 @@ namespace webSITE.Test.Controllers
             //Depedencies
             _repositoriKegiatan = new Mock<IRepositoriKegiatan>();
             _logger = new Mock<ILogger<HomeController>>();
+            _repositoriMahasiswa = new Mock<IRepositoriMahasiswa>();
 
             //SUT
-            _homeController = new HomeController(_logger.Object, _repositoriKegiatan.Object);
+            _homeController = new HomeController(
+                _logger.Object, 
+                _repositoriKegiatan.Object,
+                _repositoriMahasiswa.Object);
         }
 
         [Fact]

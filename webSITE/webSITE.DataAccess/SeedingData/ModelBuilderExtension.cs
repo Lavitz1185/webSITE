@@ -21,7 +21,6 @@ namespace webSITE.DataAccess.SeedingData
                     TanggalLahir = new DateTime(2004, 2, 29),
                     JenisKelamin = JenisKelamin.LakiLaki,
                     FotoProfil = fotoProfil,
-                    StatusAkun = StatusAkun.Aktif,
                     Bio = "Adi Juanito Taklal ILKOM #1",
                     Email = "aditaklal@gmail.com",
                     PasswordHash = new PasswordHasher<Mahasiswa>().HashPassword(null, "adiairnona"),
@@ -38,7 +37,6 @@ namespace webSITE.DataAccess.SeedingData
                     TanggalLahir = new DateTime(2004, 4, 14),
                     JenisKelamin = JenisKelamin.LakiLaki,
                     FotoProfil = fotoProfil,
-                    StatusAkun = StatusAkun.Aktif,
                     Bio = "Oswaldus Putra Fernando ILKOM #1",
                     Email = "fernandputra14@gmail.com",
                     PasswordHash = new PasswordHasher<Mahasiswa>().HashPassword(null, "fernandilkom"),
@@ -55,7 +53,6 @@ namespace webSITE.DataAccess.SeedingData
                     TanggalLahir = new DateTime(2004, 1, 7),
                     JenisKelamin = JenisKelamin.LakiLaki,
                     FotoProfil = fotoProfil,
-                    StatusAkun = StatusAkun.Aktif,
                     Bio = "Albert Berliano Tapatab ILKOM #1",
                     Email = "Lavitz1185@gmail.com",
                     PasswordHash = new PasswordHasher<Mahasiswa>().HashPassword(null, "albertilkom"),
@@ -63,6 +60,7 @@ namespace webSITE.DataAccess.SeedingData
                     NormalizedEmail = "Lavitz1185@gmail.com".ToUpper(),
                     UserName = "Lavitz1185@gmail.com",
                     NormalizedUserName = "Lavitz1185@gmail.com".ToUpper(),
+                    InstagramProfileLink = new Uri("https://www.instagram.com/_all.berliano/")
                 },
             };
 

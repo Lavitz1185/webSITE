@@ -7,19 +7,15 @@ using webSITE.Models.Account;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Utilities;
 using webSITE.Models.AccountController;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text.Encodings.Web;
 using System.Text;
 using Microsoft.AspNetCore.Authentication;
 using webSITE.Services.Contracts;
 using webSITE.Models;
-using NuGet.Common;
-using System.ComponentModel.DataAnnotations;
 using webSITE.Configuration;
 using Microsoft.Extensions.Options;
 using webSITE.DataAccess.Data;
-using webSITE.Domain.Enum;
 using webSITE.Domain.Abstractions;
 
 namespace webSITE.Controllers
@@ -69,7 +65,20 @@ namespace webSITE.Controllers
 
             var mahasiswa = await _repositoriMahasiswa.Get(id);
 
-            var accountIndexVM = _mapper.Map<AccountIndexVM>(mahasiswa);
+            if(mahasiswa is null) return Forbid();
+
+            var accountIndexVM = new AccountIndexVM
+            {
+                Nim = mahasiswa.Nim,
+                NamaLengkap = mahasiswa.NamaLengkap,
+                NamaPanggilan = mahasiswa.NamaPanggilan,
+                JenisKelamin = mahasiswa.JenisKelamin,
+                TanggalLahir = mahasiswa.TanggalLahir,
+                Bio = mahasiswa.Bio,
+                InstagramProfileLink = mahasiswa.InstagramProfileLink?.ToString(),
+                FacebookProfileLink = mahasiswa.FacebookProfileLink?.ToString(),
+                TikTokProfileLink = mahasiswa.TikTokProfileLink?.ToString()
+            };
 
             return View(accountIndexVM);
         }
@@ -77,9 +86,61 @@ namespace webSITE.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(AccountIndexVM accountIndexVM)
         {
-            var mahasiswa = _mapper.Map<Mahasiswa>(accountIndexVM);
+            var mahasiswa = await _userManager.GetUserAsync(User);
 
-            mahasiswa.Id = _userManager.GetUserId(User);
+            if(mahasiswa is null) return Forbid();
+
+            mahasiswa.NamaLengkap = accountIndexVM.NamaLengkap;
+            mahasiswa.NamaPanggilan = accountIndexVM.NamaPanggilan;
+            mahasiswa.TanggalLahir = accountIndexVM.TanggalLahir;
+            mahasiswa.Nim = accountIndexVM.Nim;
+            mahasiswa.JenisKelamin = accountIndexVM.JenisKelamin;
+            mahasiswa.Bio = accountIndexVM.Bio;
+
+            if (accountIndexVM.InstagramProfileLink is not null)
+            {
+                var uri = new Uri(accountIndexVM.InstagramProfileLink);
+
+                if (!uri.Host.Contains("instagram"))
+                {
+                    ModelState.AddModelError(
+                        nameof(AccountIndexVM.InstagramProfileLink), "Bukan URL Instagram Valid");
+
+                    return View(accountIndexVM);
+                }
+
+                mahasiswa.InstagramProfileLink = uri;
+            }
+
+            if (accountIndexVM.FacebookProfileLink is not null)
+            {
+                var uri = new Uri(accountIndexVM.FacebookProfileLink);
+
+                if (!uri.Host.Contains("facebook"))
+                {
+                    ModelState.AddModelError(
+                        nameof(AccountIndexVM.FacebookProfileLink), "Bukan URL Facebook Valid");
+
+                    return View(accountIndexVM);
+                }
+
+                mahasiswa.FacebookProfileLink = uri;
+            }
+
+            if (accountIndexVM.TikTokProfileLink is not null)
+            {
+                var uri = new Uri(accountIndexVM.TikTokProfileLink);
+
+                if (!uri.Host.Contains("tiktok"))
+                {
+                    ModelState.AddModelError(
+                        nameof(AccountIndexVM.TikTokProfileLink), "Bukan URL Tiktok Valid");
+
+                    return View(accountIndexVM);
+                }
+
+                mahasiswa.TikTokProfileLink = uri;
+            }
 
             try
             {
@@ -429,12 +490,6 @@ namespace webSITE.Controllers
                 if (user.EmailConfirmed == false)
                 {
                     ModelState.AddModelError(string.Empty, "Login gagal");
-                    return View(loginVM);
-                }
-
-                if (user.StatusAkun == StatusAkun.TidakAktif)
-                {
-                    ModelState.AddModelError(string.Empty, "Status akun tidak aktif");
                     return View(loginVM);
                 }
 

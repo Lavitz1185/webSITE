@@ -64,8 +64,6 @@ namespace webSITE.Areas.Dashboard.Controllers
         {
             var mahasiswa = await _userStore.FindByIdAsync(mahasiswaVM.Id, CancellationToken.None);
 
-            mahasiswa.StatusAkun = mahasiswaVM.StatusAkun;
-
             var result = await _userStore.UpdateAsync(mahasiswa, CancellationToken.None);
 
             if(!result.Succeeded)
@@ -115,18 +113,18 @@ namespace webSITE.Areas.Dashboard.Controllers
                 await _repositoriMahasiswa.Delete(id);
                 await _unitOfWork.SaveChangesAsync();
             }
-            catch (MahasiswaNotFoundException ex)
+            catch (MahasiswaNotFoundException)
             {
-                _logger.LogError("Delete. Exception : {0}", ex.ToString());
                 return NotFound();
             }
             catch(Exception ex)
             {
-                _logger.LogError("Delete. Exception : {0}", ex.ToString());
+                _logger.LogError(ex, "Delete. Message : {@message}, Time Stamp : {@dateTime}",
+                    ex.Message, DateTime.Now);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Detail(string id)
