@@ -101,7 +101,6 @@ namespace webSITE.Areas.Dashboard.Controllers
                 var lomba = Lomba.Create(
                     tambahVM.Nama,
                     tambahVM.Jenis,
-                    tambahVM.Keterangan,
                     tambahVM.MaksKuotaPerAngkatan,
                     new Uri(tambahVM.LinkGrupWa),
                     pathPDF,
@@ -146,7 +145,6 @@ namespace webSITE.Areas.Dashboard.Controllers
             {
                 Id = lomba.Id,
                 Nama = lomba.Nama,
-                Keterangan = lomba.Keterangan,
                 LinkGrupWa = lomba.LinkGrupWa.ToString(),
                 FotoId = lomba.FotoLomba?.Id
             });
@@ -189,7 +187,6 @@ namespace webSITE.Areas.Dashboard.Controllers
             try
             {
                 lomba.Nama = editVM.Nama;
-                lomba.Keterangan = editVM.Keterangan;
                 lomba.LinkGrupWa = new Uri(editVM.LinkGrupWa);
                 lomba.FotoLomba = foto;
 

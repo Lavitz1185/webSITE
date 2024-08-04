@@ -14,7 +14,6 @@ namespace webSITE.Domain
 
         public string Nama { get; set; }
         public JenisLomba Jenis { get; set; }
-        public string Keterangan { get; set; }
         public int MaksKuotaPerAngkatan { get; set; }
         public Uri LinkGrupWa { get; set; }
         public string PDFPath { get; set; }
@@ -31,7 +30,6 @@ namespace webSITE.Domain
         private Lomba(
             string nama,
             JenisLomba jenis,
-            string keterangan,
             int maksKuotaPerAngkatan,
             Uri linkGrupWa,
             string pDFPath,
@@ -41,7 +39,6 @@ namespace webSITE.Domain
         {
             Nama = nama;
             Jenis = jenis;
-            Keterangan = keterangan;
             MaksKuotaPerAngkatan = maksKuotaPerAngkatan;
             PDFPath = pDFPath;
             LinkGrupWa = linkGrupWa;
@@ -53,7 +50,6 @@ namespace webSITE.Domain
         public static Lomba Create(
             string nama,
             JenisLomba jenis,
-            string keterangan,
             int maksKuotaPerAngkatan,
             Uri linkGrupWa,
             string pDFPath,
@@ -81,7 +77,6 @@ namespace webSITE.Domain
             return new Lomba(
                 nama,
                 jenis,
-                keterangan,
                 maksKuotaPerAngkatan,
                 linkGrupWa,
                 pDFPath,

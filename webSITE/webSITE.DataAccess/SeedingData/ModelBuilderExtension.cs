@@ -182,7 +182,6 @@ namespace webSITE.DataAccess.SeedingData
                     Id = 1,
                     Nama = "Menyanyi",
                     Jenis = JenisLomba.Solo,
-                    Keterangan = "Keterangan",
                     MaksKuotaPerAngkatan = 2,
                     LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM"),
                     PDFPath = "/pdf/Csharp_in_Depth_4th_Edition.pdf"
@@ -192,7 +191,6 @@ namespace webSITE.DataAccess.SeedingData
                     Id = 2,
                     Nama = "Desain Poster",
                     Jenis = JenisLomba.Solo,
-                    Keterangan = "Keterangan",
                     MaksKuotaPerAngkatan = 2,
                     LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM"),
                     PDFPath = "/pdf/Csharp_in_Depth_4th_Edition.pdf"
@@ -202,7 +200,6 @@ namespace webSITE.DataAccess.SeedingData
                     Id = 3,
                     Nama = "Menari",
                     Jenis = JenisLomba.Tim,
-                    Keterangan = "Keterangan",
                     MaksKuotaPerAngkatan = 2,
                     MinAnggotaPerTim = 5,
                     MaksAnggotaPerTim = 10,
@@ -214,7 +211,6 @@ namespace webSITE.DataAccess.SeedingData
                     Id = 4,
                     Nama = "Fashion Show",
                     Jenis = JenisLomba.Pasangan,
-                    Keterangan = "Keterangan",
                     MaksKuotaPerAngkatan = 2,
                     PasanganBedaJenisKelamin = true,
                     LinkGrupWa = new Uri("http://chat.whatsapp.com/IoP7JudZZfw79q4Hq2KjMM"),
