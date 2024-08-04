@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using webSITE.Domain;
 using webSITE.Domain.Enum;
 
@@ -18,8 +13,7 @@ namespace webSITE.DataAccess.SeedingData
 
             var admin = new Mahasiswa[]
             {
-                new Mahasiswa
-                {
+                new() {
                     Id = "1",
                     Nim = "2206080051",
                     NamaLengkap = "Adi Juanito Taklal",
@@ -36,8 +30,7 @@ namespace webSITE.DataAccess.SeedingData
                     UserName = "aditaklal@gmail.com",
                     NormalizedUserName = "ADITAKLAL@GMAIL.COM",
                 },
-                new Mahasiswa
-                {
+                new() {
                     Id = "2",
                     Nim = "2206080016",
                     NamaLengkap = "Oswaldus Putra Fernando",
@@ -54,8 +47,7 @@ namespace webSITE.DataAccess.SeedingData
                     UserName = "fernandputra14@gmail.com",
                     NormalizedUserName = "fernandputra14@gmail.com".ToUpper(),
                 },
-                new Mahasiswa
-                {
+                new() {
                     Id = "3",
                     Nim = "2206080095",
                     NamaLengkap = "Albert Berliano Tapatab",
@@ -165,7 +157,7 @@ namespace webSITE.DataAccess.SeedingData
                     Keterangan = "Kegiatan Pertama",
                     TempatKegiatan = "Undana"
                 }
-            );     
+            );    
 
             builder.Entity<Pengumuman>().HasData(
                 new Pengumuman

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using webSITE.Domain.Abstractions;
-using webSITE.Domain.Exceptions;
+﻿using webSITE.Domain.Abstractions;
 using webSITE.Domain.Exceptions.KegiatanExceptions;
 
 namespace webSITE.Domain
@@ -45,16 +39,16 @@ namespace webSITE.Domain
         {
             var exists = DaftarFoto.Any(f => f.Id == foto.Id);
 
-            if (!exists) throw new KegiatanDontHaveFotoException(Id, foto.Id);
+            if (!exists) throw new KegiatanDontHaveFotoException(NamaKegiatan, foto.Id);
 
             _daftarFoto.Remove(foto);
         }
 
         public void TambahPeserta(Mahasiswa mahasiswa)
         {
-            var duplikasi = DaftarMahasiswa.Contains(mahasiswa);
+            var duplikasi = DaftarMahasiswa.Any(m => m.Id == mahasiswa.Id);
 
-            if (duplikasi) throw new KegiatanAlreadyHaveMahasiswaException(Id, mahasiswa.Id);
+            if (duplikasi) throw new KegiatanAlreadyHaveMahasiswaException(mahasiswa.Nim);
 
             _daftarMahasiswa.Add(mahasiswa);
         }
@@ -71,11 +65,11 @@ namespace webSITE.Domain
 
         public void HapusPeserta(Mahasiswa mahasiswa)
         {
-            var exists = DaftarMahasiswa.Contains(mahasiswa);
+            var exists = DaftarMahasiswa.Any(m => m.Id == mahasiswa.Id);
 
-            if (!exists) throw new PesertaKegiatanNotFoundException(Id, mahasiswa.Id);
+            if (!exists) throw new PesertaKegiatanNotFoundException(mahasiswa.Nim);
 
-            _daftarMahasiswa.Add(mahasiswa);
+            _daftarMahasiswa.Remove(mahasiswa);
         }
     }
 }

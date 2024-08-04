@@ -9,8 +9,8 @@ namespace webSITE.Domain.Exceptions.KegiatanExceptions
 {
     public class PesertaKegiatanNotFoundException : DomainException
     {
-        public PesertaKegiatanNotFoundException(int idKegiatan, string idMahasiswa)
-            : base($"Kegiatan dengan ID : {idKegiatan} tidak ada peserta dengan ID : {idMahasiswa}")
+        public PesertaKegiatanNotFoundException(string nim)
+            : base($"Kegiatan tidak memiliki peserta dengan NIM : {nim}")
         {
         }
     }

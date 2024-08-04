@@ -202,7 +202,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                 {
                     var mahasiswa = await _repositoriMahasiswa.Get(id);
 
-                    if(mahasiswa is null) throw new MahasiswaNotFoundException(id);
+                    if (mahasiswa is null) throw new MahasiswaNotFoundException(id);
 
                     foto.AddMahasiswa(mahasiswa);
                 }
@@ -211,14 +211,16 @@ namespace webSITE.Areas.Dashboard.Controllers
 
                 await _unitOfWork.SaveChangesAsync();
 
-                _notificationService.AddNotification(new ToastrNotification
-                {
-                    Type = ToastrNotificationType.Success,
-                    Title = "Tambah Foto Sukses"
-                });
-
                 if (isJson) return Ok(foto.Id);
-                else return Redirect(returnUrl!);
+                else
+                {
+                    _notificationService.AddNotification(new ToastrNotification
+                    {
+                        Type = ToastrNotificationType.Success,
+                        Title = "Tambah Foto Sukses"
+                    });
+                    return Redirect(returnUrl!);
+                }
             }
             catch (MahasiswaNotFoundException ex)
             {
@@ -267,14 +269,14 @@ namespace webSITE.Areas.Dashboard.Controllers
                 await _unitOfWork.SaveChangesAsync();
 
                 _notificationService.AddNotification(new ToastrNotification
-                    {
-                        Type = ToastrNotificationType.Success,
-                        Title = "Hapus Foto Sukses",
-                        Message = $"Foto dengan id {id} berhasil dihapus"
-                    }
+                {
+                    Type = ToastrNotificationType.Success,
+                    Title = "Hapus Foto Sukses",
+                    Message = $"Foto dengan id {id} berhasil dihapus"
+                }
                 );
 
-                _logger.LogInformation("Delete. Foto Id {0} terhapus", id);
+                _logger.LogInformation("Delete. Foto Id {@id} terhapus", id);
             }
             catch (DomainException ex)
             {

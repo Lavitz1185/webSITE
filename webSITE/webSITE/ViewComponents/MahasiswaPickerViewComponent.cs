@@ -17,6 +17,8 @@ namespace webSITE.ViewComponents
         {
             var daftarMahasiswa = await _repositoriMahasiswa.GetAll();
 
+            daftarMahasiswa = daftarMahasiswa?.OrderBy(x => x.Nim).ToList();
+
             var model = new MahasiswaPickerVM
             {
                 DaftarMahasiswa = daftarMahasiswa ?? new(),
@@ -26,7 +28,7 @@ namespace webSITE.ViewComponents
 
             if(value is not null && value.Count > 0)
             {
-                if (multi) model.DaftarIdMahasiswa = value;
+                if (multi) model.DaftarIdMahasiswa = value.Distinct().ToList();
                 else model.DaftarIdMahasiswa.Add(value.First());
             }
 

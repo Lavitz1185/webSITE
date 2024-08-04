@@ -9,8 +9,8 @@ namespace webSITE.Domain.Exceptions.KegiatanExceptions
 {
     public class KegiatanAlreadyHaveMahasiswaException : DomainException
     {
-        public KegiatanAlreadyHaveMahasiswaException(int idKegiatan, string idMahasiswa)
-            : base($"Kegiatan dengan ID : {idKegiatan} sudah memiliki peserta dengan ID : {idMahasiswa}")
+        public KegiatanAlreadyHaveMahasiswaException(string nim)
+            : base($"Kegiatan sudah memiliki peserta dengan NIM : {nim}")
         {
         }
     }
