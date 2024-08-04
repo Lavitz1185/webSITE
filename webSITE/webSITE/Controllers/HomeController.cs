@@ -59,7 +59,7 @@ namespace webSITE.Controllers
             else if (exceptionHandlerPathFeature?.Error is Exception)
                 TempData[Utility.AlertTempDataKey] = "Telah terjadi error pada server";
 
-            return Redirect("/");
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }
