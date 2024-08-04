@@ -9,6 +9,7 @@ namespace webSITE.DataAccess.Repositori.Interface
         Task<List<Mahasiswa>?> GetAll();
         Task<List<Mahasiswa>?> GetAllWithDetail();
         Task<Mahasiswa?> GetByNim(string nim);
+        Task<List<Mahasiswa>?> GetRandom(int count);
 
         void Add(Mahasiswa entity);
         void Update(Mahasiswa entity);

@@ -8,7 +8,6 @@
 <!-- ==== Pengumuman Section ==== -->
 <vc:pop-up-pengumuman></vc:pop-up-pengumuman>
 <!-- ==== Akhir Pengumuman Section ==== -->
-
 <!-- ==== Hero Section ==== -->
 <section id="home" class="mb-5">
     <div class="slider">
@@ -61,7 +60,6 @@
     </div>
 </section>
 <!-- ==== Akhir Hero Section ==== -->
-
 <!-- ==== About Us ==== -->
 <section id="about-container" class="mb-5">
     <!-- Kumpulan Gambar Kanan -->
@@ -103,7 +101,6 @@
     </div>
 </section>
 <!-- ==== Akhir About Us ==== -->
-
 <!-- ==== Pengurus Angkatan ==== -->
 <section id="experts" class="mb-5">
     <!-- Judul -->
@@ -152,7 +149,6 @@
     </div>
 </section>
 <!-- ==== Akhir Pengurus Angkatan ==== -->
-
 <!-- ==== Preview Siters ==== -->
 <section id="preSiters" class="mb-5">
     <!-- Judul -->
@@ -166,126 +162,27 @@
     <div class="sitewrapper" data-aos="fade-right" data-aos-duration="1000" data-aos-anchor-placement="top-bottom">
         <!-- Owl-Carousel -->
         <div class="owl-carousel owl-theme">
-            <!-- 7 Card Profil Terpilih + 1 Last Card -->
-            <div class="precard">
-                <div class="card container-siters">
-                    <div class="img">
-                        <img src="~/img/student.png" alt="Blanche Pearson" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
+            <!-- 7 Card Profil Terpilih -->
+            @foreach (var mahasiswa in Model.DaftarMahasiswa)
+            {
+                <div class="precard">
+                    <div class="card container-siters">
+                        <div class="img">
+                            <img src="@Url.Action("FotoProfil", "File", new {Area = "", id = mahasiswa.Id})" alt="Blanche Pearson" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
+                        </div>
+                        <div class="text-container">
+                            <h1 class="name-profile">@mahasiswa.NamaPanggilan</h1>
+                            <h1 class="name2-profile">@mahasiswa.Nim</h1>
+                        </div>
+                        <div class="cover-bio">
+                            <p class="bio">
+                                @mahasiswa.Bio
+                            </p>
+                        </div>
+                        <a asp-action="Detail" asp-controller="Mahasiswa" asp-route-id="@mahasiswa.Id" class="btn-profile">Cek Profile</a>
                     </div>
-                    <div class="text-container">
-                        <h1 class="name-profile">Blanche Pearson</h1>
-                        <h1 class="name2-profile">2206080095</h1>
-                    </div>
-                    <div class="cover-bio">
-                        <p class="bio">
-                            Tapatab #1
-                        </p>
-                    </div>
-                    <a href="#" class="btn-profile">Cek Profile</a>
                 </div>
-            </div>
-            <div class="precard">
-                <div class="card container-siters">
-                    <div class="img">
-                        <img src="~/img/student.png" alt="Blanche Pearson" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                    </div>
-                    <div class="text-container">
-                        <h1 class="name-profile">Blanche Pearson</h1>
-                        <h1 class="name2-profile">2206080095</h1>
-                    </div>
-                    <div class="cover-bio">
-                        <p class="bio">
-                            Tapatab #1
-                        </p>
-                    </div>
-                    <a href="#" class="btn-profile">Cek Profile</a>
-                </div>
-            </div>
-            <div class="precard">
-                <div class="card container-siters">
-                    <div class="img">
-                        <img src="~/img/student.png" alt="Blanche Pearson" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                    </div>
-                    <div class="text-container">
-                        <h1 class="name-profile">Blanche Pearson</h1>
-                        <h1 class="name2-profile">2206080095</h1>
-                    </div>
-                    <div class="cover-bio">
-                        <p class="bio">
-                            Tapatab #1
-                        </p>
-                    </div>
-                    <a href="#" class="btn-profile">Cek Profile</a>
-                </div>
-            </div>
-            <div class="precard">
-                <div class="card container-siters">
-                    <div class="img">
-                        <img src="~/img/student.png" alt="Blanche Pearson" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                    </div>
-                    <div class="text-container">
-                        <h1 class="name-profile">Blanche Pearson</h1>
-                        <h1 class="name2-profile">2206080095</h1>
-                    </div>
-                    <div class="cover-bio">
-                        <p class="bio">
-                            Tapatab #1
-                        </p>
-                    </div>
-                    <a href="#" class="btn-profile">Cek Profile</a>
-                </div>
-            </div>
-            <div class="precard">
-                <div class="card container-siters">
-                    <div class="img">
-                        <img src="~/img/student.png" alt="Blanche Pearson" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                    </div>
-                    <div class="text-container">
-                        <h1 class="name-profile">Blanche Pearson</h1>
-                        <h1 class="name2-profile">2206080095</h1>
-                    </div>
-                    <div class="cover-bio">
-                        <p class="bio">
-                            Tapatab #1
-                        </p>
-                    </div>
-                    <a href="#" class="btn-profile">Cek Profile</a>
-                </div>
-            </div>
-            <div class="precard">
-                <div class="card container-siters">
-                    <div class="img">
-                        <img src="~/img/student.png" alt="Blanche Pearson" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                    </div>
-                    <div class="text-container">
-                        <h1 class="name-profile">Blanche Pearson</h1>
-                        <h1 class="name2-profile">2206080095</h1>
-                    </div>
-                    <div class="cover-bio">
-                        <p class="bio">
-                            Tapatab #1
-                        </p>
-                    </div>
-                    <a href="#" class="btn-profile">Cek Profile</a>
-                </div>
-            </div>
-            <div class="precard">
-                <div class="card container-siters">
-                    <div class="img">
-                        <img src="~/img/student.png" alt="Blanche Pearson" class="profile-img" style="width: 8rem; clip-path: circle(60px at center); margin-top: 1rem; margin: 0 auto;" draggable="false">
-                    </div>
-                    <div class="text-container">
-                        <h1 class="name-profile">Blanche Pearson</h1>
-                        <h1 class="name2-profile">2206080095</h1>
-                    </div>
-                    <div class="cover-bio">
-                        <p class="bio">
-                            Halo Apa Kabar Aku Harap Kamu Baik Baik saja dan sehat selalu
-                        </p>
-                    </div>
-                    <a href="#" class="btn-profile">Cek Profile</a>
-                </div>
-            </div>
+            }
 
             <!-- Last Card -->
             <div class="precard">
@@ -309,12 +206,9 @@
     <!-- Akhir PreSiters Wrapper -->
 </section>
 <!-- ==== Akhir Section Preview Siters ==== -->
-
-
-
 <!-- ==== Preview Kegiatan ==== -->
 <section id="preKeg" class="mb-5">
-    <div class="contentPreKeg">  
+    <div class="contentPreKeg">
         <!-- BG Parallax -->
         <div class="parallax-bg">
             <img src="~/img/parallax-bg1.png" alt="Background Image" class="parallax-img" />
@@ -357,8 +251,8 @@
                         </div>
                         <!-- Masih Diperhitungkan -->
                         @* <div class="card-body">
-                            <h5 class="card-title">@kegiatan.NamaKegiatan</h5>
-                        </div> *@
+                    <h5 class="card-title">@kegiatan.NamaKegiatan</h5>
+                    </div> *@
                     </div>
                 </div>
             }
@@ -371,19 +265,15 @@
             </div>
         </div>
     </div>
-    
-    
+
+
 </section>
 <!-- ==== Akhir Preview Kegiatan ===== -->
-
-
 <!-- ===== Section Map ==== -->
 <section id="map" class="mb-5 pb-2">
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7854.6012934210685!2d123.66063784444012!3d-10.156198999077231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c5683014f4531cf%3A0x4242205fc88842ff!2sProdi%20Ilmu%20Komputer%20Undana!5e0!3m2!1sid!2sid!4v1706842308468!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>
 <!-- ==== Akhir Section Map ==== -->
-
-
 <!-- Masih Diperhitungkan -->
 @* <svg class="preimg preimgbot" style=" width: 100%; position: absolute; bottom: 0; left: 0; right: 0; z-index: 0; " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,256L120,261.3C240,267,480,277,720,282.7C960,288,1200,288,1320,288L1440,288L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>
     <svg class="preimg preimgtop" style="width: 100%; position: absolute; top: 0; left: 0; right: 0;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,160L60,144C120,128,240,96,360,74.7C480,53,600,43,720,69.3C840,96,960,160,1080,165.3C1200,171,1320,117,1380,90.7L1440,64L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
@@ -405,7 +295,7 @@
 </style>
 
 <!-- ====== Section JavaScript ======-->
-@section Scripts{
+@section Scripts {
     <partial name="_TransparentNavbar" />
     <partial name="_OwlCarouselPartial" />
 
@@ -529,10 +419,10 @@
         });
 
         // JS bg-parallax PreKeg
-        window.addEventListener('scroll', function() {
-        const parallax = document.querySelector('.parallax-img');
-        let scrollPosition = window.pageYOffset;
-        parallax.style.transform = 'translateY(' + (scrollPosition * 0.5 - 2000) + 'px)';
+        window.addEventListener('scroll', function () {
+            const parallax = document.querySelector('.parallax-img');
+            let scrollPosition = window.pageYOffset;
+            parallax.style.transform = 'translateY(' + (scrollPosition * 0.5 - 2000) + 'px)';
         });
 
 

@@ -13,13 +13,17 @@ namespace webSITE.Controllers
     public class HomeController : Controller
     {
         private readonly IRepositoriKegiatan _repositoriKegiatan;
+        private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, 
-            IRepositoriKegiatan repositoriKegiatan)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IRepositoriKegiatan repositoriKegiatan,
+            IRepositoriMahasiswa repositoriMahasiswa)
         {
             _logger = logger;
             _repositoriKegiatan = repositoriKegiatan;
+            _repositoriMahasiswa = repositoriMahasiswa;
         }
 
         public async Task<IActionResult> Index()
@@ -30,9 +34,12 @@ namespace webSITE.Controllers
                 .OrderByDescending(k => k.Tanggal.Date)
                 .Take(3).ToList();
 
+            var daftarMahasiswa = await _repositoriMahasiswa.GetRandom(7);
+
             return View(new IndexVM
             {
                 DaftarKegiatan = daftarKegiatan ?? new(),
+                DaftarMahasiswa = daftarMahasiswa ?? new(),
             });
         }
 

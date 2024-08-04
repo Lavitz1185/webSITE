@@ -399,7 +399,7 @@
     }
 
 
-#preSiters .btn-profile {
+#preSiters ::deep .btn-profile {
     box-sizing: border-box;
     border-radius: 10px;
     width: 100%;
@@ -414,7 +414,7 @@
     display: inline-block;
 }
 
-    #preSiters .btn-profile:hover {
+    #preSiters ::deep .btn-profile:hover {
         text-decoration: none;
         background: rgb(30, 30, 64);
         color: white;

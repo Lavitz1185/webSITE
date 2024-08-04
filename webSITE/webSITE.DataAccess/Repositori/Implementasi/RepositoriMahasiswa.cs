@@ -2,7 +2,6 @@
 using webSITE.Domain;
 using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
-using webSITE.Domain.Exceptions;
 using webSITE.Domain.Exceptions.MahasiswaExceptions;
 
 namespace webSITE.Repositori.Implementasi
@@ -53,6 +52,32 @@ namespace webSITE.Repositori.Implementasi
                 .Include(m => m.DaftarFoto)
                 .Include(m => m.DaftarKegiatan)
                 .ToListAsync();
+        }
+
+        public async Task<List<Mahasiswa>?> GetRandom(int count)
+        {
+            var daftarId = await dbContext.TblMahasiswa.Select(x => x.Id).ToListAsync();
+
+            if(daftarId.Count == 0) return new();
+
+            var daftarIdAcak = new List<string>();
+            var random = new Random();
+
+            for(int i = 0; i < count && i < daftarId.Count; i++)
+            {
+                var idAcak = string.Empty;
+                do
+                {
+                    idAcak = daftarId[random.Next(0, daftarId.Count)];
+                } while(daftarIdAcak.Contains(idAcak));
+
+                daftarIdAcak.Add(idAcak);
+            }
+
+            return daftarIdAcak
+                .Select(async id => await dbContext.TblMahasiswa.FirstAsync(m => m.Id == id))
+                .Select(t => t.Result)
+                .ToList();
         }
 
         public void Add(Mahasiswa entity)
