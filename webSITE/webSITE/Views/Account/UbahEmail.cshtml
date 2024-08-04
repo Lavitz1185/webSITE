@@ -4,27 +4,7 @@
     ViewData["ActiveMenuId"] = "ubahEmail";
 }
 
-<!-- Bagian Top -->
-<section class="backfoto">
-    <img src="~/img/background_blue.png" />
-    <div class="foto-profil">
-        <div class="cover-fp">
-            <img src="~/img/bentol.jpg" />
-            <div class="overlay-gantifp">
-                <a id="fotoProfil" asp-action="FotoProfil">
-                    <h3>Change</h3>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Akhir Bagian Top -->
-
-<div class="keterangan-foto-profil mb-3">
-    <h3>Oswaldus Putra Fernando</h3>
-    <h5 style="color:#111">2206080016</h5>
-</div>
-
+<!-- Bagian Top MenuPartial -->
 <div class="container-menu">
     <div class="container-menu-lebar">
         <partial name="_MenuPartial" />
@@ -33,7 +13,6 @@
 
 <div class="container-fluid container-input-utama mb-5">
     <div class="row">
-        
         <div id="ubahEmail" class="col-md ruang-input">
             <div class="card w-100 shadow-sm">
                 <div class="card-body">
@@ -73,3 +52,5 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+

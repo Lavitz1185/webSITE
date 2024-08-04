@@ -1,52 +1,81 @@
-﻿@{
+﻿@inject UserManager<Mahasiswa> UserManager
+@inject IRepositoriMahasiswa RepositoriMahasiswa
+@{
     var activeId = ViewData["ActiveMenuId"] as string;
+    var id = UserManager.GetUserId(User);
+    var user = await RepositoriMahasiswa.Get(id);
 }
 
 <style>
-    .card ul li a {
-        color: rgb(35, 35, 85);
+    .container-menu-nav {
+        display: flex;
+        justify-content: center;
+        padding: 0vw 5vw;
     }
 
+    .card ul li a {
+        width: 100%; 
+        color: rgb(35, 35, 85);
+        padding: 15px; 
+        display: block; 
+    }
     .backg-primary {
         background: rgb(35, 35, 85);
     }
 </style>
 
+<!-- Bagian Top -->
+<section class="backfoto">
+    <img src="~/img/background_blue.png" />
+    <div class="foto-profil">
+        <div class="cover-fp">
+            <img id="partialProfilePic" src="@Url.ActionLink("FotoProfil", "File", new { Id = id, Area = "" })" />
+            <div class="overlay-gantifp">
+                <a id="fotoProfil" asp-action="FotoProfil">
+                    <h3>Change</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="keterangan-foto-profil mb-3">
+    <h3>Oswaldus Putra Fernando</h3>
+    <h5 style="color:#111">2206080016</h5>
+</div>
+<!-- Akhir Bagian Top -->
+
 <!-- Sidebar Navigation Menu -->
-<div class="card shadow-sm" style="border-radius:8px !important;">
-    <div class="card-body p-0">
-        <ul class="nav">
-            <li class="nav-item">
-                <a id="profil" asp-action="Index" class="nav-link d-flex align-items-center p-3">
-                    <i class="ri-user-line me-2"></i>
-                     Kelola Profil
-                </a>
-            </li>
-@*             <li class="nav-item">
-                <a id="fotoProfil" asp-action="FotoProfil" class="nav-link d-flex align-items-center p-3">
-                    <i class="ri-image-line me-2"></i>
-                    Foto Profil
-                </a>
-            </li> *@
-            <li class="nav-item">
-                <a id="ubahEmail" asp-action="UbahEmail" class="nav-link d-flex align-items-center p-3">
-                    <i class="ri-mail-line me-2"></i>
-                    Ubah Email
-                </a>
-            </li>
-            <li class="nav-item">
-                <a id="ubahPassword" asp-action="UbahPassword" class="nav-link d-flex align-items-center p-3">
-                    <i class="ri-lock-line me-2"></i>
-                    Ubah Password
-                </a>
-            </li>
-        </ul>
+<div class="container-menu-nav">
+    <div class="card shadow-sm" style="border-radius:8px !important;">
+        <div class="card-body p-0">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a id="profil" asp-action="Index" class="nav-link d-flex align-items-center p-3">
+                        <i class="ri-user-line me-2"></i>
+                        Kelola Profil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a id="ubahEmail" asp-action="UbahEmail" class="nav-link d-flex align-items-center p-3">
+                        <i class="ri-mail-line me-2"></i>
+                        Ubah Email
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a id="ubahPassword" asp-action="UbahPassword" class="nav-link d-flex align-items-center p-3">
+                        <i class="ri-lock-line me-2"></i>
+                        Ubah Password
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
-
-
 
 <script type="text/javascript">
     const activeId = '@activeId';
     $('.nav-link#' + activeId).addClass('active backg-primary text-white');
 </script>
+
+

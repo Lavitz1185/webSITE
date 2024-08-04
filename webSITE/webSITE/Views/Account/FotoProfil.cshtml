@@ -10,26 +10,12 @@
     ViewData["ActiveMenuId"] = "fotoProfil";
 }
 
-<!-- Bagian Top -->
-<section class="backfoto">
-    <img src="~/img/background_blue.png" />
-    <div class="foto-profil">
-        <img src="~/img/bentol.jpg" />
-    </div>
-</section>
-<!-- Akhir Bagian Top -->
-
-<div class="keterangan-foto-profil mb-3">
-    <h3>Oswaldus Putra Fernando</h3>
-    <h5 style="color:#111">2206080016</h5>
-</div>
-
+<!-- Bagian Top MenuPartial -->
 <div class="container-menu">
     <div class="container-menu-lebar">
         <partial name="_MenuPartial" />
     </div>
 </div>
-
 
 <div class="container-fluid container-input-utama mb-5">
     <div class="row">
@@ -79,6 +65,7 @@
     <script type="text/javascript">
         $(() => {
             let originalSrc = $('#currentProfilePic').attr('src');
+            let originalPartialSrc = $('#partialProfilePic').attr('src');
 
             const toggleEdit = (toggle) => {
                 if (toggle) {
@@ -93,6 +80,7 @@
                     $('#buttonGroup').hide();
                     $('#fileInput').val('');
                     $('#currentProfilePic').attr('src', originalSrc);
+                    $('#partialProfilePic').attr('src', originalPartialSrc);
                 }
             };
 
@@ -106,6 +94,7 @@
                     const reader = new FileReader();
                     reader.onload = (e) => {
                         $('#currentProfilePic').attr('src', e.target.result);
+                        $('#partialProfilePic').attr('src', e.target.result);
                         toggleEdit(true);
                     };
                     reader.readAsDataURL(input.files[0]);
@@ -118,6 +107,7 @@
 
             $('#formFotoProfil').on('submit', (event) => {
                 originalSrc = $('#currentProfilePic').attr('src');
+                originalPartialSrc = $('#partialProfilePic').attr('src');
             });
         });
     </script>
