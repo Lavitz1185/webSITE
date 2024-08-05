@@ -1,4 +1,29 @@
-﻿/* Progress Bar */
+﻿.judul-lomba .breadcrumbs {
+    display: flex;
+    grid-gap: 6px;
+    padding: 0;
+    margin: 0;
+}
+
+    .judul-lomba .breadcrumbs li,
+    .judul-lomba .breadcrumbs li ::deep a {
+        font-size: 14px;
+        text-decoration: none;
+        list-style: none;
+    }
+
+        .judul-lomba .breadcrumbs li ::deep a {
+            color: #1775F1;
+            text-decoration: none;
+        }
+
+            .judul-lomba .breadcrumbs li a.active,
+            .judul-lomba .breadcrumbs li.divider {
+                color: #8D8D8D;
+                pointer-events: none;
+            }
+
+/* Progress Bar */
 .progressbar {
     display: flex;
     position: relative;
@@ -72,6 +97,18 @@
     font-size: 38px;
     margin: 0px;
     font-weight: 600;
+}
+
+.container-lomba-solo .judul-lomba a {
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0px;
+    font-weight: 500;
+}
+
+.container-lomba-solo .judul-lomba a i {
+    
 }
 
     .container-lomba-solo .judul-lomba p {
