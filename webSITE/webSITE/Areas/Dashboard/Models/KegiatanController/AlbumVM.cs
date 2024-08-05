@@ -1,10 +1,10 @@
 ﻿using webSITE.Domain;
 
-namespace webSITE.Areas.Dashboard.Models.FotoController
+namespace webSITE.Areas.Dashboard.Models.KegiatanController
 {
     public class AlbumVM
     {
-        public int? IdKegiatan { get ; set; }
+        public int? IdKegiatan { get; set; }
         public string NamaKegiatan { get; set; }
         public DateTime Tanggal { get; set; }
         public int? IdThumbnail { get; set; }

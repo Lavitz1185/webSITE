@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using webSITE.Areas.Dashboard.Models.FotoController;
+using webSITE.Areas.Dashboard.Models.KegiatanController;
 using webSITE.Configuration;
 using webSITE.DataAccess.Data;
 using webSITE.DataAccess.Repositori.Interface;
@@ -22,16 +23,14 @@ namespace webSITE.Areas.Dashboard.Controllers
     {
         private readonly PhotoFileSettingsOptions _photoFileSettings;
         private readonly IRepositoriFoto _repositoriFoto;
-        private readonly IRepositoriKegiatan _repositoriKegiatan;
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly INotificationService _notificationService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<FotoController> _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public FotoController(IRepositoriFoto repositoriFoto,
-            IRepositoriKegiatan repositoriKegiatan,
-            IMapper mapper,
+        public FotoController(
+            IRepositoriFoto repositoriFoto,
             IRepositoriMahasiswa repositoriMahasiswa,
             IWebHostEnvironment webHostEnvironment,
             INotificationService notificationService,
@@ -41,7 +40,6 @@ namespace webSITE.Areas.Dashboard.Controllers
         {
             _photoFileSettings = options.Value;
             _repositoriFoto = repositoriFoto;
-            _repositoriKegiatan = repositoriKegiatan;
             _repositoriMahasiswa = repositoriMahasiswa;
             _notificationService = notificationService;
             _unitOfWork = unitOfWork;
@@ -49,113 +47,14 @@ namespace webSITE.Areas.Dashboard.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Album(int? idKegiatan, string? returnUrl)
+        public async Task<IActionResult> Index()
         {
-            returnUrl = returnUrl ?? Url.Action("Index", "Foto", new { Area = "Dashboard" });
-
-            ViewData["ReturnUrl"] = returnUrl;
-
-            if (idKegiatan is null)
-            {
-                var daftarFotoTanpaKegiatan = await _repositoriFoto.GetAllWithKegiatan();
-
-                if (daftarFotoTanpaKegiatan is null || daftarFotoTanpaKegiatan.Count == 0)
-                    return View(new AlbumVM
-                    {
-                        NamaKegiatan = "Lain - Lain"
-                    });
-
-                daftarFotoTanpaKegiatan = daftarFotoTanpaKegiatan
-                    .Where(f => f.DaftarKegiatan.Count == 0)
-                    .OrderBy(f => f.AddedAt)
-                    .ToList();
-
-                return View(new AlbumVM
-                {
-                    NamaKegiatan = "Lain - Lain",
-                    Tanggal = daftarFotoTanpaKegiatan.First().AddedAt,
-                    DaftarFoto = daftarFotoTanpaKegiatan.ToList()
-                });
-            }
-
-            var kegiatan = await _repositoriKegiatan.GetWithDetail(idKegiatan.Value);
-
-            if (kegiatan is null) return NotFound();
-
-            var model = new AlbumVM
-            {
-                IdKegiatan = idKegiatan,
-                NamaKegiatan = kegiatan.NamaKegiatan,
-                Tanggal = kegiatan.Tanggal,
-                DaftarFoto = kegiatan.DaftarFoto
-                    .OrderBy(f => f.AddedAt)
-                    .ToList()
-            };
-
-            return View(model);
-        }
-
-        public async Task<IActionResult> Index(string? view)
-        //view = "album"/"list"
-        {
-            view ??= "album";
-            ViewData["view"] = view;
-
-            var daftarFoto = (await _repositoriFoto.GetAllWithKegiatan()) ?? new();
-            var daftarKegiatan = (await _repositoriKegiatan.GetAllWithDetail()) ?? new();
-
-            List<AlbumVM> viewModel = new List<AlbumVM>();
-
-            foreach (var kegiatan in daftarKegiatan)
-            {
-                if (kegiatan.DaftarFoto.Count > 0)
-                {
-                    var fotoThumbnail = kegiatan.DaftarFoto.OrderBy(f => f.AddedAt).First();
-                    viewModel.Add(new AlbumVM
-                    {
-                        NamaKegiatan = kegiatan.NamaKegiatan,
-                        IdKegiatan = kegiatan.Id,
-                        IdThumbnail = fotoThumbnail.Id,
-                        JumlahFoto = kegiatan.DaftarFoto.Count(),
-                        Tanggal = fotoThumbnail.AddedAt,
-                        DaftarFoto = kegiatan.DaftarFoto.ToList(),
-                    });
-                }
-                else
-                    viewModel.Add(new AlbumVM
-                    {
-                        NamaKegiatan = kegiatan.NamaKegiatan,
-                        IdKegiatan = kegiatan.Id,
-                        JumlahFoto = 0
-                    });
-            }
-
-            var fotoTanpaKegiatan = daftarFoto
-                .Where(f => f.DaftarKegiatan.Count == 0)
-                .OrderBy(f => f.AddedAt)
+            var daftarFoto = await _repositoriFoto.GetAllWithMahasiswa();
+            daftarFoto = daftarFoto?
+                .OrderByDescending(x => x.AddedAt)
                 .ToList();
 
-            if (fotoTanpaKegiatan.Count > 0)
-            {
-                viewModel.Add(new AlbumVM
-                {
-                    NamaKegiatan = "Lain - Lain",
-                    IdThumbnail = fotoTanpaKegiatan.First().Id,
-                    JumlahFoto = fotoTanpaKegiatan.Count,
-                    Tanggal = fotoTanpaKegiatan.First().AddedAt,
-                    DaftarFoto = fotoTanpaKegiatan,
-                });
-            }
-            else
-            {
-                viewModel.Add(new AlbumVM
-                {
-                    NamaKegiatan = "Lain -Lain",
-                    JumlahFoto = 0
-                });
-            }
-
-            return View(viewModel);
+            return View(daftarFoto);
         }
 
         [HttpGet]
@@ -250,10 +149,8 @@ namespace webSITE.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id, string? returnUrl)
+        public async Task<IActionResult> Delete(int id)
         {
-            returnUrl = returnUrl ?? Url.Action(nameof(Index));
-
             try
             {
                 var foto = await _repositoriFoto.Get(id);
@@ -303,7 +200,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                 _logger.LogError("Delete. Exception : {0}", ex.ToString());
             }
 
-            return Redirect(returnUrl!);
+            return Redirect(nameof(Index));
         }
     }
 }

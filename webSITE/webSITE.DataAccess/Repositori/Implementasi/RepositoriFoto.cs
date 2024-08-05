@@ -55,6 +55,7 @@ namespace webSITE.Repositori.Implementasi
         {
             var listFoto = await _dbContext.TblFoto
                 .Include(f => f.DaftarMahasiswa)
+                .Include(f => f.Creator)
                 .ToListAsync();
 
             return listFoto;

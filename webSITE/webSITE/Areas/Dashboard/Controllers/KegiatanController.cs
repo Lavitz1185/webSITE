@@ -344,5 +344,43 @@ namespace webSITE.Areas.Dashboard.Controllers
                 return View(editKegiatanVM);
             }
         }
+
+        public async Task<IActionResult> DaftarAlbum()
+        {
+            var daftarKegiatan = await _repositoriKegiatan.GetAllWithDetail();
+
+            daftarKegiatan = daftarKegiatan ?? new();
+
+            var daftarAlbum = daftarKegiatan.Select(k => new AlbumVM
+            {
+                IdKegiatan = k.Id,
+                NamaKegiatan = k.NamaKegiatan,
+                Tanggal = k.Tanggal,
+                JumlahFoto = k.DaftarFoto.Count,
+                DaftarFoto = k.DaftarFoto.ToList(),
+                IdThumbnail = k.DaftarFoto.FirstOrDefault()?.Id,
+            }).ToList();
+
+            return View(daftarAlbum);
+        }
+
+        public async Task<IActionResult> AlbumKegiatan(int id)
+        {
+            var kegiatan = await _repositoriKegiatan.GetWithDetail(id);
+
+            if (kegiatan is null) return NotFound();
+
+            var model = new AlbumVM
+            {
+                IdKegiatan = id,
+                NamaKegiatan = kegiatan.NamaKegiatan,
+                Tanggal = kegiatan.Tanggal,
+                DaftarFoto = kegiatan.DaftarFoto
+                    .OrderBy(f => f.AddedAt)
+                    .ToList()
+            };
+
+            return View(model);
+        }
     }
 }
