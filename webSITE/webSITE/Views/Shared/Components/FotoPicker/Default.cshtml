@@ -205,6 +205,9 @@
                     daftarFotoContainer
                         .filter((index, item) => $(item).find('input#fotoId').val() == data)
                         .first().on('click', onFotoContainerClick);
+
+                    daftarIdMahasiswa.html('');
+                    $('#modal@(Id) #formFile').val('');
                 } else {
                     const data = await response.json();
 

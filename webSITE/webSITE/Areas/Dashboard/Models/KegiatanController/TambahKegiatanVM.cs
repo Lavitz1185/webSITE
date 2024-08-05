@@ -33,6 +33,7 @@ namespace webSITE.Areas.Dashboard.Models.KegiatanController
         [Display(Name = "Album Foto")]
         [Required(ErrorMessage = "{0} harus dipilih")]
         [MinLength(1, ErrorMessage = "Kegiatan harus memiliki minimal 1 {0}")]
+        [MaxLength(12, ErrorMessage = "Maksimal foto adalah {0}")]
         public List<int> DaftarIdFoto { get; set; } = new();
 
         [Display(Name = "Mahasiswa")]
