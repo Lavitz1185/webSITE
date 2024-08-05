@@ -227,7 +227,7 @@
             @for (int i = 0; i < Model.DaftarKegiatan.Count; i++)
             {
                 var kegiatan = Model.DaftarKegiatan[i];
-                var thumbnail = kegiatan.DaftarFoto.Count > 0 ? kegiatan.DaftarFoto[0] : null;
+                var thumbnail = kegiatan.FotoThumbnail is null ? kegiatan.DaftarFoto.FirstOrDefault() : kegiatan.FotoThumbnail;
                 <!-- Card Preview Kegiatan -->
                 <div class="col col-md-4 card1">
                     <div class="card" data-aos="zoom-in" data-aos-duration="300" data-aos-anchor-placement="top-bottom">

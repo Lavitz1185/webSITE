@@ -14,9 +14,16 @@
     <!-- Akhir Hyperlink -->
     <div class="container-fluid cardplus">
         <form asp-action="EditKegiatan" method="post" class="row" enctype="multipart/form-data">
-            <span class="text-danger" asp-validation-summary="All"></span>
+            <div class="text-danger" asp-validation-summary="All"></div>
 
             <input type="text" asp-for="@Model.Id" hidden="hidden">
+
+            <div class="col-12 mt-2">
+                <label asp-for="@Model.IdThumbnail" class="form-label"></label>
+                <span asp-validation-for="@Model.IdThumbnail" class="form-text text-danger"></span>
+                <vc:foto-picker name="@nameof(EditKegiatanVM.IdThumbnail)" multi=@false 
+                    value=@(Model.IdThumbnail is not null ? new(){ Model.IdThumbnail.Value } : null)></vc:foto-picker>
+            </div>
 
             <div class="col-md-12 input-box">
                 <label asp-for="@Model.NamaKegiatan"></label>

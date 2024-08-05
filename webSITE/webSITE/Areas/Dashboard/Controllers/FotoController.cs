@@ -200,7 +200,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                 _logger.LogError("Delete. Exception : {0}", ex.ToString());
             }
 
-            return Redirect(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
     }
 }

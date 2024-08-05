@@ -31,7 +31,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="#modal@(Id)">Pilih Gambar</h5>
+                <h5 class="modal-title">Pilih Gambar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="row mt-4 mb-4">
                         <div class="col-12">
-                            <button type="button" class="btn btn-custom w-100" id="uploadFoto" onsubmit="uploadFoto">Upload</button>
+                            <button type="button" class="btn btn-custom w-100" id="uploadFoto">Upload</button>
                         </div>
                     </div>
                     <div class="row" id="fotoGrid@(Id)">
@@ -118,7 +118,7 @@
                 }
             };
 
-            $('button#selesai').on('click', function () {
+            $('#modal@(Id) button#selesai').on('click', function () {
                 preview.html('');
                 inputContainer.html('');
 
@@ -155,17 +155,17 @@
                 }
             }
 
-            $('#uploadFoto').on('click', async function () {
+            $('#modal@(Id) #uploadFoto').on('click', async function () {
                 const formData = new FormData();
-                const inputFile = $('#formFile')[0].files[0];
-                const daftarIdMahasiswa = $('#daftarMahasiswa input#@(nameof(TambahVM.DaftarIdMahasiswa))');
+                const inputFile = $('#modal@(Id) #formFile')[0].files[0];
+                const daftarIdMahasiswa = $('#modal@(Id) #daftarMahasiswa input#@(nameof(TambahVM.DaftarIdMahasiswa))');
 
                 formData.append('@(nameof(TambahVM.FormFile))', inputFile);
 
                 daftarIdMahasiswa
                     .each((index, item) => formData.append('@(nameof(TambahVM.DaftarIdMahasiswa))', $(item).val()));
 
-                $('#formFileVal').html('');
+                $('#modal@(Id) #formFileVal').html('');
 
                 $(this).html('');
                 $(this).append('Loading...');
@@ -208,8 +208,8 @@
                 } else {
                     const data = await response.json();
 
-                    $('#formFileVal').html('');
-                    $('#formFileVal').append(data['@(nameof(TambahVM.FormFile))']);
+                    $('#modal@(Id) #formFileVal').html('');
+                    $('#modal@(Id) #formFileVal').append(data['@(nameof(TambahVM.FormFile))']);
                 }
 
                 $(this).html('');
