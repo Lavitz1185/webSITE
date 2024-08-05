@@ -13,7 +13,7 @@ nav {
 }
 
 .navbar {
-    display: flex;
+    display: -webkit-box;
     flex-wrap: wrap;
     align-items: center;
     padding-top: .5rem;
@@ -208,7 +208,7 @@ nav {
             justify-content: space-between;
         }
 
-        navbar {
+        .navbar {
             display: -webkit-flex;
             justify-content: space-between;
         }
