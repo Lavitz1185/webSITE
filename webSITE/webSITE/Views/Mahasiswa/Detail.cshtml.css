@@ -39,6 +39,10 @@
     border-radius: 5px;
 }
 
+.col-6 {
+    padding: 0;
+}
+
 .btn-primary {
     background-color: #007BFF;
     border: none;
@@ -66,13 +70,14 @@
 
 /* Responsive MAX 767px */
 @media (max-width: 767px) {
-    .container-fluid {
-        padding: 0;
+    .container-siters {
+        padding: 20px 10px;
     }
 
     .col-md-6 {
         flex: 0 0 100%;
         max-width: 100%;
+        font-size: 15px;
     }
 
     .row {
@@ -91,5 +96,13 @@
 
     .table-responsive {
         overflow-x: auto;
+    }
+}
+
+
+@media (max-width: 425px) {
+    .col-6 {
+        width: 100%;
+        text-align: center;
     }
 }

@@ -202,28 +202,44 @@ h4 {
 @media (max-width: 1088px) {
     .container-lomba-tim {
         margin: 100px 5vw 5vw;
+        padding: 20px;
     }
 
-        ::deep .container-lomba-tim .container-ketentuan a {
-            font-size: .67rem;
-        }
-}
-
-@media (max-width: 483px) {
-    .container-lomba-tim .container-ketentuan a {
-        font-size: .75rem;
-    }
-}
-
-
-@media (max-width: 457px) {
-    .container-lomba-tim .container-ketentuan a {
+    ::deep .container-lomba-tim .container-ketentuan a {
         font-size: .67rem;
+    }
+
+    ::deep .input-box label {
+        font-size: 15px;
+    }
+
+    ::deep .input-box input {
+        font-size: 15px;
+    }
+
+    ::deep .input-box select {
+        font-size: 15px;
+    }
+
+    ::deep .input-box textarea {
+        font-size: 15px;
     }
 }
 
 @media (max-width: 424px) {
     .container-lomba-tim .container-ketentuan a {
+        font-size: .70rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .container-lomba-tim .container-ketentuan a {
         font-size: .60rem;
+    }
+}
+
+@media (max-width: 330px) {
+    .container-lomba-tim .container-ketentuan a {
+        font-size: .55rem;
     }
 }

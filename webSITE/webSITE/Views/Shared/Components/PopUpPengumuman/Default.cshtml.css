@@ -36,9 +36,9 @@
     transform: translate(-50%, -53%) scale(1);
 }
 
-.popup-box img {
+::deep .popup-box img {
     width: 100%;
-    height: 450px;
+    height: 100%;
 }
 
 .popup-box ::deep a {
@@ -239,11 +239,11 @@
 @media (max-width: 750px) {
     ::deep .popup-box img {
         width: 400px;
-        height: 320px;
+        height: 330px;
     }
 
     ::deep .popup-box a {
-        top: 290px;
+        top: 300px;
         padding: 4px 40px;
         font-size: 17px;
         font-weight: 500;

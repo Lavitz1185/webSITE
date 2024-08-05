@@ -621,7 +621,7 @@
         text-align: center;
     }
 
-    #preKeg .row1 h1 {
+    #preKeg .row1 h2 {
         color: white;
         text-shadow: 0px 1px 0px rgba(0, 0, 0, 1);
     }
@@ -645,9 +645,8 @@
         cursor: pointer;
     }
 
-        #preKeg .row3 .col .selengkapnya h5 {
+        #preKeg .row3 .col .selengkapnya h3 {
             color: white;
-            font-size: 1.6rem;
             padding: 0 0 0 20px;
             opacity: 0.7;
             transition: .3s ease;
@@ -680,6 +679,13 @@
 
 /* == RESPONSIVE CSS GABUNGAN HOME & ABOUT US == */
 /* Responsive MAX 670px */
+@media (max-width: 486px) {
+    #home h2 {
+        font-size: 35px !important;
+    }
+}
+
+
 @media (max-width:670px) {
     #about-container {
         flex-direction: column-reverse;
