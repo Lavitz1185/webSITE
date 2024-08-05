@@ -15,12 +15,12 @@ namespace webSITE.Controllers
     {
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
         private readonly ILogger<MahasiswaController> _logger;
-        private readonly INotificationService _notificationService;
+        private readonly IToastrNotificationService _notificationService;
 
         public MahasiswaController(
             IRepositoriMahasiswa repositoriMahasiswa,
             ILogger<MahasiswaController> logger,
-            INotificationService notificationService)
+            IToastrNotificationService notificationService)
         {
             _repositoriMahasiswa = repositoriMahasiswa;
             _logger = logger;

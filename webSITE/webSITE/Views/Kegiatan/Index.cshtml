@@ -80,11 +80,9 @@
     <div class="row g-3 pb-5 pt-4 animate__animated animate__fadeInLeftBig">
         <!-- Card Kegiatan -->
         @foreach (var kegiatan in Model)
-        {           
-            var fotoThumnail = kegiatan.DaftarFoto
-            .OrderBy(f => f.AddedAt)
-            .FirstOrDefault();
-            string url = fotoThumnail is null ?
+        {
+            var fotoThumnail = kegiatan.FotoThumbnail;
+            string? url = fotoThumnail is null ?
             "/img/LOGO_SITE-removebg-preview.png" : Url.Action("Foto", "File", new { Area = "", Id = fotoThumnail.Id! });
 
             <div class="col-12 col-md-12 col-lg-6">

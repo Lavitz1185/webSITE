@@ -43,6 +43,9 @@ namespace webSITE.Controllers
                     .ToList()
             };
 
+            if (kegiatan.FotoThumbnail is not null)
+                model.DaftarFoto.Add(kegiatan.FotoThumbnail);
+
             return View(model);
         }
 
@@ -54,26 +57,21 @@ namespace webSITE.Controllers
 
             foreach (var kegiatan in daftarKegiatan)
             {
-                if (kegiatan.DaftarFoto.Count > 0)
+                var album = new AlbumVM
                 {
-                    var fotoThumbnail = kegiatan.DaftarFoto.OrderBy(f => f.AddedAt).First();
-                    viewModel.Add(new AlbumVM
-                    {
-                        NamaKegiatan = kegiatan.NamaKegiatan,
-                        IdKegiatan = kegiatan.Id,
-                        IdThumbnail = fotoThumbnail.Id,
-                        JumlahFoto = kegiatan.DaftarFoto.Count(),
-                        Tanggal = fotoThumbnail.AddedAt,
-                        DaftarFoto = kegiatan.DaftarFoto.ToList(),
-                    });
-                }
-                else
-                    viewModel.Add(new AlbumVM
-                    {
-                        NamaKegiatan = kegiatan.NamaKegiatan,
-                        IdKegiatan = kegiatan.Id,
-                        JumlahFoto = 0
-                    });
+                    NamaKegiatan = kegiatan.NamaKegiatan,
+                    IdKegiatan = kegiatan.Id,
+                    IdThumbnail = kegiatan.FotoThumbnail?.Id,
+                    Tanggal = kegiatan.Tanggal,
+                    DaftarFoto = kegiatan.DaftarFoto.ToList(),
+                };
+
+                if (kegiatan.FotoThumbnail is not null)
+                    album.DaftarFoto.Add(kegiatan.FotoThumbnail);
+
+                album.JumlahFoto = album.DaftarFoto.Count;
+
+                viewModel.Add(album);
             }
 
             return View(viewModel);

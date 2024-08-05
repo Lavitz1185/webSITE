@@ -2,9 +2,9 @@
 
 namespace webSITE.Services.Contracts
 {
-    public interface INotificationService
+    public interface IToastrNotificationService
     {
+        string? GetNotificationJson();
         void AddNotification(ToastrNotification notification);
-        string TempDataKey { get; }
     }
 }

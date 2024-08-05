@@ -62,7 +62,7 @@ builder.Services.AddScoped<IRepositoriPengumuman, RepositoriPengumuman>();
 builder.Services.AddScoped<IRepositoriLomba, RepositoriLomba>();
 builder.Services.AddScoped<IRepositoriPesertaLomba, RepositoriPesertaLomba>();
 builder.Services.AddScoped<IRepositoriTimLomba, RepositoriTimLomba>();
-builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IToastrNotificationService, ToastrNotificationService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<IMailService, MailService>();

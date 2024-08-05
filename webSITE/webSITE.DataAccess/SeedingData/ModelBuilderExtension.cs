@@ -162,7 +162,7 @@ namespace webSITE.DataAccess.SeedingData
                 {
                     Id = 1,
                     Judul = "Pentas Seni Ilmu Komputer 2024",
-                    Isi = "Dengan bangga kami mengundang seluruh civitas akademika untuk menghadiri Pentas Seni Ilmu Komputer 2024 yang akan diselenggarakan pada tanggal 15 Agustus 2024 di Aula Utama Kampus. Acara ini akan menampilkan berbagai pertunjukan seni kreatif dari mahasiswa, termasuk tarian, drama, musik, dan pameran karya digital. ",
+                    Isi = "Dengan bangga kami mengundang seluruh civitas akademika untuk menghadiri Pentas Seni Ilmu Komputer 2024 yang akan diselenggarakan pada tanggal 15 Agustus 2024 di Aula Utama Kampus. Acara ini akan menampilkan berbagai pertunjukan seni kreatif dari mahasiswa, termasuk tarian, drama, musik, dan pameran karya digital. Daftar Pensi >> <a href=\"/Pensi\">Klik Untuk Mendaftar Pensi</a> <<",
                     AddedAt = new DateTime(2024, 7, 11, 7, 0, 0, DateTimeKind.Local),
                     IsPriority = true,
                 },

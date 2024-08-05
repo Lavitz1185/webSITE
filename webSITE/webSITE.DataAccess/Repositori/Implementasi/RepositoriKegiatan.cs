@@ -27,6 +27,7 @@ namespace webSITE.Repositori.Implementasi
         public async Task<Kegiatan?> GetWithDetail(int id)
         {
             var kegiatan = await _dbContext.TblKegiatan
+                .Include(k => k.FotoThumbnail)
                 .Include(k => k.DaftarFoto)
                 .Include(k => k.DaftarMahasiswa)
                 .FirstOrDefaultAsync(k => k.Id == id);
@@ -45,6 +46,7 @@ namespace webSITE.Repositori.Implementasi
         public async Task<List<Kegiatan>?> GetAllWithDetail()
         {
             var daftarKegiatan = await _dbContext.TblKegiatan
+                .Include(k => k.FotoThumbnail)
                 .Include(k => k.DaftarFoto)
                 .Include(k => k.DaftarMahasiswa)
                 .ToListAsync();

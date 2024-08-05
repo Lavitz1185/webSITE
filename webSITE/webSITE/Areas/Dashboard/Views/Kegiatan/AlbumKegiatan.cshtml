@@ -1,12 +1,11 @@
 ﻿@model AlbumVM
 @{
-    ViewData["Title"] = "Album";
-    ViewData["Active"] = "Album";
+    ViewData["Title"] = "Album Kegiatan";
 }
 
 <div class="row animate__animated animate__fadeInLeft">
     <div class="top col gap-3 d-flex" style="margin: 0; padding: 0">
-        <a href="@ViewData["ReturnUrl"]" style="width: 90px; height: 90px"><i class="ri-arrow-left-line"></i></a>
+        <a asp-action="DaftarAlbum" style="width: 90px; height: 90px"><i class="ri-arrow-left-line"></i></a>
         <h2>@Model.NamaKegiatan</h2>
     </div>
 </div>
@@ -54,5 +53,4 @@
             $.fancybox.defaults.buttons = newButtons;
         });
     </script>
-
 }

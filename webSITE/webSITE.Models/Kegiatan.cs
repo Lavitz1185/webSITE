@@ -13,6 +13,8 @@ namespace webSITE.Domain
         public int JumlahHari { get; set; }
         public string TempatKegiatan { get; set; } = string.Empty;
         public string Keterangan { get; set; } = string.Empty;
+
+        public Foto? FotoThumbnail { get; set; }
         public IReadOnlyList<Foto> DaftarFoto { get => _daftarFoto; }
         public IReadOnlyList<Mahasiswa> DaftarMahasiswa { get => _daftarMahasiswa; }
 
@@ -37,7 +39,7 @@ namespace webSITE.Domain
 
         public void DeleteFoto(Foto foto)
         {
-            var exists = DaftarFoto.Any(f => f.Id == foto.Id);
+            var exists = _daftarFoto.Any(f => f.Id == foto.Id);
 
             if (!exists) throw new KegiatanDontHaveFotoException(NamaKegiatan, foto.Id);
 

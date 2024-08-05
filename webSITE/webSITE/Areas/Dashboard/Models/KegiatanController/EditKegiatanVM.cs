@@ -30,6 +30,10 @@ namespace webSITE.Areas.Dashboard.Models.KegiatanController
         [StringLength(500, MinimumLength = 100, ErrorMessage = "Panjang {0} minimal {2} karakter dan maksimal {1} karakter")]
         public string Keterangan { get; set; } = string.Empty;
 
+        [Display(Name = "Foto Thumbnail")]
+        [Required(ErrorMessage = "{0} harus dipilih")]
+        public int? IdThumbnail { get; set; }
+
         [Display(Name = "Daftar Foto")]
         [Required]
         public List<int> DaftarIdFoto { get; set; } = new();

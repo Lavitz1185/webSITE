@@ -24,7 +24,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger<KegiatanController> _logger;
-        private readonly INotificationService _notificationService;
+        private readonly IToastrNotificationService _notificationService;
 
         public KegiatanController(
             IRepositoriKegiatan repositoriKegiatan,
@@ -33,7 +33,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             IMapper mapper,
             ILogger<KegiatanController> logger,
             IUnitOfWork unitOfWork,
-            INotificationService notificationService)
+            IToastrNotificationService notificationService)
         {
             _repositoriKegiatan = repositoriKegiatan;
             _repositoriMahasiswa = repositoriMahasiswa;
@@ -130,12 +130,19 @@ namespace webSITE.Areas.Dashboard.Controllers
 
                 foreach (var idFoto in tambahKegiatanVM.DaftarIdFoto)
                 {
-                    var foto = await _repositoriFoto.Get(idFoto);
-
-                    if (foto is null) throw new FotoNotFoundException(idFoto);
-
+                    var foto = await _repositoriFoto.Get(idFoto) ?? throw new FotoNotFoundException(idFoto);
                     kegiatan.AddFoto(foto);
                 }
+
+                var fotoThumbnail = await _repositoriFoto.Get(tambahKegiatanVM.IdThumbnail);
+
+                if(fotoThumbnail is null)
+                {
+                    ModelState.AddModelError(nameof(TambahKegiatanVM.IdThumbnail), "Foto Thumbnail tidak ditemukan");
+                    return View(tambahKegiatanVM);
+                }
+
+                kegiatan.FotoThumbnail = fotoThumbnail;
 
                 foreach (var idMahasiswa in tambahKegiatanVM.DaftarIdMahasiswa)
                 {
@@ -225,6 +232,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                 JumlahHari = kegiatan.JumlahHari,
                 Keterangan = kegiatan.Keterangan,
                 Tanggal = kegiatan.Tanggal,
+                IdThumbnail = kegiatan.FotoThumbnail?.Id,
                 DaftarIdFoto = kegiatan.DaftarFoto is null ? new() : kegiatan.DaftarFoto.Select(f => f.Id).ToList(),
                 DaftarIdMahasiswa = kegiatan.DaftarMahasiswa is null ? new() : kegiatan.DaftarMahasiswa.Select(m => m.Id).ToList(),
             });
@@ -259,13 +267,21 @@ namespace webSITE.Areas.Dashboard.Controllers
                 kegiatan.TempatKegiatan = editKegiatanVM.TempatKegiatan;
                 kegiatan.Tanggal = editKegiatanVM.Tanggal;
 
+                var fotoThumbnail = await _repositoriFoto.Get(editKegiatanVM.IdThumbnail!.Value);
+
+                if (fotoThumbnail is null)
+                {
+                    ModelState.AddModelError(nameof(TambahKegiatanVM.IdThumbnail), "Foto Thumbnail tidak ditemukan");
+                    return View(editKegiatanVM);
+                }
+
+                kegiatan.FotoThumbnail = fotoThumbnail;
+
                 var daftarFoto = new List<Foto>();
 
                 foreach (var idFoto in editKegiatanVM.DaftarIdFoto)
                 {
-                    var foto = await _repositoriFoto.Get(idFoto);
-                    if (foto is null) throw new FotoNotFoundException(idFoto);
-
+                    var foto = await _repositoriFoto.Get(idFoto) ?? throw new FotoNotFoundException(idFoto);
                     daftarFoto.Add(foto);
                 }
 
@@ -343,6 +359,56 @@ namespace webSITE.Areas.Dashboard.Controllers
                 _logger.LogError("Edit. Exception : {0}", ex.ToString());
                 return View(editKegiatanVM);
             }
+        }
+
+        public async Task<IActionResult> DaftarAlbum()
+        {
+            var daftarKegiatan = await _repositoriKegiatan.GetAllWithDetail();
+
+            daftarKegiatan = daftarKegiatan ?? new();
+
+            var daftarAlbum = daftarKegiatan.Select(k =>
+            {
+                var album = new AlbumVM
+                {
+                    IdKegiatan = k.Id,
+                    NamaKegiatan = k.NamaKegiatan,
+                    Tanggal = k.Tanggal,
+                    DaftarFoto = k.DaftarFoto.ToList(),
+                    IdThumbnail = k.FotoThumbnail?.Id,
+                };
+
+                if (k.FotoThumbnail is not null)
+                    album.DaftarFoto.Add(k.FotoThumbnail);
+
+                album.JumlahFoto = album.DaftarFoto.Count;
+
+                return album;
+            }).ToList();
+
+            return View(daftarAlbum);
+        }
+
+        public async Task<IActionResult> AlbumKegiatan(int id)
+        {
+            var kegiatan = await _repositoriKegiatan.GetWithDetail(id);
+
+            if (kegiatan is null) return NotFound();
+
+            var model = new AlbumVM
+            {
+                IdKegiatan = id,
+                NamaKegiatan = kegiatan.NamaKegiatan,
+                Tanggal = kegiatan.Tanggal,
+                DaftarFoto = kegiatan.DaftarFoto
+                    .OrderBy(f => f.AddedAt)
+                    .ToList()
+            };
+
+            if (kegiatan.FotoThumbnail is not null)
+                model.DaftarFoto.Add(kegiatan.FotoThumbnail);
+
+            return View(model);
         }
     }
 }

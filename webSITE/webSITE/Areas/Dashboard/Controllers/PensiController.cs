@@ -22,7 +22,7 @@ namespace webSITE.Areas.Dashboard.Controllers
     {
         private readonly IRepositoriLomba _repositoriLomba;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly INotificationService _notificationService;
+        private readonly IToastrNotificationService _notificationService;
         private readonly ILogger<PensiController> _logger;
         private readonly IRepositoriPesertaLomba _repositoriPesertaLomba;
         private readonly IRepositoriTimLomba _repositoriTimLomba;
@@ -33,7 +33,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         public PensiController(
             IRepositoriLomba repositoriLomba,
             IUnitOfWork unitOfWork,
-            INotificationService notificationService,
+            IToastrNotificationService notificationService,
             ILogger<PensiController> logger,
             IRepositoriPesertaLomba repositoriPesertaLomba,
             IRepositoriTimLomba repositoriTimLomba,

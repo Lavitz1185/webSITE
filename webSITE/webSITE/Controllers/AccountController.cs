@@ -30,7 +30,7 @@ namespace webSITE.Controllers
         private readonly IUserStore<Mahasiswa> _userStore;
         private readonly ILogger<AccountController> _logger;
         private readonly IMailService _mailService;
-        private readonly INotificationService _notificationService;
+        private readonly IToastrNotificationService _notificationService;
         private readonly IUnitOfWork _unitOfWork;
 
         private readonly PhotoFileSettingsOptions _photoFileSettings;
@@ -43,7 +43,7 @@ namespace webSITE.Controllers
             SignInManager<Mahasiswa> signInManager,
             ILogger<AccountController> logger,
             IMailService mailService,
-            INotificationService notificationService,
+            IToastrNotificationService notificationService,
             IOptions<PhotoFileSettingsOptions> options,
             IUnitOfWork unitOfWork)
         {

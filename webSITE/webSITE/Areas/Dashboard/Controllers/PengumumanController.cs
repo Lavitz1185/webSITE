@@ -23,12 +23,12 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IRepositoriPengumuman _repositoriPengumuman;
         private readonly IRepositoriFoto _repositoriFoto;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly INotificationService _notificationService;
+        private readonly IToastrNotificationService _notificationService;
         private readonly ILogger<PengumumanController> _logger;
 
         public PengumumanController(IRepositoriPengumuman repositoriPengumuman,
             IUnitOfWork unitOfWork,
-            INotificationService notificationService,
+            IToastrNotificationService notificationService,
             ILogger<PengumumanController> logger,
             IRepositoriFoto repositoriFoto)
         {
