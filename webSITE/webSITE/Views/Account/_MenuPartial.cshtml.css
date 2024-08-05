@@ -76,6 +76,12 @@
 }
 
 /* Responsive */
+@media (max-width: 486px) {
+    .container-menu-nav {
+        font-size: 15px;
+    }
+}
+
 @media (max-width: 576px) {
     .container-menu-nav {
         padding: 0vw 5vw;

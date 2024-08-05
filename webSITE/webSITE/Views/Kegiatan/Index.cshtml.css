@@ -110,14 +110,14 @@
 }
 
 .card h3 {
-    font-size: .9rem;
+    font-size: .9rem !important;
     font-weight: 400;
     color: #666;
 }
 
 .card h2 {
     text-transform: uppercase;
-    font-size: 1.75rem;
+    font-size: 22px !important;
     font-weight: 600;
 }
 

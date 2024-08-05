@@ -53,6 +53,21 @@
 }
 
 /*=============== BREAKPOINTS ===============*/
+
+@media screen and (max-width: 486px) {
+    h2 {
+        font-size: 20px !important;
+    }
+
+    h3 {
+        font-size: 15px !important;
+    }
+
+    .steps__card h3 {
+        font-size: 16px !important;
+    }
+}
+
 /* For small devices */
 @media screen and (max-width: 320px) {
     .container {
@@ -65,7 +80,7 @@
     }
 
     .home__title {
-        font-size: var(--h1-font-size);
+        font-size: var(--h1-font-size) !important;
     }
 
     .steps__bg {

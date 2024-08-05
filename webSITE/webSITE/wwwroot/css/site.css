@@ -61,6 +61,21 @@ h6 {
         color: white;
     }
 
+@media (max-width: 486px) {
+    h2 {
+        font-size: 25px !important;
+    }
+
+    h3 {
+        font-size: 20px !important;
+    }
+
+    p {
+        font-size: 15px !important;
+    }
+}
+
+
 
 @charset "UTF-8";
 /*!

@@ -2,6 +2,13 @@
     padding-top: 50px;
 }
 
-.ruang-input {
-    padding: 0vw 15vw;
+
+@media (max-width: 486px) {
+    .container-input-utama {
+        font-size: 15px;
+    }
+
+    ::deep button {
+        font-size: 15px;
+    }
 }
