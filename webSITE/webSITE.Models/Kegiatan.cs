@@ -15,7 +15,15 @@ namespace webSITE.Domain
         public string Keterangan { get; set; } = string.Empty;
 
         public Foto? FotoThumbnail { get; set; }
-        public IReadOnlyList<Foto> DaftarFoto { get => _daftarFoto; }
+        public IReadOnlyList<Foto> DaftarFoto { 
+            get 
+            {
+                if(FotoThumbnail is not null)
+                    return _daftarFoto.Append(FotoThumbnail).ToList();
+
+                return _daftarFoto;
+            } 
+        }
         public IReadOnlyList<Mahasiswa> DaftarMahasiswa { get => _daftarMahasiswa; }
 
         public void AddFoto(Foto foto)

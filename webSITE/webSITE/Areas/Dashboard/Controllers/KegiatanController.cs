@@ -367,23 +367,14 @@ namespace webSITE.Areas.Dashboard.Controllers
 
             daftarKegiatan = daftarKegiatan ?? new();
 
-            var daftarAlbum = daftarKegiatan.Select(k =>
+            var daftarAlbum = daftarKegiatan.Select(k => new AlbumVM
             {
-                var album = new AlbumVM
-                {
-                    IdKegiatan = k.Id,
-                    NamaKegiatan = k.NamaKegiatan,
-                    Tanggal = k.Tanggal,
-                    DaftarFoto = k.DaftarFoto.ToList(),
-                    IdThumbnail = k.FotoThumbnail?.Id,
-                };
-
-                if (k.FotoThumbnail is not null)
-                    album.DaftarFoto.Add(k.FotoThumbnail);
-
-                album.JumlahFoto = album.DaftarFoto.Count;
-
-                return album;
+                IdKegiatan = k.Id,
+                NamaKegiatan = k.NamaKegiatan,
+                Tanggal = k.Tanggal,
+                DaftarFoto = k.DaftarFoto.ToList(),
+                IdThumbnail = k.FotoThumbnail?.Id,
+                JumlahFoto = k.DaftarFoto.Count
             }).ToList();
 
             return View(daftarAlbum);
@@ -404,9 +395,6 @@ namespace webSITE.Areas.Dashboard.Controllers
                     .OrderBy(f => f.AddedAt)
                     .ToList()
             };
-
-            if (kegiatan.FotoThumbnail is not null)
-                model.DaftarFoto.Add(kegiatan.FotoThumbnail);
 
             return View(model);
         }

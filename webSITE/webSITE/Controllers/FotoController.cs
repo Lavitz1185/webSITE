@@ -43,9 +43,6 @@ namespace webSITE.Controllers
                     .ToList()
             };
 
-            if (kegiatan.FotoThumbnail is not null)
-                model.DaftarFoto.Add(kegiatan.FotoThumbnail);
-
             return View(model);
         }
 
@@ -64,12 +61,8 @@ namespace webSITE.Controllers
                     IdThumbnail = kegiatan.FotoThumbnail?.Id,
                     Tanggal = kegiatan.Tanggal,
                     DaftarFoto = kegiatan.DaftarFoto.ToList(),
+                    JumlahFoto = kegiatan.DaftarFoto.Count
                 };
-
-                if (kegiatan.FotoThumbnail is not null)
-                    album.DaftarFoto.Add(kegiatan.FotoThumbnail);
-
-                album.JumlahFoto = album.DaftarFoto.Count;
 
                 viewModel.Add(album);
             }
