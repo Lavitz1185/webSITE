@@ -800,7 +800,7 @@
 /* Responsive MAX 1545px */
 @media (max-width: 1545px) {
     .parallax-bg {
-        height: 140vh;
+        height: 160vh;
     }
 
     #preKeg .row .col .card {

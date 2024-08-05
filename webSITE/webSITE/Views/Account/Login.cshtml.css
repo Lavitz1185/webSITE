@@ -13,7 +13,7 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-    .container ::deep h1 {
+    .container ::deep h2 {
         font-size: 1.6rem;
         text-align: center;
     }
