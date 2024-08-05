@@ -9,6 +9,7 @@ nav {
     z-index: 1001;
     transition: background .4s ease-in;
     min-height: 5rem;
+    justify-content: space-between;
 }
 
 ::deep .navbar-brand img {
@@ -192,6 +193,13 @@ nav {
     }
 }
 
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+        .nav {
+            display: -webkit-flex;
+        }
+    }
+}
 
 
 /* Menghilangkan border pada button */
