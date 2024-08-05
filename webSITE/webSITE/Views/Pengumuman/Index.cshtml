@@ -35,22 +35,14 @@
                     </div>
                     <div class="row">
                         <p style="margin-bottom: 0px;">
-                            @pengumuman.Isi
+                            @Html.Raw(pengumuman.Isi)
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="content">
-                @if (pengumuman.Judul.ToLower().Contains("Pentas Seni".ToLower()) 
-                    || pengumuman.Isi.ToLower().Contains("Pentas Seni".ToLower()))
-                {
-                    <a asp-action="Index" asp-controller="Pensi"></a>
-                }
-            </div>
         </div>
     }
 </div>
-
 
 @section Scripts {
     <partial name="_OwlCarouselPartial" />
