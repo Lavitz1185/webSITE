@@ -24,7 +24,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger<KegiatanController> _logger;
-        private readonly INotificationService _notificationService;
+        private readonly IToastrNotificationService _notificationService;
 
         public KegiatanController(
             IRepositoriKegiatan repositoriKegiatan,
@@ -33,7 +33,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             IMapper mapper,
             ILogger<KegiatanController> logger,
             IUnitOfWork unitOfWork,
-            INotificationService notificationService)
+            IToastrNotificationService notificationService)
         {
             _repositoriKegiatan = repositoriKegiatan;
             _repositoriMahasiswa = repositoriMahasiswa;

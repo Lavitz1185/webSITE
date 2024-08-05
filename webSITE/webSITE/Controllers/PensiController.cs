@@ -20,7 +20,7 @@ namespace webSITE.Controllers
         private readonly IRepositoriTimLomba _repositoriTimLomba;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<PensiController> _logger;
-        private readonly INotificationService _notificationService;
+        private readonly IToastrNotificationService _notificationService;
 
         public PensiController(
             IRepositoriLomba repositoriLomba,
@@ -28,7 +28,7 @@ namespace webSITE.Controllers
             IRepositoriTimLomba repositoriTimLomba,
             IUnitOfWork unitOfWork,
             ILogger<PensiController> logger,
-            INotificationService notificationService)
+            IToastrNotificationService notificationService)
         {
             _repositoriLomba = repositoriLomba;
             _repositoriPesertaLomba = repositoriPesertaLomba;

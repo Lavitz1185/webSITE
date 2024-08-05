@@ -56,9 +56,29 @@
     <script src="~/js/dashboard.js" asp-append-version="true"></script>
     <script src="~/js/sidebarhp.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <partial name="_ToastrPartial" />
     <script src="~/js/mahasiwaPicker.js" asp-append-version="true"></script>
     <script src="~/js/fotoPicker.js" asp-append-version="true"></script>
+
+    @{
+        var globalOptions = new ToastrOptions
+        {
+            closeButton = true,
+            progressBar = true,
+            newestOnTop = true,
+            preventDuplicates = false,
+            timeOut = (int)TimeSpan.FromSeconds(5).TotalMilliseconds,
+            extendedTimeOut = (int)TimeSpan.FromSeconds(5).TotalMilliseconds,
+            showDuration = (int)TimeSpan.FromSeconds(0.5).TotalMilliseconds,
+            hideDuration = (int)TimeSpan.FromSeconds(0.5).TotalMilliseconds,
+            showEasing = Easings.Swing,
+            hideEasing = Easings.Swing,
+            showMethod = AnimationMethods.FadeIn,
+            hideMethod = AnimationMethods.FadeOut,
+            positionClass = PositionClasses.TopRight,
+        };
+    }
+    <vc:toastr global-options=globalOptions></vc:toastr>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

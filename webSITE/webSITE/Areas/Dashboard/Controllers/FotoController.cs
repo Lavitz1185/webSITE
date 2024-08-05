@@ -24,7 +24,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly PhotoFileSettingsOptions _photoFileSettings;
         private readonly IRepositoriFoto _repositoriFoto;
         private readonly IRepositoriMahasiswa _repositoriMahasiswa;
-        private readonly INotificationService _notificationService;
+        private readonly IToastrNotificationService _notificationService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<FotoController> _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -33,7 +33,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             IRepositoriFoto repositoriFoto,
             IRepositoriMahasiswa repositoriMahasiswa,
             IWebHostEnvironment webHostEnvironment,
-            INotificationService notificationService,
+            IToastrNotificationService notificationService,
             IOptions<PhotoFileSettingsOptions> options,
             IUnitOfWork unitOfWork,
             ILogger<FotoController> logger)
