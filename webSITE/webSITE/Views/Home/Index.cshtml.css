@@ -359,11 +359,20 @@
     margin: 7px;
 }
 
-#preSiters .profile-img {
-    width: 8rem;
+#preSiters .cover-profil-img {
+    width: 128px;
+    height: 128px;
     clip-path: circle(60px at center);
     margin-top: 1rem;
     margin: 0 auto;
+    overflow: hidden
+}
+
+#preSiters .cover-profil-img .profile-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    background-size: cover;
 }
 
 #preSiters .name-profile {

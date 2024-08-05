@@ -66,6 +66,10 @@
 
 /* Responsive MAX 767px */
 @media (max-width: 767px) {
+    .container-fluid {
+        padding: 0;
+    }
+
     .col-md-6 {
         flex: 0 0 100%;
         max-width: 100%;
