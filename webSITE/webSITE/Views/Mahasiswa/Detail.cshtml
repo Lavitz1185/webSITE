@@ -221,7 +221,7 @@
                         {
                             @foreach (var foto in Model.DaftarFoto)
                             {
-                                <div class="col-md-3 col-6 mb-3">
+                                <div class="col-md-4 col-6 mb-3">
                                     <img src="@Url.ActionLink("Foto", "File", new { Id = foto.Id, Area = "" })" class="img-fluid" />
                                 </div>
                             }
