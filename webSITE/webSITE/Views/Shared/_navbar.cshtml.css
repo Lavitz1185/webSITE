@@ -9,11 +9,13 @@ nav {
     z-index: 1001;
     transition: background .4s ease-in;
     min-height: 5rem;
+    display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .navbar {
-    display: -webkit-box;
+    display: flex;
     flex-wrap: wrap;
     align-items: center;
     padding-top: .5rem;
@@ -21,13 +23,14 @@ nav {
 }
 
 ::deep .navbar-brand img {
-    width: 100%;
+    width: 138px;
     height: 55px;
     cursor: pointer;
     padding-left: 20px;
 }
 
 .navbar-nav {
+    display: flex;
     gap: 10px;
     padding-right: 20px;
 }
@@ -180,6 +183,7 @@ nav {
 @media (max-width: 991px) {
     ::deep .navbar-brand img {
         padding-left: 0;
+        width: 118px;
     }
 
     .collapse.navbar-collapse {
@@ -206,11 +210,13 @@ nav {
         nav {
             display: -webkit-flex;
             justify-content: space-between;
+            align-items: center;
         }
 
-        .navbar {
+        ::deep .navbar {
             display: -webkit-flex;
             justify-content: space-between;
+            align-items: center;
         }
     }
 }
