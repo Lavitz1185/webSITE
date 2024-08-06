@@ -1,5 +1,5 @@
 ﻿function fotoPicker(data) {
-    const { id, inputName, multi, TambahVMDaftarIdMahasiswa, TambahVMFormFile } = data;
+    const { id, inputName, multi, TambahVMFormFile } = data;
 
     const inputContainer = $(`#input-container${id}`);
     const preview = $(`#previewFoto${id}`);
@@ -85,11 +85,8 @@
     buttonUpload.on('click', async function () {
         const formData = new FormData();
         const inputFile = $(`#modal${id} #formFile`)[0].files[0];
-        const daftarIdMahasiswa = $(`#modal${id} #daftarMahasiswa input#${TambahVMDaftarIdMahasiswa}`);
 
         formData.append(TambahVMFormFile, inputFile);
-
-        daftarIdMahasiswa.each((index, item) => formData.append(TambahVMDaftarIdMahasiswa, $(item).val()));
 
         $(`#modal${id} #formFileVal`).html('');
 
@@ -112,9 +109,9 @@
             console.log(daftarFotoContainer.first());
 
             const newFotoContainer = `<div class="col-3 p-1 foto-container">
-                                                <input type="text" id="fotoId" value="${data}" hidden />
-                                                <img class="img-thumbnail" src="${makeGetUrl(data)}" />
-                                              </div>`;
+                                        <input type="text" id="fotoId" value="${data}" hidden />
+                                        <img class="img-thumbnail" src="${makeGetUrl(data)}" />
+                                      </div>`;
 
             let elementCount = 0;
 
@@ -131,8 +128,7 @@
             daftarFotoContainer
                 .filter((index, item) => $(item).find('input#fotoId').val() == data)
                 .first().on('click', onFotoContainerClick);
-
-            daftarIdMahasiswa.html('');
+                
             $(`#modal${id} #formFile`).val('');
         } else {
             const data = await response.json();

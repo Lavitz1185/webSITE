@@ -42,11 +42,6 @@
                             <span class="text-danger" id="formFileVal"></span>
                         </div>
                     </div>
-                    <div class="row mt-4">
-                        <div class="col" id="daftarMahasiswa">
-                            <vc:mahasiswa-picker input-name=@nameof(TambahVM.DaftarIdMahasiswa) multi=true></vc:mahasiswa-picker>
-                        </div>
-                    </div>
                     <div class="row mt-4 mb-4">
                         <div class="col-12">
                             <button type="button" class="btn btn-custom w-100" id="uploadFoto">Upload</button>
@@ -79,14 +74,12 @@
             const id = '@(Id)';
             const inputName = '@(Model.Name)';
             const multi = @(Model.Multi.ToString().ToLower());
-            const TambahVMDaftarIdMahasiswa = '@(nameof(TambahVM.DaftarIdMahasiswa))';
             const TambahVMFormFile = '@(nameof(TambahVM.FormFile))';
 
             fotoPicker({
                 id,
                 inputName,
                 multi,
-                TambahVMDaftarIdMahasiswa,
                 TambahVMFormFile
             });
         });
