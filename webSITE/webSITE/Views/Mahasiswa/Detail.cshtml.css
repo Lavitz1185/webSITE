@@ -97,6 +97,12 @@
     .table-responsive {
         overflow-x: auto;
     }
+
+
+    .kembali-tombol {
+        padding-left : 0;
+    }
+    
 }
 
 

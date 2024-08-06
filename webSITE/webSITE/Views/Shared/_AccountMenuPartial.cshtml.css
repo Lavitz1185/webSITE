@@ -57,11 +57,16 @@
         
     }
 
-    ::deep .user-info h2 {
-        font-weight: 500;
-        font-size: 18px;
-        margin: 4px 0;
-    }
+::deep .user-info h2 {
+    white-space: nowrap; /* Hindari pemisahan kata */
+    overflow: hidden; /* Hilangkan scroll vertikal */
+    text-overflow: ellipsis; /* Ganti ujung teks dengan elipsis (...) */
+    display: block; /* Pastikan elemen adalah blok untuk properti di atas */
+    width: 170px; /* Batas lebar maksimum */
+    font-weight: 500;
+    font-size: 18px;
+    margin: 4px 0;
+}
 
 ::deep .sub-menu hr {
     border: 0;

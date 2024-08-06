@@ -376,6 +376,11 @@
 }
 
 #preSiters .name-profile {
+    white-space: nowrap; /* Hindari pemisahan kata */
+    overflow: hidden; /* Hilangkan scroll vertikal */
+    text-overflow: ellipsis; /* Ganti ujung teks dengan elipsis (...) */
+    display: block; /* Pastikan elemen adalah blok untuk properti di atas */
+    max-width: 100%; /* Batas lebar maksimum */
     font-size: 1.3rem;
     margin-top: 0.5rem;
 }
@@ -678,7 +683,7 @@
 /* ==================================== Responsive ==================================== */
 
 /* == RESPONSIVE CSS GABUNGAN HOME & ABOUT US == */
-/* Responsive MAX 670px */
+/* Responsive MAX 486px */
 @media (max-width: 486px) {
     #home h2 {
         font-size: 35px !important;
@@ -721,6 +726,10 @@
 /* == RESPONSIVE CSS PREVIEW SITERS == */
 /* Responsive MAX 500px */
 @media (max-width: 500px) {
+
+    #preSiters {
+        margin-top: 70px;        
+    }
 
     #preSiters .sitewrapper {
         max-width: 350px;
