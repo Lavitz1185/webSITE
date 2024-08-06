@@ -22,34 +22,34 @@
                     <div class="row">
                         <form id="formProfil" asp-controller="Account" asp-area="" asp-action="Index" class="col-md-12 d-flex flex-column" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-center"></div>
-                            <div class="row">                               
+                            <div class="row">
                                 <div class="col-md-12 mb-3 input-box">
                                     <label asp-for="@Model.NamaLengkap"></label>
-                                    <input type="text" class="form-control" asp-for="@Model.NamaLengkap" readonly="true">
+                                    <input spellcheck="false" type="text" class="form-control" asp-for="@Model.NamaLengkap" readonly="true">
                                     <span asp-validation-for="@Model.NamaLengkap" class="text-danger"></span>
-                                </div>                                
+                                </div>
                             </div>
-                            <div class="row">                               
+                            <div class="row">
                                 <div class="col-md-6 mb-3 input-box">
                                     <label asp-for="@Model.Nim"></label>
-                                    <input type="text" class="form-control" asp-for="@Model.Nim" readonly="true">
+                                    <input spellcheck="false" type="text" class="form-control always-readonly" asp-for="@Model.Nim" readonly="true">
                                     <span asp-validation-for="@Model.Nim" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mb-3 input-box">
                                     <label asp-for="@Model.NamaPanggilan"></label>
-                                    <input type="text" class="form-control" asp-for="@Model.NamaPanggilan" readonly="true">
+                                    <input spellcheck="false" type="text" class="form-control" asp-for="@Model.NamaPanggilan" readonly="true">
                                     <span asp-validation-for="@Model.NamaPanggilan" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3 input-box">
                                     <label asp-for="@Model.TanggalLahir"></label>
-                                    <input type="date" class="form-control" asp-for="@Model.TanggalLahir" readonly="true">
+                                    <input spellcheck="false" type="date" class="form-control" asp-for="@Model.TanggalLahir" readonly="true">
                                     <span asp-validation-for="@Model.TanggalLahir" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mb-3 input-box">
                                     <label asp-for="@Model.JenisKelamin"></label>
-                                    <select class="form-control" asp-for="@Model.JenisKelamin" disabled>
+                                    <select class="form-control always-disabled" asp-for="@Model.JenisKelamin" disabled>
                                         @foreach (JenisKelamin jenisKelamin in Enum.GetValues(typeof(JenisKelamin)))
                                         {
                                             <option value="@jenisKelamin">@JenisKelaminExtension.ToString(jenisKelamin)</option>
@@ -60,28 +60,28 @@
                             <div class="row">
                                 <div class="col-md-12 mb-3 input-box">
                                     <label asp-for="@Model.Bio"></label>
-                                    <textarea asp-for="@Model.Bio" class="form-control" readonly="readonly" rows="3"></textarea>
+                                    <textarea spellcheck="false" asp-for="@Model.Bio" class="form-control" readonly="readonly" rows="3"></textarea>
                                     <span asp-validation-for="@Model.Bio" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 mb-3 input-box">
-                                    <label asp-for="@Model.InstagramProfileLink"></label>
-                                    <input asp-for="@Model.InstagramProfileLink" type="text" class="form-control" readonly="readonly">
+                                    <label asp-for="@Model.InstagramProfileLink">Link Instagram</label>
+                                    <input spellcheck="false" asp-for="@Model.InstagramProfileLink" type="text" class="form-control" readonly="readonly">
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4 mb-3 input-box">
-                                    <label asp-for="@Model.FacebookProfileLink"></label>
-                                    <input asp-for="@Model.FacebookProfileLink" type="text" class="form-control" readonly="readonly">
+                                    <label asp-for="@Model.FacebookProfileLink">Link Facebook</label>
+                                    <input spellcheck="false" asp-for="@Model.FacebookProfileLink" type="text" class="form-control" readonly="readonly">
                                     <span asp-validation-for="@Model.FacebookProfileLink" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4 mb-3 input-box">
-                                    <label asp-for="@Model.TikTokProfileLink"></label>
-                                    <input asp-for="@Model.TikTokProfileLink" type="text" class="form-control" readonly="readonly">
+                                    <label asp-for="@Model.TikTokProfileLink">Link Tiktok</label>
+                                    <input spellcheck="false" asp-for="@Model.TikTokProfileLink" type="text" class="form-control" readonly="readonly">
                                     <span asp-validation-for="@Model.TikTokProfileLink" class="text-danger"></span>
                                 </div>
-                            </div>                          
-                            <div class="row">
+                            </div>
+                            <div class="row mt-1">
                                 <div class="col d-flex justify-content-center">
                                     <button id="btnSubmit" class="btn btn-custom" hidden="hidden" type="submit">Simpan</button>
                                     <a id="btnBatal" class="btn btn-secondary ms-2" asp-action="Index" hidden="hidden">Batal</a>
@@ -90,8 +90,8 @@
                         </form>
                     </div>
                     <div class="row mt-1">
-                        <div class="col d-flex justify-content-end">
-                            <button style="padding: 5px 20px;" id="btnEdit" class="btn btn-custom">Edit</button>
+                        <div class="col d-flex justify-content-center">
+                            <button style="padding: 5px 25px;" id="btnEdit" class="btn btn-custom">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -106,18 +106,15 @@
     <script type="text/javascript">
         $(function () {
             $('#btnEdit').click(() => {
-                $('#formProfil input, #formProfil textarea').each((index, item) => {
+                $('#formProfil input:not(.always-readonly), #formProfil textarea').each((index, item) => {
                     $(item).attr('readonly', false);
                 });
 
-                $('#formProfil select').prop('disabled', false);
+                $('#formProfil select:not(.always-disabled)').prop('disabled', false);
 
                 $('#btnEdit').prop('hidden', true);
-
                 $('#btnBatal').prop('hidden', false);
-
                 $('#btnSubmit').prop('hidden', false);
-
             });
         })
     </script>
