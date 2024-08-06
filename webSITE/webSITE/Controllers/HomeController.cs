@@ -74,6 +74,10 @@ namespace webSITE.Controllers
             else if (exceptionHandlerPathFeature?.Error is Exception)
                 TempData[Utility.AlertTempDataKey] = "Telah terjadi error pada server";
 
+            _logger.LogError(exceptionHandlerPathFeature?.Error,
+                "Unhandled Exception. Message : {@message}. At {@dateTimes}",
+                exceptionHandlerPathFeature?.Error?.Message, DateTime.Now);
+
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
