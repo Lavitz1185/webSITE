@@ -48,6 +48,21 @@ namespace webSITE.Controllers
             return View();
         }
 
+        public IActionResult StatusCode404()
+        {
+            return View();
+        }
+
+        public IActionResult StatusCode400()
+        {
+            return View();
+        }
+
+        public IActionResult StatusCode500()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -71,6 +71,8 @@ builder.WebHost.UseStaticWebAssets();
 
 var app = builder.Build();
 
+app.UseStatusCodePagesWithReExecute("/Home/StatusCode{0}");
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
