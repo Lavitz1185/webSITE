@@ -613,7 +613,7 @@
 }
 
 #preKeg .row1 {
-    margin-top: 3rem;
+    margin-top: 48px;
 }
 
     #preKeg .row1 .col {
@@ -771,7 +771,7 @@
         }*/
 
     #preKeg .row1 {
-        margin-top: 85px;
+        margin-top: 60px;
     }
 
         #preKeg .row1 h1 {
@@ -779,7 +779,7 @@
         }
 
     #preKeg .row2 {
-        margin: 0 0 80px 0;
+        margin: -30px 0 80px 0;
         padding: 0 45px !important;
     }
 
@@ -812,10 +812,6 @@
             width: 100%;
             height: 155px;
         }*/
-
-    #preKeg .row1 {
-        margin-top: 2rem;
-    }
 
     #preKeg .row2 {
         padding: 0 100px;
