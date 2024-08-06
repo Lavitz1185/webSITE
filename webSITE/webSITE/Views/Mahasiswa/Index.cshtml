@@ -124,6 +124,11 @@
     .name-profile,
     .name2-profile {
         width: 100%;
+        white-space: nowrap; /* Hindari pemisahan kata */
+        overflow: hidden; /* Hilangkan scroll vertikal */
+        text-overflow: ellipsis; /* Ganti ujung teks dengan elipsis (...) */
+        display: block; /* Pastikan elemen adalah blok untuk properti di atas */
+        max-width: 100%; /* Batas lebar maksimum */
     }
 
     /* CSS Input Pencarian */

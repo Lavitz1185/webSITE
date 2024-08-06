@@ -56,7 +56,6 @@
     }
 
     .btn-back {
-        display: inline-block;
         padding: 10px 20px;
         font-size: 1rem;
         font-weight: bold;
@@ -66,8 +65,6 @@
         border-radius: 5px;
         text-decoration: none;
         margin-top: 20px;
-        right: 20px;
-        bottom: 20px;
     }
 
         .btn-back:hover {
@@ -224,7 +221,7 @@
                         {
                             @foreach (var foto in Model.DaftarFoto)
                             {
-                                <div class="col-md-3 col-6 mb-3">
+                                <div class="col-md-4 col-6 mb-3">
                                     <img src="@Url.ActionLink("Foto", "File", new { Id = foto.Id, Area = "" })" class="img-fluid" />
                                 </div>
                             }
@@ -236,9 +233,17 @@
                     </div>
                 </div>
             </div>
+            <!-- Tombol Kembali -->
+            <div class="kembali-tombol row mt-4 mb-3">
+                <div class="col-12">
+                    <a asp-controller="Mahasiswa" asp-action="Index" class="btn-back">Kembali</a>
+                </div>
+            </div>
+            
         </div>
-        <!-- Tombol Kembali -->
-        <a asp-controller="Mahasiswa" asp-action="Index" style="margin-left: 10px;" class="btn-back py-2">Kembali</a>
+        
+
+        
     </div>
 }
 <!-- ==== Akhir Section Detail Mahasiswa ==== -->
