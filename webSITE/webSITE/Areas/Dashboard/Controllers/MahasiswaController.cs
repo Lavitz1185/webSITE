@@ -52,7 +52,11 @@ namespace webSITE.Areas.Dashboard.Controllers
             if(mahasiswa == null)
                 return NotFound("Mahasiswa tidak ditemukan");
 
-            var editMahasiswaVM = _mapper.Map<EditMahasiswaVM>(mahasiswa);
+            var editMahasiswaVM = new EditMahasiswaVM
+            {
+                Id = mahasiswa.Id,
+                NamaLengkap = mahasiswa.NamaLengkap
+            };
             
             editMahasiswaVM.Admin = await _userManager.IsInRoleAsync(mahasiswa, "Admin");
 

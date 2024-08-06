@@ -6,11 +6,9 @@ namespace webSITE.Areas.Dashboard.Models.MahasiswaController
 {
     public class EditMahasiswaVM
     {
-        public string Id { get; set; }
-        public string NamaLengkap { get; set; }
+        public string Id { get; set; } = string.Empty;
 
-        [Display(Name = "Status Akun")]
-        public StatusAkun StatusAkun { get; set; }
+        public string NamaLengkap { get; set; } = string.Empty;
 
         [Display(Name = "Admin")]
         public bool Admin { get; set; }
