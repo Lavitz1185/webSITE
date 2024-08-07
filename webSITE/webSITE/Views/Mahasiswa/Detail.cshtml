@@ -168,9 +168,32 @@
                     <h3 class="text-center">Media Sosial</h3>
                     <div class="divider"></div>
                     <div class="d-flex justify-content-center social-icons">
-                        <a href="@Model.InstagramProfileLink?.AbsoluteUri" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
-                        <a href="@Model.FacebookProfileLink?.AbsoluteUri" target="_blank" title="Facebook"><i class="ri-facebook-box-line"></i></a>
-                        <a href="@Model.TikTokProfileLink?.AbsoluteUri" target="_blank" title="TikTok"><i class="ri-tiktok-line"></i></a>
+                        @{
+                            bool hasSocialMedia = false;
+
+                            if (!string.IsNullOrEmpty(Model.InstagramProfileLink?.AbsoluteUri))
+                            {
+                                hasSocialMedia = true;
+                                <a href="@Model.InstagramProfileLink?.AbsoluteUri" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
+                            }
+
+                            if (!string.IsNullOrEmpty(Model.FacebookProfileLink?.AbsoluteUri))
+                            {
+                                hasSocialMedia = true;
+                                <a href="@Model.FacebookProfileLink?.AbsoluteUri" target="_blank" title="Facebook"><i class="ri-facebook-box-line"></i></a>
+                            }
+
+                            if (!string.IsNullOrEmpty(Model.TikTokProfileLink?.AbsoluteUri))
+                            {
+                                hasSocialMedia = true;
+                                <a href="@Model.TikTokProfileLink?.AbsoluteUri" target="_blank" title="TikTok"><i class="ri-tiktok-line"></i></a>
+                            }
+                        }
+
+                        @if (!hasSocialMedia)
+                        {
+                            <p>Tidak ada Media Sosial</p>
+                        }
                     </div>
                 </div>
             </div>

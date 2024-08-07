@@ -808,6 +808,10 @@
 
 /* Responsive MAX 1545px */
 @media (max-width: 1545px) {
+    #preKeg {
+        height: 530px;
+    }
+
     .parallax-bg {
         height: 160vh;
     }

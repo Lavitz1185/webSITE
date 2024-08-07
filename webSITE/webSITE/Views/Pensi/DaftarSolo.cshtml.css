@@ -230,6 +230,13 @@
     }
 }
 
+@media (max-width: 486px) {
+    .judul-lomba .breadcrumbs li,
+    .judul-lomba .breadcrumbs li ::deep a {
+        font-size: 12px;
+    }
+}
+
 @media (max-width: 424px) {
     .container-lomba-solo .container-ketentuan a {
         font-size: .70rem;
