@@ -290,6 +290,22 @@
 }
 
 
+/* Responsive MAX 1153px */
+@media screen and (max-width: 1153px) {
+    ::deep.fernanddd .collis {
+        padding: 6px 16px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    ::deep.fernanddd .collis {
+        padding: 6px 5px;
+    }
+
+    ::deep .btn {
+        padding: 6px 10px;
+    }
+}
 
 /* Responsive MAX 767px */
 @media all and (max-width: 767px) {
@@ -335,8 +351,8 @@
     /* ==== Akhir CSS Section Kegiatan ==== */
 }
 
-/* Responsive MAX 326px */
-@media screen and (max-width: 326px) {
+/* Responsive MAX 336px */
+@media screen and (max-width: 336px) {
     ::deep.fernanddd .collis {
         padding: 6px 16px;
     }
