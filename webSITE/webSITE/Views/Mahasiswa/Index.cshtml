@@ -60,12 +60,12 @@
         overflow: hidden;
     }
 
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            object-fit: cover;
-        }
+    .profile-img {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        object-fit: cover;
+    }
 
     .name-profile {
         font-size: 1.3rem;
@@ -213,30 +213,42 @@
         </div>
     </form>
     <!-- Akhir Search -->
-  
+
     <div class="wrapper-grid pt-5 animate__animated animate__fadeInLeftBig pb-4">
         <!-- Card Mahasiswa -->
-        @foreach (var mahasiswa in Model)
+        @if (Model.Count > 0)
         {
-            <div class="container-siters">
-                <!-- Foto Mahasiswa -->
-                <div class="cover-profile-img">
-                    <img src="@Url.ActionLink("FotoProfil", "File", new {Id = mahasiswa.Id, Area = ""})" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
+            @foreach (var mahasiswa in Model)
+            {
+                <div class="container-siters">
+                    <!-- Foto Mahasiswa -->
+                    <div class="cover-profile-img">
+                        <img src="@Url.ActionLink("FotoProfil", "File", new {Id = mahasiswa.Id, Area = ""})" alt="Foto @mahasiswa.NamaLengkap" class="profile-img" />
+                    </div>
+                    <!-- Nama dan NIM Mahasiswa -->
+                    <div class="text-container">
+                        <h1 class="name-profile">@mahasiswa.NamaPanggilan</h1>
+                        <h1 class="name2-profile">@mahasiswa.Nim</h1>
+                    </div>
+                    <!-- Bio Mahasiswa -->
+                    <div class="cover-bio">
+                        <p class="bio">
+                            @mahasiswa.Bio
+                        </p>
+                    </div>
+                    <!-- Tombol Lihat Detail -->
+                    <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-id="@mahasiswa.Id" class="btn-profile">Cek Profile</a>
                 </div>
-                <!-- Nama dan NIM Mahasiswa -->
-                <div class="text-container">
-                    <h1 class="name-profile">@mahasiswa.NamaPanggilan</h1>
-                    <h1 class="name2-profile">@mahasiswa.Nim</h1>
-                </div>
-                <!-- Bio Mahasiswa -->
-                <div class="cover-bio">
-                    <p class="bio">
-                        @mahasiswa.Bio
-                    </p>
-                </div>
-                <!-- Tombol Lihat Detail -->
-                <a asp-controller="Mahasiswa" asp-action="Detail" asp-route-id="@mahasiswa.Id" class="btn-profile">Cek Profile</a>
-            </div>
+            }
+        }
+        else
+        {
+            if(ViewData["searchString"] is string searchString)
+            {
+                <p>
+                    Mahasiswa yang anda cari tidak ada
+                </p>
+            }
         }
         <!-- Akhir Card Mahasiswa -->
     </div>

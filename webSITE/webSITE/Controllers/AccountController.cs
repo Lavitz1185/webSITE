@@ -192,8 +192,12 @@ namespace webSITE.Controllers
 
             if (user is null) return NotFound();
 
-            var photoData = await FileHelpers.ProcessFormFile<AccountFotoVM>(accountFotoVM.FotoFormFile
-                , ModelState, _photoFileSettings.PermittedExtension, _photoFileSettings.FileSizeLimit);
+            var permittedExtension = _photoFileSettings.PermittedExtension.ToList()
+                .SkipWhile(s => s == ".png")
+                .ToArray();
+
+            var photoData = await FileHelpers.ProcessFormFile<AccountFotoVM>(accountFotoVM.FotoFormFile, 
+                ModelState, permittedExtension, _photoFileSettings.FileSizeLimit);
 
             if (!ModelState.IsValid)
             {

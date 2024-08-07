@@ -34,9 +34,13 @@ namespace webSITE.Controllers
             listMahasiwa = listMahasiwa?.OrderBy(x => x.Nim).ToList();
 
             if (searchString != null && !searchString.IsNullOrEmpty()) 
-            { 
+            {
+                var searchWords = searchString.Split(" ", 
+                    StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
                 listMahasiwa = listMahasiwa?
-                    .Where(m => m.NamaLengkap.ToLower().Contains(searchString.ToLower()) || m.NamaPanggilan.ToLower().Contains(searchString.ToLower()) || m.Nim.ToLower().Contains(searchString.ToLower()))
+                    .Where(m => searchWords.Any(s => m.NamaLengkap.ToLower().Contains(s.ToLower()) ||
+                                                     m.NamaPanggilan.ToLower().Contains(s.ToLower())))
                     .ToList();
             }
 

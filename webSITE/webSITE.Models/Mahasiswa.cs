@@ -5,7 +5,7 @@ namespace webSITE.Domain;
 
 public class Mahasiswa : IdentityUser
 {
-    public const int MaxBioLength = 55;
+    public const int MaxBioLength = 60;
 
     public string Nim { get; set; } = string.Empty;
     public string NamaLengkap { get; set; } = string.Empty;

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using webSITE.Domain;
 
 namespace webSITE.Areas.Dashboard.Models.KegiatanController
 {
@@ -23,7 +24,7 @@ namespace webSITE.Areas.Dashboard.Models.KegiatanController
 
         [Display(Name = "Keterangan")]
         [Required(ErrorMessage = "{0} harus diisi")]
-        [StringLength(500, MinimumLength = 100, ErrorMessage = "Panjang {0} minimal {2} karakter dan maksimal {1} karakter")]
+        [MinLength(Kegiatan.MinKeteranganLength, ErrorMessage = "Panjang {0} minimal {1} karakter")]
         public string Keterangan { get; set; } = string.Empty;
 
         [Display(Name = "Foto Thumbnail")]

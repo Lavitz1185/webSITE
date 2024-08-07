@@ -12,6 +12,5 @@ internal class KegiatanConfiguration : IEntityTypeConfiguration<Kegiatan>
         builder.HasMany(k => k.DaftarFoto).WithMany(f => f.DaftarKegiatan);
         builder.HasOne(k => k.FotoThumbnail).WithMany().OnDelete(DeleteBehavior.SetNull);
         builder.Property(m => m.Tanggal).HasColumnType("timestamp without time zone");
-        builder.Property(m => m.Keterangan).HasMaxLength(500);
     }
 }

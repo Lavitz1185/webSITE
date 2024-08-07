@@ -5,6 +5,8 @@ namespace webSITE.Domain
 {
     public class Kegiatan : Entity
     {
+        public const int MinKeteranganLength = 150;
+
         private readonly List<Foto> _daftarFoto = new();
         private readonly List<Mahasiswa> _daftarMahasiswa = new();
 
