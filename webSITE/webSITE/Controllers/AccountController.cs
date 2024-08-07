@@ -395,7 +395,7 @@ namespace webSITE.Controllers
                 EmailToName = user.NamaLengkap,
                 EmailToId = email,
                 EmailSubject = "Confirm Your Email",
-                EmailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."
+                EmailBody = $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl!)}'>clicking here</a>."
             });
 
             if (!success)
