@@ -180,6 +180,12 @@ nav {
     display: block;
 }
 
+@media (min-width: 993px) {
+    .navbar-toggler {
+        display: none;
+    }
+}
+
 @media (max-width: 991px) {
     ::deep .navbar-brand img {
         padding-left: 0;
@@ -196,12 +202,6 @@ nav {
 
     .navbar-toggler {
         display: block;
-    }
-}
-
-@media (min-width: 993px) {
-    .navbar-toggler {
-        display: none;
     }
 }
 
