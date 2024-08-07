@@ -2,6 +2,12 @@
 @{
     var Id = string.Join("", Guid.NewGuid().ToString().Split('-'));
 }
+<style>
+    label {
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+</style>
 
 <div id="input-container@(Id)">
     @foreach (var id in Model.DaftarIdMahasiswa)
@@ -14,7 +20,7 @@
         Pilih Mahasiswa
     </button>
 </div>
-<table class="table" id="preview@(Id)">
+<table class="table luar" id="preview@(Id)">
     <thead>
         <tr>
             <th>Nim</th>
@@ -53,13 +59,18 @@
                             <label class="form-check-label" for="pilihSemua@(Id)">Pilih Semua Mahasiswa</label>
                         </div>
                     </div>
+                    <div class="divider mb-3">
+                        <div class="line"></div>
+                        <p style="margin: 25px 0px;">atau</p>
+                        <div class="line"></div>
+                    </div>
                     <div class="row">
                         <div class="col">
-                            <table class="table" id="data@(Id)">
-                                <thead>
+                            <table class="table dalam" id="data@(Id)">
+                                <thead style="display:none">
                                     <tr>
-                                        <th>NIM</th>
-                                        <th>Nama</th>
+                                        <th width="40%">NIM</th>
+                                        <th width="40%">Nama</th>
                                         <th>Pilih</th>
                                     </tr>
                                 </thead>
@@ -78,7 +89,7 @@
                                                 @mahasiswa.NamaLengkap
                                             </td>
                                             <td>
-                                                <input class="check-box" type="checkbox" id="selected" class="form-check" />
+                                                <input type="checkbox" id="selected" class="form-check" />
                                                 <input type="text" id="id" readonly class="form-control"
                                                        hidden="hidden"
                                                        value="@mahasiswa.Id" />

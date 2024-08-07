@@ -21,8 +21,8 @@
               asp-route-returnUrl="@ViewData["returnUrl"]">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="row">
-                <label asp-for="@Model.FormFile" style="padding-left: 0px;" class="mb-2">Tambah Foto</label>
+            <div class="row" style="padding: 0px 10px;">
+                <label asp-for="@Model.FormFile" style="padding:0;" class="mb-2">Tambah Foto</label>
                 <input asp-for="@Model.FormFile" class="form-control" />
                 <span asp-validation-for="@Model.FormFile" class="form-text text-danger"></span>
             </div>
