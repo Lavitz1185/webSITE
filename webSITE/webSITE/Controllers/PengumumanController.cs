@@ -16,10 +16,5 @@ namespace webSITE.Controllers
         {
             return View(await _repositoriPengumuman.GetAll());
         }
-
-        public IActionResult Pensi()
-        {
-            return View();
-        }
     }
 }
