@@ -321,13 +321,13 @@ namespace webSITE.Controllers
             //Validasi
             if (ubahEmailVM.Email == ubahEmailVM.EmailBaru)
             {
-                ModelState.AddModelError("EmailBaru", "Email baru sama dengan email");
+                ModelState.AddModelError(nameof(UbahEmailVM.EmailBaru), "Email baru sama dengan email");
                 return View(ubahEmailVM);
             }
 
             if (userSameEmail != user && userSameEmail != null)
             {
-                ModelState.AddModelError("EmailBaru", "Email sudah digunakan");
+                ModelState.AddModelError(nameof(UbahEmailVM.EmailBaru), "Email sudah digunakan");
                 return View(ubahEmailVM);
             }
 
