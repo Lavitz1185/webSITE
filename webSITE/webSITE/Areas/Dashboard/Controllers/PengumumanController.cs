@@ -55,10 +55,10 @@ namespace webSITE.Areas.Dashboard.Controllers
         [HttpPost]
         public async Task<IActionResult> Tambah(TambahVM tambahVM)
         {
-            if(!ModelState.IsValid) return View(tambahVM);
+            if (!ModelState.IsValid) return View(tambahVM);
 
             var foto = await _repositoriFoto.Get(tambahVM.IdFoto);
-            if(foto is null)
+            if (foto is null)
             {
                 ModelState.AddModelError(nameof(TambahVM.IdFoto), "Foto tidak ditemukan");
                 return View(tambahVM);
@@ -84,7 +84,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                     Title = "Pengumuman Berhasil Ditambahkan"
                 });
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 _notificationService.AddNotification(new ToastrNotification
                 {
@@ -98,14 +98,14 @@ namespace webSITE.Areas.Dashboard.Controllers
             }
 
             return RedirectToAction(nameof(Index));
-        }      
+        }
 
         //Edit Pengumuman
         public async Task<IActionResult> Edit(int id)
         {
             var pengumuman = await _repositoriPengumuman.Get(id);
 
-            if (pengumuman == null) return NotFound();
+            if (pengumuman is null) return NotFound();
 
             return View(new EditVM
             {
@@ -122,17 +122,17 @@ namespace webSITE.Areas.Dashboard.Controllers
             //Validasi
             if (!ModelState.IsValid) return View(editVM);
 
+            var pengumuman = await _repositoriPengumuman.Get(editVM.Id);
+
+            if (pengumuman is null) return NotFound();
 
             //Simpan ke database
             try
             {
-                var pengumuman = await _repositoriPengumuman.Get(editVM.Id);
-                if (pengumuman is null) throw new PengumumanNotFoundException(editVM.Id);
-
                 pengumuman.Judul = editVM.Judul;
                 pengumuman.Isi = editVM.Isi;
 
-                if(editVM.IdFoto is not null)
+                if (editVM.IdFoto is not null)
                 {
                     var foto = await _repositoriFoto.Get(editVM.IdFoto.Value);
 
@@ -150,7 +150,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                     Title = "Edit Pengumuman Sukse"
                 });
             }
-            catch(DomainException ex)
+            catch (DomainException ex)
             {
                 _notificationService.AddNotification(new ToastrNotification
                 {
@@ -162,7 +162,7 @@ namespace webSITE.Areas.Dashboard.Controllers
 
                 return View(editVM);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _notificationService.AddNotification(new ToastrNotification
                 {
@@ -189,11 +189,13 @@ namespace webSITE.Areas.Dashboard.Controllers
                 await _repositoriPengumuman.Delete(id);
                 await _unitOfWork.SaveChangesAsync();
 
-                _notificationService.AddNotification(new ToastrNotification{
+                _notificationService.AddNotification(new ToastrNotification
+                {
                     Type = ToastrNotificationType.Success,
                     Title = "Hapus Pengumuman Berhasil"
                 });
             }
+            catch (PengumumanNotFoundException) { return NotFound(); }
             catch (DomainException ex)
             {
                 _notificationService.AddNotification(new ToastrNotification
@@ -233,7 +235,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                 {
                     var pengumumanPriority = await _repositoriPengumuman.GetAll();
 
-                    if(pengumumanPriority is not null && pengumumanPriority.Count > 0)
+                    if (pengumumanPriority is not null && pengumumanPriority.Count > 0)
                     {
                         pengumumanPriority = pengumumanPriority.Where(p => p.IsPriority).ToList();
 
@@ -257,7 +259,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                     Message = $"Prioritas pengumuman berhasil di set menjadi {priority}"
                 });
             }
-            catch(DomainException ex)
+            catch (DomainException ex)
             {
                 _notificationService.AddNotification(new ToastrNotification
                 {
@@ -267,7 +269,7 @@ namespace webSITE.Areas.Dashboard.Controllers
                 });
                 _logger.LogError("SetPriority. Exception {0}", ex.ToString());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _notificationService.AddNotification(new ToastrNotification
                 {

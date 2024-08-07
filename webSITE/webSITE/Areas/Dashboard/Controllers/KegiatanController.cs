@@ -74,6 +74,9 @@ namespace webSITE.Areas.Dashboard.Controllers
                     Title = "Hapus Kegiatan Sukses"
                 });
             }
+            catch (KegiatanNotFoundException){
+                return NotFound();
+            }
             catch (DomainException ex)
             {
                 _notificationService.AddNotification(new ToastrNotification
@@ -259,7 +262,16 @@ namespace webSITE.Areas.Dashboard.Controllers
                 //Simpan ke database
                 var kegiatan = await _repositoriKegiatan.GetWithDetail(editKegiatanVM.Id);
 
-                if (kegiatan is null) throw new KegiatanNotFoundException(editKegiatanVM.Id);
+                if (kegiatan is null) 
+                {
+                    _notificationService.AddNotification(new(){
+                        Type = ToastrNotificationType.Error,
+                        Title = "Edit Gagal!",
+                        Message = "Kegiatan yang ingin diedit tidak ditemukan"
+                    });
+
+                    return RedirectToAction(nameof(Index));
+                };
 
                 kegiatan.NamaKegiatan = editKegiatanVM.NamaKegiatan;
                 kegiatan.JumlahHari = editKegiatanVM.JumlahHari;

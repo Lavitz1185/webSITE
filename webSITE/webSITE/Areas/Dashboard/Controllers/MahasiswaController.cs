@@ -45,12 +45,15 @@ namespace webSITE.Areas.Dashboard.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             if (_userManager.GetUserId(User) == id)
-                return NotFound();
+                return BadRequest();
 
             var mahasiswa = await _repositoriMahasiswa.Get(id);
 
-            if(mahasiswa == null)
-                return NotFound("Mahasiswa tidak ditemukan");
+            if(mahasiswa is null)
+                return NotFound();
+
+            if(await _userManager.IsInRoleAsync(mahasiswa, "SUPERADMIN"))
+                return BadRequest();
 
             var editMahasiswaVM = new EditMahasiswaVM
             {
@@ -112,14 +115,18 @@ namespace webSITE.Areas.Dashboard.Controllers
             if (_userManager.GetUserId(User) == id)
                 return BadRequest();
 
+            var mahasiswa = await _repositoriMahasiswa.Get(id);
+
+            if(mahasiswa is null)
+                return NotFound();
+
+            if(await _userManager.IsInRoleAsync(mahasiswa, "SUPERADMIN"))
+                return BadRequest();
+
             try
             {
                 await _repositoriMahasiswa.Delete(id);
                 await _unitOfWork.SaveChangesAsync();
-            }
-            catch (MahasiswaNotFoundException)
-            {
-                return NotFound();
             }
             catch(Exception ex)
             {
@@ -135,7 +142,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         {
             var mahasiswa = await _repositoriMahasiswa.GetWithDetail(id);
 
-            if(mahasiswa == null)
+            if(mahasiswa is null)
                 return NotFound();
 
             return View(mahasiswa);
