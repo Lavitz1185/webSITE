@@ -609,6 +609,11 @@
 .overlay-content p {
     margin: 0.25rem 0;
     font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #preKeg .card:hover .overlay,
@@ -699,6 +704,10 @@
 
 /* Responsive MAX 670px */
 @media (max-width:670px) {
+    #home h2 {
+        padding: 0 50px;
+    }
+
     #about-container {
         flex-direction: column-reverse;
     }

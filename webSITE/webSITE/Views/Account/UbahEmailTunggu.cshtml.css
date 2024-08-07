@@ -1,0 +1,35 @@
+﻿.container-input-utama {
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 473px;
+}
+
+@media (max-width: 576px) {
+
+    .container-input-utama {
+        padding-top: 20px;
+        display: block;
+    }
+
+    .ruang-input {
+        padding: 0vw 5vw;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .btn-custom {
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 486px) {
+    .ruang-input {
+        font-size: 15px;
+    }
+}

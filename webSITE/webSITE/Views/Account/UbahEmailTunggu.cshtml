@@ -3,19 +3,18 @@
     ViewData["ActiveMenuId"] = "ubahEmail";
 }
 
-<div class="container-fluid pt-5 mb-5">
+<!-- Bagian Top MenuPartial -->
+<div class="container-menu">
+    <div class="container-menu-lebar">
+        <partial name="_MenuPartial" />
+    </div>
+</div>
+
+<div class="container-fluid container-input-utama mb-5">
     <div class="row">
-        <div class="col-md-3 mb-5">
-            <partial name="_MenuPartial" />
-        </div>
-        <div id="profil" class="col-md-9 d-flex">
-            <div class="card w-100 shadow-sm">
+        <div id="profil" class="col-md ruang-input">
+            <div class="card shadow-sm">
                 <div class="card-body">
-                    <div class="row mb-4">
-                        <div class="col">
-                            <h1>Ubah Email</h1>
-                        </div>
-                    </div>
                     <div class="row">
                         <form id="formProfil" asp-controller="Account" asp-area="" asp-action="UbahEmailTungguPOST" 
                               asp-route-email="@ViewData["Email"]" class="col-md-12 d-flex flex-column gap-3" method="post">
