@@ -46,7 +46,7 @@
 @media (max-width: 1273px) {
     .container-lomba-solo {
         margin: 100px 20vw 50px;
-        padding: 20px;
+        padding: 50px 20px 20px;
     }
 
         .container-lomba-solo .content .judul-lomba h3 {
