@@ -134,18 +134,15 @@
         });
     });
 
-    $(document).ready(function () {
-        $('#studentModal').on('shown.bs.modal', function () {
-            // Force a redraw of the table
-            setTimeout(function () {
-                // Adjust column sizing and redraw the table if you are using DataTables
-                if ($.fn.dataTable) {
-                    $('data@(Id)').DataTable().columns.adjust().draw();
-                } else {
-                    // For non-DataTables, you can try:
-                    $('data@(Id)).css('display', 'none').css('display', 'table');
-                }
-            }, 100); // Adjust the delay as needed
-        });
-    });
+    // $(document).ready(function () {
+    //     $('#studentModal').on('shown.bs.modal', function () {       
+    //         setTimeout(function () {
+    //             if ($.fn.dataTable) {
+    //                 $('data@(Id)').DataTable().columns.adjust().draw();
+    //             } else {
+    //                 $('data@(Id)).css('display', 'none').css('display', 'table');
+    //             }
+    //         }, 100);
+    //     });
+    // });
 </script>
