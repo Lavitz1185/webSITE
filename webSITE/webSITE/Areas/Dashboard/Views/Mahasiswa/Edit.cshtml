@@ -24,15 +24,37 @@
             </div>
 
             <div class="col-md-12 mb-2 input-box">
-                <label asp-for="@Model.NamaLengkap" class=""></label>
+                <label asp-for="@Model.NamaLengkap" class="">Nama Lengkap</label>
                 <input asp-for="@Model.NamaLengkap" readonly="true" />
             </div>
+
+            <div class="col-md-12 mb-2 input-box">
+                <label class="">Bio</label>
+                <textarea rows="4"></textarea>
+            </div>
+
+            <div class="col-md-12 mb-2 input-box">
+                <label class="">Link Instagram</label>
+                <input  />
+            </div>
+
+            <div class="col-md-12 mb-2 input-box">
+                <label class="">Link Facebook</label>
+                <input />
+            </div>
+
+            <div class="col-md-12 mb-2 input-box">
+                <label class="">Link Tiktok</label>
+                <input />
+            </div>
+
+           
 
             @if (User.IsInRole("SuperAdmin"))
             {
                 <div class="col-md-12 mt-2 mb-3 check-box">
                     <input type="checkbox" asp-for="@Model.Admin" class="form-check-input" />
-                    <label asp-for="@Model.Admin"></label>                
+                    <label asp-for="@Model.Admin">Admin</label>                
                 </div>
             }
 

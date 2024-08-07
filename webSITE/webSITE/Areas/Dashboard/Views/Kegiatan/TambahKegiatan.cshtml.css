@@ -1,4 +1,11 @@
-﻿.cardplus {
+﻿
+.notes {
+    font-size: 13px;
+    font-weight: 400;
+    color: #707070;
+}
+
+.cardplus {
     padding: 20px;
     border-radius: 10px;
     background: var(--light);
@@ -45,6 +52,10 @@
     font-size: 16px;
 }
 
+::deep .form-label {
+    margin-bottom: 0;
+}
+
 ::deep .input-box input {
     position: relative;
     font-size: 16px;
@@ -54,7 +65,7 @@
     color: #707070;
     border: 1px solid #ddd;
     border-radius: 6px;
-    padding: 0 15px;
+    padding: 5px 15px;
 }
 
 ::deep .input-box select {
@@ -66,7 +77,7 @@
     color: #707070;
     border: 1px solid #ddd;
     border-radius: 6px;
-    padding: 0 15px;
+    padding: 5px 15px;
 }
 
 ::deep .input-box textarea {
@@ -77,7 +88,7 @@
     color: #707070;
     border: 1px solid #ddd;
     border-radius: 6px;
-    padding: 0 15px;
+    padding: 10px 15px;
 }
 /* Akhir CSS type input Text dan Textarea */
 

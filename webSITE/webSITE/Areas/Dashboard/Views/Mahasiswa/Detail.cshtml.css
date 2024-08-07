@@ -3,7 +3,6 @@
     border-radius: 10px;
     background: var(--light);
     box-shadow: 4px 4px 16px rgba(0, 0, 0, .05);
-    margin-bottom: 20px;
 }
 
 .detail-mahasiswa {
@@ -42,21 +41,119 @@
                 }
 /* Akhir CSS Hyperlink */
 
-.profile-sectionn .row {
+
+
+/* CSS Datatable */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .table th, .table td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    .table thead th {
+        text-transform: uppercase;
+        background-color: var(--primary-clr);
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+        .table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+.img-fluid {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+
+.btn-primary {
+    background-color: #007BFF;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+::deep label {
     margin-bottom: 10px;
 }
+/* Akhir CSS Datatable */
 
-.table th, .table td {
-    text-align: center;
-    vertical-align: middle;
-}
+/* ================================================= Responsive =================================================  */
 
-.social-icons a {
-    font-size: 2rem;
-    color: #10316B;
-    margin: 0 10px;
-}
-
-    .social-icons a:hover {
-        color: rgb(35, 35, 85);
+/* Responsive MAX 767px */
+@media (max-width: 767px) {
+    .container-siters {
+        padding: 0px 0px;
     }
+
+    .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        font-size: 15px;
+    }
+
+    .biodata-section .col-6 {
+        padding: 0;
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .profile-section {
+        padding: 10px;
+    }
+
+    .kegiatan-section {
+        margin-top: 15px;
+        padding: 10px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+
+    .kembali-tombol {
+        padding-left: 0;
+    }
+}
+
+
+@media (max-width: 425px) {
+    .col-6 {
+        width: 100%;
+        text-align: center;
+    }
+}

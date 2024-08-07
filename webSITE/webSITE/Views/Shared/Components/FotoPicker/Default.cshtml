@@ -12,9 +12,7 @@
         <input type="text" name="@Model.Name" id="@Model.Name" class="form-control" value="@id" hidden />
     }
 </div>
-<div class="text-center">
-    <button type="button" class="btn-custom mb-3" data-bs-toggle="modal" data-bs-target="#modal@(Id)">Pilih Foto</button>
-</div>
+
 
 <div class="row mb-3 justify-content-center align-items-center">
     <div id="previewFoto@(Id)" class="d-flex justify-content-center preview @(Model.Multi ? "multi" : "")">
@@ -23,6 +21,10 @@
             <img src="@Url.Action("Foto", "File", new {Area = "", id=id})" class="img-fluid" />
         }
     </div>
+</div>
+
+<div class="text-center">
+    <button type="button" class="btn-custom mb-3" data-bs-toggle="modal" data-bs-target="#modal@(Id)">Pilih Foto</button>
 </div>
 
 <!-- Akhir Tombol Pilihan Gambar -->
@@ -52,7 +54,7 @@
                         {
                             <div class="col-3 p-1 foto-container">
                                 <input id="fotoId" value="@foto.Id" hidden />
-                                <img class="img-thumbnail" src="@Url.Action("Foto", "File", new {Area = "", id = foto.Id})" />
+                                <img style="width:100%; height:150px !important; object-fit:cover;" class="img-thumbnail" src="@Url.Action("Foto", "File", new {Area = "", id = foto.Id})" />
                             </div>
                         }
                     </div>

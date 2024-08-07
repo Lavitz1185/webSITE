@@ -4,59 +4,61 @@
 }
 
 <div class="tambahkegiatan">
-    <h1 class="title">Tambah Kegiatan SITE22</h1>
+    <h1 class="title">Tambah Kegiatan</h1>
     <ul class="breadcrumbs mb-4">
-        <li><a asp-action="Index">Kegiatan SITE22</a></li>
+        <li><a asp-action="Index">Kegiatan</a></li>
         <li class="divider">/</li>
-        <li><a href="#" class="active">Tambah Kegiatan SITE22</a></li>
+        <li><a href="#" class="active">Tambah Kegiatan</a></li>
     </ul>
     <div class="container-fluid cardplus">
         <form method="post" class="row" asp-action="TambahKegiatan" asp-area="Dashboard" asp-controller="Kegiatan">
             <div asp-validation-summary="All" class="text-danger"></div>
 
-            <div class="col-12 mt-2">
+            <div class="col-12 mb-2">
                 <label asp-for="@Model.IdThumbnail" class="form-label"></label>
                 <span asp-validation-for="@Model.IdThumbnail" class="form-text text-danger"></span>
                 <vc:foto-picker name="@nameof(TambahKegiatanVM.IdThumbnail)" multi=@false></vc:foto-picker>
             </div>
 
-            <div class="col-md-12 input-box">
+            <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.NamaKegiatan"></label>
                 <input class="form-control" type="text" asp-for="@Model.NamaKegiatan">
                 <span class="text-danger" asp-validation-for="@Model.NamaKegiatan"></span>
             </div>
-            <div class="col-md-12 input-box mt-2">
+            <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.TempatKegiatan"></label>
                 <input class="form-control" type="text" asp-for="@Model.TempatKegiatan">
                 <span class="text-danger" asp-validation-for="@Model.TempatKegiatan"></span>
             </div>
-            <div class="col-md-12 input-box mt-2">
+            <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.Tanggal"></label>
                 <input class="form-control" type="date" asp-for="@Model.Tanggal" value="">
                 <span class="text-danger" asp-validation-for="@Model.Tanggal"></span>
             </div>
-            <div class="col-md-12 input-box mt-2">
+            <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.JumlahHari"></label>
                 <input class="form-control" type="number" asp-for="@Model.JumlahHari">
                 <span class="text-danger" asp-validation-for="@Model.JumlahHari"></span>
             </div>
-            <div class="col-12 input-box mt-2">
+            <div class="col-12 mb-2 input-box">
                 <label asp-for="@Model.Keterangan"></label>
                 <textarea class="form-control" type="text" rows="5" cols="30" asp-for="@Model.Keterangan">
                     </textarea>
                 <span class="text-danger" asp-validation-for="@Model.Keterangan"></span>
             </div>
 
-            <div class="col-12 mt-2">
+            <div class="col-12 mb-2">
                 <label asp-for="@Model.DaftarIdFoto" class="form-label">Pilih Foto</label>
                 <span class="text-danger form-text" asp-validation-for="@Model.DaftarIdFoto"></span>
                 <vc:foto-picker name=@nameof(TambahKegiatanVM.DaftarIdFoto) multi=true></vc:foto-picker>
             </div>
 
-            <div class="col-12 mt-2">
-                <label asp-for="@Model.DaftarIdMahasiswa" class="form-label">Pilih Peserta</label>
+            <div class="col-12 mb-2">
+                <label asp-for="@Model.DaftarIdMahasiswa" class="form-label">Pilih Mahasiswa</label>
+                <p class="notes">Notes: Mahasiswa yang dipilih merupakan peserta kegiatan</p>
                 <span class="text-danger form-text" asp-validation-for="@Model.DaftarIdMahasiswa"></span>
                 <vc:mahasiswa-picker input-name=@nameof(TambahKegiatanVM.DaftarIdMahasiswa) multi=true></vc:mahasiswa-picker>
+                
             </div>
 
             <div class="col-md-12 mt-3 d-flex justify-content-start">

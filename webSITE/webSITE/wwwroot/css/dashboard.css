@@ -41,7 +41,7 @@ li {
 }
 
 .btn-custom {
-    padding: 5px 20px;
+    padding: 10px 20px;
     border-radius: 5px;
     background: #10316B;
     color: white;
@@ -53,7 +53,7 @@ li {
     }
 
 a.btn-customdel {
-    padding: 5px 20px;
+    padding: 10px 20px;
     border-radius: 5px;
     background: darkred;
     color: white;
