@@ -7,12 +7,12 @@ namespace webSITE.Models.AccountController
         [Display(Name = "Password")]
         [Required(ErrorMessage = "{0} harus diisi")]
         [DataType(DataType.Password)]
-        public string Password { get ; set; }
+        public string Password { get ; set; } = string.Empty;
 
         [Display(Name = "Password Baru")]
         [Required(ErrorMessage = "{0} harus diisi")]
         [DataType(DataType.Password)]
-        public string PasswordBaru { get; set; }
+        public string PasswordBaru { get; set; } = string.Empty;
 
         [Display(Name = "Konfirmasi Password Baru")]
         [DataType(DataType.Password)]

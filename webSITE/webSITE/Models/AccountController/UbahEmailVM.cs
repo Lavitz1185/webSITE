@@ -7,11 +7,11 @@ namespace webSITE.Models.AccountController
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [Display(Name = "Email Baru")]
         [EmailAddress(ErrorMessage = "Format Email Salah")]
         [Required(ErrorMessage = "{0} harus diisi")]
-        public string EmailBaru {  get; set; }
+        public string EmailBaru { get; set; } = string.Empty;
     }
 }
