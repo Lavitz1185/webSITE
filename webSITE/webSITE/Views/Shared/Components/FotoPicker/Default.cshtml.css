@@ -8,7 +8,7 @@
 
 /* Gambar Form */
 .dvPreview {
-    height: 400px;
+    min-height: 400px;
     width: 400px;
     overflow: scroll;
     border-style: solid;
