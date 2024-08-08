@@ -9,21 +9,27 @@ using webSITE.Services.Contracts;
 using webSITE.Services;
 using webSITE.DataAccess.Repositori.Implementasi;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using webSITE.CustomParameterTransformers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-string connectionString = "";
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
-connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+builder.Services.Configure<MailSettingsOptions>(
+    builder.Configuration.GetSection(MailSettingsOptions.MailSettings));
+builder.Services.Configure<PhotoFileSettingsOptions>(
+    builder.Configuration.GetSection(PhotoFileSettingsOptions.PhotoFileSettings));
+builder.Services.Configure<PDFFileSettingsOptions>(
+    builder.Configuration.GetSection(PDFFileSettingsOptions.PDFFileSettings));
 
-builder.Services.Configure<MailSettingsOptions>(builder.Configuration.GetSection(MailSettingsOptions.MailSettings));
-builder.Services.Configure<PhotoFileSettingsOptions>(builder.Configuration.GetSection(PhotoFileSettingsOptions.PhotoFileSettings));
-builder.Services.Configure<PDFFileSettingsOptions>(builder.Configuration.GetSection(PDFFileSettingsOptions.PDFFileSettings));
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+}).AddSessionStateTempDataProvider();
 
-builder.Services.AddRazorPages().AddSessionStateTempDataProvider();
-builder.Services.AddControllersWithViews().AddSessionStateTempDataProvider();
 builder.Services.AddSession();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -94,7 +100,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
-app.MapRazorPages();
 
 app.MapAreaControllerRoute(
     name: "admin",
