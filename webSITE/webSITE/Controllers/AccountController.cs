@@ -90,6 +90,17 @@ namespace webSITE.Controllers
 
             if(mahasiswa is null) return Forbid();
 
+            var bioWords = accountIndexVM.Bio.
+                ToLower().Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+            foreach(var word in bioWords)
+                if (Mahasiswa.DaftarKataKasar.Contains(word))
+                {
+                    ModelState.AddModelError(nameof(AccountIndexVM.Bio), "Bio mengandung kata kasar");
+                    accountIndexVM.Bio = "";
+                    return View(accountIndexVM);
+                }
+
             mahasiswa.NamaLengkap = accountIndexVM.NamaLengkap;
             mahasiswa.NamaPanggilan = accountIndexVM.NamaPanggilan;
             mahasiswa.TanggalLahir = accountIndexVM.TanggalLahir;
@@ -175,7 +186,7 @@ namespace webSITE.Controllers
                 _logger.LogError("Index. Exception : {0}", ex.ToString());
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult FotoProfil()

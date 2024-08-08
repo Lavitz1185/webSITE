@@ -1,0 +1,17 @@
+﻿@model List<PesertaLomba>
+
+<div class="container">
+    <ul class="responsive-table">
+        <li class="table-header">
+            <div class="col col-2 text-center">NIM</div>
+            <div class="col col-4 text-center">Nama</div>
+        </li>
+        @foreach (var mahasiswa in Model)
+        {
+            <li class="table-row">
+                <div class="col col-2 text-center">@mahasiswa.Nim.Value</div>
+                <div class="col col-4 text-center">@mahasiswa.Nama</div>
+            </li>
+        }
+    </ul>
+</div>
