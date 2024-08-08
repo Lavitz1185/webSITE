@@ -2,16 +2,30 @@
 
 <div class="container">
     <ul class="responsive-table">
-        <li class="table-header">
-            <div class="col col-2 text-center">NIM</div>
-            <div class="col col-4 text-center">Nama</div>
-        </li>
+        @{
+            int nomor = 1;
+        }
         @foreach (var mahasiswa in Model)
         {
             <li class="table-row">
-                <div class="col col-2 text-center">@mahasiswa.Nim.Value</div>
-                <div class="col col-4 text-center">@mahasiswa.Nama</div>
+                <!-- Nomor -->
+                <div class="col-1 text-center">
+                    <span class="participant-number">@nomor</span>
+                </div>
+                <!-- Nama Peserta -->
+                <div class="col-4 text-center">
+                    <span class="participant-name">@mahasiswa.Nama</span>
+                </div>
+                <!-- NIM -->
+                <div class="col-4 text-center">
+                    <span class="participant-nim">@mahasiswa.Nim.Value</span>
+                </div>
+                <!-- Jenis Kelamin -->
+                <div class="col-3 text-center">
+                    <span class="participant-gender">@mahasiswa.JenisKelamin</span>
+                </div>
             </li>
+            nomor++;
         }
     </ul>
 </div>
