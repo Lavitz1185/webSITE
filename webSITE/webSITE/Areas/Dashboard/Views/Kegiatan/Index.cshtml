@@ -13,18 +13,18 @@
         <li><a href="#" class="active">Kegiatan</a></li>
     </ul>
     <div class="mb-4 mt-4">
-        <a style="" class="btn btn-custom" asp-area="Dashboard" asp-controller="Kegiatan" asp-action="TambahKegiatan"> + Tambah Kegiatan</a>
+        <a style="" class="btn btn-custom w-100" asp-area="Dashboard" asp-controller="Kegiatan" asp-action="TambahKegiatan"> + Tambah Kegiatan</a>
     </div>
     <div class="container">
         <table class="table table-bordered table-stripped">
             <thead>
                 <tr>
                     <th width ="5%;">ID</th>
-                    <th width="30%;">Nama</th>
+                    <th width="40%;">Nama</th>
                     <th width="5%;">Tanggal</th>
                     <th width="5%;">Jumlah Hari</th>
                     <th width="5%;">Tempat Kegiatan</th>
-                    <th width="40%;">Keterangan</th>
+                    <th width="30%;">Keterangan</th>
                     <th width="10%;">Aksi</th>
                 </tr>
             </thead>
@@ -37,7 +37,7 @@
                         <td>@kegiatan.Tanggal.ToShortDateString()</td>
                         <td>@kegiatan.JumlahHari</td>
                         <td>@kegiatan.TempatKegiatan</td>
-                        <td>@kegiatan.Keterangan</td>
+                        <td>Lihat Pada Detail Kegiatan</td>
                         <td>
                             <div class="d-flex gap-1 justify-content-start">
                                 <a class="btn btn-warning" asp-action="Detail" asp-route-id="@kegiatan.Id">
@@ -47,7 +47,7 @@
                                     <i class="fas fa-pen-square fa-lg"></i>
                                 </a>
                                 <form asp-action="Delete" asp-route-id="@kegiatan.Id" method="post">
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
+                                    <button type="submit" style="padding:10px 18px;" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
                                 </form>
                             </div>
                         </td>

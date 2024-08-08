@@ -84,3 +84,18 @@
     margin-bottom: 10px;
 }
 /* Akhir CSS Datatable */
+
+::deep a.btn {
+    padding: 10px 18px;
+    font-size: 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    max-width: 300px; /* Batas maksimum lebar tombol */
+}
+
+    ::deep a.btn:hover {
+        border: 1px solid var(--primary-clr);
+    }
