@@ -97,3 +97,83 @@
     margin-bottom: 10px;
 }
 /* Akhir CSS Datatable */
+
+
+
+/* ==== CSS Modal untuk Peserta dan content (Judul dan Keterangan) ==== */
+.custom-modal {
+    max-width: 600px;
+}
+
+.modal-footer {
+    border: none;
+    box-shadow: 0px -3px 12px -2px rgba(0,0,0,0.13);
+    -webkit-box-shadow: 0px -3px 12px -2px rgba(0,0,0,0.13);
+    -moz-box-shadow: 0px -3px 12px -2px rgba(0,0,0,0.13);
+    z-index: 999;
+}
+
+.modal-header {
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    box-shadow: 0px -3px 12px -2px rgba(0,0,0,0.13);
+    -webkit-box-shadow: 0px 3px 12px -2px rgba(0,0,0,0.13);
+    -moz-box-shadow: 0px -3px 12px -2px rgba(0,0,0,0.13);
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+    background-color: #f8f9fa;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+}
+
+.img-thumbnail {
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.participant-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.responsive-table {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.table-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.col-1 {
+    flex-basis: 20%;
+}
+
+.col-4 {
+    flex-basis: 75%;
+    text-align: left;
+}
+/* ==== Akhir CSS Modal untuk Peserta dan content (Judul dan Keterangan) ==== */
