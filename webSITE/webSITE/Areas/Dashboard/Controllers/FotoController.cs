@@ -110,7 +110,7 @@ namespace webSITE.Areas.Dashboard.Controllers
 
                 await _unitOfWork.SaveChangesAsync();
 
-                if (isJson) return Ok(foto.Id);
+                if (isJson) return Ok(foto);
                 else
                 {
                     _notificationService.AddNotification(new ToastrNotification

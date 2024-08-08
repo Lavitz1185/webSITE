@@ -1,35 +1,61 @@
-﻿@using webSITE.Areas.Dashboard.Models.FotoController
-@model FotoPickerVM
-@{
-    string Id = string.Join("", Guid.NewGuid().ToString().Split("-"));
-}
+﻿@model FotoPickerVM
 
 <!-- Tombol Pilihan Gambar -->
-
-<div id="input-container@(Id)">
-    @foreach (var id in Model.DaftarIdFoto)
-    {
-        <input type="text" name="@Model.Name" id="@Model.Name" class="form-control" value="@id" hidden />
-    }
-</div>
-
-
 <div class="row mb-3 justify-content-center align-items-center">
-    <div id="previewFoto@(Id)" class="d-flex justify-content-center preview @(Model.Multi ? "multi" : "")">
-        @foreach (var id in Model.DaftarIdFoto)
+    <div id="dvPreview@(Model.Id)" class="dvPreview row @(Model.Multi ? "multi" : "")">
+        @if (Model.DaftarIdFoto is not null && Model.DaftarIdFoto.Count > 0)
         {
-            <img src="@Url.Action("Foto", "File", new {Area = "", id=id})" class="img-fluid" />
+            if (Model.Multi)
+            {
+                foreach (var id in Model.DaftarIdFoto)
+                {
+                    <div class="col-3 p-1">
+                        <img src="@Url.Action("Foto", "File", new{ Area="", id })"
+                             class="img-thumbnail" />
+                    </div>
+                }
+            }
+            else
+            {
+                <img src="@Url.Action("Foto", "File", new{ Area="", id=Model.DaftarIdFoto.First() })"
+                     class="img-fluid" />
+            }
+        }
+        else
+        {
+            <div id="dash" class="d-flex justify-content-center align-items-center flex-grow-1">
+                <h2>Foto</h2>
+            </div>
         }
     </div>
 </div>
 
-<div class="text-center">
-    <button type="button" class="btn-custom mb-3" data-bs-toggle="modal" data-bs-target="#modal@(Id)">Pilih Foto</button>
+<div id="inputContainer@(Model.Id)">
+    @if (Model.DaftarIdFoto is not null && Model.DaftarIdFoto.Count > 0)
+    {
+        if (Model.Multi)
+        {
+            foreach (var id in Model.DaftarIdFoto)
+            {
+                <input name="@Model.InputName" id="@Model.InputName" value="@id" hidden />
+            }
+        }
+        else
+        {
+            <input name="@Model.InputName" id="@Model.InputName" value="@Model.DaftarIdFoto.First()" hidden />
+        }
+    }
 </div>
 
+<div class="row mb-3">
+    <div class="col d-flex justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal@(Model.Id)">Pilih Gambar</button>
+    </div>
+</div>
 <!-- Akhir Tombol Pilihan Gambar -->
 <!-- Modal Upload Foto -->
-<div class="modal fade" id="modal@(Id)" data-bs-backdrop="static" tabindex="-1" aria-labelledby="#modal@(Id)" aria-hidden="true">
+<div class="modal fade" id="modal@(Model.Id)" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModal"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -40,13 +66,17 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <input class="form-control" id="formFile" name="formFile" data-val="true" type="file" />
+                            <input class="form-control" id="formFile" name="formFile" data-val="true" type="file"
+                                   style="font-size:14px;" />
                             <span class="text-danger" id="formFileVal"></span>
                         </div>
                     </div>
                     <div class="row mt-4 mb-4">
                         <div class="col-12">
-                            <button type="button" class="btn btn-custom w-100" id="uploadFoto">Upload</button>
+                            <button type="button" class="btn btn-primary w-100" id="uploadFoto"
+                                    onsubmit="uploadFoto">
+                                Upload
+                            </button>
                         </div>
                     </div>
                     <div class="row" id="fotoGrid">
@@ -54,36 +84,38 @@
                         {
                             <div class="col-3 p-1 foto-container">
                                 <input id="fotoId" value="@foto.Id" hidden />
-                                <img style="width:100%; height:150px !important; object-fit:cover;" class="img-thumbnail" src="@Url.Action("Foto", "File", new {Area = "", id = foto.Id})" />
+                                <img class="img-thumbnail" style="width:100%; height:150px !important; object-fit:cover;"
+                                     src="@Url.Action("Foto", "File", new {Area = "", id = foto.Id})" />
                             </div>
                         }
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="selesai" class="btn btn-custom" data-bs-dismiss="modal">Selesai</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" id="buttonPilih" class="btn btn-primary" data-bs-dismiss="modal">Pilih</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
             </div>
         </div>
     </div>
 </div>
 <!-- Akhir Modal Upload Foto -->
 <!--Script JS -->
-
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
-        $(function () {
-            const id = '@(Id)';
-            const inputName = '@(Model.Name)';
-            const multi = @(Model.Multi.ToString().ToLower());
-            const TambahVMFormFile = '@(nameof(TambahVM.FormFile))';
+        const inputContainer = $('#inputContainer@(Model.Id)');
+        const multi = @(Model.Multi.ToString().ToLower());
+        const modal = $('#modal@(Model.Id)');
+        const inputName = "@(Model.InputName)";
+        const selectedClass = "selected";
+        const dvPreview = $("#dvPreview@(Model.Id)");
 
-            fotoPicker({
-                id,
-                inputName,
-                multi,
-                TambahVMFormFile
-            });
+        fotoPicker({
+            inputContainer,
+            modal,
+            inputName,
+            multi,
+            selectedClass,
+            dvPreview
         });
     });
 </script>

@@ -25,15 +25,10 @@ namespace webSITE.ViewComponents
             var model = new FotoPickerVM
             {
                 DaftarFoto = daftarFoto ?? new(),
-                Name = name,
-                Multi = multi
+                InputName = name,
+                Multi = multi,
+                DaftarIdFoto = value
             };
-
-            if (value is not null && value.Count > 0)
-            {
-                if (multi) model.DaftarIdFoto = value.Distinct().ToList();
-                else model.DaftarIdFoto.Add(value.First());
-            }
 
             return View(model);
         }
