@@ -1,8 +1,12 @@
 ﻿@using Humanizer
+@inject IRepositoriLomba RepositoriLomba
+
 @model TambahTimLombaVM
 @{
     ViewData["Title"] = "Daftar";
     ViewData["Active"] = "Pengumuman";
+
+    var lomba = await RepositoriLomba.Get((int)ViewData["id"]!);
 }
 
 <style>
@@ -49,7 +53,7 @@
         <ul class="breadcrumbs mb-1">
             <li><a asp-action="Index" asp-fragment="lombas">Lomba</a></li>
             <li class="divider">/</li>
-            <li><a href="#" class="active">Fashion Show</a></li>
+            <li><a href="#" class="active">@lomba!.Nama @lomba!.Jenis.Humanize()</a></li>
         </ul>
         <h3>Pendaftaran Lomba</h3>
         <p>Silakan isi form di bawah ini untuk mendaftar</p>
