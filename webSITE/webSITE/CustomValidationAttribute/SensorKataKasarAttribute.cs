@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using NuGet.Protocol;
+using System.ComponentModel.DataAnnotations;
 
 namespace webSITE.CustomValidationAttribute;
 
-public class SensorKataKasarAttribute : ValidationAttribute
+public class SensorKataKasarAttribute : ValidationAttribute, IClientModelValidator
 {
     public readonly string[] _daftarKataKasar = new[] 
     { 
@@ -12,6 +14,13 @@ public class SensorKataKasarAttribute : ValidationAttribute
     public SensorKataKasarAttribute()
     {
         ErrorMessage = "{0} mengandung kata kasar";
+    }
+
+    public void AddValidation(ClientModelValidationContext context)
+    {
+        context.Attributes.TryAdd("data-val", "true");
+        context.Attributes.TryAdd("data-val-sensorkatakasar", "Mengandung kata kasar");
+        context.Attributes.TryAdd("data-val-sensorkatakasar-daftarkatakasar", _daftarKataKasar.ToJson(Newtonsoft.Json.Formatting.Indented));
     }
 
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
