@@ -99,50 +99,46 @@
 
 <div class="foto-semua">
     <!-- Hyperlink -->
-    <h1 class="title">Album</h1>
+    <h1 class="title">Galeri</h1>
     <ul class="breadcrumbs mb-4">
         <li><a href="#">Album</a></li>
         <li class="divider">/</li>
-        <li><a href="#" class="active">Album</a></li>
+        <li><a href="#" class="active">Galeri</a></li>
     </ul>
     <!-- Akhir Hyperlink -->
 
     <div class="container">
 
+        <!-- ==== Modal untuk Peserta Kegiatan ==== -->
         @foreach (var foto in Model)
         {
-            <!-- Modal -->
             <div class="modal fade" id="modal@(foto.Id)" tabindex="-1" aria-labelledby="modal@(foto.Id)" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered custom-modal">
                     <div class="modal-content">
-                        <div class="kepala-modal">
-                            <h2 class="aku-h2" id="exampleModalLabel">Dalam Foto</h2>
-                            @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="exampleModalLabel">Daftar Peserta</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-
                             <div class="container">
-                                @*<h2 class="aku-h2">Anggota Peserta</h2>*@
                                 <ul class="responsive-table">
-                                    <li class="table-header">
-                                        <div class="col col-1 text-center">Foto</div>
-                                        <div class="col col-2 text-center">NIM</div>
-                                        <div class="col col-4 text-center">Nama</div>
-                                    </li>
                                     @foreach (var mahasiswa in foto.DaftarMahasiswa)
                                     {
                                         <li class="table-row">
-                                            <div class="col col-1 text-center" @*data-label="Foto"*@>
+                                            <!-- Foto Profil Peserta -->
+                                            <div class="col col-1 text-center">
                                                 <img src="@Url.Action("FotoProfil", "File", new { Area = "", id = mahasiswa.Id })" alt="" class="img-thumbnail">
                                             </div>
-                                            <div class="col col-2 text-center" @*data-label="NIM"*@>@mahasiswa.Nim</div>
-                                            <div class="col col-4 text-center" @*data-label="Nama"*@>@mahasiswa.NamaLengkap</div>
+                                            <!-- Nama Peserta -->
+                                            <div class="col col-4 text-center">
+                                                <span class="participant-name">@mahasiswa.NamaLengkap</span>
+                                            </div>
                                         </li>
                                     }
                                 </ul>
                             </div>
-
                         </div>
+                        <!-- Tombol Close/Keluar -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -150,17 +146,21 @@
                 </div>
             </div>
         }
+        <!-- ==== Akhir Modal untuk Peserta Kegiatan ==== -->
+
+       
 
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th width="10%">Foto</th>
-                    <th>Tanggal Dibuat</th>
-                    <th>Tanggal Diubah</th>
-                    <th>Pembuat</th>
-                    <th>Aksi</th>
+                    <th style="width: 10%;">ID</th>
+                    <th style="width: 15%;">Foto</th>
+                    <th style="width: 20%;">Tanggal Dibuat</th>
+                    <th style="width: 20%;">Tanggal Diubah</th>
+                    <th style="width: 20%;">Pembuat</th>
+                    <th style="width: 15%;">Aksi</th>
                 </tr>
+
             </thead>
             <tbody>
                 @foreach (var foto in Model)
@@ -168,7 +168,7 @@
                     <tr>
                         <td>@foto.Id</td>
                         <td>
-                            <img class="img-fluid" src="@Url.Action("Foto", "File", new {Area="", Id = foto.Id})">
+                            <img class="imag-fluid" src="@Url.Action("Foto", "File", new {Area="", Id = foto.Id})">
                         </td>
                         <td>@foto.AddedAt.ToString("dd/MMM/yyyy hh:mm tt")</td>
                         <td>@(foto.ModifiedAt.HasValue ? foto.ModifiedAt.Value.ToString("dd/MMM/yyyy hh:mm tt") : "")</td>
@@ -178,7 +178,7 @@
 
                                 <button class="btn btn-warning" type="button"
                                         data-bs-toggle="modal" data-bs-target="#modal@(foto.Id)">
-                                    <i class="fa fa-regular fa-eye"></i>
+                                    <i style="color:white;" class="fa fa-regular fa-eye"></i>
                                 </button>
 
                                 <a class="btn btn-primary">
@@ -186,7 +186,7 @@
                                 </a>
 
                                 <form asp-action="Delete" asp-route-id="@foto.Id">
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
+                                    <button type="submit" style="padding: 7px 14px;" class="btn btn-danger"><i class="fa fa-regular fa-trash"></i></button>
                                 </form>
                             </div>
                         </td>

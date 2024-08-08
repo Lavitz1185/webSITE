@@ -3,6 +3,100 @@
     ViewData["Title"] = "Detail";
 }
 
+<style>
+    /* ==== CSS Global Halaman Detail Mahasiswa ==== */
+    :root {
+        --clr-primary: rgb(35, 35, 85);
+        --clr-primary2: rgb(30, 30, 64);
+        --clr-gray: #37474f;
+        --clr-gray-light: #b0bec5;
+    }
+    /* ==== CSS Global Halaman Detail Mahasiswa ==== */
+
+    /* ==== CSS Section Detail Mahasiswa ==== */
+    .container-siters {
+        padding: 0px 0px;
+    }
+
+    .profile-section {
+        margin-bottom: 0px;
+    }
+
+    .biodata-section,
+    .album-section,
+    .profile-img-container,
+    .sosmed-section {
+        padding: 20px;
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        background: white;
+    }
+
+    .kegiatan-section {
+        padding: 20px;
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        background: white;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: rgb(35, 35, 85);
+    }
+
+    .dividerku {
+        height: 2px;
+        background-color: #e0e0e0;
+        margin: 20px 0;
+    }
+
+    .btn-back {
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: var(--clr-primary);
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 20px;
+    }
+
+        .btn-back:hover {
+            background-color: var(--clr-primary2);
+            color: white;
+        }
+
+    .img-thumbnail {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+    }
+
+    .social-icons a {
+        font-size: 2rem;
+        color: var(--clr-primary);
+        margin: 0 10px;
+    }
+
+        .social-icons a:hover {
+            color: var(--clr-primary2);
+        }
+    /* ==== Akhir CSS Global Halaman Mahasiswa ==== */
+</style>
+
 <div class="detail-kegiatan">
     <!-- Hyperlink -->
     <h1 class="title">Detail Kegiatan</h1>
@@ -17,7 +111,10 @@
         <!-- Kolom Kiri -->
         <div class="col-md-6">
             <!-- Biodata -->
+
             <div class="cardplus mb-4">
+                <h3 class="text-center">Detail Kegiatan</h3>
+                <div class="dividerku"></div>
                 <div class="row">
                     <div class="col-6"><b>ID</b></div>
                     <div class="col-6">@Model.Id</div>
@@ -46,6 +143,7 @@
             <!-- Daftar Mahasiswa -->
             <div class="cardplus">
                 <h3 class="text-center">Peserta Kegiatan</h3>
+                <div class="dividerku"></div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -69,6 +167,7 @@
         <div class="col-md-6">
             <div class="cardplus">
                 <h3 class="text-center">Daftar Foto</h3>
+                <div class="dividerku"></div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -93,7 +192,7 @@
             </div>
         </div>
     </div>
-    <a asp-action="Index" class="btn btn-custom mt-4">Kembali</a>
+    <a asp-action="Index" class="btn btn-custom">Kembali</a>
 </div>
 
 @section Scripts {

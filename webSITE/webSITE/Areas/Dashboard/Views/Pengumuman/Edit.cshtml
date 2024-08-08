@@ -22,24 +22,26 @@
             <input asp-for="@Model.Id" hidden />
 
             <div class="col-12 mb-2 input-box">
-                <label asp-for="@Model.Judul" class="form-label"></label>
-                <input asp-for="@Model.Judul" type="text" class="form-control" />
-                <span class="form-text text-danger" asp-validation-for="@Model.Judul"></span>
-            </div>
-
-            <div class="col-12 mb-3 input-box">
-                <label asp-for="@Model.Isi" class="form-label"></label>
-                <textarea asp-for="@Model.Isi" class="form-control" rows="8"></textarea>
-                <span class="form-text text-danger" asp-validation-for="@Model.Isi"></span>
-            </div>
-
-            <div class="col-12 mb-2 input-box">
                 <vc:foto-picker name=@nameof(EditVM.IdFoto) multi=false
                                 value=@(Model.IdFoto is null ? new() : new List<int> { Model.IdFoto.Value })>
                 </vc:foto-picker>
             </div>
 
-            <div class="col-md-12 mt-3 d-flex justify-content-start">
+
+            <div class="col-12 mb-2 input-box">
+                <label asp-for="@Model.Judul" class="form-label">Judul</label>
+                <input asp-for="@Model.Judul" type="text" class="form-control" />
+                <span class="form-text text-danger" asp-validation-for="@Model.Judul"></span>
+            </div>
+
+            <div class="col-12 mb-2 input-box">
+                <label asp-for="@Model.Isi" class="form-label">Isi</label>
+                <textarea asp-for="@Model.Isi" class="form-control" rows="4"></textarea>
+                <span class="form-text text-danger" asp-validation-for="@Model.Isi"></span>
+            </div>
+
+
+            <div class="col-md-12 mt-4 d-flex justify-content-start">
                 <button class="btn-custom me-2" type="submit">Simpan</button>
                 <a class="btn-customdel" asp-action="Index">
                     Batal

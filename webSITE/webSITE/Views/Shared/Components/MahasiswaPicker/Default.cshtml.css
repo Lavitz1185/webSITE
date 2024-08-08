@@ -1,0 +1,165 @@
+﻿/* CSS Datatable */
+.luar {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .luar th, .luar td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    .luar thead th {
+        text-transform: uppercase;
+        background-color: var(--primary-clr);
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .luar tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+        .luar tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .luar tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+
+.dalam {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .dalam th, .luar td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    .dalam thead th {
+        text-transform: uppercase;
+        background-color: var(--primary-clr);
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .dalam tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+        .dalam tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .dalam tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+
+
+.img-fluid {
+    max-width: 50px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.btn-custom {
+    padding: 6px 12px;
+}
+/* Akhir CSS Datatable */
+
+/* CSS type input Text dan Textarea */
+::deep .input-box label {
+    color: #333;
+    margin-bottom: 3px;
+    font-size: 16px;
+}
+
+::deep .input-box input {
+    position: relative;
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+    outline: none;
+    color: #707070;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 5px 15px;
+}
+
+::deep .input-box select {
+    position: relative;
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+    outline: none;
+    color: #707070;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 5px 15px;
+}
+
+::deep .input-box textarea {
+    position: relative;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    color: #707070;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 15px;
+}
+/* Akhir CSS type input Text dan Textarea */
+
+/* CSS type input Checkbox */
+::deep .check-box {
+    vertical-align: middle;
+}
+
+    ::deep .check-box label {
+        padding-left: 5px;
+        padding-top: 8px;
+        color: #333;
+        font-size: 16px;
+    }
+
+    ::deep .check-box input {
+        position: relative;
+        margin-top: 10px;
+        font-size: 13px;
+        height: 20px;
+        outline: none;
+        color: #707070;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 0px 8px;
+    }
+/* Akhir CSS type input Checkbox */
+
+::deep .divider {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 30px;
+}
+
+
+    ::deep .divider .line {
+        height: 1px;
+        width: 100%;
+        background: #1d1d1d;
+        opacity: 0.2;
+        margin: 10px 0px 10px;
+    }
+

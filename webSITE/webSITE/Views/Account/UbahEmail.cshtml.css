@@ -56,12 +56,6 @@
 /* Akhir CSS type input Text dan Textarea */
 
 /* Responsive adjustments */
-@media (max-width: 486px) {
-    .ruang-input {
-        font-size: 15px;
-    }
-}
-
 @media (max-width: 576px) {
 
     .container-input-utama {
@@ -85,5 +79,11 @@
 
     .btn-custom {
         padding: 5px 10px;
+    }
+}
+
+@media (max-width: 486px) {
+    .ruang-input {
+        font-size: 15px;
     }
 }

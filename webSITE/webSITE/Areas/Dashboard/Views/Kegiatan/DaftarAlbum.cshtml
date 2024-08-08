@@ -90,36 +90,55 @@
     }
 </style>
 
-<div class="row row-cols-1 row-cols-md-3 g-4 py-3 animate__animated animate__fadeInLeftBig">
-    @foreach (var fotoViewModel in Model)
-    {
 
-        <div class="col-md-6 col-lg-4">
-            <div class="card">
-                <div class="parent">
+<div class="foto-semua">
+    <h1 class="title">Album</h1>
+    <ul class="breadcrumbs mb-4">
+        <li><a href="#">Album</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Album</a></li>
+    </ul>
 
-                    @if (fotoViewModel.IdThumbnail is null)
-                    {
-                        <img src="" class="child" alt="...">
-                    }
-                    else
-                    {
-                        <img src="@Url.Action("Foto", "File", new {Area = "", Id = fotoViewModel.IdThumbnail})"
-                             class="child"
-                             alt="...">
-                    }
+    <div class="row row-cols-1 row-cols-md-3 g-4 py-3 animate__animated animate__fadeInLeftBig">
+        @foreach (var fotoViewModel in Model)
+        {
 
-                    <div class="content">
-                        <a asp-action="AlbumKegiatan" asp-controller="Kegiatan" asp-route-id="@fotoViewModel.IdKegiatan">
-                            <h3>Select</h3>
-                        </a>
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="parent">
+
+                        @if (fotoViewModel.IdThumbnail is null)
+                        {
+                            <img src="" class="child" alt="...">
+                        }
+                        else
+                        {
+                            <img src="@Url.Action("Foto", "File", new {Area = "", Id = fotoViewModel.IdThumbnail})"
+                                 class="child"
+                                 alt="...">
+                        }
+
+                        <div class="content">
+                            <a asp-action="AlbumKegiatan" asp-controller="Kegiatan" asp-route-id="@fotoViewModel.IdKegiatan">
+                                <h3>Select</h3>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title">@fotoViewModel.NamaKegiatan</h1>
+                        <h4 class="card-text">@fotoViewModel.JumlahFoto</h4>
                     </div>
                 </div>
-                <div class="card-body">
-                    <h1 class="card-title">@fotoViewModel.NamaKegiatan</h1>
-                    <h4 class="card-text">@fotoViewModel.JumlahFoto</h4>
-                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
+
+
+
+
+
+
+
+
+

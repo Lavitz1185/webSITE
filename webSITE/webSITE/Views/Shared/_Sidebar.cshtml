@@ -10,36 +10,38 @@
 <section id="sidebar">
     <a href="" class="brand"><i class="ri-admin-fill icon"></i>Admin</a>
     <ul class="side-menu">
-        <li><a href="" class="active"><i class="ri-dashboard-fill icon"></i>Dashboard</a></li>
+        @* <li><a href="" class="active"><i class="ri-dashboard-fill icon"></i>Dashboard</a></li> *@
 
-        <!-- Sesi 1 -->
+        <!-- Dashboard -->
         <li class="divider" data-text="dashboard">Dashboard</li>
-        <li><a asp-area="Dashboard" asp-controller="Home" asp-action="Index"><i class="ri-table-fill icon"></i>Beranda</a></li>
-        <!-- Akhir Sesi 1 -->
-        <!-- Sesi 2 -->
-        <li class="divider" data-text="mahasiswa">Mahasiswa</li>
+        <li><a asp-area="Dashboard" asp-controller="Home" asp-action="Index" class="active"><i class="ri-table-fill icon"></i>Beranda</a></li>
+        <!-- Akhir Dashboard -->
+
+
         <!-- Mahasiswa -->
+        <li class="divider" data-text="mahasiswa">Mahasiswa</li>
         <li><a asp-area="Dashboard" asp-controller="Mahasiswa" asp-action="Index"><i class="ri-team-fill icon"></i>Mahasiswa</a></li>
-        <!-- Akhir Mahasiswa -->
-        <li class="divider" data-text="kegiatan">Kegiatan</li>
+        <!-- AKhir Mahasiswa -->
+
+
         <!-- Kegiatan -->
-        <li><a asp-area="Dashboard" asp-controller="Kegiatan" asp-action="Index"><i class="ri-sticky-note-fill icon"></i>Kegiatan</a></li>
-        <li><a asp-area="Dashboard" asp-controller="Kegiatan" asp-action="DaftarAlbum"><i class="ri-sticky-note-fill icon"></i>Daftar Album</a></li>
-        <!-- Akhir Kegiatan -->   
-        <li class="divider" data-text="album">Album</li>
-        <!-- Album -->
+        <li class="divider" data-text="kegiatan">Kegiatan</li>      
+        <li><a asp-area="Dashboard" asp-controller="Kegiatan" asp-action="Index"><i class="ri-calendar-event-fill icon"></i>Kegiatan</a></li>
+        <!-- Akhir Kegiatan -->
+
+
+        <!-- Album dan Foto -->
+        <li class="divider" data-text="album & foto">Album & Foto</li>
+        <li><a asp-area="Dashboard" asp-controller="Kegiatan" asp-action="DaftarAlbum"><i class="ri-gallery-view icon"></i>Album</a></li>
         <li><a asp-area="Dashboard" asp-controller="Foto" asp-action="Index"><i class="ri-image-fill icon"></i>Galeri</a></li>
-        <!-- Akhir Album -->
-        <!-- Tambah Album -->
         <li><a asp-area="Dashboard" asp-controller="Foto" asp-action="Tambah"><i class="ri-image-add-fill icon"></i>Tambah Foto</a></li>
-        <!-- Akhir Tambah Album -->
-        <li class="divider" data-text="pengumuman">Pengumuman</li>
-        <!-- Pengumuman -->
+        <!-- Akhir Album dan Foto -->
+
+        
+        <!-- Acara -->
+        <li class="divider" data-text="acara">Acara</li>
         <li><a asp-area="Dashboard" asp-controller="Pengumuman" asp-action="Index"><i class="ri-megaphone-fill icon"></i>Pengumuman</a></li>
-        <!-- Akhir Pengumuman -->             
-        <!-- Pengumuman -->
-        <li><a asp-area="Dashboard" asp-controller="Pensi" asp-action="Index"><i class="ri-megaphone-fill icon"></i>Pensi</a></li>
-        <!-- Akhir Pengumuman -->
-        <!-- Akhir Sesi 2 -->
+        <li><a asp-area="Dashboard" asp-controller="Pensi" asp-action="Index"><i class="ri-artboard-2-fill icon"></i>Pensi</a></li>
+        <!-- Akhir Acara -->
     </ul>
 </section>

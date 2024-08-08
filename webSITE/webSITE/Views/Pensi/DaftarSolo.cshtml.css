@@ -162,6 +162,7 @@
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 0 15px;
+    background: #ffffff;
 }
 
 ::deep .input-box textarea {
@@ -206,7 +207,7 @@
 @media (max-width: 1088px) {
     .container-lomba-solo {
         margin: 100px 5vw 5vw;
-        padding: 20px;
+        padding: 50px 20px 20px;
     }
 
     ::deep .container-lomba-solo .container-ketentuan a {

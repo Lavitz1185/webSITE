@@ -3,6 +3,102 @@
     ViewData["Title"] = $"Detail - {Model.NamaLengkap}";
 }
 
+<style>
+    /* ==== CSS Global Halaman Detail Mahasiswa ==== */
+    :root {
+        --clr-primary: rgb(35, 35, 85);
+        --clr-primary2: rgb(30, 30, 64);
+        --clr-gray: #37474f;
+        --clr-gray-light: #b0bec5;
+    }
+    /* ==== CSS Global Halaman Detail Mahasiswa ==== */
+
+    /* ==== CSS Section Detail Mahasiswa ==== */
+    .container-siters {
+        padding: 0px 0px;
+    }
+
+    .profile-section {
+        margin-bottom: 0px;
+    }
+
+    .biodata-section,
+    .album-section,
+    .profile-img-container,
+    .sosmed-section {
+        padding: 20px;
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        background: white;
+    }
+
+    .kegiatan-section {
+        padding: 20px;
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        background: white;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: rgb(35, 35, 85);
+    }
+
+    .dividerku {
+        height: 2px;
+        background-color: #e0e0e0;
+        margin: 20px 0;
+    }
+
+    .btn-back {
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: var(--clr-primary);
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 20px;
+    }
+
+        .btn-back:hover {
+            background-color: var(--clr-primary2);
+            color: white;
+        }
+
+    .img-thumbnail {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent;
+    }
+
+    .social-icons a {
+        font-size: 2rem;
+        color: var(--clr-primary);
+        margin: 0 10px;
+    }
+
+        .social-icons a:hover {
+            color: var(--clr-primary2);
+        }
+    /* ==== Akhir CSS Global Halaman Mahasiswa ==== */
+</style>
+
+
+
 <div class="detail-mahasiswa">
     <!-- Hyperlink -->
     <h1 class="title">Detail Mahasiswa</h1>
@@ -11,125 +107,158 @@
         <li class="divider">/</li>
         <li><a href="#" class="active">Detail Mahasiswa</a></li>
     </ul>
-    <!-- Akhir Hyperlink -->
 
-    <div class="row">
-        <div class="col-md-6">
-            <!-- Image Card -->
-            <div class="cardplus mb-4">
-                <img src="@Url.ActionLink("FotoProfil", "File", new { Id = Model.Id, Area = "" })"
-                     class="img-thumbnail mx-auto d-block"
-                     width="250"
-                     height="250" />
-            </div>
-
-            <!-- Profile Section Card -->
-            <div class="cardplus mb-4">
-                <div class="profile-sectionn">
-                    <div class="row mb-2">
-                        <div class="col-6"><b>ID</b></div>
-                        <div class="col-6">@Model.Id</div>
+    <!-- ==== Section Detail Mahasiswa ==== -->
+    @if (Model != null)
+    {
+        <div class="container-siters position-relative">
+            <div class="row">
+                <div class="col-md-6 profile-section">
+                    <!-- Card Foto Mahasiswa -->
+                    <div class="profile-img-container d-flex justify-content-center mb-4">
+                        <img src="@Url.ActionLink("FotoProfil", "File", new { Id = Model.Id, Area = "" })" class="img-thumbnail" height="250" width="250" />
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-6"><b>NIM</b></div>
-                        <div class="col-6">@Model.Nim</div>
+                    <!-- Card Biodata Mahasiswa -->
+                    <div class="biodata-section mb-4">
+                        <h3 class="text-center">Biodata</h3>
+                        <div class="dividerku"></div>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <b>NIM</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.Nim
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <b>Nama Lengkap</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.NamaLengkap
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <b>Nama Panggilan</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.NamaPanggilan
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <b>Jenis Kelamin</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.StrJenisKelamin
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <b>Tanggal Lahir</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.TanggalLahir.ToString("dd MMMM yyyy")
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <b>Bio</b>
+                            </div>
+                            <div class="col-6">
+                                @Model.Bio
+                            </div>
+                        </div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-6"><b>Nama Lengkap</b></div>
-                        <div class="col-6">@Model.NamaLengkap</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-6"><b>Nama Panggilan</b></div>
-                        <div class="col-6">@Model.NamaPanggilan</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-6"><b>Jenis Kelamin</b></div>
-                        <div class="col-6">@Model.StrJenisKelamin</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-6"><b>Tanggal Lahir</b></div>
-                        <div class="col-6">@Model.TanggalLahir.ToLongDateString()</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-6"><b>Email</b></div>
-                        <div class="col-6">@Model.Email</div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-6"><b>Bio</b></div>
-                    <div class="col-6">Asu Kayang</div>
+                    <!-- Card Media Sosial Mahasiswa -->
+                    <div class="sosmed-section">
+                        <h3 class="text-center">Media Sosial</h3>
+                        <div class="dividerku"></div>
+                        <div class="d-flex justify-content-center social-icons">
+                            <a href="@Model.InstagramProfileLink?.AbsoluteUri" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
+                            <a href="@Model.FacebookProfileLink?.AbsoluteUri" target="_blank" title="Facebook"><i class="ri-facebook-box-line"></i></a>
+                            <a href="@Model.TikTokProfileLink?.AbsoluteUri" target="_blank" title="TikTok"><i class="ri-tiktok-line"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Medsos Section -->
-            <div class="cardplus">
-                <h3 class="text-center">Media Sosial</h3>
-                <div class="d-flex justify-content-center social-icons">
-                    <a href="#" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
-                    <a href="#" target="_blank" title="Facebook"><i class="ri-facebook-box-line"></i></a>
-                    <a href="#" target="_blank" title="TikTok"><i class="ri-tiktok-line"></i></a>
+                <div class="col-md-6">
+                    <!-- Card kegiatan Mahasiswa -->
+                    <div class="kegiatan-section">
+                        <h3 class="text-center">Kegiatan</h3>
+                        <div class="dividerku"></div>
+                        <div class="row">
+                            @if (Model.DaftarKegiatan != null && Model.DaftarKegiatan.Count > 0)
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th width="50%">Nama</th>
+                                                <th width="50%">Tempat</th>
+                                                <th width="50%">Tanggal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var kegiatan in Model.DaftarKegiatan)
+                                            {
+                                                <tr>
+                                                    <td>@kegiatan.NamaKegiatan</td>
+                                                    <td>@kegiatan.TempatKegiatan</td>
+                                                    <td>@kegiatan.Tanggal.ToShortDateString()</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-center">Tidak Ada Kegiatan Yang Pernah Diikuti</p>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Card Album Mahasiswa -->
+                    <div class="album-section">
+                        <h3 class="text-center">Album Foto</h3>
+                        <div class="dividerku"></div>
+                        <div class="row">
+                            @if (Model.DaftarFoto != null && Model.DaftarFoto.Count > 0)
+                            {
+                                @foreach (var foto in Model.DaftarFoto)
+                                {
+                                    <div class="col-md-4 col-6 mb-3">
+                                        <img src="@Url.ActionLink("Foto", "File", new { Id = foto.Id, Area = "" })" class="img-fluid" />
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-center">Tidak Ada Foto</p>
+                            }
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+                <!-- Tombol Kembali -->
+                <div class="kembali-tombol row mt-4 mb-3">
+                    <div class="col-12">
+                        <a asp-controller="Mahasiswa" asp-action="Index" class="btn-back">Kembali</a>
+                    </div>
+                </div>
 
-        <div class="col-md-6">
-            <!-- Kegiatan Table Card -->
-            <div class="cardplus mb-4">
-                <h3 class="text-center">Daftar Kegiatan</h3>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>Tanggal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var kegiatan in Model.DaftarKegiatan)
-                        {
-                            <tr>
-                                <td>@kegiatan.Id</td>
-                                <td>@kegiatan.NamaKegiatan</td>
-                                <td>@kegiatan.Tanggal.ToShortDateString()</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
             </div>
 
-            <!-- Album Table Card -->
-            <div class="cardplus">
-                <h3 class="text-center">Daftar Foto</h3>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tanggal</th>
-                            <th>Foto</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var foto in Model.DaftarFoto)
-                        {
-                            <tr>
-                                <td>@foto.Id</td>
-                                <td>@foto.AddedAt.ToShortDateString()</td>
-                                <td>
-                                    <img width="120" src="@Url.ActionLink("Foto", "File", new { Id = foto.Id, Area = "" })" />
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-            
+
+
         </div>
-        <a asp-action="Index" class="btn btn-custom col-1 mt-4">Kembali</a>
-    </div>
+    }
+    <!-- ==== Akhir Section Detail Mahasiswa ==== -->
 </div>
 
 
-
+<!-- ====== Section Javascript ====== -->
 @section Scripts {
     <partial name="_DataTable"></partial>
 }

@@ -1,27 +1,10 @@
 ﻿/* ================================================= Responsive =================================================  */
 
-/* Responsive MIN 760px */
-@media screen and (min-width: 760px) {
-    .wrapper-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
+/* Responsive MAX 992px */
+@media screen and (max-width: 992px) {
 
-/* Responsive MIN 1250px */
-@media screen and (min-width: 1250px) {
-    .wrapper-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    .search-container {
-        padding: 0;
-    }
-}
-
-/* Responsive MAX 360px */
-@media screen and (max-width: 360px) {
-    ::deep .pagination-button {
-        padding: 5px 10px;
+    .container-mahasiswa {
+        margin: 0;
     }
 }
 
@@ -36,10 +19,29 @@
     }
 }
 
-/* Responsive MAX 992px */
-@media screen and (max-width: 992px) {
+/* Responsive MAX 360px */
+@media screen and (max-width: 360px) {
+    ::deep .pagination-button {
+        padding: 5px 10px;
+    }
+}
 
-    .container-mahasiswa {
-        margin: 0;
+
+
+/* Responsive MIN 800px */
+@media screen and (min-width: 830px) {
+    .wrapper-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Responsive MIN 1250px */
+@media screen and (min-width: 1250px) {
+    .wrapper-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .search-container {
+        padding: 0;
     }
 }
