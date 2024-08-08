@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IndexVM
+@{
     ViewData["title"] = "Dashboard";
 }
 
@@ -20,7 +21,7 @@
         <div class="card">
             <div class="head">
                 <div>
-                    <h2>100</h2>
+                    <h2>@Model.TotalMahasiswa</h2>
                     <p>Seluruh Mahasiswa</p>
                 </div>
                 <img src="~/img/Beranda/audience.png" style="height: 60px;" />
@@ -33,7 +34,7 @@
         <div class="card">
             <div class="head">
                 <div>
-                    <h2>50</h2>
+                    <h2>@Model.TotalMahasiswaPria</h2>
                     <p>Laki-Laki</p>
                 </div>
                 <img src="~/img/Beranda/male-student.png" style="height: 50px;" />
@@ -47,7 +48,7 @@
         <div class="card">
             <div class="head">
                 <div>
-                    <h2>50</h2>
+                    <h2>@Model.TotalMahasiswaWanita</h2>
                     <p>Perempuan</p>
                 </div>
                 <img src="~/img/Beranda/female-student.png" style="height: 50px;" />
@@ -61,7 +62,7 @@
         <div class="card">
             <div class="head">
                 <div>
-                    <h2>0</h2>
+                    <h2>@Model.JumlahKegiatan</h2>
                     <p>Jumlah kegiatan</p>
                 </div>
                 <img src="~/img/Beranda/event.png" style="height: 50px;" />
@@ -74,8 +75,8 @@
         <div class="card">
             <div class="head">
                 <div>
-                    <h2>1</h2>
-                    <p>Jumlah Album</p>
+                    <h2>@Model.JumlahFoto</h2>
+                    <p>Jumlah Foto</p>
                 </div>
                 <img src="~/img/Beranda/album.png" style="height: 50px;" />
             </div>
@@ -87,7 +88,7 @@
         <div class="card">
             <div class="head">
                 <div>
-                    <h2>2</h2>
+                    <h2>@Model.JumlahPengumuman</h2>
                     <p>Jumlah Pengumuman</p>
                 </div>
                 <img src="~/img/Beranda/announcement.png" style="height: 50px;" />
