@@ -46,6 +46,12 @@
                 }
 
 /* CSS type input Text dan Textarea */
+::deep .form-control:focus {
+    outline: 0;
+    box-shadow: none;
+    border: 1px solid #000000 !important;
+}
+
 ::deep .input-box label {
     margin-bottom: 3px;
     color: #333;

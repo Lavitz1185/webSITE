@@ -22,13 +22,13 @@
 
             <div class="col-12 mb-2 input-box">
                 <label asp-for="@Model.Judul" class="form-label">Judul</label>
-                <input asp-for="@Model.Judul" type="text" class="form-control" placeholder="Judul Pengumuman" />
+                <input asp-for="@Model.Judul" type="text" class="form-control" placeholder="Judul Pengumuman" spellcheck="false" />
                 <span class="form-text text-danger" asp-validation-for="@Model.Judul"></span>
             </div>
 
             <div class="col-12 mb-2 input-box">
                 <label asp-for="@Model.Isi" class="form-label">Isi</label>
-                <textarea asp-for="@Model.Isi" class="form-control" rows="4" placeholder="Isi Pengumuman"></textarea>
+                <textarea asp-for="@Model.Isi" class="form-control" rows="4" placeholder="Isi Pengumuman" spellcheck="false"></textarea>
                 <span class="form-text text-danger" asp-validation-for="@Model.Isi"></span>
             </div>
 

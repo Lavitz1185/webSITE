@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-md-12 mb-3 input-box">
                                     <label asp-for="@Model.Email">Email</label>
-                                    <input type="email" readonly="readonly" class="form-control" asp-for="@Model.Email">
+                                    <input spellcheck="false" type="email" readonly="readonly" class="form-control" asp-for="@Model.Email">
                                     <span asp-validation-for="@Model.Email" class="text-danger"></span>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                             <div class="row">
                                 <div class="col-md-12 mb-3  input-box">
                                     <label asp-for="@Model.EmailBaru"></label>
-                                    <input type="email" class="form-control" asp-for="@Model.EmailBaru">
+                                    <input spellcheck="false" type="email" class="form-control" asp-for="@Model.EmailBaru">
                                     <span asp-validation-for="@Model.EmailBaru" class="text-danger"></span>
                                 </div>
                             </div>
