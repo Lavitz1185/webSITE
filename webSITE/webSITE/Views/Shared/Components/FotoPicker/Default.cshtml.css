@@ -16,6 +16,10 @@
     padding: 3px 3px 3px 3px;
 }
 
+    .dvPreview.multi {
+        height: 400px;
+    }
+
     .dvPreview:not(.multi) ::deep img {
         object-fit: contain;
     }
