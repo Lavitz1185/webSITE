@@ -29,26 +29,28 @@
             </div>
 
             <div class="col-md-12 mb-2 input-box">
-                <label class="">Bio</label>
-                <textarea rows="4"></textarea>
+                <label asp-for="@Model.Bio">Bio</label>
+                <textarea asp-for="@Model.Bio" rows="4"></textarea>
+                <span asp-validation-for="@Model.Bio" class="text-danger"></span>
             </div>
 
             <div class="col-md-12 mb-2 input-box">
-                <label class="">Link Instagram</label>
-                <input  />
+                <label asp-for="@Model.InstagramProfileLink" class=""></label>
+                <input asp-for="@Model.InstagramProfileLink"  />
+                <span asp-validation-for="@Model.InstagramProfileLink" class="text-danger"></span>
             </div>
 
             <div class="col-md-12 mb-2 input-box">
-                <label class="">Link Facebook</label>
-                <input />
+                <label asp-for="@Model.FacebookProfileLink" class=""></label>
+                <input asp-for="@Model.FacebookProfileLink" />
+                <span asp-validation-for="@Model.FacebookProfileLink" class="text-danger"></span>
             </div>
 
             <div class="col-md-12 mb-2 input-box">
-                <label class="">Link Tiktok</label>
-                <input />
+                <label asp-for="@Model.TikTokProfileLink" class=""></label>
+                <input asp-for="@Model.TikTokProfileLink" />
+                <span asp-validation-for="@Model.TikTokProfileLink" class="text-danger"></span>
             </div>
-
-           
 
             @if (User.IsInRole("SuperAdmin"))
             {

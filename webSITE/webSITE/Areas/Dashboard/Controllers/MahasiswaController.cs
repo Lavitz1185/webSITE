@@ -6,7 +6,9 @@ using webSITE.Domain;
 using webSITE.DataAccess.Repositori.Interface;
 using webSITE.Areas.Dashboard.Models.MahasiswaController;
 using webSITE.DataAccess.Data;
-using webSITE.Domain.Exceptions.MahasiswaExceptions;
+using webSITE.Models.Account;
+using webSITE.Services.Contracts;
+using webSITE.Models;
 
 namespace webSITE.Areas.Dashboard.Controllers
 {
@@ -19,6 +21,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IUserStore<Mahasiswa> _userStore;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IToastrNotificationService _notificationService;
         private readonly ILogger<MahasiswaController> _logger;
 
         public MahasiswaController(IRepositoriMahasiswa repositoriMahasiswa,
@@ -26,7 +29,8 @@ namespace webSITE.Areas.Dashboard.Controllers
             IUserStore<Mahasiswa> userStore,
             IMapper mapper,
             IUnitOfWork unitOfWork,
-            ILogger<MahasiswaController> logger)
+            ILogger<MahasiswaController> logger,
+            IToastrNotificationService notificationService)
         {
             _repositoriMahasiswa = repositoriMahasiswa;
             _userManager = userManagaer;
@@ -34,6 +38,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _notificationService = notificationService;
         }
 
         public async Task<IActionResult> Index()
@@ -58,7 +63,11 @@ namespace webSITE.Areas.Dashboard.Controllers
             var editMahasiswaVM = new EditMahasiswaVM
             {
                 Id = mahasiswa.Id,
-                NamaLengkap = mahasiswa.NamaLengkap
+                NamaLengkap = mahasiswa.NamaLengkap,
+                Bio = mahasiswa.Bio,
+                InstagramProfileLink = mahasiswa.InstagramProfileLink?.ToString(),
+                FacebookProfileLink = mahasiswa.FacebookProfileLink?.ToString(),
+                TikTokProfileLink = mahasiswa.TikTokProfileLink?.ToString(),
             };
             
             editMahasiswaVM.Admin = await _userManager.IsInRoleAsync(mahasiswa, "Admin");
@@ -67,23 +76,85 @@ namespace webSITE.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditMahasiswaVM mahasiswaVM)
+        public async Task<IActionResult> Edit(EditMahasiswaVM editMahasiswaVM)
         {
-            var mahasiswa = await _userStore.FindByIdAsync(mahasiswaVM.Id, CancellationToken.None);
+            if (!ModelState.IsValid) return View(editMahasiswaVM);
 
-            var result = await _userStore.UpdateAsync(mahasiswa, CancellationToken.None);
+            var mahasiswa = await _repositoriMahasiswa.Get(editMahasiswaVM.Id);
 
-            if(!result.Succeeded)
+            if (mahasiswa is null) return NotFound();
+
+            mahasiswa.Bio = editMahasiswaVM.Bio;
+
+            if (editMahasiswaVM.InstagramProfileLink is not null)
             {
-                foreach (var error in result.Errors)
-                    ModelState.AddModelError(string.Empty, error.Description);
+                var uri = new Uri(editMahasiswaVM.InstagramProfileLink);
 
-                return RedirectToAction("Edit");
+                if (!uri.Host.Contains("instagram"))
+                {
+                    ModelState.AddModelError(
+                        nameof(AccountIndexVM.InstagramProfileLink), "Bukan URL Instagram Valid");
+
+                    return View(editMahasiswaVM);
+                }
+
+                mahasiswa.InstagramProfileLink = uri;
             }
 
-            if(mahasiswaVM.Admin)
+            if (editMahasiswaVM.FacebookProfileLink is not null)
             {
-                result = await _userManager.AddToRoleAsync(mahasiswa, "Admin");
+                var uri = new Uri(editMahasiswaVM.FacebookProfileLink);
+
+                if (!uri.Host.Contains("facebook"))
+                {
+                    ModelState.AddModelError(
+                        nameof(AccountIndexVM.FacebookProfileLink), "Bukan URL Facebook Valid");
+
+                    return View(editMahasiswaVM);
+                }
+
+                mahasiswa.FacebookProfileLink = uri;
+            }
+
+            if (editMahasiswaVM.TikTokProfileLink is not null)
+            {
+                var uri = new Uri(editMahasiswaVM.TikTokProfileLink);
+
+                if (!uri.Host.Contains("tiktok"))
+                {
+                    ModelState.AddModelError(
+                        nameof(AccountIndexVM.TikTokProfileLink), "Bukan URL Tiktok Valid");
+
+                    return View(editMahasiswaVM);
+                }
+
+                mahasiswa.TikTokProfileLink = uri;
+            }
+
+            try
+            {
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex,
+                    "Error saat mengedit data mahasiswa. Message : {@message}. Time Stamp : {@timeStamp}",
+                    ex.Message,
+                    DateTime.Now);
+
+                _notificationService.AddNotification(new ToastrNotification
+                {
+                    Type = ToastrNotificationType.Error,
+                    Title = "Gagal Menyimpan Perubahan!",
+                    Message = "Laporkan masalah ke administrator"
+                });
+
+                return View(editMahasiswaVM);
+            }
+
+            if (editMahasiswaVM.Admin)
+            {
+                var result = await _userManager.AddToRoleAsync(mahasiswa, "Admin");
 
                 if(!result.Succeeded)
                 {
@@ -95,7 +166,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             }
             else
             {
-                result = await _userManager.RemoveFromRoleAsync(mahasiswa, "Admin");
+                var result = await _userManager.RemoveFromRoleAsync(mahasiswa, "Admin");
 
                 if (!result.Succeeded)
                 {
