@@ -6,7 +6,6 @@ namespace webSITE.Domain;
 public class Mahasiswa : IdentityUser
 {
     public const int MaxBioLength = 60;
-    public static readonly string[] DaftarKataKasar = new[] { "babi", "kontol", "memek", "tolo", "puki", "uti", "mai"}; 
 
     public string Nim { get; set; } = string.Empty;
     public string NamaLengkap { get; set; } = string.Empty;

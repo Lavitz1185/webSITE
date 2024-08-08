@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using webSITE.CustomValidationAttribute;
 using webSITE.Domain;
 using webSITE.Domain.Enum;
 
@@ -31,6 +32,7 @@ namespace webSITE.Models.Account
 
         [Required(ErrorMessage = "{0} harus diisi")]
         [MaxLength(Mahasiswa.MaxBioLength, ErrorMessage = "Maksimal panjang {0} harus {1}")]
+        [SensorKataKasar]
         [Display(Name = "Bio")]
         public string Bio { get; set; } = string.Empty;
 

@@ -86,20 +86,11 @@ namespace webSITE.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(AccountIndexVM accountIndexVM)
         {
+            if (!ModelState.IsValid) return View(accountIndexVM);
+
             var mahasiswa = await _userManager.GetUserAsync(User);
 
             if(mahasiswa is null) return Forbid();
-
-            var bioWords = accountIndexVM.Bio.
-                ToLower().Split(" ", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-
-            foreach(var word in bioWords)
-                if (Mahasiswa.DaftarKataKasar.Contains(word))
-                {
-                    ModelState.AddModelError(nameof(AccountIndexVM.Bio), "Bio mengandung kata kasar");
-                    accountIndexVM.Bio = "";
-                    return View(accountIndexVM);
-                }
 
             mahasiswa.NamaLengkap = accountIndexVM.NamaLengkap;
             mahasiswa.NamaPanggilan = accountIndexVM.NamaPanggilan;
