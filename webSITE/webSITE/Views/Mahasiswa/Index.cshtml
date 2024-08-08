@@ -208,7 +208,7 @@
     <!-- Search -->
     <form asp-action="Index" method="get">
         <div class="search-container animate__animated animate__fadeIn">
-            <input type="text" name="searchString" class="search-input" placeholder="Cari mahasiswa..." value="@ViewData["searchString"]">
+            <input spellcheck="false" type="text" name="searchString" class="search-input" placeholder="Cari mahasiswa..." value="@ViewData["searchString"]">
             <button type="submit" class="search-button">Cari</button>
         </div>
     </form>

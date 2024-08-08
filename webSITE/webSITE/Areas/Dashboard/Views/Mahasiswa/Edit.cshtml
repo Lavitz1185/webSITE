@@ -30,25 +30,25 @@
 
             <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.Bio">Bio</label>
-                <textarea asp-for="@Model.Bio" rows="4"></textarea>
+                <textarea asp-for="@Model.Bio" class="form-control" rows="4" spellcheck="false"></textarea>
                 <span asp-validation-for="@Model.Bio" class="text-danger"></span>
             </div>
 
             <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.InstagramProfileLink" class=""></label>
-                <input asp-for="@Model.InstagramProfileLink"  />
+                <input asp-for="@Model.InstagramProfileLink" class="form-control" spellcheck="false" />
                 <span asp-validation-for="@Model.InstagramProfileLink" class="text-danger"></span>
             </div>
 
             <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.FacebookProfileLink" class=""></label>
-                <input asp-for="@Model.FacebookProfileLink" />
+                <input asp-for="@Model.FacebookProfileLink" class="form-control" spellcheck="false" />
                 <span asp-validation-for="@Model.FacebookProfileLink" class="text-danger"></span>
             </div>
 
             <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.TikTokProfileLink" class=""></label>
-                <input asp-for="@Model.TikTokProfileLink" />
+                <input asp-for="@Model.TikTokProfileLink" class="form-control" spellcheck="false" />
                 <span asp-validation-for="@Model.TikTokProfileLink" class="text-danger"></span>
             </div>
 

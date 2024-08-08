@@ -27,12 +27,12 @@
 
             <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.NamaKegiatan"></label>
-                <input class="form-control" type="text" asp-for="@Model.NamaKegiatan">
+                <input class="form-control" type="text" asp-for="@Model.NamaKegiatan" spellcheck="false">
                 <span class="text-danger" asp-validation-for="@Model.NamaKegiatan"></span>
             </div>
             <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.TempatKegiatan"></label>
-                <input class="form-control" type="text" asp-for="@Model.TempatKegiatan">
+                <input class="form-control" type="text" asp-for="@Model.TempatKegiatan" spellcheck="false">
                 <span class="text-danger" asp-validation-for="@Model.TempatKegiatan"></span>
             </div>
             <div class="col-md-12 mb-2 input-box">
@@ -42,12 +42,12 @@
             </div>
             <div class="col-md-12 mb-2 input-box">
                 <label asp-for="@Model.JumlahHari"></label>
-                <input class="form-control" type="number" asp-for="@Model.JumlahHari">
+                <input class="form-control" type="number" asp-for="@Model.JumlahHari" spellcheck="false">
                 <span class="text-danger" asp-validation-for="@Model.JumlahHari"></span>
             </div>
             <div class="col-12 mb-2 input-box">
                 <label asp-for="@Model.Keterangan"></label>
-                <textarea class="form-control" type="text" rows="5" cols="30" asp-for="@Model.Keterangan"></textarea>
+                <textarea class="form-control" type="text" rows="5" cols="30" asp-for="@Model.Keterangan" spellcheck="false"></textarea>
                 <span class="text-danger" asp-validation-for="@Model.Keterangan"></span>
             </div>
 
