@@ -352,6 +352,19 @@ namespace webSITE.Areas.Dashboard.Controllers
             return RedirectToAction(nameof(Detail), new { id });
         }
 
+        public async Task<IActionResult> AnggotaTim(int id, int idTim)
+        {
+            var lomba = await _repositoriLomba.GetWithDetail(id);
+
+            if(lomba is null) return NotFound();
+
+            var tim = lomba.DaftarTim.FirstOrDefault(t => t.Id == idTim);
+
+            if(tim is null) return NotFound();
+
+            return PartialView("_AnggotaTimPartial", tim.AnggotaTim.OrderBy(x => x.Nim.Value).ToList());
+        }
+
         private async Task<string?> SavePDFAsync<TModel>(IFormFile formFile)
         {
             try

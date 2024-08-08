@@ -53,8 +53,6 @@
                 </tbody>
             </table>
         </div>
-
-
     }
     else
     {
@@ -89,6 +87,9 @@
                             <td>@tim.NoWaPerwakilan.Value</td>
                             <td>@tim.TanggalDaftar.ToString()</td>
                             <td>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#modalAnggota" class="btn btn-warning btn-anggota" data-idTim="@tim.Id" data-idLomba="@Model.Id">
+                                    <i class='fas fa-eye' style='color:#ffffff'></i>
+                                </button>
                                 <form asp-action="HapusTim" asp-route-id="@Model.Id" asp-route-idTim="@tim.Id">
                                     <button class="btn btn-danger" style="padding: 10px 20px;" type="submit">
                                         <i class="fa fa-regular fa-trash"></i>
@@ -100,9 +101,50 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="modal fade" id="modalAnggota" tabindex="-1" aria-labelledby="modalAnggota" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered custom-modal">
+                <div class="modal-content">
+                    <div class="kepala-modal">
+                        <h2 class="aku-h2" id="exampleModalLabel">Dalam Foto</h2>
+                        @*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 </div>
 
 @section Scripts {
     <partial name="_DataTable" />
+
+    @if(Model.Jenis == JenisLomba.Tim || Model.Jenis == JenisLomba.Pasangan)
+    {
+        <script type="text/javascript">
+            $('.btn-anggota').on('click', function () {
+                const idLomba = $(this).attr('data-idLomba');
+                const idTim = $(this).attr('data-idTim');
+
+                const modal = $('#modalAnggota .modal-body').html("Loading...")
+                $.ajax({
+                    async: true,
+                    type: 'GET',
+                    url: `/Dashboard/Pensi/AnggotaTim/${idLomba}?idTim=${idTim}`,
+                    error: function () {
+                        modal.html("Gagal Mengambil Data");
+                    },
+                    success: function (partialView) {
+                        console.log(partialView);
+                        modal.html(partialView);
+                    }
+                });
+            });
+        </script>
+    }
 }
