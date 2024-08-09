@@ -125,3 +125,13 @@
 ::deep .close:active {
     border-color: black;
 }
+
+.progress {
+    height: 15px;
+    background-color: #f3f3f3;
+}
+
+.progress-bar {
+    background-color: rgb(35, 35, 85);
+    transition: width 0.4s ease;
+}

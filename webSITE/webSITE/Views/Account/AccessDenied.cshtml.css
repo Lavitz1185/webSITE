@@ -13,6 +13,12 @@
     color: rgb(35, 35, 85);
 }
 
-.container ::deep img {
-    width: 300px;
+.container ::deep p a {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
 }
+
+    .container ::deep p a:hover {
+        color: darkblue;
+    }

@@ -70,18 +70,32 @@
     right: 10%;
     margin: 5px;
     cursor: pointer;
-    color: azure;
+    color: #fff;
     transition: all .3s ease;
+    background-color: transparent;
 }
 
     .popup-box .cls-btn:hover {
-        color: white;
+        color: #fff;
         transform: scale(1.09);
     }
 
     .popup-box .cls-btn:active {
         transform: scale(.85);
     }
+
+/*.cls-btn::before {
+    margin-bottom: 5px;
+    width: 100%;*/ /* Pastikan ukurannya sesuai dengan tombol */
+    /*height: 100%;*/ /* Pastikan ukurannya sesuai dengan tombol */
+    /*border-radius: 50%;*/ /* Sesuaikan bentuknya */
+    /*background-color: rgb(59, 59, 59, 0.50);*/ /* Atau warna yang Anda inginkan */
+    /*pointer-events: none;*/ /* Pastikan tidak mengganggu interaksi klik */
+/*}
+
+    .cls-btn::before:hover {
+        background-color: #000;
+    }*/
 
 /* Toggle Trigger */
 .toggle-trigger {

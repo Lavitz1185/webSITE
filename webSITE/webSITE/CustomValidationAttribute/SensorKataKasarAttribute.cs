@@ -8,7 +8,7 @@ public class SensorKataKasarAttribute : ValidationAttribute, IClientModelValidat
 {
     public readonly string[] _daftarKataKasar = new[] 
     { 
-        "babi", "kontol", "memek", "tolo", "puki", "uti", "mai" 
+        "kontol", "memek", "tolo", "puki", "uti", "mai", "fuck", "kelamin", "kemaluan", "tolol", "la'e", "puqi",  
     };
 
     public SensorKataKasarAttribute()
