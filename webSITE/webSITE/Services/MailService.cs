@@ -13,7 +13,7 @@ namespace webSITE.Services
         private readonly MailSettingsOptions _mailSettings;
         private readonly ILogger<MailService> logger;
 
-        public MailService(IOptions<MailSettingsOptions> mailSettingsOptions, ILogger<MailService> logger)
+        public MailService(IOptionsSnapshot<MailSettingsOptions> mailSettingsOptions, ILogger<MailService> logger)
         {
             _mailSettings = mailSettingsOptions.Value;
             this.logger = logger;
@@ -23,21 +23,21 @@ namespace webSITE.Services
         {
             try
             {
-                using (MimeMessage emailMessage = new MimeMessage())
+                using (var emailMessage = new MimeMessage())
                 {
-                    MailboxAddress emailFrom = new MailboxAddress(_mailSettings.SenderName, _mailSettings.SenderEmail);
+                    var emailFrom = new MailboxAddress(_mailSettings.SenderName, _mailSettings.SenderEmail);
                     emailMessage.From.Add(emailFrom);
-                    MailboxAddress emailTo = new MailboxAddress(mailData.EmailToName, mailData.EmailToId);
+                    var emailTo = new MailboxAddress(mailData.EmailToName, mailData.EmailToId);
                     emailMessage.To.Add(emailTo);
 
                     emailMessage.Subject = mailData.EmailSubject;
 
-                    BodyBuilder emailBodyBuilder = new BodyBuilder();
+                    var emailBodyBuilder = new BodyBuilder();
                     emailBodyBuilder.HtmlBody = mailData.EmailBody;
 
                     emailMessage.Body = emailBodyBuilder.ToMessageBody();
 
-                    using (SmtpClient mailClient = new SmtpClient())
+                    using (var mailClient = new SmtpClient())
                     {
                         mailClient.CheckCertificateRevocation = false;
                         await mailClient.ConnectAsync(_mailSettings.Server, _mailSettings.Port, SecureSocketOptions.StartTls);
@@ -47,14 +47,16 @@ namespace webSITE.Services
                     }
                 }
 
-                logger.LogDebug($"Email terkirim ke {mailData.EmailToId}");
+                logger.LogDebug("Email terkirim ke {@emailTo}. TimeStamp : {@timeStamp}", 
+                    mailData.EmailToId, DateTime.Now);
 
                 return true;
             }
             catch (Exception ex)
             {
-                logger.LogError(ex.Message);
-                logger.LogDebug($"Email tidak terkirim ke {mailData.EmailToId}");
+                logger.LogError(ex, 
+                    "Email gagal terkirim ke {@emailTo}. TimeStamp : {@timeStamp}. Exception Message : {@message}",
+                    mailData.EmailToId, DateTime.Now, ex.Message);
 
                 return false;
             }

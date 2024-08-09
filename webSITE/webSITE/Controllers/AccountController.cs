@@ -44,7 +44,7 @@ namespace webSITE.Controllers
             ILogger<AccountController> logger,
             IMailService mailService,
             IToastrNotificationService notificationService,
-            IOptions<PhotoFileSettingsOptions> options,
+            IOptionsSnapshot<PhotoFileSettingsOptions> options,
             IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
