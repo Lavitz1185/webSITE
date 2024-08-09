@@ -28,6 +28,7 @@ namespace webSITE.Areas.Dashboard.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<FotoController> _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IImageCompressionService _imageCompressionService;
 
         public FotoController(
             IRepositoriFoto repositoriFoto,
@@ -36,7 +37,8 @@ namespace webSITE.Areas.Dashboard.Controllers
             IToastrNotificationService notificationService,
             IOptionsSnapshot<PhotoFileSettingsOptions> options,
             IUnitOfWork unitOfWork,
-            ILogger<FotoController> logger)
+            ILogger<FotoController> logger,
+            IImageCompressionService imageCompressionService)
         {
             _photoFileSettings = options.Value;
             _repositoriFoto = repositoriFoto;
@@ -45,6 +47,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             _unitOfWork = unitOfWork;
             _logger = logger;
             _webHostEnvironment = webHostEnvironment;
+            _imageCompressionService = imageCompressionService;
         }
 
         public async Task<IActionResult> Index()
@@ -95,16 +98,29 @@ namespace webSITE.Areas.Dashboard.Controllers
                     await fileStream.WriteAsync(fileFormContent);
                 }
 
-                var foto = new Foto { Id = 0, Path = pathFile };
+                var compressResult = await _imageCompressionService.Compress(fileName, fileFormContent);
+
+                if(compressResult.IsFailure)
+                {
+                    ModelState.AddModelError(nameof(TambahVM.FormFile), compressResult.Error.Message);
+
+                    return isJson ? BadRequest(ModelState) : View(tambahVM);
+                }
+
+                var foto = new Foto 
+                {
+                    Id = 0, 
+                    Path = pathFile,
+                    Small = compressResult.Value.Small,
+                    Medium = compressResult.Value.Medium,
+                    Large = compressResult.Value.Large,
+                };
 
                 foreach (var id in tambahVM.DaftarIdMahasiswa)
                 {
-                    var mahasiswa = await _repositoriMahasiswa.Get(id);
-
-                    if (mahasiswa is null) throw new MahasiswaNotFoundException(id);
-
+                    var mahasiswa = await _repositoriMahasiswa.Get(id) ?? throw new MahasiswaNotFoundException(id);
                     foto.AddMahasiswa(mahasiswa);
-                }
+                } 
 
                 _repositoriFoto.Add(foto);
 

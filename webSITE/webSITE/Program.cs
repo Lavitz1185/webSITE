@@ -24,6 +24,8 @@ builder.Services.Configure<PhotoFileSettingsOptions>(
     builder.Configuration.GetSection(PhotoFileSettingsOptions.PhotoFileSettings));
 builder.Services.Configure<PDFFileSettingsOptions>(
     builder.Configuration.GetSection(PDFFileSettingsOptions.PDFFileSettings));
+builder.Services.Configure<ImageCompressionOptions>(
+    builder.Configuration.GetSection(ImageCompressionOptions.ImageCompression));
 
 builder.Services.AddControllersWithViews(options =>
 {
@@ -70,6 +72,7 @@ builder.Services.AddScoped<IRepositoriPesertaLomba, RepositoriPesertaLomba>();
 builder.Services.AddScoped<IRepositoriTimLomba, RepositoriTimLomba>();
 builder.Services.AddScoped<IToastrNotificationService, ToastrNotificationService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IImageCompressionService, ImageCompressionService>();
 
 builder.Services.AddTransient<IMailService, MailService>();
 
