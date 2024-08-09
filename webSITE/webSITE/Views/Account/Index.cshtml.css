@@ -89,3 +89,13 @@
         font-size: 15px;
     }
 }
+
+/* Safari specific fix */
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+        ::deep input[type="date"][readonly] {
+            text-align: left; /* Mengubah text-align ke left */
+            pointer-events: none; /* Mencegah interaksi dengan elemen */
+        }
+    }
+}

@@ -5,7 +5,7 @@
 
 <style>
     .parent {
-        height: 320px;
+        height: 300px;
         overflow: hidden;
         border-radius: 5px;
         padding: 0px;
@@ -57,8 +57,8 @@
         width: 100%;
     }
 
-        .content h3 {
-            font-size: 45px;
+        .content h4 {
+            font-size: 35px;
         }
 
         .content a {
@@ -72,10 +72,10 @@
             justify-content: center;
         }
 
-    h5 {
+    /* h5 {
         font-weight: 700;
         color: rgb(35, 35, 85);
-    }
+    } */
 
     h1 {
         font-size: 30px;
@@ -87,6 +87,8 @@
         text-overflow: ellipsis; /* Ganti ujung teks dengan (...) */
         display: block;
         max-width: 100%;
+        font-weight: 700;
+        color: rgb(35, 35, 85);
     }
 </style>
 
@@ -120,12 +122,12 @@
 
                         <div class="content">
                             <a asp-action="AlbumKegiatan" asp-controller="Kegiatan" asp-route-id="@fotoViewModel.IdKegiatan">
-                                <h3>Select</h3>
+                                <h4>Select</h4>
                             </a>
                         </div>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title">@fotoViewModel.NamaKegiatan</h1>
+                        <h4 class="card-title">@fotoViewModel.NamaKegiatan</h4>
                         <h4 class="card-text">@fotoViewModel.JumlahFoto</h4>
                     </div>
                 </div>
