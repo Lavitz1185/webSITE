@@ -525,6 +525,16 @@ namespace webSITE.Controllers
             return View(loginVM);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Logout(string? returnUrl = null)
+        {
+            returnUrl ??= Url.Action("Index", "Home", new { Area = "" });
+
+            await _signInManager.SignOutAsync();
+
+            return Redirect(returnUrl!);
+        }
+
         private Mahasiswa CreateUser()
         {
             try

@@ -6,8 +6,8 @@
     var user = await UserManager.GetUserAsync(User);
     <li class="nav-item align-items-center" style="padding-right: 20px">
         <div class="cover-user-pic">
-        <img src="@Url.Action("FotoProfil", "File", new {Area = "", id = user.Id})"
-             class="user-pic" />
+            <img src="@Url.Action("FotoProfil", "File", new {Area = "", id = user.Id})"
+                 class="user-pic" />
         </div>
         <div class="sub-menu-wrap" id="subMenu">
             <div class="sub-menu">
@@ -47,7 +47,7 @@
                     <span>></span>
                 </a>
 
-                <form asp-area="Identity" asp-page="/Account/Logout"
+                <form asp-action="Logout" asp-controller="Account"
                       asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                     <button class="sub-menu-link" type="submit">
                         <i class="ri-logout-box-r-fill"></i>
