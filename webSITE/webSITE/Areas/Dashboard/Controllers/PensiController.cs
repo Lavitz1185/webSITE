@@ -38,7 +38,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             IRepositoriPesertaLomba repositoriPesertaLomba,
             IRepositoriTimLomba repositoriTimLomba,
             IRepositoriFoto repositoriFoto,
-            IOptions<PDFFileSettingsOptions> pDFFileSettingsOptions,
+            IOptionsSnapshot<PDFFileSettingsOptions> pDFFileSettingsOptions,
             IWebHostEnvironment webHostEnvironment)
         {
             _repositoriLomba = repositoriLomba;

@@ -34,7 +34,7 @@ namespace webSITE.Areas.Dashboard.Controllers
             IRepositoriMahasiswa repositoriMahasiswa,
             IWebHostEnvironment webHostEnvironment,
             IToastrNotificationService notificationService,
-            IOptions<PhotoFileSettingsOptions> options,
+            IOptionsSnapshot<PhotoFileSettingsOptions> options,
             IUnitOfWork unitOfWork,
             ILogger<FotoController> logger)
         {
