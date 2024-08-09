@@ -3,7 +3,24 @@
 {
     <h3 style="font-size:18px; border-top: 1px solid #000; padding: 15px 0px;">Peserta ke-@(i + 1)</h3>
     @Html.EditorFor(x => x.AnggotaTim[i])
-    <button class="btn-custom hapusAnggota-btn" onclick="hapusAnggota(this)" data-index="@i" style="border-radius: 10px; padding: 13px 10px; width:100%; margin-bottom:5px;" type="button">
+    <button class="btn-secondary hapusAnggota-btn" onclick="hapusAnggota(this)" data-index="@i" style="border-radius: 10px; padding: 13px 10px; width:100%; margin-bottom:5px; border: none" type="button">
         <i class="ri-close-fill"></i>Hapus Anggota
     </button>
 }
+
+<style>
+    .btn-secondary {
+        background: #A91D3A;
+    }
+
+    .btn-secondary:hover {
+            background: #921A40;
+    }
+
+    .btn-secondary:focus,
+    .btn-secondary:active,
+    .btn-secondary:focus:active {
+        outline: none;
+        box-shadow: none;
+    }
+</style>
